@@ -124,3 +124,8 @@ ADD CONSTRAINT FK_08 FOREIGN KEY (IdCustomer) REFERENCES Customer(Id);
 --tạo khóa ngoại Output và OutputInfo
 ALTER TABLE OutputInfo
 ADD CONSTRAINT FK_09 FOREIGN KEY (IdOutput) REFERENCES Output(Id);
+ -- thêm trường email và verifyCode
+ ALTER TABLE Users
+ ADD  email varchar(200) 
+  ALTER TABLE Users
+ ADD  verifyCode int NULL

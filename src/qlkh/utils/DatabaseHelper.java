@@ -5,10 +5,152 @@
  */
 package qlkh.utils;
 
+import java.sql.Connection;
+
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author GIANG
  */
 public class DatabaseHelper {
-    
+
+    private static DatabaseHelper instance;
+    private static Connection connectionSqlserver;
+    private static final String DRIVER_SQL_SERVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private static final String HOST_SQLSERVER = "localhost";
+    private static final String PORT_SQLSERVER = "1433";
+    private static final String DATABASE_NAME_SQLSERVER = "QuanLyKhoHang";
+
+    private static final String URL_SQL_SERVER = "jdbc:sqlserver://" + HOST_SQLSERVER + ":" + PORT_SQLSERVER + ";databaseName=" + DATABASE_NAME_SQLSERVER;
+    private static final String USER_SQLSERVER = "sa";
+    private static final String PASSWORD_SQLSERVER = "1";
+
+    /**
+     * Lớp hiện tại triển khai Singleton pattern 
+     * Hàm khởi tạo không thể tạo ra thực thể từ bên ngoài
+     *
+     *
+     */
+    private DatabaseHelper() {
+        try {
+            Class.forName(DRIVER_SQL_SERVER);
+            this.connectionSqlserver = DriverManager.getConnection(URL_SQL_SERVER, USER_SQLSERVER, PASSWORD_SQLSERVER);
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("Database Connection Creation Failed : " + ex.getMessage());
+        }
+    }
+
+    /**
+     * Hàm lấy về kết nối Connection với Sqlserver
+     *
+     *
+     */
+    public Connection getConnectionSqlserver() {
+        return this.connectionSqlserver;
+    }
+
+    /**
+     * Hàm lấy về thực thể của DatabaseHelper mà không cần khởi tạo constructor
+     *
+     */
+    public static DatabaseHelper getInstance() {
+        try {
+            if (instance == null) {
+                instance = new DatabaseHelper();
+            } else if (instance.getConnectionSqlserver().isClosed()) {
+                instance = new DatabaseHelper();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return instance;
+
+    }
+
+    /**
+     * Hàm lấy về câu lệnh preparedStatement
+     *
+     * @param isInsert true = insert, false = update
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     */
+    private <E> PreparedStatement getPrepareStatement(boolean isInsert, String sql, E... args) throws SQLException {
+        PreparedStatement pstm;
+        if (isInsert) {
+            // 1. Tạo PreparedStatement với tùy chọn lấy về danh sách ID của  dòng trong câu lệnh insert
+            pstm = connectionSqlserver.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        } else {
+            // 2. Tạo PreparedStatement với tùy chọn ResultSet cho phép cuộn và cập nhật dữ liệu
+            pstm = connectionSqlserver.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        }
+
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] instanceof Integer) {
+                pstm.setInt(i + 1, (Integer) args[i]);
+            } else if (args[i] instanceof Float) {
+                pstm.setFloat(i + 1, (Float) args[i]);
+            } else if (args[i] instanceof Double) {
+                pstm.setDouble(i + 1, (Double) args[i]);
+            } else if (args[i] instanceof Long) {
+                pstm.setLong(i + 1, (Long) args[i]);
+            } else if (args[i] instanceof String) {
+                pstm.setString(i + 1, (String) args[i]);
+            } else if (args[i] instanceof java.sql.Date) {
+                pstm.setTimestamp(i + 1, Utils.getTimestampNow());
+            }
+        }
+        return pstm;
+    }
+
+    /**
+     * Hàm lấy về dữ liệu: SELECT
+     *
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     */
+    public <E> ResultSet selectData(String sql, E... args) throws SQLException {
+        PreparedStatement pstm = getPrepareStatement(false, sql, args);
+        return pstm.executeQuery();
+    }
+
+    /**
+     * Hàm cập nhật dữ liệu: INSERT | UPFATE | DELETE
+     *
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     */
+    public <E> int updateData(String sql, E... args) throws SQLException {
+        PreparedStatement pstm = getPrepareStatement(false, sql, args);
+        return pstm.executeUpdate();
+    }
+
+    /**
+     * Hàm cập nhật dữ liệu: INSERT
+     *
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     */
+    public <E> ResultSet insertData(String sql, E... args) throws SQLException {
+        PreparedStatement pstm = getPrepareStatement(true, sql, args);
+        if (pstm.executeUpdate() > 0) {
+            return pstm.getGeneratedKeys();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Hàm đóng kết nối Cơ sở dữ liệu
+     *
+     */
+    public void closeDatabaseConnection() throws SQLException {
+        this.connectionSqlserver.close();
+    }
 }

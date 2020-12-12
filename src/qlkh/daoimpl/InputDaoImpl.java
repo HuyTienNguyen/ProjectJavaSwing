@@ -5,9 +5,11 @@
  */
 package qlkh.daoimpl;
 
+import java.sql.Connection;
 import java.util.List;
 import qlkh.dao.IInputDAO;
 import qlkh.entities.Input;
+import qlkh.utils.DatabaseHelper;
 
 
 /**
@@ -15,7 +17,8 @@ import qlkh.entities.Input;
  * @author GIANG
  */
 public class InputDaoImpl implements IInputDAO {
-
+  
+    Connection conn = DatabaseHelper.getInstance().getConnectionSqlserver();
     @Override
     public List<Input> getAllInputs() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -42,10 +45,5 @@ public class InputDaoImpl implements IInputDAO {
     }
 
   
-
-   
- 
-
- 
     
 }

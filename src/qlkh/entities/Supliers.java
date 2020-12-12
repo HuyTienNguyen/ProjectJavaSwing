@@ -6,6 +6,7 @@
 package qlkh.entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import qlkh.utils.Constants;
 
 /**
@@ -20,12 +21,12 @@ public class Supliers {
     private String phone;
     private String email;
     private String moreInfo;
-    private Date contractDate;
+    private Timestamp contractDate;
 
     public Supliers() {
     }
 
-    public Supliers(String suplierName, String address, String phone, String suplierEmail, String moreInfo, Date contractDate) {
+    public Supliers(String suplierName, String address, String phone, String suplierEmail, String moreInfo, Timestamp contractDate) {
         this.name = suplierName;
         this.address = address;
         this.phone = phone;
@@ -34,7 +35,7 @@ public class Supliers {
         this.contractDate = contractDate;
     }
 
-    public Supliers(int id, String suplierName, String address, String phone, String suplierEmail, String moreInfo, Date contractDate) {
+    public Supliers(int id, String suplierName, String address, String phone, String suplierEmail, String moreInfo, Timestamp contractDate) {
         this.id = id;
         this.name = suplierName;
         this.address = address;
@@ -92,11 +93,11 @@ public class Supliers {
         this.moreInfo = moreInfo;
     }
 
-    public Date getContractDate() {
+    public Timestamp getContractDate() {
         return contractDate;
     }
 
-    public void setContractDate(Date contractDate) {
+    public void setContractDate(Timestamp contractDate) {
         this.contractDate = contractDate;
     }
 

@@ -6,6 +6,7 @@
 package qlkh.entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import qlkh.utils.Constants;
 
 /**
@@ -15,12 +16,12 @@ import qlkh.utils.Constants;
 public class Output {
 
     private String id;
-    private Date dateOutput;
+    private Timestamp dateOutput;
 
     public Output() {
     }
 
-    public Output(String id, Date dateOutput) {
+    public Output(String id, Timestamp dateOutput) {
         this.id = id;
         this.dateOutput = dateOutput;
     }
@@ -33,11 +34,11 @@ public class Output {
         this.id = id;
     }
 
-    public Date getDateOutput() {
+    public Timestamp getDateOutput() {
         return dateOutput;
     }
 
-    public void setDateOutput(Date dateOutput) {
+    public void setDateOutput(Timestamp dateOutput) {
         this.dateOutput = dateOutput;
     }
 
