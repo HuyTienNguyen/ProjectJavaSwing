@@ -15,7 +15,7 @@ import qlkh.entities.Customers;
  * @author GIANG
  */
 public class CustomerDaoImpl implements ICustomerDAO {
-
+  // private static final String SQL_GET_ALL_CUSTOMER ="SELECT * FROM";
     @Override
     public List<Customers> getAllCustomers() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

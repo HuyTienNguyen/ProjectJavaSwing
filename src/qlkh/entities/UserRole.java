@@ -69,4 +69,9 @@ public class UserRole {
         return param;
     }
 
+    @Override
+    public String toString() {
+        return "UserRole{" + "id=" + id + ", name=" + name + '}';
+    }
+
 }

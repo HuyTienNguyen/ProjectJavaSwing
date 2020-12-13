@@ -42,6 +42,7 @@ public class DatabaseHelper {
         try {
             Class.forName(DRIVER_SQL_SERVER);
             this.connectionSqlserver = DriverManager.getConnection(URL_SQL_SERVER, USER_SQLSERVER, PASSWORD_SQLSERVER);
+            System.out.println("ket noi thanh cong");
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Database Connection Creation Failed : " + ex.getMessage());
         }
@@ -74,6 +75,17 @@ public class DatabaseHelper {
 
     }
 
+      /**
+     * Hàm đóng kết nối Cơ sở dữ liệu
+     *
+     * @throws java.sql.SQLException
+     */
+    public void closeDatabaseConnection() throws SQLException {
+       if(connectionSqlserver.isClosed() ==false ||connectionSqlserver != null){
+           connectionSqlserver.close();
+           System.out.println("dong ket noi thanh cong");
+       }
+    }
     /**
      * Hàm lấy về câu lệnh preparedStatement
      *
@@ -146,11 +158,5 @@ public class DatabaseHelper {
         }
     }
 
-    /**
-     * Hàm đóng kết nối Cơ sở dữ liệu
-     *
-     */
-    public void closeDatabaseConnection() throws SQLException {
-        this.connectionSqlserver.close();
-    }
+  
 }
