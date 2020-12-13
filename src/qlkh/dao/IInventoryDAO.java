@@ -17,6 +17,4 @@ public interface IInventoryDAO<E,K> {
     public void insert(E element);
     public void update(E element);
     public void delete(K key);
-   
-   
 }
