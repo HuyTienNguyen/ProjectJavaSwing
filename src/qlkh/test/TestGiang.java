@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package qlkh.test;
-
 import java.util.ArrayList;
 import java.util.List;
 import qlkh.daoimpl.UserRoleDaoImpl;
@@ -19,9 +18,15 @@ public class TestGiang {
     public static void main(String[] args) {
         List<UserRole> listRole = new ArrayList<>();
         UserRoleDaoImpl userRoleDao = new UserRoleDaoImpl();
-        listRole = userRoleDao.getAllUserRole();
-        for (UserRole listRole1 : listRole) {
-            System.out.println(listRole1);
-        }
+        UserRole rol2 = new UserRole();
+       // rol2 = userRoleDao.getUserRoleByID(1);
+        Integer numberA =0;
+        numberA = userRoleDao.delete(6);
+        System.out.println(numberA);
+//        listRole = userRoleDao.getAllUserRole();
+//        for (UserRole listRole1 : listRole) {
+//            System.out.println(listRole1);
+//        }
+       
     }
 }

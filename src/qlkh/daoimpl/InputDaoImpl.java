@@ -6,6 +6,7 @@
 package qlkh.daoimpl;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.List;
 import qlkh.dao.IInputDAO;
 import qlkh.entities.Input;
@@ -30,20 +31,21 @@ public class InputDaoImpl implements IInputDAO {
     }
 
     @Override
-    public void insert(Input element) {
+    public int insert(Input element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Input element) {
+    public int update(Input element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Integer key) {
+    public int delete(Integer key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+   
   
     
 }

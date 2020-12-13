@@ -5,6 +5,7 @@
  */
 package qlkh.daoimpl;
 
+import java.sql.ResultSet;
 import java.util.List;
 import qlkh.dao.IObjectDAO;
 import qlkh.entities.Objects;
@@ -27,19 +28,21 @@ public class ObjectDaoImpl implements IObjectDAO {
     }
 
     @Override
-    public void insert(Objects element) {
+    public int insert(Objects element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Objects element) {
+    public int update(Objects element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(String key) {
+    public int delete(String key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+  
 
   
 

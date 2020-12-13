@@ -5,6 +5,7 @@
  */
 package qlkh.daoimpl;
 
+import java.sql.ResultSet;
 import java.util.List;
 import qlkh.dao.IUserDAO;
 
@@ -33,19 +34,21 @@ public class UserDaoImpl implements IUserDAO {
     }
 
     @Override
-    public void insert(Users element) {
+    public int insert(Users element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Users element) {
+    public int update(Users element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(String key) {
+    public int delete(String key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+ 
 
  
 

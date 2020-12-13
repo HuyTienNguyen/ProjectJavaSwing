@@ -5,6 +5,7 @@
  */
 package qlkh.daoimpl;
 
+import java.sql.ResultSet;
 import java.util.List;
 import qlkh.dao.IUnitDAO;
 import qlkh.entities.Unit;
@@ -27,19 +28,20 @@ public class UnitDaoImpl implements IUnitDAO {
     }
 
     @Override
-    public void insert(Unit element) {
+    public int insert(Unit element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Unit element) {
+    public int update(Unit element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Integer key) {
+    public int delete(Integer key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 
    
  

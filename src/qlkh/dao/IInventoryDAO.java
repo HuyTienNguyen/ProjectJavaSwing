@@ -5,6 +5,7 @@
  */
 package qlkh.dao;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * @param <K>
  */
 public interface IInventoryDAO<E,K> {
-    public void insert(E element);
-    public void update(E element);
-    public void delete(K key);
+    public int insert(E element);
+    public int update(E element);
+    public int delete(K key);
 }

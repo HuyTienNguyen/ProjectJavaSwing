@@ -5,6 +5,7 @@
  */
 package qlkh.daoimpl;
 
+import java.sql.ResultSet;
 import java.util.List;
 import qlkh.dao.ICustomerDAO;
 import qlkh.entities.Customers;
@@ -27,19 +28,21 @@ public class CustomerDaoImpl implements ICustomerDAO {
     }
 
     @Override
-    public void insert(Customers element) {
+    public int insert(Customers element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Customers element) {
+    public int update(Customers element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Integer key) {
+    public int delete(Integer key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+   
 
   
 }

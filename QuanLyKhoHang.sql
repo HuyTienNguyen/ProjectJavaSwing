@@ -129,3 +129,9 @@ ADD CONSTRAINT FK_09 FOREIGN KEY (IdOutput) REFERENCES Output(Id);
  ADD  email varchar(200) 
   ALTER TABLE Users
  ADD  verifyCode int NULL
+ 
+ -- them du lieu mau
+ INSERT INTO UserRole(name) VALUES('admin')
+ INSERT INTO UserRole(name) VALUES('manager')
+ GO
+ select* from UserRole

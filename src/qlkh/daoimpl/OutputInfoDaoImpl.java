@@ -5,6 +5,7 @@
  */
 package qlkh.daoimpl;
 
+import java.sql.ResultSet;
 import java.util.List;
 import qlkh.dao.IOutputInfoDAO;
 import qlkh.entities.OutputInfo;
@@ -27,17 +28,17 @@ public class OutputInfoDaoImpl implements IOutputInfoDAO {
     }
 
     @Override
-    public void insert(OutputInfo element) {
+    public int insert(OutputInfo element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(OutputInfo element) {
+    public int update(OutputInfo element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(String key) {
+    public int delete(String key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
