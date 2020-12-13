@@ -130,4 +130,10 @@ public class OutputInfo {
         }
         return param;
     }
+
+    @Override
+    public String toString() {
+        return "OutputInfo{" + "id=" + id + ", idObjects=" + idObjects + ", idInputInfo=" + idInputInfo + ", idOutput=" + idOutput + ", idCustomer=" + idCustomer + ", counts=" + counts + ", status=" + status + '}';
+    }
+    
 }

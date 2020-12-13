@@ -24,6 +24,22 @@ public class Users {
     public Users() {
     }
 
+    public Users(int id, String name, String userName, String password, int idRole) {
+        this.id = id;
+        this.name = name;
+        this.userName = userName;
+        this.password = password;
+        this.idRole = idRole;
+    }
+
+    public Users(int id, String name, String userName, int idRole, String email) {
+        this.id = id;
+        this.name = name;
+        this.userName = userName;
+        this.idRole = idRole;
+        this.email = email;
+    }
+
     public Users(String name, String userName, String password, int idRole) {
         this.name = name;
         this.userName = userName;
@@ -128,7 +144,6 @@ public class Users {
                     this.getUserName(),
                     this.getPassword(),
                     this.getIdRole(),
-                    this.getEmail(),
                     this.getId()
                 };
                 break;
@@ -138,8 +153,20 @@ public class Users {
                     this.getId()
                 };
                 break;
+            case Constants.ACTION_GET_USER_BY_CODE:
+                param = new Object[]{
+                    this.getUserName(),
+                    this.getEmail(),
+                    this.getVerifyCode()
+                };
+                break;
         }
         return param;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" + "id=" + id + ", name=" + name + ", userName=" + userName + ", password=" + password + ", idRole=" + idRole + ", email=" + email + ", verifyCode=" + verifyCode + '}';
     }
 
 }

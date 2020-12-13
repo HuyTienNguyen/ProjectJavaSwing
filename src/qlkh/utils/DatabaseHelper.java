@@ -124,7 +124,7 @@ public class DatabaseHelper {
                 pstm.setLong(i + 1, (Long) args[i]);
             } else if (args[i] instanceof String) {
                 pstm.setString(i + 1, (String) args[i]);
-            } else if (args[i] instanceof java.sql.Date) {
+            } else if (args[i] instanceof java.sql.Timestamp) {
                 pstm.setTimestamp(i + 1, Utils.getTimestampNow());
             }
         }

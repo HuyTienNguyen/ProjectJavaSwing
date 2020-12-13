@@ -6,8 +6,13 @@
 package qlkh.test;
 import java.util.ArrayList;
 import java.util.List;
-import qlkh.daoimpl.UserRoleDaoImpl;
-import qlkh.entities.UserRole;
+import qlkh.dao.ICustomerDAO;
+import qlkh.daoimpl.CustomerDaoImpl;
+import qlkh.daoimpl.UserDaoImpl;
+import qlkh.entities.Customers;
+
+import qlkh.entities.Users;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -16,17 +21,17 @@ import qlkh.entities.UserRole;
 public class TestGiang {
 
     public static void main(String[] args) {
-        List<UserRole> listRole = new ArrayList<>();
-        UserRoleDaoImpl userRoleDao = new UserRoleDaoImpl();
-        UserRole rol2 = new UserRole();
-       // rol2 = userRoleDao.getUserRoleByID(1);
-        Integer numberA =0;
-        numberA = userRoleDao.delete(6);
-        System.out.println(numberA);
-//        listRole = userRoleDao.getAllUserRole();
-//        for (UserRole listRole1 : listRole) {
-//            System.out.println(listRole1);
-//        }
+        List<Customers> listCus = new ArrayList<>();
+        ICustomerDAO customerDao = new CustomerDaoImpl();
+   
+     Customers custo1 = customerDao.getCustomersByName("giang1111vvvvvv1");
+        System.out.println(custo1);
+ customerDao.delete(custo1.getId());
+        listCus = customerDao.getAllCustomers();
+       for (Customers listCu : listCus) {
+                System.out.println(listCu);
+            }
+        
        
     }
 }

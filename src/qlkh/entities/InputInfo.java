@@ -131,4 +131,9 @@ public class InputInfo {
         return param;
     }
 
+    @Override
+    public String toString() {
+        return "InputInfo{" + "id=" + id + ", idObjects=" + idObjects + ", idInput=" + idInput + ", counts=" + counts + ", inputPrice=" + inputPrice + ", outputPrice=" + outputPrice + ", status=" + status + '}';
+    }
+
 }

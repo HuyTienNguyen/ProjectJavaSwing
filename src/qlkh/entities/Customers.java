@@ -8,6 +8,7 @@ package qlkh.entities;
 import java.sql.Date;
 import java.sql.Timestamp;
 import qlkh.utils.Constants;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -140,4 +141,10 @@ public class Customers {
         }
         return param;
     }
+
+    @Override
+    public String toString() {
+        return "Customers{" + "id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email + ", moreInfo=" + moreInfo + ", contractDate=" + Utils.getSimpleDateFormat(contractDate) + '}';
+    }
+    
 }

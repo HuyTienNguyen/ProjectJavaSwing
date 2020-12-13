@@ -14,5 +14,6 @@ public interface IUserDAO extends IInventoryDAO<Users , String> {
     public  List<Users> getAllUsers();
     public Users getUserByNameOrEmail(String key);
     public boolean login(Users user);
+    public Users getUserByVerifyCode(Users user);
   
 }

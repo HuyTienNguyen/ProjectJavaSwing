@@ -94,4 +94,9 @@ public class Objects {
         return param;
     }
 
+    @Override
+    public String toString() {
+        return "Objects{" + "id=" + id + ", name=" + name + ", idUnit=" + idUnit + ", idSuplier=" + idSuplier + '}';
+    }
+
 }
