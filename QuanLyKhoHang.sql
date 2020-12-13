@@ -11,7 +11,7 @@ create table UserRole(
 	Name nvarchar(100) -- vai trò
 )
 go
-select * from users Where name ='g%'
+
 Insert into users (name,Username,Password,IdRole,email,verifyCode)VALUES ('giang','truonggiang','123455',1,'abc@gmail.com',234567)
 SELECT * FROM Users WHERE (Name='abc@gmail.com'  OR EMAIL ='abc@gmail.com') AND verifyCode =23456
 DELETE FROM UserRole WHERE Name='giang';
