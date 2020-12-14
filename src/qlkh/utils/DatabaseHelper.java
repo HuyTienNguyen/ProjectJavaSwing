@@ -105,14 +105,15 @@ public class DatabaseHelper {
         if (connectionSqlserver == null || connectionSqlserver.isClosed() == true) {
             connectionSqlserver = getInstance().getConnectionSqlserver();
         }
-        if (isInsert) {
+        if (isInsert ==true) {
             // 1. Tạo PreparedStatement với tùy chọn lấy về danh sách ID của  dòng trong câu lệnh insert
             pstm = connectionSqlserver.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         } else {
             // 2. Tạo PreparedStatement với tùy chọn ResultSet cho phép cuộn và cập nhật dữ liệu
             pstm = connectionSqlserver.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         }
-
+        // kieu object
+        // Object [] param = new Object[]{String,integer}
         for (int i = 0; i < args.length; i++) {
             if (args[i] instanceof Integer) {
                 pstm.setInt(i + 1, (Integer) args[i]);
@@ -126,7 +127,7 @@ public class DatabaseHelper {
                 pstm.setString(i + 1, (String) args[i]);
             } else if (args[i] instanceof java.sql.Date) {
                 pstm.setTimestamp(i + 1, Utils.getTimestampNow());
-            }
+            }        
         }
         return pstm;
     }
@@ -136,6 +137,7 @@ public class DatabaseHelper {
      *
      * @param sql cú pháp SQL kèm tham số
      * @param args mảng tham số truyền vào
+     * E1 generic K Ttype V value
      */
     public static <E> ResultSet selectData(String sql, E... args) throws SQLException {
         PreparedStatement pstm = getPrepareStatement(false, sql, args);

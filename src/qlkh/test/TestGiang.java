@@ -19,14 +19,11 @@ public class TestGiang {
         List<UserRole> listRole = new ArrayList<>();
         UserRoleDaoImpl userRoleDao = new UserRoleDaoImpl();
         UserRole rol2 = new UserRole();
-       // rol2 = userRoleDao.getUserRoleByID(1);
-        Integer numberA =0;
-        numberA = userRoleDao.delete(6);
-        System.out.println(numberA);
-//        listRole = userRoleDao.getAllUserRole();
-//        for (UserRole listRole1 : listRole) {
-//            System.out.println(listRole1);
-//        }
+       
+        listRole = userRoleDao.getAllUserRole();
+        for (UserRole listRole1 : listRole) {
+            System.out.println(listRole1);
+        }
        
     }
 }

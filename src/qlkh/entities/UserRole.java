@@ -58,8 +58,7 @@ public class UserRole {
                 };
                 break;
             case Constants.ACTION_UPDATE:
-                param = new Object[]{
-                 
+                param = new Object[]{               
                     this.getName(),
                     this.getId()
                 };

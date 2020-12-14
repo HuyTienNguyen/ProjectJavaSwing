@@ -5,8 +5,7 @@
  */
 package qlkh.dao;
 
-import java.sql.ResultSet;
-import java.util.List;
+
 
 /**
  *
