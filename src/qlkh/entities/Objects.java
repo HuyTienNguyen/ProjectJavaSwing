@@ -17,15 +17,17 @@ public class Objects {
     private String name;
     private int idUnit;
     private int idSuplier;
+    private int idCate;
 
     public Objects() {
     }
 
-    public Objects(String id, String name, int idUnit, int idSuplier) {
+    public Objects(String id, String name, int idUnit, int idSuplier, int idCate) {
         this.id = id;
         this.name = name;
         this.idUnit = idUnit;
         this.idSuplier = idSuplier;
+        this.idCate = idCate;
     }
 
     public String getId() {
@@ -60,6 +62,14 @@ public class Objects {
         this.idSuplier = idSuplier;
     }
 
+    public int getIdCate() {
+        return idCate;
+    }
+
+    public void setIdCate(int idCate) {
+        this.idCate = idCate;
+    }
+ 
     /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
      *
@@ -73,7 +83,8 @@ public class Objects {
                     this.getId(),
                     this.getName(),
                     this.getIdUnit(),
-                    this.getIdSuplier()
+                    this.getIdSuplier(),
+                    this.getIdCate()
                 };
                 break;
             case Constants.ACTION_UPDATE:
@@ -81,6 +92,7 @@ public class Objects {
                     this.getName(),
                     this.getIdUnit(),
                     this.getIdSuplier(),
+                    this.getIdCate(),
                     this.getId()
                 };
                 break;
@@ -96,7 +108,8 @@ public class Objects {
 
     @Override
     public String toString() {
-        return "Objects{" + "id=" + id + ", name=" + name + ", idUnit=" + idUnit + ", idSuplier=" + idSuplier + '}';
+        return "Objects{" + "id=" + id + ", name=" + name + ", idUnit=" + idUnit + ", idSuplier=" + idSuplier + ", idCate=" + idCate + '}';
     }
 
+    
 }

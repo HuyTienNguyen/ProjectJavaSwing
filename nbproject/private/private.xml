@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/entities/Output.java</file>
-            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/test/TestGiang.java</file>
-            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/dao/IOutputDAO.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/entities/Input.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/daoimpl/OutputDaoImpl.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/entities/InputInfo.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/dao/IInputDAO.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/daoimpl/InputInfoDaoImpl.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/daoimpl/OutputInfoDaoImpl.java</file>
         </group>
     </open-files>
 </project-private>

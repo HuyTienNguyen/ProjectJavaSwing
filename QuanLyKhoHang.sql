@@ -100,6 +100,26 @@ create table OutputInfo(
 )
 go
 
+
+ -- thêm trường email và verifyCode cho User
+ ALTER TABLE Users
+ ADD  email varchar(200) 
+  ALTER TABLE Users
+ ADD  verifyCode int NULL
+ --thêm trường characters cho suplier
+ ALTER TABLE Suplier
+ ADD characters varchar(50)
+ --thêm trường idCate cho objects
+ ALTER TABLE Objects
+ ADD IdCate int
+ --thêm bảng category
+ create table category(
+	Id int identity(1,1) primary key,
+	name nvarchar(100),
+	characters nvarchar(20)
+ )	
+ go
+
 --tạo khóa ngoại Users và UserRole
 ALTER TABLE Users
 ADD CONSTRAINT FK_01 FOREIGN KEY (IdRole) REFERENCES UserRole(Id);
@@ -127,14 +147,20 @@ ADD CONSTRAINT FK_08 FOREIGN KEY (IdCustomer) REFERENCES Customer(Id);
 --tạo khóa ngoại Output và OutputInfo
 ALTER TABLE OutputInfo
 ADD CONSTRAINT FK_09 FOREIGN KEY (IdOutput) REFERENCES Output(Id);
- -- thêm trường email và verifyCode
- ALTER TABLE Users
- ADD  email varchar(200) 
-  ALTER TABLE Users
- ADD  verifyCode int NULL
+--tạo khóa ngoại category và objects
+ALTER TABLE Objects
+ADD CONSTRAINT FK_10 FOREIGN KEY (IdCate) REFERENCES Category(Id);
+
  
  -- them du lieu mau
  INSERT INTO UserRole(name) VALUES('admin')
  INSERT INTO UserRole(name) VALUES('manager')
  GO
  select* from UserRole
+  INSERT INTO Unit(name) VALUES('admin')
+ INSERT INTO Unit(name) VALUES('manager')
+ select * from Unit
+
+ INSERT INTO Suplier(name,address,phone,email,MoreInfo,ContractDate)
+ values('truong giang','ha noi','035723722','giang@gmail.com','hksajdfkhasdf','2020-09-05 09:32:22')
+ select * from Suplier

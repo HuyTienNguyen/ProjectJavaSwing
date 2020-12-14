@@ -5,10 +5,17 @@
  */
 package qlkh.daoimpl;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import qlkh.dao.IUnitDAO;
 import qlkh.entities.Unit;
+import qlkh.utils.Constants;
+import qlkh.utils.DatabaseHelper;
 
 
 /**
@@ -16,30 +23,113 @@ import qlkh.entities.Unit;
  * @author GIANG
  */
 public class UnitDaoImpl implements IUnitDAO {
-
+    private static Connection conn;
+    private static final String SQL_GET_ALL = "SELECT * FROM Unit";
+    private static final String SQL_INSERT = "INSERT INTO Unit(Name) VALUES(?)";
+    private static final String SQL_UPDATE = "UPDATE Unit SET NAME = ? WHERE ID = ?";
+    private static final String SQL_DELETE = "DELETE FROM Unit WHERE ID = ?";
+    private static final String SQL_SELECT_BY_ID = "SELECT * FROM Unit WHERE ID = ?";
     @Override
     public List<Unit> getAllUnits() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //tạo list Unit
+        List<Unit> listUnit = new ArrayList<>();
+        //khởi tạo mảng param rỗng để chạy lệnh sql server all from unit
+        String[] param = new String[]{};
+        try {
+            ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);
+            while(rs.next()){
+                Unit unit = new Unit(rs.getInt(1), rs.getString(2));
+                listUnit.add(unit);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return listUnit;
     }
 
     @Override
     public Unit getUnitByID(Integer key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //tao doi tuong Unit
+        Unit unit = null;
+        // Khởi tạo mảng param kiểu Integer để chạy lệnh sql select from unit by key Integer
+        Integer[] param = new Integer[]{key};
+        try {
+            //goi phuong thuc data tra ve theo kieu result set
+            ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_ID, param);
+            while(rs.next()){
+                unit = new Unit(rs.getInt(1),rs.getString(2));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return unit;
     }
 
     @Override
     public int insert(Unit element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //khoi tao bien dem so ban ghi duoc ghi vao csdl
+        Integer countInsert = 0;
+        try {
+            countInsert = DatabaseHelper.insertData(SQL_INSERT, element.getParam(Constants.ACTION_INSERT));
+        } catch (SQLException ex) {
+            Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return countInsert;
     }
 
     @Override
     public int update(Unit element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //khoi tao bien dem so ban ghi dc update vao csdl
+        Integer countUpdate = 0;
+        try {
+            countUpdate = DatabaseHelper.updateData(SQL_UPDATE, element.getParam(Constants.ACTION_UPDATE));
+        } catch (SQLException ex) {
+            Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return countUpdate;
     }
 
     @Override
     public int delete(Integer key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Integer countDelete = 0;
+        try {
+            // Khởi tạo mảng param kiểu Integer để chạy lệnh sql select from userRole by key Integer
+            Integer[] param = new Integer[]{key};
+            countDelete = DatabaseHelper.deleteData(SQL_DELETE, key);
+        } catch (SQLException ex) {
+            Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return countDelete;
     }
 
 

@@ -6,6 +6,7 @@
 package qlkh.test;
 import java.util.ArrayList;
 import java.util.List;
+
 import qlkh.dao.ICustomerDAO;
 import qlkh.dao.IOutputDAO;
 import qlkh.daoimpl.CustomerDaoImpl;
@@ -17,6 +18,14 @@ import qlkh.entities.Output;
 import qlkh.entities.Users;
 import qlkh.utils.Utils;
 
+import qlkh.daoimpl.SuplierDaoImpl1;
+import qlkh.daoimpl.UnitDaoImpl;
+import qlkh.daoimpl.UserRoleDaoImpl;
+import qlkh.entities.Supliers;
+import qlkh.entities.Unit;
+import qlkh.entities.UserRole;
+
+
 /**
  *
  * @author GIANG
@@ -25,19 +34,5 @@ public class TestGiang {
 
     public static void main(String[] args) {
 
-        List<Output> listCus = new ArrayList<>();
-        IOutputDAO outputDao = new OutputDaoImpl();
-        Output outputa = outputDao.getOutputByID("abc");
-        System.out.println(outputa);
-//        outputDao.insert(outputa);
-//        listCus = outputDao.getAllOutputs();
-//        for (Output listCu : listCus) {
-//            System.out.println(listCu);
-//        }
-          
-    
-        
-
-       
     }
 }

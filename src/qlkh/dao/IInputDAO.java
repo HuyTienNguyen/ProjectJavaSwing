@@ -11,9 +11,9 @@ import qlkh.entities.Input;
  *
  * @author GIANG
  */
-public interface IInputDAO extends IInventoryDAO<Input , Integer> {
+public interface IInputDAO extends IInventoryDAO<Input , String> {
     public  List<Input> getAllInputs();
-    public Input getInputByID(Integer key);
+    public Input getInputByID(String key);
 
   
 }

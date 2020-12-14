@@ -8,6 +8,8 @@ package qlkh.entities;
 import java.sql.Date;
 import java.sql.Timestamp;
 import qlkh.utils.Constants;
+import qlkh.utils.DatabaseHelper;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -22,28 +24,22 @@ public class Supliers {
     private String email;
     private String moreInfo;
     private Timestamp contractDate;
+    private String characters;
 
     public Supliers() {
     }
 
-    public Supliers(String suplierName, String address, String phone, String suplierEmail, String moreInfo, Timestamp contractDate) {
-        this.name = suplierName;
+    public Supliers(int id, String name, String address, String phone, String email, String moreInfo, Timestamp contractDate, String characters) {
+        this.id = id;
+        this.name = name;
         this.address = address;
         this.phone = phone;
-        this.email = suplierEmail;
+        this.email = email;
         this.moreInfo = moreInfo;
         this.contractDate = contractDate;
+        this.characters = characters;
     }
 
-    public Supliers(int id, String suplierName, String address, String phone, String suplierEmail, String moreInfo, Timestamp contractDate) {
-        this.id = id;
-        this.name = suplierName;
-        this.address = address;
-        this.phone = phone;
-        this.email = suplierEmail;
-        this.moreInfo = moreInfo;
-        this.contractDate = contractDate;
-    }
 
     public int getId() {
         return id;
@@ -101,6 +97,15 @@ public class Supliers {
         this.contractDate = contractDate;
     }
 
+    public String getCharacters() {
+        return characters;
+    }
+
+    public void setCharacters(String characters) {
+        this.characters = characters;
+    }
+    
+
     /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
      *
@@ -116,7 +121,8 @@ public class Supliers {
                     this.getPhone(),
                     this.getEmail(),
                     this.getMoreInfo(),
-                    this.getContractDate()
+                    this.getContractDate(),
+                    this.getCharacters()
                 };
                 break;
             case Constants.ACTION_UPDATE:
@@ -127,6 +133,7 @@ public class Supliers {
                     this.getEmail(),
                     this.getMoreInfo(),
                     this.getContractDate(),
+                    this.getCharacters(),
                     this.getId()
                 };
                 break;
@@ -142,7 +149,9 @@ public class Supliers {
 
     @Override
     public String toString() {
-        return "Supliers{" + "id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email + ", moreInfo=" + moreInfo + ", contractDate=" + contractDate + '}';
+        return "Supliers{" + "id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email + ", moreInfo=" + moreInfo + ", contractDate=" + contractDate + ", characters=" + characters + '}';
     }
+
+    
 
 }
