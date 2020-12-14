@@ -31,7 +31,7 @@ public class CustomerDaoImpl implements ICustomerDAO {
 
     @Override
     public List<Customers> getAllCustomers() {
-        // Khởi tạo list UserRole
+        // Khởi tạo list Customers
         List<Customers> listCustomers = new ArrayList<>();
         // Khởi tạo mảng param rỗng để chạy lệnh sql select all from Customers
         String[] param = new String[]{};
@@ -61,7 +61,7 @@ public class CustomerDaoImpl implements ICustomerDAO {
 
     @Override
     public Customers getCustomersByName(String key) {
-        //Khởi tạo đối tượng userRole
+        //Khởi tạo đối tượng Customer
        Customers customer = null;
         try {
             // Khởi tạo mảng param kiểu String để chạy lệnh sql select from Customers by name 

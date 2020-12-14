@@ -7,9 +7,12 @@ package qlkh.test;
 import java.util.ArrayList;
 import java.util.List;
 import qlkh.dao.ICustomerDAO;
+import qlkh.dao.IOutputDAO;
 import qlkh.daoimpl.CustomerDaoImpl;
+import qlkh.daoimpl.OutputDaoImpl;
 import qlkh.daoimpl.UserDaoImpl;
 import qlkh.entities.Customers;
+import qlkh.entities.Output;
 
 import qlkh.entities.Users;
 import qlkh.utils.Utils;
@@ -21,16 +24,17 @@ import qlkh.utils.Utils;
 public class TestGiang {
 
     public static void main(String[] args) {
-        List<Customers> listCus = new ArrayList<>();
-        ICustomerDAO customerDao = new CustomerDaoImpl();
-   
-     Customers custo1 = customerDao.getCustomersByName("giang1111vvvvvv1");
-        System.out.println(custo1);
- customerDao.delete(custo1.getId());
-        listCus = customerDao.getAllCustomers();
-       for (Customers listCu : listCus) {
-                System.out.println(listCu);
-            }
+        List<Output> listCus = new ArrayList<>();
+        IOutputDAO outputDao = new OutputDaoImpl();
+        Output outputa = outputDao.getOutputByID("abc");
+        System.out.println(outputa);
+//        outputDao.insert(outputa);
+//        listCus = outputDao.getAllOutputs();
+//        for (Output listCu : listCus) {
+//            System.out.println(listCu);
+//        }
+          
+    
         
        
     }
