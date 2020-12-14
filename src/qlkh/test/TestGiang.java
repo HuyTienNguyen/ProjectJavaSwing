@@ -6,8 +6,16 @@
 package qlkh.test;
 import java.util.ArrayList;
 import java.util.List;
-import qlkh.daoimpl.UserRoleDaoImpl;
-import qlkh.entities.UserRole;
+import qlkh.dao.ICustomerDAO;
+import qlkh.dao.IOutputDAO;
+import qlkh.daoimpl.CustomerDaoImpl;
+import qlkh.daoimpl.OutputDaoImpl;
+import qlkh.daoimpl.UserDaoImpl;
+import qlkh.entities.Customers;
+import qlkh.entities.Output;
+
+import qlkh.entities.Users;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -16,14 +24,20 @@ import qlkh.entities.UserRole;
 public class TestGiang {
 
     public static void main(String[] args) {
-        List<UserRole> listRole = new ArrayList<>();
-        UserRoleDaoImpl userRoleDao = new UserRoleDaoImpl();
-        UserRole rol2 = new UserRole();
-       
-        listRole = userRoleDao.getAllUserRole();
-        for (UserRole listRole1 : listRole) {
-            System.out.println(listRole1);
-        }
+
+        List<Output> listCus = new ArrayList<>();
+        IOutputDAO outputDao = new OutputDaoImpl();
+        Output outputa = outputDao.getOutputByID("abc");
+        System.out.println(outputa);
+//        outputDao.insert(outputa);
+//        listCus = outputDao.getAllOutputs();
+//        for (Output listCu : listCus) {
+//            System.out.println(listCu);
+//        }
+          
+    
+        
+
        
     }
 }

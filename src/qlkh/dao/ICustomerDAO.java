@@ -14,7 +14,7 @@ import qlkh.entities.Customers;
  */
 public interface ICustomerDAO extends IInventoryDAO<Customers , Integer> {
     public  List<Customers> getAllCustomers();
-    public Customers getCustomersById(Integer key);
+    public Customers getCustomersByName(String key);
     
   
 }

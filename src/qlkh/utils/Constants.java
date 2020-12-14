@@ -19,6 +19,8 @@ public class Constants {
     public static final int ACTION_UPDATE = 2;
     public static final int ACTION_DELETE = 3;
     
+    // Hằng số cho Class UserDaoImpl
+     public static final int ACTION_GET_USER_BY_CODE = 4;
     // SImple format date
     public static final String DATE_FORMAT ="yyyy-MM-dd HH:mm:ss";
 

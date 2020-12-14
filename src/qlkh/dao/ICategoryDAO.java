@@ -4,16 +4,15 @@
  * and open the template in the editor.
  */
 package qlkh.dao;
+
 import java.util.List;
-import qlkh.entities.Output;
+import qlkh.entities.Category;
 
 /**
  *
- * @author GIANG
+ * @author user
  */
-public interface IOutputDAO extends IInventoryDAO<Output , String> {
-    public  List<Output> getAllOutputs();
-    public Output getOutputByID(String key);
-
-  
+public interface ICategoryDAO extends IInventoryDAO<Category, Integer>{
+    public List<Category> getAllCategory();
+    public Category getCateById(Integer key);
 }

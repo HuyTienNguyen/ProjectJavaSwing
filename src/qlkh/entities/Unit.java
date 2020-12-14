@@ -74,4 +74,9 @@ public class Unit {
         return param;
     }
 
+    @Override
+    public String toString() {
+        return "Unit{" + "id=" + id + ", name=" + name + '}';
+    }
+
 }

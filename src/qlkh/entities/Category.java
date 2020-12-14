@@ -9,30 +9,27 @@ import qlkh.utils.Constants;
 
 /**
  *
- * @author GIANG
+ * @author user
  */
-public class Objects {
-
-    private String id;
+public class Category {
+    private int id;
     private String name;
-    private int idUnit;
-    private int idSuplier;
+    private String characters;
 
-    public Objects() {
+    public Category() {
     }
 
-    public Objects(String id, String name, int idUnit, int idSuplier) {
+    public Category(int id, String name, String characters) {
         this.id = id;
         this.name = name;
-        this.idUnit = idUnit;
-        this.idSuplier = idSuplier;
+        this.characters = characters;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -44,43 +41,28 @@ public class Objects {
         this.name = name;
     }
 
-    public int getIdUnit() {
-        return idUnit;
+    public String getCharacters() {
+        return characters;
     }
 
-    public void setIdUnit(int idUnit) {
-        this.idUnit = idUnit;
+    public void setCharacters(String characters) {
+        this.characters = characters;
     }
-
-    public int getIdSuplier() {
-        return idSuplier;
-    }
-
-    public void setIdSuplier(int idSuplier) {
-        this.idSuplier = idSuplier;
-    }
-
-    /**
-     * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
-     *
-     * @return Mảng dữ liệu String
-     */
-    public Object[] getParam(int action) {
+    
+    public Object[] getParam(int action){
         Object param[] = null;
         switch (action) {
             case Constants.ACTION_INSERT:
                 param = new Object[]{
                     this.getId(),
                     this.getName(),
-                    this.getIdUnit(),
-                    this.getIdSuplier()
+                    this.getCharacters()
                 };
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
                     this.getName(),
-                    this.getIdUnit(),
-                    this.getIdSuplier(),
+                    this.getCharacters(),
                     this.getId()
                 };
                 break;
@@ -96,7 +78,7 @@ public class Objects {
 
     @Override
     public String toString() {
-        return "Objects{" + "id=" + id + ", name=" + name + ", idUnit=" + idUnit + ", idSuplier=" + idSuplier + '}';
+        return "Category{" + "id=" + id + ", name=" + name + ", characters=" + characters + '}';
     }
-
+    
 }

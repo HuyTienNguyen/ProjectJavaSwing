@@ -5,8 +5,7 @@
  */
 package qlkh.daoimpl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import qlkh.utils.DatabaseHelper;
  */
 public class UserRoleDaoImpl implements IUserRoleDAO {
 
-    private static Connection conn;
+ 
     private static final String SQL_GET_ALL = "SELECT * FROM UserRole";
     private static final String SQL_INSERT = "INSERT INTO UserRole(name) VALUES(?)";
     private static final String SQL_UPDATE = "UPDATE  UserRole SET NAME =? WHERE ID =?";

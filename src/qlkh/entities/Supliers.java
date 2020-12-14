@@ -140,4 +140,9 @@ public class Supliers {
         return param;
     }
 
+    @Override
+    public String toString() {
+        return "Supliers{" + "id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email + ", moreInfo=" + moreInfo + ", contractDate=" + contractDate + '}';
+    }
+
 }

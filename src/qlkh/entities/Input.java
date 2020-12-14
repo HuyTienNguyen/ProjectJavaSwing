@@ -73,4 +73,9 @@ public class Input {
         return param;
     }
 
+    @Override
+    public String toString() {
+        return "Input{" + "id=" + id + ", dateInput=" + dateInput + '}';
+    }
+
 }
