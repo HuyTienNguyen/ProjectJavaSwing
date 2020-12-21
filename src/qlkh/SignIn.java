@@ -6,6 +6,15 @@
 package qlkh;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.Set;
+import javax.swing.JOptionPane;
+import qlkh.controller.SignInController;
+import qlkh.entities.Users;
 
 /**
  *
@@ -13,11 +22,31 @@ import java.awt.Color;
  */
 public class SignIn extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SignIn
-     */
-    public SignIn() {
+    private static Locale local;
+    // đặt biến ResourcesBundle toàn cục
+    private static ResourceBundle bundle;
+
+    public SignIn(Locale lca) {
+
         initComponents();
+    }
+
+    private Locale getMyLocale() {
+        // set Locale theo file config.properties
+        ResourceBundle bundle1 = ResourceBundle.getBundle("qlkh/utils/languages");
+        Locale myLocale = new Locale(bundle1.getString("lang"), bundle1.getString("country"));
+        return myLocale;
+    }
+
+    public void setResourceBundle(Locale locale) {
+        //Set Resources Bundle theo local 
+        bundle = ResourceBundle.getBundle("qlkh/utils/resources", locale);
+        System.out.println("hien tai" + locale.getCountry());
+
+    }
+
+    public void addBtnSignInActionListener(ActionListener listener) {
+        btnSignIn.addActionListener(listener);
     }
 
     /**
@@ -32,15 +61,18 @@ public class SignIn extends javax.swing.JFrame {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        siUsername = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        siPassword = new javax.swing.JPasswordField();
         kButton1 = new keeptoo.KButton();
-        kButton2 = new keeptoo.KButton();
+        btnSignIn = new keeptoo.KButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
+        errPassword = new javax.swing.JTextField();
+        errUsername = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,44 +80,43 @@ public class SignIn extends javax.swing.JFrame {
         kGradientPanel1.setGradientFocus(600);
         kGradientPanel1.setStartColor(new java.awt.Color(153, 0, 153));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-male-user-70.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/male-user-70.png"))); // NOI18N
         kGradientPanel1.add(jLabel1);
-        jLabel1.setBounds(430, 40, 70, 90);
+        jLabel1.setBounds(440, 70, 70, 70);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel2.setText("Password");
         kGradientPanel1.add(jLabel2);
-        jLabel2.setBounds(270, 290, 80, 25);
+        jLabel2.setBounds(270, 290, 90, 27);
 
-        jTextField1.setBackground(new Color(0,0,0,0));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jTextField1.setCaretColor(new java.awt.Color(255, 255, 255));
-        jTextField1.setOpaque(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        siUsername.setBackground(new Color(0,0,0,0));
+        siUsername.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        siUsername.setForeground(new java.awt.Color(153, 153, 153));
+        siUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        siUsername.setCaretColor(new java.awt.Color(255, 255, 255));
+        siUsername.setOpaque(false);
+        siUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                siUsernameActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(jTextField1);
-        jTextField1.setBounds(270, 220, 410, 40);
+        kGradientPanel1.add(siUsername);
+        siUsername.setBounds(270, 200, 410, 40);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setText("or");
         kGradientPanel1.add(jLabel3);
-        jLabel3.setBounds(470, 440, 20, 20);
+        jLabel3.setBounds(470, 480, 20, 20);
 
-        jPasswordField1.setBackground(new Color(0,0,0,0));
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(153, 153, 153));
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPasswordField1.setCaretColor(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setOpaque(false);
-        kGradientPanel1.add(jPasswordField1);
-        jPasswordField1.setBounds(270, 330, 410, 40);
+        siPassword.setBackground(new Color(0,0,0,0));
+        siPassword.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        siPassword.setForeground(new java.awt.Color(153, 153, 153));
+        siPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        siPassword.setCaretColor(new java.awt.Color(255, 255, 255));
+        siPassword.setOpaque(false);
+        kGradientPanel1.add(siPassword);
+        siPassword.setBounds(270, 330, 410, 40);
 
         kButton1.setText("SignUp");
         kButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -95,32 +126,41 @@ public class SignIn extends javax.swing.JFrame {
         kButton1.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         kButton1.setkHoverStartColor(new java.awt.Color(0, 204, 204));
         kButton1.setkStartColor(new java.awt.Color(204, 0, 204));
+        kButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kButton1ActionPerformed(evt);
+            }
+        });
         kGradientPanel1.add(kButton1);
-        kButton1.setBounds(500, 430, 185, 45);
+        kButton1.setBounds(500, 470, 185, 45);
 
-        kButton2.setForeground(new java.awt.Color(204, 204, 204));
-        kButton2.setText("SignIn");
-        kButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        kButton2.setkBorderRadius(40);
-        kButton2.setkEndColor(new java.awt.Color(0, 204, 204));
-        kButton2.setkHoverEndColor(new java.awt.Color(204, 0, 204));
-        kButton2.setkHoverForeGround(new java.awt.Color(255, 255, 255));
-        kButton2.setkHoverStartColor(new java.awt.Color(0, 204, 204));
-        kButton2.setkStartColor(new java.awt.Color(204, 0, 204));
-        kGradientPanel1.add(kButton2);
-        kButton2.setBounds(270, 430, 185, 45);
+        btnSignIn.setForeground(new java.awt.Color(204, 204, 204));
+        btnSignIn.setText("SignIn");
+        btnSignIn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnSignIn.setkBorderRadius(40);
+        btnSignIn.setkEndColor(new java.awt.Color(0, 204, 204));
+        btnSignIn.setkHoverEndColor(new java.awt.Color(204, 0, 204));
+        btnSignIn.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnSignIn.setkHoverStartColor(new java.awt.Color(0, 204, 204));
+        btnSignIn.setkStartColor(new java.awt.Color(204, 0, 204));
+        btnSignIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignInActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(btnSignIn);
+        btnSignIn.setBounds(270, 470, 185, 45);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Are you fotgot password?");
         kGradientPanel1.add(jLabel4);
-        jLabel4.setBounds(370, 510, 220, 25);
+        jLabel4.setBounds(370, 550, 220, 25);
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel5.setText("Username");
         kGradientPanel1.add(jLabel5);
-        jLabel5.setBounds(270, 180, 90, 25);
+        jLabel5.setBounds(270, 160, 100, 27);
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -134,6 +174,30 @@ public class SignIn extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "VI", "EN" }));
         kGradientPanel1.add(jComboBox1);
         jComboBox1.setBounds(870, 10, 50, 22);
+
+        errPassword.setBackground(new Color(0,0,0,0));
+        errPassword.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        errPassword.setForeground(new java.awt.Color(204, 0, 0));
+        errPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        errPassword.setOpaque(false);
+        kGradientPanel1.add(errPassword);
+        errPassword.setBounds(270, 390, 410, 20);
+
+        errUsername.setBackground(new Color(0,0,0,0));
+        errUsername.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        errUsername.setForeground(new java.awt.Color(204, 0, 0));
+        errUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        errUsername.setOpaque(false);
+        kGradientPanel1.add(errUsername);
+        errUsername.setBounds(270, 260, 410, 20);
+
+        jCheckBox1.setBackground(new Color(0,0,0,0));
+        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jCheckBox1.setText("Remember Password");
+        jCheckBox1.setBorder(new javax.swing.border.MatteBorder(null));
+        jCheckBox1.setOpaque(false);
+        kGradientPanel1.add(jCheckBox1);
+        jCheckBox1.setBounds(270, 420, 410, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,46 +213,28 @@ public class SignIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void siUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siUsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_siUsernameActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
+        // TODO add your handling code here:
+        SignInController siController = new SignInController();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SignIn().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_btnSignInActionPerformed
+
+    private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
+        // TODO add your handling code here:
+        SignUp singUp = new SignUp();
+        singUp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_kButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private keeptoo.KButton btnSignIn;
+    private javax.swing.JTextField errPassword;
+    private javax.swing.JTextField errUsername;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -196,10 +242,44 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     private keeptoo.KButton kButton1;
-    private keeptoo.KButton kButton2;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JPasswordField siPassword;
+    private javax.swing.JTextField siUsername;
     // End of variables declaration//GEN-END:variables
+    //hàm show signIn
+
+    public void showView() {
+        this.setVisible(true);
+    }
+
+    //hàm hiển thị lỗi password
+    public void showErrPassword(String message, Color color) {
+        errPassword.setText(message);
+        errPassword.setForeground(color);
+    }
+
+    //hàm hiển thị lỗi username
+    public void showErrUserName(String message, Color color) {
+        errUsername.setText(message);
+        errUsername.setForeground(color);
+    }
+
+    //hàm lấy dữ liệu từ các trường username, password
+    public Users getUserLogin() {
+        String username = siUsername.getText();
+        String password = String.copyValueOf(siPassword.getPassword());
+        Users user = new Users(username, password);
+        return user;
+    }
+
+    //hàm kiểm tra xem dữ liệu có bị trống hay không
+
+    public boolean checkDataField() {
+        return (siUsername.getText().equals("") ==false  
+                && siUsername.getText() != null 
+                && String.valueOf(siPassword.getPassword()).equals("") == false 
+                && String.valueOf(siPassword.getPassword()) != null);
+    }
+
 }

@@ -24,6 +24,19 @@ public class Users {
     public Users() {
     }
 
+    public Users(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public Users(String name, String userName, String password, String email) {
+        this.name = name;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
+    
+    
     public Users(int id, String name, String userName, String password, int idRole) {
         this.id = id;
         this.name = name;
@@ -160,6 +173,12 @@ public class Users {
                     this.getVerifyCode()
                 };
                 break;
+            case Constants.ACTION_GET_USER_BY_USERNAME_PASS:
+                param = new Object[]{
+                    this.getUserName(),
+                    this.getPassword()
+                };
+            break;
         }
         return param;
     }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package qlkh;
+import java.awt.Color;
 
 /**
  *

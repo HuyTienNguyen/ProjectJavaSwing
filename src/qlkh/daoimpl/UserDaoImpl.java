@@ -29,6 +29,7 @@ public class UserDaoImpl implements IUserDAO {
     private static final String SQL_UPDATE = "UPDATE  Users SET NAME =?, username =?, password =?,idRole=? WHERE ID =?";
     private static final String SQL_DELETE = "DELETE FROM  Users  WHERE Name =?";
 
+    private static final String SQL_SELECT_BY_USERNAME_AND_PASS = "SELECT * FROM Users WHERE Username = ? AND Password = ?";
     private static final String SQL_SELECT_BY_NAME_OR_EMAIL = "SELECT * FROM Users WHERE Name= ? OR EMAIL =?";
     private static final String SQL_SELECT_BY_MAIL_AND_CODE = "SELECT * FROM Users WHERE (Name=?  OR EMAIL =?) AND verifyCode =?";
 
@@ -186,4 +187,19 @@ public class UserDaoImpl implements IUserDAO {
         return user;
     }
 
+    public boolean checkUser(Users userLogin) {
+        boolean check = false;
+        if (userLogin != null) {
+           
+            try {
+                ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_USERNAME_AND_PASS, userLogin.getParam(Constants.ACTION_GET_USER_BY_USERNAME_PASS));
+                if(rs.next()){
+                    check =  true;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return check;
+    }
 }

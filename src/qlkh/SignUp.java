@@ -5,6 +5,10 @@
  */
 package qlkh;
 
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import qlkh.entities.Users;
+
 /**
  *
  * @author user
@@ -16,6 +20,10 @@ public class SignUp extends javax.swing.JFrame {
      */
     public SignUp() {
         initComponents();
+    }
+    
+    public void addBtnSignInActionListener(ActionListener listener) {
+        btnSignUp.addActionListener(listener);
     }
 
     /**
@@ -29,17 +37,20 @@ public class SignUp extends javax.swing.JFrame {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtFullname = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        kGradientPanel2 = new keeptoo.KGradientPanel();
-        jLabel10 = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        btnSignUp = new keeptoo.KButton();
+        txtErrFullname = new javax.swing.JTextField();
+        txtErrEmail = new javax.swing.JTextField();
+        txtErrUsername = new javax.swing.JTextField();
+        txtErrPassword = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -55,17 +66,17 @@ public class SignUp extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtEmail.setForeground(new java.awt.Color(102, 102, 102));
+        txtEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        txtFullname.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFullname.setForeground(new java.awt.Color(102, 102, 102));
+        txtFullname.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
 
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsername.setForeground(new java.awt.Color(102, 102, 102));
+        txtUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -103,44 +114,75 @@ public class SignUp extends javax.swing.JFrame {
         jLabel9.setText("PASSWORD");
         jLabel9.setToolTipText("");
 
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(102, 102, 102));
-        jPasswordField1.setToolTipText("");
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(102, 102, 102));
+        txtPassword.setToolTipText("");
+        txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
 
-        kGradientPanel2.setEndColor(new java.awt.Color(12, 91, 160));
-        kGradientPanel2.setGradientFocus(200);
-        kGradientPanel2.setStartColor(new java.awt.Color(153, 0, 153));
+        btnSignUp.setText("CONTINUE");
+        btnSignUp.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnSignUp.setkBorderRadius(40);
+        btnSignUp.setkEndColor(new java.awt.Color(0, 204, 204));
+        btnSignUp.setkHoverEndColor(new java.awt.Color(204, 0, 204));
+        btnSignUp.setkHoverStartColor(new java.awt.Color(0, 204, 204));
+        btnSignUp.setkStartColor(new java.awt.Color(204, 0, 204));
+        btnSignUp.setOpaque(true);
+        btnSignUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignUpActionPerformed(evt);
+            }
+        });
 
-        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("CONTINUE");
-        jLabel10.setToolTipText("");
-        jLabel10.setAlignmentY(0.0F);
-        kGradientPanel2.add(jLabel10);
-        jLabel10.setBounds(110, 0, 120, 50);
+        txtErrFullname.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtErrFullname.setForeground(new java.awt.Color(255, 0, 0));
+        txtErrFullname.setText("sai định dạng");
+        txtErrFullname.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+
+        txtErrEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtErrEmail.setForeground(new java.awt.Color(255, 0, 0));
+        txtErrEmail.setText("jTextField5");
+        txtErrEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+
+        txtErrUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtErrUsername.setForeground(new java.awt.Color(255, 0, 0));
+        txtErrUsername.setText("jTextField6");
+        txtErrUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        txtErrUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtErrUsernameActionPerformed(evt);
+            }
+        });
+
+        txtErrPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtErrPassword.setForeground(new java.awt.Color(255, 0, 0));
+        txtErrPassword.setText("jTextField7");
+        txtErrPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(127, Short.MAX_VALUE)
+                .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(118, 118, 118))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel9)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
-                        .addComponent(jTextField1)
-                        .addComponent(jTextField3)
-                        .addComponent(jPasswordField1)
-                        .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(txtFullname, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                    .addComponent(txtEmail)
+                    .addComponent(txtUsername)
+                    .addComponent(txtPassword)
+                    .addComponent(txtErrEmail)
+                    .addComponent(txtErrUsername)
+                    .addComponent(txtErrPassword)
+                    .addComponent(txtErrFullname))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,26 +192,34 @@ public class SignUp extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addComponent(txtFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(txtErrFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(txtErrEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(txtErrUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(kGradientPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtErrPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
 
         kGradientPanel1.add(jPanel1);
-        jPanel1.setBounds(470, 60, 430, 530);
+        jPanel1.setBounds(590, 50, 430, 590);
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -203,27 +253,35 @@ public class SignUp extends javax.swing.JFrame {
         jLabel11.setText("Languages:");
         jLabel11.setToolTipText("");
         kGradientPanel1.add(jLabel11);
-        jLabel11.setBounds(800, 10, 80, 20);
+        jLabel11.setBounds(940, 10, 80, 20);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "VI", "EN" }));
         kGradientPanel1.add(jComboBox1);
-        jComboBox1.setBounds(890, 10, 50, 22);
+        jComboBox1.setBounds(1040, 10, 50, 22);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSignUpActionPerformed
+
+    private void txtErrUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtErrUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtErrUsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,11 +317,50 @@ public class SignUp extends javax.swing.JFrame {
             }
         });
     }
-
+    //hiển thị thông báo fullname
+    public void showErrFullname(String message, Color color){
+        txtErrFullname.setText(message);
+        txtErrFullname.setForeground(color);
+    }
+    //hiển thị thông báo email
+    public void showErrEmail(String message, Color color){
+        txtErrEmail.setText(message);
+        txtErrEmail.setForeground(color);
+    }
+    //hiển thị thông báo username
+    public void showErrUsername(String message, Color color){
+        txtErrUsername.setText(message);
+        txtErrUsername.setForeground(color);
+    }
+    //hiển thị thông báo password
+    public void showErrPassword(String message, Color color) {
+        txtErrPassword.setText(message);
+        txtErrPassword.setForeground(color);
+    }
+    //hàm lấy dữ liệu
+    public Users getData(){
+        String fullname = txtFullname.getText();
+        String email = txtEmail.getText();
+        String password = String.valueOf(txtPassword.getPassword());
+        String username = txtUsername.getText();
+        Users users = new Users(fullname, username, password, email);
+        return users;
+    }
+    //hàm check dữ liệu có bị trống hay không
+    public boolean checkDataField(){
+        return (txtFullname.getText().equals("") ==false  
+                && txtFullname.getText() != null 
+                && txtEmail.getText().equals("") ==false
+                && txtEmail.getText() != null
+                && txtUsername.getText().equals("") == false
+                && txtUsername.getText() != null
+                && String.valueOf(txtPassword.getPassword()).equals("") == false 
+                && String.valueOf(txtPassword.getPassword()) != null);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private keeptoo.KButton btnSignUp;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -274,11 +371,14 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private keeptoo.KGradientPanel kGradientPanel1;
-    private keeptoo.KGradientPanel kGradientPanel2;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtErrEmail;
+    private javax.swing.JTextField txtErrFullname;
+    private javax.swing.JTextField txtErrPassword;
+    private javax.swing.JTextField txtErrUsername;
+    private javax.swing.JTextField txtFullname;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
