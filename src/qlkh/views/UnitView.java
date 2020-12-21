@@ -27,19 +27,121 @@ public class UnitView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblUnit = new javax.swing.JTable();
+        headerUnitPanel = new javax.swing.JPanel();
+        headerUnitTitle = new javax.swing.JLabel();
+        txtNewUnit = new javax.swing.JTextField();
+        btnAddNewUnit = new javax.swing.JButton();
+        messageUnit = new javax.swing.JLabel();
+        btnEditUnit = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
+
+        jScrollPane1.setViewportView(tblUnit);
+
+        headerUnitPanel.setBackground(new java.awt.Color(51, 0, 51));
+
+        headerUnitTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        headerUnitTitle.setForeground(new java.awt.Color(255, 255, 255));
+        headerUnitTitle.setText("Unit");
+
+        javax.swing.GroupLayout headerUnitPanelLayout = new javax.swing.GroupLayout(headerUnitPanel);
+        headerUnitPanel.setLayout(headerUnitPanelLayout);
+        headerUnitPanelLayout.setHorizontalGroup(
+            headerUnitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerUnitPanelLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(headerUnitTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        headerUnitPanelLayout.setVerticalGroup(
+            headerUnitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerUnitPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(headerUnitTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+
+        txtNewUnit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnAddNewUnit.setBackground(new java.awt.Color(0, 255, 204));
+        btnAddNewUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/add_text_32px.png"))); // NOI18N
+        btnAddNewUnit.setText(bundle.getString("btnAddNew"));
+        btnAddNewUnit.setActionCommand("Add Unit");
+        btnAddNewUnit.setFocusPainted(false);
+
+        messageUnit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        btnEditUnit.setBackground(new java.awt.Color(204, 255, 204));
+        btnEditUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/edit_40.png"))); // NOI18N
+        btnEditUnit.setText(bundle.getString("btnEdit")
+        );
+        btnEditUnit.setFocusPainted(false);
+        btnEditUnit.setMaximumSize(new java.awt.Dimension(134, 40));
+        btnEditUnit.setMinimumSize(new java.awt.Dimension(134, 40));
+
+        btnClear.setBackground(new java.awt.Color(51, 153, 255));
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/clear_40.png"))); // NOI18N
+        btnClear.setText(bundle.getString("btnClear")
+        );
+        btnClear.setFocusPainted(false);
+        btnClear.setMaximumSize(new java.awt.Dimension(134, 40));
+        btnClear.setMinimumSize(new java.awt.Dimension(134, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(headerUnitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(txtNewUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(messageUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddNewUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(headerUnitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(messageUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNewUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAddNewUnit)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEditUnit, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                        .addGap(20, 20, 20)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddNewUnit;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnEditUnit;
+    private javax.swing.JPanel headerUnitPanel;
+    private javax.swing.JLabel headerUnitTitle;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel messageUnit;
+    private javax.swing.JTable tblUnit;
+    private javax.swing.JTextField txtNewUnit;
     // End of variables declaration//GEN-END:variables
 }

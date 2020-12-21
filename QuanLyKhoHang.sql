@@ -12,6 +12,7 @@ create table UserRole(
 )
 go
 
+
 Insert into users (name,Username,Password,IdRole,email,verifyCode)VALUES ('giang','truonggiang','123455',1,'abc@gmail.com',234567)
 SELECT * FROM Users WHERE (Name='abc@gmail.com'  OR EMAIL ='abc@gmail.com') AND verifyCode =23456
 DELETE FROM UserRole WHERE Name='giang';
@@ -31,6 +32,9 @@ create table Unit(
 	name nvarchar(100)
 )
 go
+INSERT INTO Unit(name) VALUES('Kg')
+INSERT INTO Unit(name) VALUES(N'Tạ')
+GO
 
 --tạo bảng Suplier
 create table Suplier(
@@ -150,7 +154,8 @@ ADD CONSTRAINT FK_09 FOREIGN KEY (IdOutput) REFERENCES Output(Id);
 --tạo khóa ngoại category và objects
 ALTER TABLE Objects
 ADD CONSTRAINT FK_10 FOREIGN KEY (IdCate) REFERENCES Category(Id);
-
+ALTER TABLE Unit
+ADD   status  int default 1
  
  -- them du lieu mau
  INSERT INTO UserRole(name) VALUES('admin')
@@ -164,3 +169,70 @@ ADD CONSTRAINT FK_10 FOREIGN KEY (IdCate) REFERENCES Category(Id);
  INSERT INTO Suplier(name,address,phone,email,MoreInfo,ContractDate)
  values('truong giang','ha noi','035723722','giang@gmail.com','hksajdfkhasdf','2020-09-05 09:32:22')
  select * from Suplier
+ /*
+  *  Tạo thủ tục
+  PRocedure ADD new unit
+	*	@param 1 : out put param
+	*	@param 2: param name(String) input
+ */
+
+ -- Thủ tục thêm mới Unit
+ALTER PROCEDURE sp_add_new_unit
+ (
+
+	@output int output,
+		@name varchar(100)
+
+ )
+ AS
+	BEGIN 
+		IF NOT EXISTS(SELECT * FROM Unit WHERE name =@name)
+			BEGIN
+				INSERT INTO Unit(name) VALUES (@name)
+				SET @output = 0
+			END
+		ELSE
+			BEGIN
+				SET @output =1
+			END
+	END
+
+/* Test Procedure sp_add_new_unit
+	declare  @a int 
+	exec sp_add_new_unit  @a output ,'Kg'
+	Select @a	
+	*/
+
+	/*
+	*	PRocedure update unit
+	*	@param 1 : out put param
+	*	@param 2: param id (Integer) input
+	*	@param 3: param name(String) input
+	*/
+	ALTER PROCEDURE sp_update_unit
+ (
+
+	@output int output,
+	@id int,
+	@name nvarchar(100)
+
+ )
+ AS
+	BEGIN 
+		IF  EXISTS(SELECT * FROM Unit WHERE id= @id)
+			BEGIN
+				UPDATE  Unit
+				SET name=@name  
+				WHERE id = @id
+				SET @output = @@ROWCOUNT
+			END
+		ELSE
+			BEGIN
+				SET @output =0
+			END
+	END
+	/* Test PROCEDURE sp_update_unit
+	*	declare  @output int 
+	*	exec sp_update_unit @output output ,2,'aaa'
+	*	Select @output
+	*/

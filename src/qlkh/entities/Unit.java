@@ -5,6 +5,7 @@
  */
 package qlkh.entities;
 
+import java.sql.Types;
 import qlkh.utils.Constants;
 
 /**
@@ -12,6 +13,7 @@ import qlkh.utils.Constants;
  * @author GIANG
  */
 public class Unit {
+
     private int id;
     private String name;
 
@@ -43,9 +45,7 @@ public class Unit {
         this.name = name;
     }
 
-  
-    
-     /**
+    /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
      *
      * @return Mảng dữ liệu String
@@ -55,12 +55,12 @@ public class Unit {
         switch (action) {
             case Constants.ACTION_INSERT:
                 param = new Object[]{
-                    this.getName()              
+                    this.getName()
                 };
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
-                    this.getName(),                 
+                    this.getName(),
                     this.getId()
                 };
                 break;
@@ -70,13 +70,26 @@ public class Unit {
                     this.getId()
                 };
                 break;
+            case Constants.ACTION_INSERT_BY_PROC:
+                param = new Object[]{
+                    Types.INTEGER,
+                    this.getName()
+                };
+                break;
+            case Constants.ACTION_UPDATE_BY_PROC:
+                param = new Object[]{
+                    Types.INTEGER,
+                    this.getId(),
+                    this.getName()
+                };
+                break;
         }
         return param;
     }
 
     @Override
     public String toString() {
-        return "Unit{" + "id=" + id + ", name=" + name + '}';
+        return  name ;
     }
 
 }
