@@ -33,15 +33,15 @@ public class MainView1 extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         leftPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-<<<<<<< HEAD
+
         jPanel2 = new javax.swing.JPanel();
         kButton1 = new keeptoo.KButton();
-=======
+
         sidebarPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
->>>>>>> f4f347cd7a0e14e30cca360d5cc306949319bd61
+
         mainPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
@@ -74,7 +74,7 @@ public class MainView1 extends javax.swing.JFrame {
             }
         });
 
-<<<<<<< HEAD
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -87,7 +87,7 @@ public class MainView1 extends javax.swing.JFrame {
                 .addGap(145, 145, 145)
                 .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(422, Short.MAX_VALUE))
-=======
+
         javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
         sidebarPanel.setLayout(sidebarPanelLayout);
         sidebarPanelLayout.setHorizontalGroup(
@@ -110,7 +110,7 @@ public class MainView1 extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addComponent(jButton3)
                 .addContainerGap(253, Short.MAX_VALUE))
->>>>>>> f4f347cd7a0e14e30cca360d5cc306949319bd61
+
         );
 
         jScrollPane1.setViewportView(sidebarPanel);
@@ -240,11 +240,10 @@ public class MainView1 extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-<<<<<<< HEAD
+
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-=======
->>>>>>> f4f347cd7a0e14e30cca360d5cc306949319bd61
+
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
