@@ -8,6 +8,7 @@ package qlkh.testView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
+import qlkh.controller.SuplierController;
 import qlkh.controller.UnitController;
 
 /**
@@ -31,8 +32,8 @@ public class App {
 //                studentController.showStudentView();
                 // ILogin controller = new LoginController();                     
                 // controller.showLoginView();  
-                UnitController unit = new UnitController();
-                unit.showView();
+                SuplierController supli = new SuplierController();
+                supli.showView();
 
             }
 

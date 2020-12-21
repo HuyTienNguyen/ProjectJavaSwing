@@ -25,6 +25,7 @@ public class Supliers {
     private String moreInfo;
     private Timestamp contractDate;
     private String characters;
+    private int status;
 
     public Supliers() {
     }
@@ -38,6 +39,17 @@ public class Supliers {
         this.moreInfo = moreInfo;
         this.contractDate = contractDate;
         this.characters = characters;
+    }
+        public Supliers(int id, String name, String address, String phone, String email, String moreInfo, Timestamp contractDate, String characters,int status) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.moreInfo = moreInfo;
+        this.contractDate = contractDate;
+        this.characters = characters;
+        this.status = status;
     }
 
 

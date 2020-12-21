@@ -45,7 +45,7 @@ public class UnitController {
         List<Unit> listUnit = new ArrayList<>();
         listUnit = unitDao.getAllUnits();
         if (frame == null) {
-            System.out.println("mnul");
+             frame = new GiangTestFrame();
         }
         frame.showView(listUnit);
 
