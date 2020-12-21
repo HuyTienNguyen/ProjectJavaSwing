@@ -5,17 +5,22 @@
  */
 package qlkh.testView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import qlkh.controller.SuplierController;
 import qlkh.controller.UnitController;
+import qlkh.dao.IUnitDAO;
+import qlkh.daoimpl.UnitDaoImpl;
+import qlkh.entities.Unit;
 
 /**
  *
  * @author GIANG
  */
-public class App {
+public class HuyTest {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -25,7 +30,7 @@ public class App {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(HuyTest.class.getName()).log(Level.SEVERE, null, ex);
                 }
 //                StudentView stview = new StudentView();
 //                StudentController studentController = new StudentController(stview);
@@ -34,6 +39,16 @@ public class App {
                 // controller.showLoginView();  
 //                SuplierController supli = new SuplierController();
 //                supli.showView();
+//                StudentView stview = new StudentView();
+//                StudentController studentController = new StudentController(stview);
+//                studentController.showStudentView();
+                // ILogin controller = new LoginController();                     
+                // controller.showLoginView();  
+                GiangTestFrame supli = new GiangTestFrame();
+                List<Unit> listUnit = new ArrayList<>();
+                IUnitDAO unitDao = new UnitDaoImpl();
+                listUnit = unitDao.getAllUnits();
+                supli.showView(listUnit);
                 
 
             }

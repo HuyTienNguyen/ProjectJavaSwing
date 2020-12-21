@@ -87,7 +87,6 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-<<<<<<< HEAD
                 <Container class="javax.swing.JPanel" name="jPanel2">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -104,9 +103,6 @@
                       <Dimension value="[200, 529]"/>
                     </Property>
                   </Properties>
-=======
-                <Container class="javax.swing.JPanel" name="sidebarPanel">
->>>>>>> f4f347cd7a0e14e30cca360d5cc306949319bd61
 
                   <Layout>
                     <DimensionLayout dim="0">
