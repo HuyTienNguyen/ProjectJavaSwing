@@ -16,5 +16,5 @@ package qlkh.dao;
 public interface IInventoryDAO<E,K> {
     public int insert(E element);
     public int update(E element);
-    public int delete(K key);
+    public int delete(E element);
 }

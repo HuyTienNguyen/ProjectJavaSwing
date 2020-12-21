@@ -101,9 +101,14 @@ public class OutputDaoImpl implements IOutputDAO {
         return 0;
     }
 
-    @Override
+    
     public int delete(String key) {
         return 0;
+    }
+
+    @Override
+    public int delete(Output element) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

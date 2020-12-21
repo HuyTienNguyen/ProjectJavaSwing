@@ -12,7 +12,7 @@ import qlkh.entities.Unit;
  * @author GIANG
  */
 public interface IUnitDAO extends IInventoryDAO<Unit , Integer> {
-    public  List<Unit> getAllUnits();
+    public   List<Unit> getAllUnits();
     public Unit getUnitByID(Integer key);
 
   

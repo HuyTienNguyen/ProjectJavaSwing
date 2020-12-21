@@ -106,7 +106,7 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
         return countUpdate;
     }
 
-    @Override
+ 
     public int delete(Integer key) {
         Integer countDelete = 0;
         Integer[] param = new Integer[]{key};
@@ -123,4 +123,9 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
         }
         return countDelete;
     }    
+
+    @Override
+    public int delete(Supliers element) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

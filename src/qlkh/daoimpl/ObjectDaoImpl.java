@@ -105,20 +105,20 @@ public class ObjectDaoImpl implements IObjectDAO {
     }
 
     @Override
-    public int delete(String key) {
+    public int delete(Objects element) {
         Integer countDelete = 0;
-        String[] param = new String[]{key};
-        try {
-            countDelete = DatabaseHelper.deleteData(SQL_DELETE, key);
-        } catch (SQLException ex) {
-            Logger.getLogger(ObjectDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                DatabaseHelper.getInstance().closeDatabaseConnection();
-            } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        String[] param = new String[]{key};
+//        try {
+//            countDelete = DatabaseHelper.deleteData(SQL_DELETE, key);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(ObjectDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            try {
+//                DatabaseHelper.getInstance().closeDatabaseConnection();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         return countDelete;
     }
    

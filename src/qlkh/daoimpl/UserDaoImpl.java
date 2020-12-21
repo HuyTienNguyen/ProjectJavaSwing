@@ -135,7 +135,7 @@ public class UserDaoImpl implements IUserDAO {
         return countUpdate;
     }
 
-    @Override
+
     public int delete(String key) {
         //Khởi tạo biến đếm số bản ghi bi xoa khoi csdl
         Integer countDelete = 0;
@@ -187,6 +187,7 @@ public class UserDaoImpl implements IUserDAO {
         return user;
     }
 
+
     public boolean checkUser(Users userLogin) {
         boolean check = false;
         if (userLogin != null) {
@@ -202,4 +203,11 @@ public class UserDaoImpl implements IUserDAO {
         }
         return check;
     }
+
+    @Override
+    public int delete(Users element) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 }

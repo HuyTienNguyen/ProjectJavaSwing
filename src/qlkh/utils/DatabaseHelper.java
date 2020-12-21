@@ -5,6 +5,7 @@
  */
 package qlkh.utils;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 
 import java.sql.DriverManager;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -105,7 +107,7 @@ public class DatabaseHelper {
         if (connectionSqlserver == null || connectionSqlserver.isClosed() == true) {
             connectionSqlserver = getInstance().getConnectionSqlserver();
         }
-        if (isInsert ==true) {
+        if (isInsert == true) {
             // 1. Tạo PreparedStatement với tùy chọn lấy về danh sách ID của  dòng trong câu lệnh insert
             pstm = connectionSqlserver.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         } else {
@@ -127,17 +129,59 @@ public class DatabaseHelper {
                 pstm.setString(i + 1, (String) args[i]);
             } else if (args[i] instanceof java.sql.Timestamp) {
                 pstm.setTimestamp(i + 1, Utils.getTimestampNow());
-            }        
+            }
         }
         return pstm;
+    }
+
+    /**
+     * Hàm lấy về câu lệnh preparedStatement
+     *
+     * @param isInsert true = insert, false = update
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     */
+    private static <E> CallableStatement getCallableStatement( String sql, E... args) throws SQLException {
+        CallableStatement cst;
+        if (connectionSqlserver == null || connectionSqlserver.isClosed() == true) {
+            connectionSqlserver = getInstance().getConnectionSqlserver();
+        }
+
+        // 1. Tạo PreparedStatement với tùy chọn lấy về danh sách ID của  dòng trong câu lệnh insert
+        cst = connectionSqlserver.prepareCall(sql);
+
+        int size = args.length;     
+            // Đăng ký tham số đầu ra cho thủ tục
+            cst.registerOutParameter(1, Types.INTEGER);
+           int numberOne = 1;
+       
+
+        // kieu object
+        // Object [] param = new Object[]{String,integer}
+        for (int i = numberOne; i < size; i++) {
+            if (args[i] instanceof Integer) {
+                cst.setInt(i + 1, (Integer) args[i]);
+            } else if (args[i] instanceof Float) {
+                cst.setFloat(i + 1, (Float) args[i]);
+            } else if (args[i] instanceof Double) {
+                cst.setDouble(i + 1, (Double) args[i]);
+            } else if (args[i] instanceof Long) {
+                cst.setLong(i + 1, (Long) args[i]);
+            } else if (args[i] instanceof String) {
+                cst.setString(i + 1, (String) args[i]);
+            } else if (args[i] instanceof java.sql.Timestamp) {
+                cst.setTimestamp(i + 1, Utils.getTimestampNow());
+            }
+        }
+        return cst;
     }
 
     /**
      * Hàm lấy về dữ liệu: SELECT
      *
      * @param sql cú pháp SQL kèm tham số
-     * @param args mảng tham số truyền vào
-     * E1 generic K Ttype V value
+     * @param args mảng tham số truyền vào E1 generic K Ttype V value return
+     * PreparedStatement
      */
     public static <E> ResultSet selectData(String sql, E... args) throws SQLException {
         PreparedStatement pstm = getPrepareStatement(false, sql, args);
@@ -148,7 +192,7 @@ public class DatabaseHelper {
      * Hàm cập nhật dữ liệu: INSERT | UPFATE | DELETE
      *
      * @param sql cú pháp SQL kèm tham số
-     * @param args mảng tham số truyền vào
+     * @param args mảng tham số truyền vào return PreparedStatement
      */
     public static <E> int updateData(String sql, E... args) throws SQLException {
         PreparedStatement pstm = getPrepareStatement(false, sql, args);
@@ -158,8 +202,11 @@ public class DatabaseHelper {
     /**
      * Hàm cập nhật dữ liệu: INSERT
      *
+     * @param <E> paramameter generic
      * @param sql cú pháp SQL kèm tham số
      * @param args mảng tham số truyền vào
+     * @return
+     * @throws java.sql.SQLException return PreparedStatement
      */
     public static <E> int insertData(String sql, E... args) throws SQLException {
         PreparedStatement pstm = getPrepareStatement(true, sql, args);
@@ -171,12 +218,37 @@ public class DatabaseHelper {
      * Hàm cập nhật dữ liệu: DELETE
      *
      * @param sql cú pháp SQL kèm tham số
-     * @param args mảng tham số truyền vào
+     * @param args mảng tham số truyền vào return PreparedStatement
      */
     public static <E> int deleteData(String sql, E... args) throws SQLException {
         PreparedStatement pstm = getPrepareStatement(false, sql, args);
         return pstm.executeUpdate();
 
+    }
+
+    /**
+     * Hàm cập nhật dữ liệu: INSERT
+     *
+     * @param <E> paramameter generic
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     * @return CallableStatement
+     * @throws java.sql.SQLException
+     */
+    public static <E> int insertDataByCallableStatement(String sql, E... args) throws SQLException {
+        CallableStatement cst = getCallableStatement(sql, args);
+        cst.executeUpdate();
+        return cst.getInt(1);
+    }
+     public static <E> int updateDataByCallableStatement(String sql, E... args) throws SQLException {
+        CallableStatement cst = getCallableStatement(sql, args);
+        cst.executeUpdate();
+        return cst.getInt(1);
+    }
+      public static <E> int deleteDataByCallableStatement(String sql, E... args) throws SQLException {
+        CallableStatement cst = getCallableStatement(sql, args);
+        cst.executeUpdate();
+        return cst.getInt(1);
     }
 
 }

@@ -129,23 +129,23 @@ public class CustomerDaoImpl implements ICustomerDAO {
     }
 
     @Override
-    public int delete(Integer key) {
+    public int delete(Customers element) {
         //Khởi tạo biến đếm số bản ghi bi xoa khoi csdl
         Integer countDelete = 0;
-        try {
-            // Khởi tạo mảng @param kiểu Integer để chạy lệnh sql Delete from Customers by key Integer
-            Integer[] param = new Integer[]{key};
-            // GỌi phương thức selectData trả về theo kiểu result set
-            countDelete = DatabaseHelper.deleteData(SQL_DELETE, param);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                DatabaseHelper.getInstance().closeDatabaseConnection();
-            } catch (SQLException ex) {
-                Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-        }
+//      try {
+//            // Khởi tạo mảng @param kiểu Integer để chạy lệnh sql Delete from Customers by key Integer
+//            Integer[] param = new Integer[]{key};
+//            // GỌi phương thức selectData trả về theo kiểu result set
+//            countDelete = DatabaseHelper.deleteData(SQL_DELETE, param);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        } finally {
+//            try {
+//                DatabaseHelper.getInstance().closeDatabaseConnection();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+//            } 
+//        }
         return countDelete;
     }
 

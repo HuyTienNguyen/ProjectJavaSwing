@@ -106,29 +106,12 @@ public class InputInfoDaoImpl implements IInputInfoDAO {
     }
 
     @Override
-    public int delete(String key) {
-        Integer countDelete = 0;
-        String[] param = new String[]{key};
-        try {
-            countDelete = DatabaseHelper.deleteData(SQL_DELETE, param );
-        } catch (SQLException ex) {
-            Logger.getLogger(InputInfoDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                DatabaseHelper.getInstance().closeDatabaseConnection();
-            } catch (SQLException ex) {
-                Logger.getLogger(OutputInfoDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return countDelete;
+    public int delete(InputInfo element) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
    
-
-
-   
  
-
  
     
 }
