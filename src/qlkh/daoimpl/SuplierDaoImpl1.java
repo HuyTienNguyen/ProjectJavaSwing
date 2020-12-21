@@ -17,19 +17,19 @@ import qlkh.entities.Supliers;
 import qlkh.utils.Constants;
 import qlkh.utils.DatabaseHelper;
 
-
-
 /**
  *
  * @author GIANG
  */
 public class SuplierDaoImpl1 implements ISuplierDAO {
+
     private static Connection conn;
-    private static final String SQL_GET_ALL = "SELECT * FROM Suplier";
+    private static final String SQL_GET_ALL = "SELECT * FROM Suplier ORDER BY  status DESC,name";
     private static final String SQL_INSERT = "INSERT INTO Suplier(name,address,phone,email,moreinfo,constractdate,characters) values(?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE Suplier SET name = ? , address = ?, phone = ?, email = ?, moreinfo = ?, constractdate = ?, characters = ? where id = ?";
     private static final String SQL_DELETE = "DELETE FROM Suplier where id = ?";
     private static final String SQL_GET_BY_ID = "SELECT * FROM Suplier WHERE id = ?";
+
     @Override
     public List<Supliers> getAllSupliers() {
         //tạo danh sách lưu tất cả suplier
@@ -37,8 +37,8 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
         String[] param = new String[]{};
         try {
             ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);
-            while(rs.next()){
-                Supliers supliers = new Supliers(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getTimestamp(7),rs.getString(8));
+            while (rs.next()) {
+                Supliers supliers = new Supliers(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getTimestamp(7), rs.getString(8), rs.getInt(9));
                 listSuplier.add(supliers);
             }
         } catch (SQLException ex) {
@@ -59,7 +59,7 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
         Integer[] param = new Integer[]{key};
         try {
             ResultSet rs = DatabaseHelper.selectData(SQL_GET_BY_ID, param);
-            supliers = new Supliers(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getTimestamp(7),rs.getString(8));
+            supliers = new Supliers(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getTimestamp(7), rs.getString(8));
         } catch (SQLException ex) {
             Logger.getLogger(SuplierDaoImpl1.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -106,7 +106,6 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
         return countUpdate;
     }
 
- 
     public int delete(Integer key) {
         Integer countDelete = 0;
         Integer[] param = new Integer[]{key};
@@ -122,7 +121,7 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
             }
         }
         return countDelete;
-    }    
+    }
 
     @Override
     public int delete(Supliers element) {
