@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -39,8 +41,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
     public void showView(List<Unit> listUnit) {
         this.setVisible(true);
         setEnableBtnEdit(false);
-       
-
+        setEnableBtnDelete(false);
         loadAllUnit(listUnit);
 
     }
@@ -61,6 +62,8 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
             Vector row = new Vector();
             row.add(startNumber);
             row.add(unit);
+               
+            row.add((unit.getStatus()>0)?bundle.getString(Constants.STATUS_SHOW):bundle.getString(Constants.STATUS_HIDE));
             startNumber++;
             unitModel.addRow(row);
         }
@@ -69,18 +72,20 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
 
     // Add event to button addNewUnit
     public void addBtnAddNewUnitActionListener(ActionListener listener) {
-        btnAddNewUnit.addActionListener(listener);
+        btnAdd.addActionListener(listener);
     }
 
     public void addBtnEditUnitActionListener(ActionListener listener) {
-        btnEditUnit.addActionListener(listener);
+        btnEdit.addActionListener(listener);
     }
 
     public void addBtnClearUnitActionListener(ActionListener listener) {
         btnClear.addActionListener(listener);
     }
-   
 
+    public void addBtnDeleteUnitActionListener(ActionListener listener) {
+        btnDelete.addActionListener(listener);
+    }
 
     public void addTableUnitMouseListener(MouseListener listener) {
         tblUnit.addMouseListener(listener);
@@ -105,7 +110,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
         txtNewUnit.requestFocus();
     }
 
-    public Unit getEditUnitName() {
+    public Unit getEditUnit() {
         int row = tblUnit.getSelectedRow();
         if (row < 0) {
             return null;
@@ -114,17 +119,30 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
     }
 
     public void setEnableBtnAddNew(boolean value) {
-        btnAddNewUnit.setEnabled(value);
+        btnAdd.setEnabled(value);
     }
 
     public void setEnableBtnEdit(boolean value) {
-        btnEditUnit.setEnabled(value);
+        btnEdit.setEnabled(value);
     }
 
-   
+    public void setEnableBtnDelete(boolean value) {
+        btnDelete.setEnabled(value);
+    }
 
     public boolean checkUnitName(String unitName) {
         return (unitName != null && unitName.equals("") == false);
+    }
+
+    public int showDialogMesage(JFrame frame, String message, String title) {
+        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void clearView() {
+        setNewUnitText("");
+        setEnableBtnAddNew(true);
+        setEnableBtnEdit(false);
+        setEnableBtnDelete(false);
     }
 
     /**
@@ -140,12 +158,13 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNewUnit = new javax.swing.JTextField();
-        btnAddNewUnit = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUnit = new javax.swing.JTable();
         messageUnit = new javax.swing.JLabel();
-        btnEditUnit = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -176,23 +195,23 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
 
         txtNewUnit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnAddNewUnit.setBackground(new java.awt.Color(0, 255, 204));
-        btnAddNewUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/add_text_32px.png"))); // NOI18N
-        btnAddNewUnit.setText(bundle.getString("btnAddNew"));
-        btnAddNewUnit.setActionCommand("Add Unit");
-        btnAddNewUnit.setFocusPainted(false);
+        btnAdd.setBackground(new java.awt.Color(0, 255, 204));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/add_text_32px.png"))); // NOI18N
+        btnAdd.setText(bundle.getString("btnAdd"));
+        btnAdd.setActionCommand("Add Unit");
+        btnAdd.setFocusPainted(false);
 
         jScrollPane1.setViewportView(tblUnit);
 
         messageUnit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        btnEditUnit.setBackground(new java.awt.Color(204, 255, 204));
-        btnEditUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/edit_40.png"))); // NOI18N
-        btnEditUnit.setText(bundle.getString("btnEdit")
+        btnEdit.setBackground(new java.awt.Color(204, 255, 204));
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/edit_40.png"))); // NOI18N
+        btnEdit.setText(bundle.getString("btnEdit")
         );
-        btnEditUnit.setFocusPainted(false);
-        btnEditUnit.setMaximumSize(new java.awt.Dimension(134, 40));
-        btnEditUnit.setMinimumSize(new java.awt.Dimension(134, 40));
+        btnEdit.setFocusPainted(false);
+        btnEdit.setMaximumSize(new java.awt.Dimension(134, 40));
+        btnEdit.setMinimumSize(new java.awt.Dimension(134, 40));
 
         btnClear.setBackground(new java.awt.Color(51, 153, 255));
         btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/clear_40.png"))); // NOI18N
@@ -201,6 +220,14 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
         btnClear.setFocusPainted(false);
         btnClear.setMaximumSize(new java.awt.Dimension(134, 40));
         btnClear.setMinimumSize(new java.awt.Dimension(134, 40));
+
+        btnDelete.setBackground(new java.awt.Color(51, 153, 255));
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/delete_50.png"))); // NOI18N
+        btnDelete.setText(bundle.getString("btnDelete")
+        );
+        btnDelete.setFocusPainted(false);
+        btnDelete.setMaximumSize(new java.awt.Dimension(134, 40));
+        btnDelete.setMinimumSize(new java.awt.Dimension(134, 40));
 
         javax.swing.GroupLayout userRoleMainPanelLayout = new javax.swing.GroupLayout(userRoleMainPanel);
         userRoleMainPanel.setLayout(userRoleMainPanelLayout);
@@ -218,10 +245,12 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
                         .addComponent(messageUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(41, 41, 41)
                 .addGroup(userRoleMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddNewUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(userRoleMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
         userRoleMainPanelLayout.setVerticalGroup(
@@ -237,10 +266,12 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(userRoleMainPanelLayout.createSequentialGroup()
                         .addGroup(userRoleMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAddNewUnit)
+                            .addComponent(btnAdd)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEditUnit, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                        .addGroup(userRoleMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -264,9 +295,10 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddNewUnit;
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnEditUnit;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -32,6 +32,7 @@ create table Unit(
 	name nvarchar(100)
 )
 go
+
 INSERT INTO Unit(name) VALUES('Kg')
 INSERT INTO Unit(name) VALUES(N'Tạ')
 GO
@@ -236,3 +237,67 @@ ALTER PROCEDURE sp_add_new_unit
 	*	exec sp_update_unit @output output ,2,'aaa'
 	*	Select @output
 	*/
+
+
+	
+	/*
+	*	PRocedure delete unit
+	*	@param 1 : out put param
+	*	@param 2: param id (Integer) input
+	*	@param 3: param newstatus (Integer) input
+
+	*/
+	ALTER PROCEDURE sp_delete_unit
+ (
+	@output int output,
+	@id int
+ )
+ AS
+	BEGIN 
+		IF  EXISTS(SELECT * FROM Unit  WHERE id= @id)
+			BEGIN
+		
+				UPDATE  Unit
+				SET status = IIF(status = 0, 1, 0) 
+				WHERE id = @id
+				SET @output = @@ROWCOUNT
+			END
+		ELSE
+			BEGIN
+				SET @output = 0
+			END
+	END
+	-- Procedure dùng cho nhiều bảng nhưng chưa làm 
+	/*
+	ALTER PROCEDURE sp_delete
+ (
+	@output int output,
+	@id int,
+	@tablename varchar(100)
+ )
+ AS
+	BEGIN 
+		IF  EXISTS(SELECT * FROM Unit  WHERE id= @id)
+			BEGIN
+		
+				UPDATE  Unit
+				SET status = IIF(status = 0, 1, 0) 
+				WHERE id = @id
+				SET @output = @@ROWCOUNT
+			END
+		ELSE
+			BEGIN
+				SET @output = 0
+			END
+	END
+	*/
+
+	/*
+	select * from unit where id = 1
+	 Test PROCEDURE sp_delete_unit
+		declare  @output int 
+		exec sp_delete_unit @output output ,1
+		Select @output
+	*/
+	--	select * from unit 
+	--	ORDER BY  status DESC,name 

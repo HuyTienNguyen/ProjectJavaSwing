@@ -106,20 +106,20 @@ public class CategoryDaoImpl implements ICategoryDAO{
     }
 
     @Override
-    public int delete(Integer key) {
+    public int delete(Category element) {
         Integer countDelete = 0;
-        try {
-            Integer[] param = new Integer[]{key};
-            countDelete = DatabaseHelper.deleteData(SQL_DELETE, param);
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                DatabaseHelper.getInstance().closeDatabaseConnection();
-            } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        try {
+//         
+//           countDelete = DatabaseHelper.deleteData(SQL_DELETE, element.getParam(Consta));
+//        } catch (SQLException ex) {
+//            Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            try {
+//                DatabaseHelper.getInstance().closeDatabaseConnection();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         return countDelete;
     }
     

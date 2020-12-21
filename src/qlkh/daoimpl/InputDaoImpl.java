@@ -103,7 +103,7 @@ public class InputDaoImpl implements IInputDAO {
     }
 
     @Override
-    public int delete(String key) {
+    public int delete(Input element) {
         return 0;
     }
 

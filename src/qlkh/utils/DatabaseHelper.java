@@ -245,5 +245,10 @@ public class DatabaseHelper {
         cst.executeUpdate();
         return cst.getInt(1);
     }
+      public static <E> int deleteDataByCallableStatement(String sql, E... args) throws SQLException {
+        CallableStatement cst = getCallableStatement(sql, args);
+        cst.executeUpdate();
+        return cst.getInt(1);
+    }
 
 }

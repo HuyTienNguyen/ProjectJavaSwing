@@ -24,10 +24,10 @@ import qlkh.utils.DatabaseHelper;
 public class UnitDaoImpl implements IUnitDAO {
 
     private static Connection conn;
-    private static final String SQL_GET_ALL = "SELECT * FROM Unit";
+    private static final String SQL_GET_ALL = "SELECT * from Unit ORDER BY  status DESC,name ";
     private static final String SQL_INSERT_BY_PROC = "{call sp_add_new_unit(?,?)}";
     private static final String SQL_UPDATE_BY_PROC = "{call sp_update_unit(?,?,?)}";
-    private static final String SQL_DELETE = "DELETE FROM Unit WHERE ID = ?";
+    private static final String SQL_DELETE = "{call sp_delete_unit(?,?)}";
     private static final String SQL_SELECT_BY_ID = "SELECT * FROM Unit WHERE ID = ?";
 
     @Override
@@ -39,7 +39,7 @@ public class UnitDaoImpl implements IUnitDAO {
         try {
             ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);
             while (rs.next()) {
-                Unit unit = new Unit(rs.getInt(1), rs.getString(2));
+                Unit unit = new Unit(rs.getInt(1), rs.getString(2),rs.getInt(3));
                 listUnit.add(unit);
             }
         } catch (SQLException ex) {
@@ -64,7 +64,7 @@ public class UnitDaoImpl implements IUnitDAO {
             //goi phuong thuc data tra ve theo kieu result set
             ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_ID, param);
             while (rs.next()) {
-                unit = new Unit(rs.getInt(1), rs.getString(2));
+                unit = new Unit(rs.getInt(1), rs.getString(2),rs.getInt(3));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -115,12 +115,12 @@ public class UnitDaoImpl implements IUnitDAO {
     }
 
     @Override
-    public int delete(Integer key) {
+    public int delete(Unit element) {
         Integer countDelete = 0;
         try {
             // Khởi tạo mảng param kiểu Integer để chạy lệnh sql select from userRole by key Integer
-            Integer[] param = new Integer[]{key};
-            countDelete = DatabaseHelper.deleteData(SQL_DELETE, key);
+           
+            countDelete = DatabaseHelper.deleteDataByCallableStatement(SQL_DELETE, element.getParam(Constants.ACTION_DELETE_BY_PROC));
         } catch (SQLException ex) {
             Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

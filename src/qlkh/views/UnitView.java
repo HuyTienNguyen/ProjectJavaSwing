@@ -5,6 +5,18 @@
  */
 package qlkh.views;
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.Vector;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import qlkh.entities.Unit;
+import qlkh.utils.Constants;
+
 /**
  *
  * @author user
@@ -14,8 +26,122 @@ public class UnitView extends javax.swing.JPanel {
     /**
      * Creates new form UnitView
      */
+    ResourceBundle bundle;
+
     public UnitView() {
+        Locale local = Locale.getDefault();
+        setResourceBundle(local);
         initComponents();
+    }
+
+    
+
+    // Show view with listUnit on Unit Table
+    public void showView(List<Unit> listUnit) {
+        this.setVisible(true);
+        setEnableBtnEdit(false);
+        setEnableBtnDelete(false);
+        loadAllUnit(listUnit);
+
+    }
+
+    // Set ResourceBundle to this view
+    private void setResourceBundle(Locale locale) {
+        //Set Resources Bundle theo local 
+        bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
+
+    }
+
+    // Load list Unit on Unit Table
+    public void loadAllUnit(List<Unit> listUnit) {
+        DefaultTableModel unitModel = new DefaultTableModel();
+        unitModel.setColumnIdentifiers(Constants.HEADER_UNIT_TABLE);
+        int startNumber = 1;
+        for (Unit unit : listUnit) {
+            Vector row = new Vector();
+            row.add(startNumber);
+            row.add(unit);
+               
+            row.add((unit.getStatus()>0)?bundle.getString(Constants.STATUS_SHOW):bundle.getString(Constants.STATUS_HIDE));
+            startNumber++;
+            unitModel.addRow(row);
+        }
+        tblUnit.setModel(unitModel);
+    }
+
+    // Add event to button addNewUnit
+    public void addBtnAddNewUnitActionListener(ActionListener listener) {
+        btnAdd.addActionListener(listener);
+    }
+
+    public void addBtnEditUnitActionListener(ActionListener listener) {
+        btnEdit.addActionListener(listener);
+    }
+
+    public void addBtnClearUnitActionListener(ActionListener listener) {
+        btnClear.addActionListener(listener);
+    }
+
+    public void addBtnDeleteUnitActionListener(ActionListener listener) {
+        btnDelete.addActionListener(listener);
+    }
+
+    public void addTableUnitMouseListener(MouseListener listener) {
+        tblUnit.addMouseListener(listener);
+    }
+
+    // Get text from txtNewUnitField
+    public String getNewUnitText() {
+        return txtNewUnit.getText();
+    }
+
+    public void setNewUnitText(String text) {
+        txtNewUnit.setText(text);
+    }
+
+    public void showMessage(String message, int color) {
+
+        messageUnit.setText(bundle.getString(message));
+        messageUnit.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
+    }
+
+    public void focusTxtUnitField() {
+        txtNewUnit.requestFocus();
+    }
+
+    public Unit getEditUnit() {
+        int row = tblUnit.getSelectedRow();
+        if (row < 0) {
+            return null;
+        }
+        return (Unit) tblUnit.getModel().getValueAt(row, 1);
+    }
+
+    public void setEnableBtnAddNew(boolean value) {
+        btnAdd.setEnabled(value);
+    }
+
+    public void setEnableBtnEdit(boolean value) {
+        btnEdit.setEnabled(value);
+    }
+
+    public void setEnableBtnDelete(boolean value) {
+        btnDelete.setEnabled(value);
+    }
+
+    public boolean checkUnitName(String unitName) {
+        return (unitName != null && unitName.equals("") == false);
+    }
+
+    public int showDialogMesage(JFrame frame, String message, String title) {
+        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void clearView() {
+        setNewUnitText("");
+        setEnableBtnAddNew(true);
+        setEnableBtnEdit(false);
+        setEnableBtnDelete(false);
     }
 
     /**
@@ -32,10 +158,11 @@ public class UnitView extends javax.swing.JPanel {
         headerUnitPanel = new javax.swing.JPanel();
         headerUnitTitle = new javax.swing.JLabel();
         txtNewUnit = new javax.swing.JTextField();
-        btnAddNewUnit = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         messageUnit = new javax.swing.JLabel();
-        btnEditUnit = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(tblUnit);
 
@@ -64,21 +191,21 @@ public class UnitView extends javax.swing.JPanel {
 
         txtNewUnit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnAddNewUnit.setBackground(new java.awt.Color(0, 255, 204));
-        btnAddNewUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/add_text_32px.png"))); // NOI18N
-        btnAddNewUnit.setText(bundle.getString("btnAddNew"));
-        btnAddNewUnit.setActionCommand("Add Unit");
-        btnAddNewUnit.setFocusPainted(false);
+        btnAdd.setBackground(new java.awt.Color(0, 255, 204));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/add_text_32px.png"))); // NOI18N
+        btnAdd.setText(bundle.getString("btnAddNew"));
+        btnAdd.setActionCommand("Add Unit");
+        btnAdd.setFocusPainted(false);
 
         messageUnit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        btnEditUnit.setBackground(new java.awt.Color(204, 255, 204));
-        btnEditUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/edit_40.png"))); // NOI18N
-        btnEditUnit.setText(bundle.getString("btnEdit")
+        btnEdit.setBackground(new java.awt.Color(204, 255, 204));
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/edit_40.png"))); // NOI18N
+        btnEdit.setText(bundle.getString("btnEdit")
         );
-        btnEditUnit.setFocusPainted(false);
-        btnEditUnit.setMaximumSize(new java.awt.Dimension(134, 40));
-        btnEditUnit.setMinimumSize(new java.awt.Dimension(134, 40));
+        btnEdit.setFocusPainted(false);
+        btnEdit.setMaximumSize(new java.awt.Dimension(134, 40));
+        btnEdit.setMinimumSize(new java.awt.Dimension(134, 40));
 
         btnClear.setBackground(new java.awt.Color(51, 153, 255));
         btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/clear_40.png"))); // NOI18N
@@ -87,6 +214,14 @@ public class UnitView extends javax.swing.JPanel {
         btnClear.setFocusPainted(false);
         btnClear.setMaximumSize(new java.awt.Dimension(134, 40));
         btnClear.setMinimumSize(new java.awt.Dimension(134, 40));
+
+        btnDelete.setBackground(new java.awt.Color(51, 153, 255));
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/delete_50.png"))); // NOI18N
+        btnDelete.setText(bundle.getString("btnDelete")
+        );
+        btnDelete.setFocusPainted(false);
+        btnDelete.setMaximumSize(new java.awt.Dimension(134, 40));
+        btnDelete.setMinimumSize(new java.awt.Dimension(134, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -104,10 +239,12 @@ public class UnitView extends javax.swing.JPanel {
                         .addComponent(messageUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddNewUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -123,10 +260,12 @@ public class UnitView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAddNewUnit)
+                            .addComponent(btnAdd)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEditUnit, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -134,9 +273,10 @@ public class UnitView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddNewUnit;
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnEditUnit;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JPanel headerUnitPanel;
     private javax.swing.JLabel headerUnitTitle;
     private javax.swing.JScrollPane jScrollPane1;

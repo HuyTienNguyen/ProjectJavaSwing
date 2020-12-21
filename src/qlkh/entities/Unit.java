@@ -16,6 +16,7 @@ public class Unit {
 
     private int id;
     private String name;
+    private int status;
 
     public Unit() {
     }
@@ -27,6 +28,12 @@ public class Unit {
     public Unit(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Unit(int id, String name, int status) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
     }
 
     public int getId() {
@@ -44,6 +51,16 @@ public class Unit {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    
 
     /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
@@ -81,6 +98,13 @@ public class Unit {
                     Types.INTEGER,
                     this.getId(),
                     this.getName()
+                };
+                break;
+                 case Constants.ACTION_DELETE_BY_PROC:
+                param = new Object[]{
+                    Types.INTEGER,
+                    this.getId()
+                  
                 };
                 break;
         }

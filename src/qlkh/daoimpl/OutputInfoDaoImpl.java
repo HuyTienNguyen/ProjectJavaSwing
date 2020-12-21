@@ -129,7 +129,7 @@ public class OutputInfoDaoImpl implements IOutputInfoDAO {
         return countUpdate;
     }
 
-    @Override
+   
     public int delete(String key) {
         //Khởi tạo biến đếm số bản ghi bi xoa khoi csdl
         Integer countDelete = 0;
@@ -148,6 +148,11 @@ public class OutputInfoDaoImpl implements IOutputInfoDAO {
             }
         }
         return countDelete;
+    }
+
+    @Override
+    public int delete(OutputInfo element) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

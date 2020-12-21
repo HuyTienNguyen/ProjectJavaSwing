@@ -117,7 +117,7 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
         return countUpdate;
     }
 
-    @Override
+   
     public int delete(Integer key) {
         //Khởi tạo biến đếm số bản ghi bi xoa khoi csdl
         Integer countDelete = 0;
@@ -136,6 +136,11 @@ public class UserRoleDaoImpl implements IUserRoleDAO {
             }
         }
         return countDelete;
+    }
+
+    @Override
+    public int delete(UserRole element) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

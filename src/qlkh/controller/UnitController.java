@@ -31,13 +31,13 @@ public class UnitController {
     Unit editUnit;
 
     public UnitController() {
-        // Goi view sau
-        // frame = new GiangTestFrame();
-        //   unitDao = new UnitDaoImpl();
+        frame = new GiangTestFrame();
+        unitDao = new UnitDaoImpl();
         frame.addBtnAddNewUnitActionListener(new BtnAddNewActionListener());
         frame.addBtnEditUnitActionListener(new BtnEditActionListener());
         frame.addBtnClearUnitActionListener(new BtnClearActionListener());
         frame.addTableUnitMouseListener(new TableUnitMouseListener());
+        frame.addBtnDeleteUnitActionListener(new BtnDeleteActionListener());
 
     }
 
@@ -113,9 +113,8 @@ public class UnitController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            frame.setNewUnitText("");
-            frame.setEnableBtnAddNew(true);
-            frame.setEnableBtnEdit(false);
+            frame.clearView();
+           
 
         }
 
@@ -125,9 +124,23 @@ public class UnitController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
             String unitName = frame.getNewUnitText();
-            int n = JOptionPane.showConfirmDialog(frame, "aa", "Delete", 1, JOptionPane.ERROR_MESSAGE);
-            System.out.println(n);
+            int choose = frame.showDialogMesage(frame, Constants.MSG_DIALOG_DELETE, Constants.MSG_DIALOG_TITLE);
+            if (choose == JOptionPane.YES_OPTION) {
+                int result = unitDao.delete(editUnit);
+                if (result > 0) {
+                    frame.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
+                    frame.clearView();
+                      List<Unit>listUnit = new ArrayList<>();
+                  listUnit = unitDao.getAllUnits();
+                    frame.showView(listUnit);
+                }else{
+                
+                    frame.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
+                }
+                    
+            }
 
         }
 
@@ -137,12 +150,12 @@ public class UnitController {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            editUnit = frame.getEditUnitName();
+            editUnit = frame.getEditUnit();
             if (frame.checkUnitName(editUnit.getName())) {
                 frame.setNewUnitText(editUnit.getName());
                 frame.setEnableBtnAddNew(false);
                 frame.setEnableBtnEdit(true);
-
+                frame.setEnableBtnDelete(true);
             }
         }
 
