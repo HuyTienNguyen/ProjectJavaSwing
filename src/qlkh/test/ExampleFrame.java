@@ -13,7 +13,7 @@ import request.LoginRequest;
  * https://github.com/disapamok
  * https://twitter.com/disapamok
  */
-public class ExampleFrame extends javax.swing.JFrame {
+public class ExampleFrame extends javax.swing.JFrame implements IView {
 
     public ExampleFrame() {
         initComponents();
@@ -89,16 +89,27 @@ public class ExampleFrame extends javax.swing.JFrame {
         return listObject;
     }
 
+    @Override
+    public List<Object> getListElementValidate() {
+        List<Object> listObject = new ArrayList<>();
+        txtEmail.setName("txtEmail");
+        txtPhone.setName("txtPhone");
+        listObject.add(txtEmail);
+        listObject.add(txtPhone);
+        listObject.add(jTextField3);
+        listObject.add(jTextField4);
+        return listObject;
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {   
+        try {
             // Khởi tạo FormRequest
             LoginRequest loginRequest = new LoginRequest();
             // Khởi tạo List Rules
-             Map<String, String> msgs = loginRequest.getRules();   
-             //Khởi tạo List elêmnent cần validate
-            List<Object> listObject = getListElement();    
+            Map<String, String> msgs = loginRequest.getRules();
+            //Khởi tạo List elêmnent cần validate
+            List<Object> listObject = getListElement();
             // Set Error Message
-            Validator.setErrorMessages(loginRequest.getMessages());       
+            Validator.setErrorMessages(loginRequest.getMessages());
             //List Item (Rules,ObjectName,)
             List<ValidatorItem> vals = Validator.setRules(listObject, msgs);
             // Khởi tạo đối tượng validator
@@ -118,13 +129,15 @@ public class ExampleFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void showErrors( List<String> list){
-    
+    public void showErrors(List<String> list) {
+
     }
-    public Map<String,String> getErrors(){
+
+    public Map<String, String> getErrors() {
         // txtEmail  error adâf
         return null;
     }
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -145,4 +158,5 @@ public class ExampleFrame extends javax.swing.JFrame {
     private void save() {
 
     }
+
 }
