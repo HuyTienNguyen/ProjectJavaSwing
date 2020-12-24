@@ -38,7 +38,6 @@ public class Validator {
                 int ruleVal = 0;
 
                 switch (ruleStr) {
-
                     case "required":
                         ruleError = isNull(value);
                         break;
@@ -229,23 +228,30 @@ public class Validator {
 
     private Map<String, String> getDefaultMessages() {
         Map<String, String> map = new HashMap();
-        map.put(fieldName + ".required", "The " + fieldName + " is required.");
-        map.put(fieldName + ".min", "Minimum length for " + fieldName + " is " + ruleValue + ".");
-        map.put(fieldName + ".max", "Maximum length for " + fieldName + " is " + ruleValue + ".");
-        map.put(fieldName + ".number", "Text must be a valid number for the " + fieldName + " field.");
+        map.put("required", "The " + fieldName + " is required.");
+        map.put("min", "Minimum length for " + fieldName + " is " + ruleValue + ".");
+        map.put("max", "Maximum length for " + fieldName + " is " + ruleValue + ".");
+        map.put("number", "Text must be a valid number for the " + fieldName + " field.");
         return map;
     }
 
     private String getMessage(String rule, String field, int value) throws Exception {
-
+        // Get List Responses if have message is declare in FormRequese
         Map<String, String> msgs = getErrorMessages().isEmpty() ? getDefaultMessages() : getErrorMessages();
+        // Get List default message
         Map<String, String> defaultMessage = getDefaultMessages();
-        if (msgs.get(field + "." + rule) == null || msgs.get(field + "." + rule).equals("")) {
-            if (defaultMessage.get(field + "." + rule) == null || defaultMessage.get(field + "." + rule).equals("")) {
-                throw new Exception("No defined message for validation rule : " + rule + ".");
-            }
+        // Get errResponses mesage
+        String customErrorResponse = msgs.get(field + "." + rule);
+        String defaultErrorResponse = defaultMessage.get(rule);
+        String errResponse = "";
+        // Assign value to error response
+        errResponse = (isNull(customErrorResponse)==false ? customErrorResponse : defaultErrorResponse);
+        if (isNull(errResponse)) {
+            throw new Exception("No defined message for validation rule : " + rule + ".");
         }
-        return replaceShortcodes(msgs.get(field + "." + rule), field, value);
+
+        // Return  error Responses with replacing either not replacing name field
+        return replaceShortcodes(errResponse, field, value);
     }
 
     private String replaceShortcodes(String pureMsg, String field, int value) {

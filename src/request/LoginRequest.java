@@ -27,7 +27,7 @@ public class LoginRequest extends GuiRequest {
         Map<String, String> innerMap = new HashMap<>();
         innerMap.put("txtEmail.required", "Mail is required");
         innerMap.put("txtPhone.required", "Phone is required");
-        innerMap.put("txtPhone.number", "Phone is number");
+       // innerMap.put("txtPhone.number", "Phone is number");
         innerMap.put("txtPhone.min", "Please add min value");
         return innerMap;
 
