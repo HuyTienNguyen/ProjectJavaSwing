@@ -5,10 +5,12 @@
  */
 package qlkh.test;
 
+import java.util.List;
+
 /**
  *
  * @author GIANG
  */
 public interface IView {
-    
+    List<Object> getListElementValidate();
 }
