@@ -17,6 +17,8 @@ import qlkh.entities.ValidatorItem;
 public class Validator {
 
     private Border defaultBorder = new JTextField().getBorder();
+    private Border defaultBorder1 = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0);
+
     private Object ErrorComponent;
     private List<String> errors = new ArrayList();
     private int MIN = 1, MAX = 2;
@@ -51,6 +53,10 @@ public class Validator {
                     case "max":
                         int max = ruleVal = getRuleValue(rule);
                         ruleError = length(value, max, MAX);
+                        break;
+                    case "regex":
+                        String regexCode = getRegexValue(rule);
+                        ruleError = isNotRegex(value, regexCode);
                         break;
                     default:
                         throw new Exception("Validation rule : " + rule + " is not supported yet.");
@@ -89,8 +95,8 @@ public class Validator {
         return defaultBorder;
     }
 
-    private static boolean isTextComponent(Object component) {
-        return component.getClass() == JTextField.class | component.getClass() == JTextArea.class;
+    private static boolean isTextField(Object component) {
+        return component.getClass() == JTextField.class;
     }
 
     private static boolean isCombo(Object component) {
@@ -99,6 +105,10 @@ public class Validator {
 
     private static boolean isPassField(Object component) {
         return component.getClass() == JPasswordField.class;
+    }
+
+    private static boolean isTextArea(Object component) {
+        return component.getClass() == JTextArea.class;
     }
 
     private boolean isNull(String value) {
@@ -128,6 +138,14 @@ public class Validator {
         }
     }
 
+    private boolean isNotRegex(String value, String regexCode) {
+        if (value.matches(regexCode)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public boolean isFails() {
         return fails;
     }
@@ -148,6 +166,10 @@ public class Validator {
         return (JPasswordField) component;
     }
 
+    private static JTextArea getTextAreaField(Object component) {
+        return (JTextArea) component;
+    }
+
     private String getRule(String rule) {
         return (rule.contains(":") ? rule.split(":")[0] : rule);
     }
@@ -160,9 +182,17 @@ public class Validator {
         }
     }
 
+    private String getRegexValue(String rule) throws Exception {
+        if (isntNumber(rule) == true && rule.contains(":") == true) {
+            return rule.split(":")[1];
+        } else {
+            throw new Exception("Validator rule '" + rule + "' required a correct integer value for the validation. Ex: " + rule + ":5.");
+        }
+    }
+
     private void setBorder(Object component, boolean isError) {
         if (ErrorComponent != component) {
-            if (isTextComponent(component)) {
+            if (isTextField(component)) {
                 getTextField(component).setBorder((isError) ? getErrorBorder() : getDefaultBorder());
             } else if (isCombo(component)) {
                 getCombo(component).setBorder((isError) ? getErrorBorder() : getDefaultBorder());
@@ -177,12 +207,14 @@ public class Validator {
 
     private String getValue(Object component) throws Exception {
         String value = null;
-        if (isTextComponent(component)) {
+        if (isTextField(component)) {
             value = getTextField(component).getText();
         } else if (isPassField(component)) {
             value = new String(getPwdField(component).getPassword());
         } else if (isCombo(component)) {
             value = getCombo(component).getSelectedItem().toString();
+        } else if (isTextArea(component)) {
+            value = getTextAreaField(component).getText();
         } else {
             throw new Exception("This component couldn't be validated.");
         }
@@ -202,6 +234,7 @@ public class Validator {
         for (Map.Entry<String, String> entrySet : mapRules.entrySet()) {
             String key = entrySet.getKey();
             String value = entrySet.getValue();
+            // Create  a validatorItem if the component has declared inside its request
             for (Object component : components) {
                 if (key.equals(getName(component))) {
                     listItem.add(new ValidatorItem(value, component, getName(component)));
@@ -214,12 +247,14 @@ public class Validator {
 
     private static String getName(Object component) throws Exception {
         String value = null;
-        if (isTextComponent(component)) {
+        if (isTextField(component)) {
             value = getTextField(component).getName();
         } else if (isPassField(component)) {
             value = new String(getPwdField(component).getName());
         } else if (isCombo(component)) {
             value = getCombo(component).getName();
+        } else if (isTextArea(component)) {
+            value = getTextAreaField(component).getName();
         } else {
             throw new Exception("This component couldn't be validated.");
         }
@@ -232,6 +267,8 @@ public class Validator {
         map.put("min", "Minimum length for " + fieldName + " is " + ruleValue + ".");
         map.put("max", "Maximum length for " + fieldName + " is " + ruleValue + ".");
         map.put("number", "Text must be a valid number for the " + fieldName + " field.");
+        map.put("regex", "Text must be a valid pattern  for the " + fieldName + " field.");
+
         return map;
     }
 
@@ -245,7 +282,7 @@ public class Validator {
         String defaultErrorResponse = defaultMessage.get(rule);
         String errResponse = "";
         // Assign value to error response
-        errResponse = (isNull(customErrorResponse)==false ? customErrorResponse : defaultErrorResponse);
+        errResponse = (isNull(customErrorResponse) == false ? customErrorResponse : defaultErrorResponse);
         if (isNull(errResponse)) {
             throw new Exception("No defined message for validation rule : " + rule + ".");
         }

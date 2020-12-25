@@ -19,6 +19,8 @@ public class LoginRequest extends GuiRequest {
         Map<String, String> myMap = new HashMap();
         myMap.put("txtEmail", "required");
         myMap.put("txtPhone", "required|number|min:5");
+        myMap.put("textArea", "regex:^[0-9]{4,}$");
+
         return myMap;
     }
 
@@ -27,10 +29,12 @@ public class LoginRequest extends GuiRequest {
         Map<String, String> innerMap = new HashMap<>();
         innerMap.put("txtEmail.required", "Mail is required");
         innerMap.put("txtPhone.required", "Phone is required");
-       // innerMap.put("txtPhone.number", "Phone is number");
+        // innerMap.put("txtPhone.number", "Phone is number");
         innerMap.put("txtPhone.min", "Please add min value");
+        innerMap.put("textArea.regex", "Please add at least 5 number");
+
         return innerMap;
 
     }
-    
+
 }
