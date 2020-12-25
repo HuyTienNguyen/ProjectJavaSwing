@@ -12,20 +12,18 @@ import java.util.Map;
  *
  * @author GIANG
  */
-public abstract class GuiRequest {
-    public  abstract  Map<String, String> rules();
+public abstract class GuiRequest {                
+    protected  abstract  Map<String, String> setRules();
 
-    public abstract Map<String, String> mesages();
+    protected abstract Map<String, String> setMesages();
 
     public Map<String, String> getRules() {
-        Map<String, String> myList = rules();
-        // myList = rules();
+        Map<String, String> myList = setRules();  
         return myList;
     }
 
     public Map<String, String> getMessages() {
-        Map<String, String> mess = mesages();
-        //  mess = mesages();
+        Map<String, String> mess = setMesages();    
         return mess;
     }
 

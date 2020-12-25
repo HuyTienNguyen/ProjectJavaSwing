@@ -15,7 +15,7 @@ import java.util.Map;
 public class LoginRequest extends GuiRequest {
 
     @Override
-    public Map<String, String> rules() {
+    public Map<String, String> setRules() {
         Map<String, String> myMap = new HashMap();
         myMap.put("txtEmail", "required");
         myMap.put("txtPhone", "required|number|min:5");
@@ -25,7 +25,7 @@ public class LoginRequest extends GuiRequest {
     }
 
     @Override
-    public Map<String, String> mesages() {
+    public Map<String, String> setMesages() {
         Map<String, String> innerMap = new HashMap<>();
         innerMap.put("txtEmail.required", "Mail is required");
         innerMap.put("txtPhone.required", "Phone is required");
