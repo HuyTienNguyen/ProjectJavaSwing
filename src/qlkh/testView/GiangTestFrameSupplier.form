@@ -181,7 +181,7 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                                   <Component id="errName" alignment="0" pref="223" max="32767" attributes="0"/>
-                                                  <Component id="txtName" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="name" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                               <Component id="errAddress" alignment="0" min="-2" pref="223" max="-2" attributes="0"/>
                                           </Group>
@@ -189,12 +189,12 @@
                                           <Component id="lblInfo" min="-2" pref="74" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="txtPhone" min="-2" pref="223" max="-2" attributes="0"/>
+                                          <Component id="phone" min="-2" pref="223" max="-2" attributes="0"/>
                                           <Component id="errPhone" alignment="1" min="-2" pref="223" max="-2" attributes="0"/>
-                                          <Component id="txtEmail" alignment="1" min="-2" pref="223" max="-2" attributes="0"/>
+                                          <Component id="email" alignment="1" min="-2" pref="223" max="-2" attributes="0"/>
                                           <Component id="errMail" alignment="1" min="-2" pref="223" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="txtAddress" min="-2" pref="223" max="-2" attributes="0"/>
+                                      <Component id="address" min="-2" pref="223" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
@@ -217,7 +217,7 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jScrollPane2" min="-2" pref="222" max="-2" attributes="0"/>
-                                              <Component id="txtCharacter" min="-2" pref="220" max="-2" attributes="0"/>
+                                              <Component id="character" min="-2" pref="220" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace pref="18" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -249,7 +249,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txtName" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                              <Component id="name" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                               <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="lblInfo" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -261,19 +261,19 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txtAddress" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                              <Component id="address" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                               <Component id="lblAddress" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="errAddress" min="-2" pref="17" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txtPhone" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                              <Component id="phone" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                               <Component id="lblPhone" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="errPhone" min="-2" pref="17" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -288,7 +288,7 @@
                                   <Component id="jScrollPane2" min="-2" pref="124" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtCharacter" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="character" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                       <Component id="lblCharacterCode" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnClear" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                                   </Group>
@@ -296,12 +296,12 @@
                                   <Component id="errCharacter" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtEmail" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="email" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                       <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="errMail" min="-2" pref="17" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -309,7 +309,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="txtName">
+                <Component class="javax.swing.JTextField" name="name">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -430,7 +430,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtPhone">
+                <Component class="javax.swing.JTextField" name="phone">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -447,7 +447,7 @@
                     <Property name="text" type="java.lang.String" value="1"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtAddress">
+                <Component class="javax.swing.JTextField" name="address">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -478,7 +478,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtEmail">
+                <Component class="javax.swing.JTextField" name="email">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -509,7 +509,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="areaInfo">
+                    <Component class="javax.swing.JTextArea" name="info">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="5"/>
@@ -517,7 +517,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JTextField" name="txtCharacter">
+                <Component class="javax.swing.JTextField" name="character">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">

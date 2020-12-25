@@ -104,7 +104,7 @@ public class ExampleFrame extends javax.swing.JFrame implements IView {
     }
 
     @Override
-    public List<Object> getListElementValidate() {
+    public List<Object> getListElementToValidate() {
         List<Object> listObject = new ArrayList<>();
         txtEmail.setName("txtEmail");
         txtPhone.setName("txtPhone");
@@ -146,6 +146,7 @@ public class ExampleFrame extends javax.swing.JFrame implements IView {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+    @Override
     public void showErrors(List<String> list) {
 
     }

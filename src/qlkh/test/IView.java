@@ -12,5 +12,6 @@ import java.util.List;
  * @author GIANG
  */
 public interface IView {
-    List<Object> getListElementValidate();
+    List<Object> getListElementToValidate();
+    void showErrors(List<String> listErrors);
 }

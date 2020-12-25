@@ -7,6 +7,7 @@ package qlkh.testView;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -20,13 +21,14 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import qlkh.entities.Unit;
+import qlkh.test.IView;
 import qlkh.utils.Constants;
 
 /**
  *
  * @author GIANG
  */
-public class GiangTestFrameSupplier extends javax.swing.JFrame {
+public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView {
 
     /**
      * Creates new form GiangTestFrame
@@ -40,55 +42,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
 
     }
 
-    public String getAreaInfo() {
-        return areaInfo.getText();
-    }
-
-    public void setErrAddress(String err) {
-        errAddress.setText(err);
-    }
-
-    public void setErrCharacter(String err) {
-        errCharacter.setText(err);
-    }
-
-    public void setErrMail(String err) {
-        errMail.setText(err);
-    }
-
-    public void setErrName(String err) {
-        errName.setText(err);
-    }
-
-    public void setErrPhone(String err) {
-        errPhone.setText(err);
-    }
-
-    public void setMessageSuplier(String err) {
-        messageSuplier.setText(err);
-    }
-
-    public String getTxtAddress() {
-        return txtAddress.getText();
-    }
-
-    public String getTxtCharacter() {
-        return txtCharacter.getText();
-    }
-
-    public String getTxtEmail() {
-        return txtEmail.getText();
-    }
-
-    public String getTxtName() {
-        return txtName.getText();
-    }
-
-    public String getTxtPhone() {
-        return txtPhone.getText();
-    }
-
-    // Show view with listUnit on Unit Table
+    // Show view with list Suplier on Suplier Table
     public void showView() {
         this.setVisible(true);
         setEnableBtnEdit(true);
@@ -102,6 +56,27 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
         //Set Resources Bundle theo local 
         bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
 
+    }
+
+    @Override
+    public List<Object> getListElementToValidate() {
+        List<Object> listObject = new ArrayList<>();
+        name.setName("name");
+        address.setName("address");
+        phone.setName("phone");
+        email.setName("email");     
+        character.setName("character");
+        listObject.add(name);
+        listObject.add(address);
+        listObject.add(phone);
+        listObject.add(email);
+        listObject.add(info);
+        listObject.add(character);
+        return listObject;
+    }
+
+    @Override
+    public void showErrors(List<String> listErrors) {
     }
 
     // Load list Unit on Unit Table
@@ -150,7 +125,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
     }
 
     public void focusTxtUnitField() {
-        txtName.requestFocus();
+        name.requestFocus();
     }
 
     public Unit getEditUnit() {
@@ -205,7 +180,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
         tblSuplier = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        txtName = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
@@ -213,18 +188,18 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
         errName = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         lblAddress = new javax.swing.JLabel();
-        txtPhone = new javax.swing.JTextField();
+        phone = new javax.swing.JTextField();
         errAddress = new javax.swing.JLabel();
-        txtAddress = new javax.swing.JTextField();
+        address = new javax.swing.JTextField();
         lblPhone = new javax.swing.JLabel();
         errPhone = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         errMail = new javax.swing.JLabel();
         lblInfo = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        areaInfo = new javax.swing.JTextArea();
-        txtCharacter = new javax.swing.JTextField();
+        info = new javax.swing.JTextArea();
+        character = new javax.swing.JTextField();
         lblCharacterCode = new javax.swing.JLabel();
         errCharacter = new javax.swing.JLabel();
         messageSuplier = new javax.swing.JLabel();
@@ -271,7 +246,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
         );
 
-        txtName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnAdd.setBackground(new java.awt.Color(0, 255, 204));
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -321,12 +296,12 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
         lblAddress.setText(bundle.getString("address")
         );
 
-        txtPhone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        phone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         errAddress.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         errAddress.setText("1");
 
-        txtAddress.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        address.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblPhone.setText(bundle.getString("phone"));
 
@@ -335,18 +310,18 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
 
         lblEmail.setText(bundle.getString("email"));
 
-        txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        email.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         errMail.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         errMail.setText("1");
 
         lblInfo.setText(bundle.getString("info"));
 
-        areaInfo.setColumns(20);
-        areaInfo.setRows(5);
-        jScrollPane2.setViewportView(areaInfo);
+        info.setColumns(20);
+        info.setRows(5);
+        jScrollPane2.setViewportView(info);
 
-        txtCharacter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        character.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblCharacterCode.setText(bundle.getString("characterSuplier"));
 
@@ -378,16 +353,16 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(errName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                                        .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addComponent(name, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addComponent(errAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(errPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(errMail, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblCharacterCode, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -404,7 +379,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCharacter, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(character, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -427,7 +402,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblName)
                                     .addComponent(lblInfo))
                                 .addGap(13, 13, 13)
@@ -436,17 +411,17 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblAddress))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(errAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblPhone))
                                 .addGap(18, 18, 18)
                                 .addComponent(errPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17))
+                                .addGap(12, 12, 12))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -457,18 +432,18 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCharacter, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(character, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCharacterCode)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(errCharacter)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEmail))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(errMail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))))
+                        .addGap(32, 32, 32))))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -527,11 +502,13 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea areaInfo;
+    private javax.swing.JTextField address;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JTextField character;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel errAddress;
     private javax.swing.JLabel errCharacter;
     private javax.swing.JLabel errMail;
@@ -539,6 +516,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
     private javax.swing.JLabel errPhone;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JPanel headerPanel;
+    private javax.swing.JTextArea info;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -551,12 +529,10 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel messageSuplier;
+    private javax.swing.JTextField name;
+    private javax.swing.JTextField phone;
     private javax.swing.JTable tblSuplier;
-    private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtCharacter;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPhone;
     private javax.swing.JPanel userRoleMainPanel;
     // End of variables declaration//GEN-END:variables
+
 }
