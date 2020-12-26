@@ -12,14 +12,14 @@ import java.awt.Color;
  * @author GIANG
  */
 public class Constants {
-
+    
     // Hằng số cho Color message thông báo
     public static final int FLAG_ERROR = 1;
     public static final int FLAG_SUCCESS = 2;
     // Hằng số màu thông báo
     public static final Color COLOR_SUCCESS = new Color(3, 252, 7);
     public static final Color COLOR_ERROR = new Color(237, 56, 28);
-
+    
     // Hằng số cho các trường hợp INSERT, UPDATE, DELETE
     public static final int ACTION_INSERT = 1;
     public static final int ACTION_UPDATE = 2;
@@ -58,5 +58,35 @@ public class Constants {
 
     /*
      *   END Unit Table
+     */
+    
+    /*
+     *   SignIn view
+     */
+    
+    public static final String SIGN_IN_ERR_PASS_FIELD = "errPassword";
+    public static final String MSG_ERROR_USERNAME_CANT_BE_EMPTY_SIGNIN = "MSG_ERROR_USERNAME_CANT_BE_EMPTY_SIGNIN";
+    public static final String MSG_ERROR_PASSWORD_CANT_BE_EMPTY_SIGNIN = "MSG_ERROR_PASSWORD_CANT_BE_EMPTY_SIGNIN";
+    public static final String MSG_FAIL_CONNECT_SIGNIN = "MSG_FAIL_CONNECT_SIGNIN";
+    public static final String MSG_EMPTY = "MSG_EMPTY";
+    /*
+     *   SignIn view
+     */
+    /*
+     *   SignUp view
+     */
+    public static final String SIGN_UP_ERR_FULL_NAME = "SIGN_UP_ERR_FULL_NAME";
+    public static final String SIGN_UP_ERR_EMAIL = "SIGN_UP_ERR_EMAIL";
+    public static final String SIGN_UP_ERR_USERNAME = "SIGN_UP_ERR_USERNAME";
+    public static final String SIGN_UP_ERR_PASSWORD = "SIGN_UP_ERR_PASSWORD";
+    public static final String SIGN_UP_ERR_RE_PASSWORD = "SIGN_UP_ERR_RE_PASSWORD";
+    
+    public static final String SIGN_UP_ERR_FULL_NAME_EMPTY = "SIGN_UP_ERR_FULL_NAME";
+    public static final String SIGN_UP_ERR_EMAIL_EMPTY = "SIGN_UP_ERR_EMAIL";
+    public static final String SIGN_UP_ERR_USERNAME_EMPTY = "SIGN_UP_ERR_USERNAME";
+    public static final String SIGN_UP_ERR_PASSWORD_EMPTY = "SIGN_UP_ERR_PASSWORD";
+    public static final String SIGN_UP_ERR_RE_PASSWORD_EMPTY = "SIGN_UP_ERR_RE_PASSWORD";
+    /*
+     *   SignUp view
      */
 }

@@ -44,12 +44,8 @@ public class HuyTest {
 //                studentController.showStudentView();
                 // ILogin controller = new LoginController();                     
                 // controller.showLoginView();  
-                GiangTestFrame supli = new GiangTestFrame();
-                List<Unit> listUnit = new ArrayList<>();
-                IUnitDAO unitDao = new UnitDaoImpl();
-                listUnit = unitDao.getAllUnits();
-                supli.showView(listUnit);
-                
+                UnitController unit =  new UnitController();
+                unit.showView();
 
             }
 
