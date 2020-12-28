@@ -33,6 +33,7 @@ public class GiangTestFrame extends javax.swing.JFrame {
     public GiangTestFrame() {
         Locale local = Locale.getDefault();
         setResourceBundle(local);
+      
         initComponents();
 
     }
@@ -101,7 +102,7 @@ public class GiangTestFrame extends javax.swing.JFrame {
     }
 
     public void showMessage(String message, int color) {
-
+     //  MSG_DELETE_SUCCESS 
         messageUnit.setText(bundle.getString(message));
         messageUnit.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }

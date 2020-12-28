@@ -20,6 +20,7 @@ public class Users {
     private int idRole;
     private String email;
     private int verifyCode;
+    private String rePassword;
 
     public Users() {
     }
@@ -29,11 +30,12 @@ public class Users {
         this.password = password;
     }
 
-    public Users(String name, String userName, String password, String email) {
+    public Users(String name, String userName, String password, String email, String rePassword) {
         this.name = name;
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.rePassword = rePassword;
     }
     
     
@@ -77,7 +79,7 @@ public class Users {
         this.email = email;
         this.verifyCode = verifyCode;
     }
-
+    
     public int getId() {
         return id;
     }
@@ -133,6 +135,15 @@ public class Users {
     public void setVerifyCode(int verifyCode) {
         this.verifyCode = verifyCode;
     }
+
+    public String getRePassword() {
+        return rePassword;
+    }
+
+    public void setRePassword(String rePassword) {
+        this.rePassword = rePassword;
+    }
+    
 
     /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE

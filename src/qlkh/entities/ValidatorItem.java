@@ -18,9 +18,15 @@ public class ValidatorItem {
         this.name = arg_name;
     }
 
+
     public ValidatorItem() {
         
     }   
+
+    public ValidatorItem(Object component) {
+        this.component = component;
+    }
+
     
     public String getRule() {
         return this.rule;

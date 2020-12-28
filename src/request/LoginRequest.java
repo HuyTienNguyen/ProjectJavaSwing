@@ -20,7 +20,6 @@ public class LoginRequest extends GuiRequest {
         myMap.put("txtEmail", "required");
         myMap.put("txtPhone", "required|number|min:5");
         myMap.put("textArea", "regex:^[0-9]{4,}$");
-
         return myMap;
     }
 

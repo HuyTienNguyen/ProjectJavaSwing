@@ -84,7 +84,11 @@
               <Component id="jTextField4" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+=======
+              <EmptySpace max="32767" attributes="0"/>
+>>>>>>> 69e2d214ec2a5a2babc2ed47943574903baf9fa2
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>

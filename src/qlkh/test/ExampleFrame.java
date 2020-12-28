@@ -123,6 +123,20 @@ public class ExampleFrame extends javax.swing.JFrame implements IView {
         return mapObject;
     }
 
+    private void showErrors(Map<String, String> mapErrors,List<Object> listObject) {
+        for (Map.Entry<String, String> entrySet : mapErrors.entrySet()) {
+            String key = entrySet.getKey();
+            String value = entrySet.getValue();
+            for (Object listObject1 : listObject) {
+                if(key.equals(listObject1.getClass().getName())){
+                    //@err("name")
+                    // errName.setText(value)
+                }
+            }
+            
+        }
+    }
+
     @Override
     public List<Object> getListElementToValidate() {
         List<Object> mapObject = new ArrayList<>();
@@ -135,6 +149,13 @@ public class ExampleFrame extends javax.swing.JFrame implements IView {
         return mapObject;
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       // login click
+        //  if boolean == true 
+        // guiwr du lieuj len server
+        //  boolean check = server trar vee
+        // true dang nhap thanh cong 
+        // false sai
+        
         try {
             // Khởi tạo FormRequest
             LoginRequest loginRequest = new LoginRequest();
