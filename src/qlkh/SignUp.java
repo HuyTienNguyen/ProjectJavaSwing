@@ -355,6 +355,10 @@ public class SignUp extends javax.swing.JFrame {
                 && String.valueOf(txtRePassword.getPassword()).equals("") == false
                 && String.valueOf(txtRePassword.getPassword()) != null);
     }
+    //hàm show view
+    public void showView(){
+        this.setVisible(true);
+    }
     public boolean validateData(){
         //tạo biến check
         boolean check = true;

@@ -17,7 +17,7 @@ public class Constants {
     public static final int FLAG_ERROR = 1;
     public static final int FLAG_SUCCESS = 2;
     // Hằng số màu thông báo
-    public static final Color COLOR_SUCCESS = new Color(3, 252, 7);
+    public static final Color COLOR_SUCCESS = new Color(3, 148, 252);
     public static final Color COLOR_ERROR = new Color(237, 56, 28);
     
     // Hằng số cho các trường hợp INSERT, UPDATE, DELETE

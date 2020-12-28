@@ -32,11 +32,12 @@ public class SuplierController {
     public SuplierController() {
         frame = new GiangTestFrameSupplier();
         suplierDao = new SuplierDaoImpl1();
-        frame.addBtnAddNewUnitActionListener(new BtnAddNewActionListener());
-        frame.addBtnEditUnitActionListener(new BtnEditActionListener());
-        frame.addBtnClearUnitActionListener(new BtnClearActionListener());
-        frame.addTableUnitMouseListener(new TableSuplierMouseListener());
-        frame.addBtnDeleteUnitActionListener(new BtnDeleteActionListener());
+        frame.addBtnAddActionListener(new BtnAddNewActionListener());
+        frame.addBtnEditActionListener(new BtnEditActionListener());
+        frame.addBtnClearActionListener(new BtnClearActionListener());
+        frame.addBtnDeleteActionListener(new BtnDeleteActionListener());
+        frame.addTableMouseListener(new TableSuplierMouseListener());
+
     }
 
     public void showView() {
@@ -52,6 +53,7 @@ public class SuplierController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("aa");
 
         }
     }

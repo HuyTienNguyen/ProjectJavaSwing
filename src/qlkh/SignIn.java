@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import qlkh.controller.SignInController;
 import qlkh.entities.Users;
 import qlkh.utils.Constants;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -37,50 +38,61 @@ public class SignIn extends javax.swing.JFrame {
 //        local = Locale.getDefault();
         this.local = local;
         setResourceBundle(local);
+        setValueComboxLanguages();
         initComponents();
     }
 
-    private Locale getMyLocale() {
-        // set Locale theo file config.properties
-        ResourceBundle bundle1 = ResourceBundle.getBundle("qlkh/utils/languages");
-        Locale myLocale = new Locale(bundle1.getString("lang"), bundle1.getString("country"));
-        return myLocale;
-    }
-
-    //hàm lấy về locale trong comboxbox
-
-    public String getMyLocaleInCombobox() {
-        // Trả về Item của combobox đang được chọn
-        return (String) chkBoxMyLocale.getSelectedItem();
-    }
-    
-
+    //hàm lấy bundle trong file languages
     private void setResourceBundle(Locale locale) {
         //Set Resources Bundle theo local 
         bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
 
     }
 
+    //hàm lấy về locale trong comboxbox
+    public String getMyLocaleInCombobox() {
+        // Trả về Item của combobox đang được chọn
+        return (String) chkBoxMyLocale.getSelectedItem();
+    }
 
+    //hàm thêm sự kiện cho button signIn
     public void addBtnSignInActionListener(ActionListener listener) {
         btnSignIn.addActionListener(listener);
     }
-
+    
+    //hàm thêm sự kiện cho button signup
     public void addBtnSignUpActionListener(ActionListener listener) {
         btnSignUp.addActionListener(listener);
     }
     
-    public void addCheckBoxRemeberPassword(ActionListener listner){
+    //hàm thêm sự kiện cho checkbox rememberpassowrd
+    public void addCheckBoxRemeberPassword(ActionListener listner) {
         ckRememberPass.addActionListener(listner);
     }
-
+    
+    //hàm thêm sự kiejn cho combox languages
     public void addMyLocaleStateChanged(ActionListener listener) {
         //thêm sự kiện ActionListener cho comboBox
         chkBoxMyLocale.addActionListener(listener);
     }
-
+    //hàm thêm sự kiện cho forgot password
+    public void addBtnForgotPassActionListener(ActionListener listener){
+        btnForgotPassword.addActionListener(listener);
+        System.out.println("ádf");
+    }
+    
+    //hàm đóng view
     public void closeLoginView() {
         this.dispose();
+    }
+    
+    //hàm show signIn
+    public void showView() {
+        this.setVisible(true);
+    }
+    //hàm set value cho combobox
+    private void setValueComboxLanguages(){
+        System.out.println(local.getCountry());
     }
 
     /**
@@ -101,13 +113,13 @@ public class SignIn extends javax.swing.JFrame {
         siPassword = new javax.swing.JPasswordField();
         btnSignUp = new keeptoo.KButton();
         btnSignIn = new keeptoo.KButton();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         chkBoxMyLocale = new javax.swing.JComboBox();
         ckRememberPass = new javax.swing.JCheckBox();
         errPassword = new javax.swing.JLabel();
         errUsername = new javax.swing.JLabel();
+        btnForgotPassword = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -186,12 +198,6 @@ public class SignIn extends javax.swing.JFrame {
         kGradientPanel1.add(btnSignIn);
         btnSignIn.setBounds(250, 470, 185, 45);
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText(bundle.getString("signInForgotPass"));
-        kGradientPanel1.add(jLabel4);
-        jLabel4.setBounds(390, 550, 220, 25);
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel5.setText(bundle.getString("signInUsername"));
         kGradientPanel1.add(jLabel5);
@@ -228,6 +234,15 @@ public class SignIn extends javax.swing.JFrame {
         kGradientPanel1.add(errUsername);
         errUsername.setBounds(250, 260, 440, 30);
 
+        btnForgotPassword.setBackground(new Color(0,0,0,0));
+        btnForgotPassword.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnForgotPassword.setForeground(new java.awt.Color(102, 102, 102));
+        btnForgotPassword.setText(bundle.getString("signInForgotPass"));
+        btnForgotPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        btnForgotPassword.setOpaque(false);
+        kGradientPanel1.add(btnForgotPassword);
+        btnForgotPassword.setBounds(340, 560, 220, 30);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -249,17 +264,14 @@ public class SignIn extends javax.swing.JFrame {
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         // TODO add your handling code here:
         SignInController siController = new SignInController();
-
     }//GEN-LAST:event_btnSignInActionPerformed
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
-        // TODO add your handling code here:
-        SignUp singUp = new SignUp(this.local);
-        singUp.setVisible(true);
-        this.setVisible(false);
+
     }//GEN-LAST:event_btnSignUpActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnForgotPassword;
     private keeptoo.KButton btnSignIn;
     private keeptoo.KButton btnSignUp;
     private javax.swing.JComboBox chkBoxMyLocale;
@@ -270,18 +282,13 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JPasswordField siPassword;
     private javax.swing.JTextField siUsername;
     private qlkh.controller.SignInController signInController1;
     // End of variables declaration//GEN-END:variables
-    //hàm show signIn
 
-    public void showView() {
-        this.setVisible(true);
-    }
 
     //hàm hiển thị lỗi password
     public void showErrPassword(String message, Color color) {
@@ -311,21 +318,26 @@ public class SignIn extends javax.swing.JFrame {
                 && String.valueOf(siPassword.getPassword()).equals("") == false
                 && String.valueOf(siPassword.getPassword()) != null);
     }
+
     //hàm set giá trị cho username và password
-    public void setValueUsernameAndPass(String username, String password){
+
+    public void setValueUsernameAndPass(String username, String password) {
         siUsername.setText(username);
         siPassword.setText(password);
     }
+
     //hàm lấy về giá trị true hay false của checkboxremberpassword
-    public boolean getValueCheckBoxRememberPassword(){
+
+    public boolean getValueCheckBoxRememberPassword() {
         return ckRememberPass.isSelected();
     }
+
     //hàm set value cho checkboxrememberpassword
-    public void setValueCheckboxRememberPassword(Boolean check){
-        if(check){
+
+    public void setValueCheckboxRememberPassword(Boolean check) {
+        if (check) {
             ckRememberPass.setSelected(check);
-        }
-        else{
+        } else {
             ckRememberPass.setSelected(check);
         }
     }

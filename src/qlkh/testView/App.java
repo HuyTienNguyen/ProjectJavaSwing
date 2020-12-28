@@ -32,9 +32,10 @@ public class App {
 //                studentController.showStudentView();
                 // ILogin controller = new LoginController();                     
                 // controller.showLoginView();  
-//                SuplierController supli = new SuplierController();
-//                supli.showView();
-                
+                SuplierController supli = new SuplierController();
+                supli.showView();
+//                UnitController unit  = new UnitController();
+//                unit.showView();
 
             }
 

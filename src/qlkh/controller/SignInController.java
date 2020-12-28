@@ -15,17 +15,23 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import qlkh.App;
+import qlkh.ForgotPassword1;
 import qlkh.SignIn;
 import qlkh.SignUp;
 import qlkh.daoimpl.UserDaoImpl;
 import qlkh.entities.Users;
 import qlkh.utils.Constants;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -37,7 +43,7 @@ public class SignInController {
     private static UserDaoImpl userModel; //model
     //This will be the file where the username and password will be saved
     File file = new File(System.getProperty("user.home") + "/Desktop/save.txt");
-    
+
     public SignInController() {
     }
 
@@ -48,6 +54,7 @@ public class SignInController {
         signIn.addBtnSignUpActionListener(new BtnSignUpActionListener());
         signIn.addCheckBoxRemeberPassword(new CheckBoxRemeberPassword());
         signIn.addMyLocaleStateChanged(new MyLocaleStateChanged());
+        signIn.addBtnForgotPassActionListener(new BtnForgotPasswordActionListener());
         UPDATE();
 
     }
@@ -55,19 +62,20 @@ public class SignInController {
     public void showSignIn() {
         signIn.showView();
     }
+
     public void SAVE(Boolean check) {      //Save the UserName and Password (for one user)
         try {
-            if(check){
-            if (!file.exists()) {
-                file.createNewFile();  //if the file !exist create a new one
-            }
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsolutePath()));
-            Users users = signIn.getUserLogin();
-            bw.write(users.getUserName()); //write the name
-            bw.newLine(); //leave a new Line
-            bw.write(users.getPassword()); //write the password
-            bw.close(); //close the BufferdWriter
-            }else{
+            if (check) {
+                if (!file.exists()) {
+                    file.createNewFile();  //if the file !exist create a new one
+                }
+                BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsolutePath()));
+                Users users = signIn.getUserLogin();
+                bw.write(users.getUserName()); //write the name
+                bw.newLine(); //leave a new Line
+                bw.write(users.getPassword()); //write the password
+                bw.close(); //close the BufferdWriter
+            } else {
                 file.delete();
             }
         } catch (IOException e) {
@@ -75,26 +83,29 @@ public class SignInController {
         }
 
     }
-    public void UPDATE(){ //UPDATE ON OPENING THE APPLICATION
+
+    public void UPDATE() { //UPDATE ON OPENING THE APPLICATION
 
         try {
-          if(file.exists()){    //if this file exists
+            if (file.exists()) {    //if this file exists
 
-            Scanner scan = new Scanner(file);   //Use Scanner to read the File
-            signIn.setValueCheckboxRememberPassword(Boolean.TRUE);
-            signIn.setValueUsernameAndPass(scan.nextLine(), scan.nextLine());//set text cho username password
-            scan.close();
-          }else{
-              signIn.setValueCheckboxRememberPassword(Boolean.FALSE);
-          }
+                Scanner scan = new Scanner(file);   //Use Scanner to read the File
+                signIn.setValueCheckboxRememberPassword(Boolean.TRUE);
+                signIn.setValueUsernameAndPass(scan.nextLine(), scan.nextLine());//set text cho username password
+                scan.close();
+            } else {
+                signIn.setValueCheckboxRememberPassword(Boolean.FALSE);
+            }
 
-        } catch (FileNotFoundException e) {         
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }                
+        }
 
-   }//End OF UPDATE
-    
+    }//End OF UPDATE
 
+    /*
+     --hàm sự kiện signIn để đăng nhập
+     */
     private class BtnSignInActionListener implements ActionListener {
 
         @Override
@@ -129,80 +140,75 @@ public class SignInController {
             }
         }
     }
-    private class BtnSignUpActionListener implements ActionListener{
+    /*
+     --hàm chuyển view sang signUp
+     */
+
+    private class BtnSignUpActionListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-//            ResourceBundle bundle = ResourceBundle.getBundle();
-//            SignUp singUp = new SignUp(this.local);
-//            singUp.setVisible(true);
-//            signIn.setVisible(false);
+            Locale newLocale = Utils.getLocale();
+            SignUp singUp = new SignUp(newLocale);
+            SingUpController signUpController = new SingUpController(singUp);
+            signUpController.showSignIn();
+            signIn.setVisible(false);
         }
-        
+
     }
+
+    /*
+     --hàm sự kiện để lấy value trong combox để thay đổi ngôn ngữ
+     */
     private class MyLocaleStateChanged implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
 
             String y = signIn.getMyLocaleInCombobox();
-            Properties pro = new Properties();
-            pro.setProperty("lang", "en");
-            pro.setProperty("country", "US");
-            // write properties to a file
-            Properties prop = new Properties();
-            OutputStream output = null;
-            try {
-                output = new FileOutputStream("C:\\Users\\user\\Desktop\\ProjectJavaSwing\\src\\qlkh\\utils\\languages.properties");
+            //setLocale theo combobox
+            Utils.setLocale(y);
 
-                // set the properties value
-                if(y.equals("VI")){
-                    prop.setProperty("lang", "vi");
-                    prop.setProperty("country", "VN");
-                }
-                else{
-                    prop.setProperty("lang", "en");
-                    prop.setProperty("country", "US");
-                }
-                
-
-                // save properties to project root folder
-                prop.store(output, null);
-            } catch (IOException io) {
-                io.printStackTrace();
-            } finally {
-                if (output != null) {
-                    try {
-                        output.close();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-
-            }
-            System.out.println("sua xong");
-            signIn.closeLoginView();
-            ResourceBundle bundle1 = ResourceBundle.getBundle("qlkh/utils/languages");
-            Locale myLocale = new Locale(bundle1.getString("lang"), bundle1.getString("country"));
-            SignIn newSignIn = new SignIn(new Locale(bundle1.getString("lang"), bundle1.getString("country")));
-            newSignIn.showView();
-//            LoginView newView = new LoginView(new Locale("en", "US"));
-//            LoginController newController = new LoginController(newView);
-//            newController.showLoginView();
+            // getLocale
+            Locale newLocale = Utils.getLocale();
+            signIn.dispose();
+            SignIn newSignIn = new SignIn(newLocale);
+            SignInController newSignInController = new SignInController(newSignIn);
+            newSignInController.showSignIn();
 
         }
     }
-    private class CheckBoxRemeberPassword implements ActionListener{
+
+    /*
+     -- hàm sự kiện nhớ mật khẩu
+     */
+    private class CheckBoxRemeberPassword implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(signIn.getValueCheckBoxRememberPassword()){
+            if (signIn.getValueCheckBoxRememberPassword()) {
                 SAVE(Boolean.TRUE);
-            }
-            else{
+            } else {
                 SAVE(Boolean.FALSE);
             }
         }
-        
+
     }
+    /*
+     --hàm thêm sự kiện button quên mật khẩu
+     */
+
+    private class BtnForgotPasswordActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Locale newLocale = Utils.getLocale();
+            ForgotPassword1 forgotPass = new ForgotPassword1(newLocale);
+            ForgotPassword1Controller forgotPass1Controller = new ForgotPassword1Controller(forgotPass);
+            forgotPass1Controller.showSignIn();
+            signIn.setVisible(false);
+        }
+
+    }
+
 }

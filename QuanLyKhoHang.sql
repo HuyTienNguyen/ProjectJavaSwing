@@ -157,6 +157,9 @@ ALTER TABLE Objects
 ADD CONSTRAINT FK_10 FOREIGN KEY (IdCate) REFERENCES Category(Id);
 ALTER TABLE Unit
 ADD   status  int default 1
+ALTER TABLE Suplier
+ADD   status  int default 1
+ 
  
  -- them du lieu mau
  INSERT INTO UserRole(name) VALUES('admin')
@@ -178,7 +181,7 @@ ADD   status  int default 1
  */
 
  -- Thủ tục thêm mới Unit
-ALTER PROCEDURE sp_add_new_unit
+CREATE PROCEDURE sp_add_new_unit
  (
 
 	@output int output,
@@ -220,12 +223,21 @@ ALTER PROCEDURE sp_add_new_unit
  )
  AS
 	BEGIN 
-		IF  EXISTS(SELECT * FROM Unit WHERE id= @id)
+		IF  EXISTS(SELECT * FROM Unit WHERE id= @id )
 			BEGIN
-				UPDATE  Unit
-				SET name=@name  
-				WHERE id = @id
-				SET @output = @@ROWCOUNT
+				iF NOT EXISTS (SELECT * FROM Unit WHERE name  = @name )
+					BEGIN
+					UPDATE  Unit
+					SET name=@name  
+					WHERE id = @id
+					SET @output = @@ROWCOUNT
+					END
+				ELSE
+					BEGIN
+					SET @output =0
+					END
+
+				
 			END
 		ELSE
 			BEGIN
@@ -233,12 +245,12 @@ ALTER PROCEDURE sp_add_new_unit
 			END
 	END
 	/* Test PROCEDURE sp_update_unit
-	*	declare  @output int 
-	*	exec sp_update_unit @output output ,2,'aaa'
-	*	Select @output
+		declare  @output int 
+		exec sp_update_unit @output output ,1,'aaa'
+	Select @output
+	
+	select * from unit
 	*/
-
-
 	
 	/*
 	*	PRocedure delete unit
@@ -247,7 +259,7 @@ ALTER PROCEDURE sp_add_new_unit
 	*	@param 3: param newstatus (Integer) input
 
 	*/
-	ALTER PROCEDURE sp_delete_unit
+	CREATE PROCEDURE sp_delete_unit
  (
 	@output int output,
 	@id int

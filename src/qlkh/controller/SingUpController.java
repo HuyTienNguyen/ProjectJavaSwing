@@ -22,7 +22,13 @@ public class SingUpController {
     private static UserDaoImpl userModel; //model
 
     public SingUpController() {
+    }
+    public SingUpController(SignUp view) {
+        signUp = view;
         signUp.addBtnSignUpActionListener(new BtnSignUpActionListener());
+    }
+    public void showSignIn() {
+        signUp.showView();
     }
     
     private class BtnSignUpActionListener implements ActionListener{
