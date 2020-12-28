@@ -5,11 +5,14 @@
  */
 package qlkh.testView;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 import javax.swing.JFrame;
@@ -29,139 +32,6 @@ import qlkh.utils.Constants;
  * @author GIANG
  */
 public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView {
-
-    /**
-     * Creates new form GiangTestFrame
-     */
-    ResourceBundle bundle;
-
-    public GiangTestFrameSupplier() {
-        Locale local = Locale.getDefault();
-        setResourceBundle(local);
-        initComponents();
-
-    }
-
-    // Show view with list Suplier on Suplier Table
-    public void showView() {
-        this.setVisible(true);
-        setEnableBtnEdit(true);
-        setEnableBtnDelete(true);
-        //  loadAllUnit(listUnit);
-
-    }
-
-    // Set ResourceBundle to this view
-    private void setResourceBundle(Locale locale) {
-        //Set Resources Bundle theo local 
-        bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
-
-    }
-
-    @Override
-    public List<Object> getListElementToValidate() {
-        List<Object> listObject = new ArrayList<>();
-        name.setName("name");
-        address.setName("address");
-        phone.setName("phone");
-        email.setName("email");     
-        character.setName("character");
-        listObject.add(name);
-        listObject.add(address);
-        listObject.add(phone);
-        listObject.add(email);
-        listObject.add(info);
-        listObject.add(character);
-        return listObject;
-    }
-
-    @Override
-    public void showErrors(List<String> listErrors) {
-    }
-
-    // Load list Unit on Unit Table
-    public void loadAllSupliers(List<Unit> listUnit) {
-        DefaultTableModel unitModel = new DefaultTableModel();
-        unitModel.setColumnIdentifiers(Constants.HEADER_UNIT_TABLE);
-        int startNumber = 1;
-        for (Unit unit : listUnit) {
-            Vector row = new Vector();
-            row.add(startNumber);
-            row.add(unit);
-
-            row.add((unit.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
-            startNumber++;
-            unitModel.addRow(row);
-        }
-        tblSuplier.setModel(unitModel);
-    }
-
-    // Add event to button addNewUnit
-    public void addBtnAddActionListener(ActionListener listener) {
-        btnAdd.addActionListener(listener);
-    }
-
-    public void addBtnEditActionListener(ActionListener listener) {
-        btnEdit.addActionListener(listener);
-    }
-
-    public void addBtnClearActionListener(ActionListener listener) {
-        btnClear.addActionListener(listener);
-    }
-
-    public void addBtnDeleteActionListener(ActionListener listener) {
-        btnDelete.addActionListener(listener);
-    }
-
-    public void addTableMouseListener(MouseListener listener) {
-        tblSuplier.addMouseListener(listener);
-    }
-
-    // Get text from txtNewUnitField
-    public void showMessage(String message, int color) {
-
-        errName.setText(bundle.getString(message));
-        errName.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
-    }
-
-    public void focusTxtUnitField() {
-        name.requestFocus();
-    }
-
-    public Unit getEditUnit() {
-        int row = tblSuplier.getSelectedRow();
-        if (row < 0) {
-            return null;
-        }
-        return (Unit) tblSuplier.getModel().getValueAt(row, 1);
-    }
-
-    public void setEnableBtnAddNew(boolean value) {
-        btnAdd.setEnabled(value);
-    }
-
-    public void setEnableBtnEdit(boolean value) {
-        btnEdit.setEnabled(value);
-    }
-
-    public void setEnableBtnDelete(boolean value) {
-        btnDelete.setEnabled(value);
-    }
-
-    public boolean checkUnitName(String unitName) {
-        return (unitName != null && unitName.equals("") == false);
-    }
-
-    public int showDialogMesage(JFrame frame, String message, String title) {
-        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-    }
-
-    public void clearView() {
-
-        setEnableBtnAddNew(true);
-        setEnableBtnEdit(false);
-        setEnableBtnDelete(false);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -287,8 +157,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         btnDelete.setMaximumSize(new java.awt.Dimension(134, 40));
         btnDelete.setMinimumSize(new java.awt.Dimension(134, 40));
 
-        errName.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        errName.setText("1");
+        errName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         lblName.setText(bundle.getString("name")
         );
@@ -298,23 +167,21 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
 
         phone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        errAddress.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        errAddress.setText("1");
+        errAddress.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         address.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblPhone.setText(bundle.getString("phone"));
 
-        errPhone.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        errPhone.setText("1");
+        errPhone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         lblEmail.setText(bundle.getString("email"));
 
         email.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        errMail.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        errMail.setText("1");
+        errMail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        lblInfo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblInfo.setText(bundle.getString("info"));
 
         info.setColumns(20);
@@ -325,8 +192,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
 
         lblCharacterCode.setText(bundle.getString("characterSuplier"));
 
-        errCharacter.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        errCharacter.setText("1");
+        errCharacter.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         messageSuplier.setText("jLabel1");
 
@@ -336,60 +202,64 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                                    .addComponent(lblAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
                                     .addComponent(lblPhone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(errName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                                        .addComponent(name, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(errAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(errPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(errMail, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(errPhone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblCharacterCode, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(errMail, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(errAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(errName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblCharacterCode, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(errCharacter, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(character, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(86, 86, 86))))
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(character, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(86, 86, 86))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(124, 124, 124)
                 .addComponent(messageSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(errCharacter, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(317, 317, 317))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,14 +270,15 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAdd)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblName)
                                     .addComponent(lblInfo))
-                                .addGap(13, 13, 13)
-                                .addComponent(errName, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnAdd))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(errName, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -419,9 +290,9 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblPhone))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(errPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12))
+                                .addGap(24, 24, 24))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -436,7 +307,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
                             .addComponent(lblCharacterCode)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(errCharacter)
+                        .addComponent(errCharacter, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -534,5 +405,157 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
     private javax.swing.JTable tblSuplier;
     private javax.swing.JPanel userRoleMainPanel;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Creates new form GiangTestFrame
+     */
+    ResourceBundle bundle;
+
+    public GiangTestFrameSupplier() {
+        Locale local = Locale.getDefault();
+        setResourceBundle(local);
+        initComponents();
+
+    }
+    // Show view with list Suplier on Suplier Table
+
+    public void showView() {
+        this.setVisible(true);
+        setEnableBtnEdit(true);
+        setEnableBtnDelete(true);
+        //  loadAllUnit(listUnit);
+
+    }
+
+    // Set ResourceBundle to this view
+    private void setResourceBundle(Locale locale) {
+        //Set Resources Bundle theo local 
+        bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
+
+    }
+
+    @Override
+    public List<Object> getListElementToValidate() {
+        List<Object> mapObject = new ArrayList<>();
+        // set Name text field
+        name.setName("name");
+        address.setName("address");
+        phone.setName("address_confirmation");
+        email.setName("email");
+        character.setName("character");
+
+        // add object to map
+        mapObject.add(name);
+        mapObject.add(address);
+        mapObject.add(phone);
+        mapObject.add(email);
+        mapObject.add(character);
+
+        return mapObject;
+    }
+
+    @Override
+    public void showErrors(Map<String, String> errors) {
+        //get error messages
+        String errorNameMsg = ((errors.get("name") == null) ? "" : errors.get("name"));
+        String errorMailMsg = ((errors.get("mail") == null) ? "" : errors.get("mail"));
+        String errorAddressMsg = ((errors.get("address") == null) ? "" : errors.get("address"));
+        String errorPhoneMsg = ((errors.get("phone") == null) ? "" : errors.get("phone"));    
+        String errorCharacterMsg = ((errors.get("character") == null) ? "" : errors.get("character"));
+        //Show messages
+        showErrorMessage(errName, errorNameMsg);
+        showErrorMessage(errMail, errorMailMsg);
+        showErrorMessage(errAddress, errorAddressMsg);
+        showErrorMessage(errPhone, errorPhoneMsg);
+        showErrorMessage(errCharacter, errorCharacterMsg);
+
+    }
+
+    public void showErrorMessage(JLabel label, String err) {
+        label.setText(err);
+        label.setForeground(Color.red);
+    }
+
+    // Load list Unit on Unit Table
+    public void loadAllSupliers(List<Unit> listUnit) {
+        DefaultTableModel unitModel = new DefaultTableModel();
+        unitModel.setColumnIdentifiers(Constants.HEADER_UNIT_TABLE);
+        int startNumber = 1;
+        for (Unit unit : listUnit) {
+            Vector row = new Vector();
+            row.add(startNumber);
+            row.add(unit);
+            row.add((unit.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
+            startNumber++;
+            unitModel.addRow(row);
+        }
+        tblSuplier.setModel(unitModel);
+    }
+
+    // Add event to button addNewUnit
+    public void addBtnAddActionListener(ActionListener listener) {
+        btnAdd.addActionListener(listener);
+    }
+
+    public void addBtnEditActionListener(ActionListener listener) {
+        btnEdit.addActionListener(listener);
+    }
+
+    public void addBtnClearActionListener(ActionListener listener) {
+        btnClear.addActionListener(listener);
+    }
+
+    public void addBtnDeleteActionListener(ActionListener listener) {
+        btnDelete.addActionListener(listener);
+    }
+
+    public void addTableMouseListener(MouseListener listener) {
+        tblSuplier.addMouseListener(listener);
+    }
+
+    // Get text from txtNewUnitField
+    public void showMessage(String message, int color) {
+
+        errName.setText(bundle.getString(message));
+        errName.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
+    }
+
+    public void focusTxtUnitField() {
+        name.requestFocus();
+    }
+
+    public Unit getEditUnit() {
+        int row = tblSuplier.getSelectedRow();
+        if (row < 0) {
+            return null;
+        }
+        return (Unit) tblSuplier.getModel().getValueAt(row, 1);
+    }
+
+    public void setEnableBtnAddNew(boolean value) {
+        btnAdd.setEnabled(value);
+    }
+
+    public void setEnableBtnEdit(boolean value) {
+        btnEdit.setEnabled(value);
+    }
+
+    public void setEnableBtnDelete(boolean value) {
+        btnDelete.setEnabled(value);
+    }
+
+    public boolean checkUnitName(String unitName) {
+        return (unitName != null && unitName.equals("") == false);
+    }
+
+    public int showDialogMesage(JFrame frame, String message, String title) {
+        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void clearView() {
+        setEnableBtnAddNew(true);
+        setEnableBtnEdit(false);
+        setEnableBtnDelete(false);
+    }
 
 }

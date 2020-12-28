@@ -11,13 +11,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import qlkh.dao.ISuplierDAO;
 import qlkh.daoimpl.SuplierDaoImpl1;
 import qlkh.entities.Supliers;
 import qlkh.entities.Unit;
+import qlkh.entities.ValidatorItem;
 import qlkh.testView.GiangTestFrameSupplier;
 import qlkh.utils.Constants;
+import qlkh.utils.Validator;
+import request.SuplierRequest;
 
 /**
  *
@@ -25,27 +31,27 @@ import qlkh.utils.Constants;
  */
 public class SuplierController {
 
-    GiangTestFrameSupplier frame;
+    GiangTestFrameSupplier view;
     ISuplierDAO suplierDao;
     Supliers editSuplier;
 
     public SuplierController() {
-        frame = new GiangTestFrameSupplier();
+        view = new GiangTestFrameSupplier();
         suplierDao = new SuplierDaoImpl1();
-        frame.addBtnAddActionListener(new BtnAddNewActionListener());
-        frame.addBtnEditActionListener(new BtnEditActionListener());
-        frame.addBtnClearActionListener(new BtnClearActionListener());
-        frame.addBtnDeleteActionListener(new BtnDeleteActionListener());
-        frame.addTableMouseListener(new TableSuplierMouseListener());
+        view.addBtnAddActionListener(new BtnAddNewActionListener());
+        view.addBtnEditActionListener(new BtnEditActionListener());
+        view.addBtnClearActionListener(new BtnClearActionListener());
+        view.addBtnDeleteActionListener(new BtnDeleteActionListener());
+        view.addTableMouseListener(new TableSuplierMouseListener());
 
     }
 
     public void showView() {
-        if (frame == null) {
-            frame = new GiangTestFrameSupplier();
+        if (view == null) {
+            view = new GiangTestFrameSupplier();
         }
         List<Supliers> listSup = suplierDao.getAllSupliers();
-        frame.showView();
+        view.showView();
 
     }
 
@@ -53,7 +59,29 @@ public class SuplierController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("aa");
+            try {
+                // Declare suplier request
+                SuplierRequest request = new SuplierRequest();
+                // get list rules from suplier request
+                Map<String,String> mapMess = request.getRules();
+                // get list element from view
+                List<Object> listObject = view.getListElementToValidate();
+                // Set return messages
+                Validator.setErrorMessages(request.getMessages());
+                
+                // Declare List Item to Validate
+                List<ValidatorItem> listVals = Validator.setRules(listObject, mapMess);
+                // Declare instance of Validator
+                Validator validator = new Validator(listVals);
+                boolean isFormValid = validator.isPasses();
+                System.out.println("Pass: "+isFormValid);
+                Map<String,String > errors = validator.getErrors();
+              view.showErrors(errors);
+               
+            } catch (Exception ex) {
+                Logger.getLogger(SuplierController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
 
         }
     }
@@ -70,7 +98,7 @@ public class SuplierController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            frame.clearView();
+            view.clearView();
 
         }
 

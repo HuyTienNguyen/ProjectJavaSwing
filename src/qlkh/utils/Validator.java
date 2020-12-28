@@ -1,10 +1,12 @@
 package qlkh.utils;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -20,13 +22,18 @@ public class Validator {
     private Border defaultBorder1 = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0);
 
     private Object ErrorComponent;
-    private List<String> errors = new ArrayList();
+    private Map<String, String> errors = new HashMap<>();
     private int MIN = 1, MAX = 2;
     private boolean fails = false;
     private String fieldName = "field_name", ruleValue = "value";
     private static Map<String, String> errorMessages = new HashMap<>();
     private static List<ValidatorItem> listValidatorItem = new ArrayList<>();
     private static Border errorBorder = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 0), 2);
+    private static final String TYPES_INTEGER = "Integer";
+    private static final String TYPES_FLOAT = "Float";
+    private static final String TYPES_DOUBLE = "Double";
+    private static final String RULE_MIN_NUMBER = "minNumber";
+    private static final String RULE_MAX_NUMBER = "maxNumber";
 
     public Validator(List<ValidatorItem> items) throws Exception {
         for (ValidatorItem item : items) {
@@ -36,8 +43,10 @@ public class Validator {
 
             for (String rule : rules) {
                 String ruleStr = getRule(rule), value = getValue(component);
+
                 boolean ruleError = false;
                 int ruleVal = 0;
+                String typesCompare = "";
 
                 switch (ruleStr) {
                     case "required":
@@ -46,29 +55,65 @@ public class Validator {
                     case "number":
                         ruleError = isntNumber(value);
                         break;
+                    case TYPES_INTEGER:
+                        ruleError = isntInteger(value);
+                        break;
+                    case TYPES_FLOAT:
+                        ruleError = isntFloat(value);
+                        break;
+                    case TYPES_DOUBLE:
+                        ruleError = isntDouble(value);
+                        break;
                     case "min":
                         int min = ruleVal = getRuleValue(rule);
-                        ruleError = length(value, min, MIN);
+                        typesCompare = isComparisionNumber(rules, rule);
+                        if (typesCompare.equals("")) {
+                            ruleError = length(value, min, MIN);
+                        } else {
+                            ruleStr = RULE_MIN_NUMBER;
+                            ruleError = compareWithTypes(value, min, typesCompare, MIN);
+                        }
                         break;
                     case "max":
                         int max = ruleVal = getRuleValue(rule);
+                        typesCompare = isComparisionNumber(rules, rule);
+                        if (typesCompare.equals("")) {
+                            ruleError = length(value, max, MAX);
+                        } else {
+                            ruleStr = RULE_MAX_NUMBER;
+                            ruleError = compareWithTypes(value, max, typesCompare, MAX);
+                        }
                         ruleError = length(value, max, MAX);
                         break;
                     case "regex":
                         String regexCode = getRegexValue(rule);
-                        ruleError = isNotRegex(value, regexCode);
+                        ruleError = isntRegex(value, regexCode);
                         break;
+                    case "confirmed":
+                        // declare a new validatorItem
+                        ValidatorItem itemConfirm = new ValidatorItem();
+                        // get the second item to confirm with the number one item
+                        itemConfirm = getItemConfirm(items, item);
+                        if (itemConfirm == null) {
+                            ruleError = true;
+                        } else {
+                            Object itemObject = item.getField();
+                            Object itemConfirmObject = itemConfirm.getField();
+                            // get Error if the name of two object not match to each other
+                            ruleError = isntConfirmedValue(getValue(itemObject), getValue(itemConfirmObject));
+                        }
+                        break;
+
                     default:
                         throw new Exception("Validation rule : " + rule + " is not supported yet.");
                 }
-                setBorder(component, ruleError);
+
                 if (ruleError == true) {
                     fails = true;
-                    errors.add(getMessage(ruleStr, field, ruleVal));
-
+                    String error = getMessage(ruleStr, field, ruleVal);
+                    errors.put(getName(component), getMessage(ruleStr, field, ruleVal));
                     break;
                 }
-
             }
 
         }
@@ -111,6 +156,10 @@ public class Validator {
         return component.getClass() == JTextArea.class;
     }
 
+    private boolean isLabelComponent(Object component) {
+        return component.getClass() == JLabel.class;
+    }
+
     private boolean isNull(String value) {
         return (value == null || value.equals(""));
     }
@@ -138,12 +187,82 @@ public class Validator {
         }
     }
 
-    private boolean isNotRegex(String value, String regexCode) {
+    private boolean compareWithTypes(String value, int min, String typeCompare, int mode) {
+        if (isNull(value)) {
+            return false;
+        }
+        switch (typeCompare) {
+            case TYPES_INTEGER:
+                try {
+                    int number = Integer.parseInt(value);
+                    return (mode == MIN ? number < min : number > min);
+                } catch (Exception e) {
+                    return true;
+                }
+            case TYPES_FLOAT:
+                try {
+                    float number = Float.parseFloat(value);
+                    return (mode == MIN ? number < min : number > min);
+                } catch (Exception e) {
+                    return true;
+                }
+            case TYPES_DOUBLE:
+                try {
+                    double number = Double.parseDouble(value);
+                    return (mode == MIN ? number < min : number > min);
+                } catch (Exception e) {
+                    return true;
+                }
+
+        }
+        return false;
+    }
+
+    private boolean isntRegex(String value, String regexCode) {
         if (value.matches(regexCode)) {
             return false;
         } else {
             return true;
         }
+    }
+
+    private boolean isntInteger(String value) {
+        if (isNull(value)) {
+            return true;
+        }
+        try {
+            Integer.parseInt(value);
+            return false;
+        } catch (NumberFormatException e) {
+        }
+        return true;
+
+    }
+
+    private boolean isntFloat(String value) {
+        if (isNull(value)) {
+            return true;
+        }
+        try {
+            Float.parseFloat(value);
+            return false;
+        } catch (NumberFormatException e) {
+        }
+        return true;
+
+    }
+
+    private boolean isntDouble(String value) {
+        if (isNull(value)) {
+            return true;
+        }
+        try {
+            Double.parseDouble(value);
+            return false;
+        } catch (NumberFormatException e) {
+        }
+        return true;
+
     }
 
     public boolean isFails() {
@@ -152,6 +271,50 @@ public class Validator {
 
     public boolean isPasses() {
         return !fails;
+    }
+
+    private String isComparisionNumber(String[] rules, String rule) {
+        String types = "";
+        for (String rule1 : rules) {
+            if (rule1.equals(TYPES_INTEGER)) {
+                types = TYPES_INTEGER;
+                break;
+            } else if (rule1.equals(TYPES_FLOAT)) {
+                types = TYPES_FLOAT;
+                break;
+            } else if (rule1.equals(TYPES_DOUBLE)) {
+                types = TYPES_DOUBLE;
+                break;
+            }
+            if (rule1.equals(rule)) {
+                types = "";
+                break;
+            }
+        }
+        return types;
+    }
+
+    private boolean isntConfirmedValue(String itemConfirm, String item) {
+
+        if (itemConfirm.equals(item)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private ValidatorItem getItemConfirm(List<ValidatorItem> items, ValidatorItem item) {
+        // get Name of second field to match with number 1 field
+        String nameItemConfirm = item.getName() + "_confirmation";
+        for (ValidatorItem item1 : items) {
+            // if exists second field with name equals nameItemConfirm
+            if (item1.getName().equals(nameItemConfirm)) {
+                // return second field
+                return item1;
+            }
+        }
+        // return null
+        return null;
     }
 
     private static JTextField getTextField(Object component) {
@@ -168,6 +331,10 @@ public class Validator {
 
     private static JTextArea getTextAreaField(Object component) {
         return (JTextArea) component;
+    }
+
+    private JLabel getTextLabel(Object component) {
+        return (JLabel) component;
     }
 
     private String getRule(String rule) {
@@ -190,10 +357,14 @@ public class Validator {
         }
     }
 
-    private void setBorder(Object component, boolean isError) {
+    private void setBorder(Object component, boolean isError, String error) {
         if (ErrorComponent != component) {
             if (isTextField(component)) {
                 getTextField(component).setBorder((isError) ? getErrorBorder() : getDefaultBorder());
+
+            } else if (isLabelComponent(component)) {
+                getTextLabel(component).setText((isError) ? error : "");
+                getTextLabel(component).setForeground((isError) ? Color.red : Color.red);
             } else if (isCombo(component)) {
                 getCombo(component).setBorder((isError) ? getErrorBorder() : getDefaultBorder());
             } else if (isPassField(component)) {
@@ -235,9 +406,10 @@ public class Validator {
             String key = entrySet.getKey();
             String value = entrySet.getValue();
             // Create  a validatorItem if the component has declared inside its request
-            for (Object component : components) {
-                if (key.equals(getName(component))) {
-                    listItem.add(new ValidatorItem(value, component, getName(component)));
+
+            for (Object obj : components) {
+                if (key.equals(getName(obj))) {
+                    listItem.add(new ValidatorItem(value, obj, getName(obj)));
                 }
             }
         }
@@ -266,8 +438,14 @@ public class Validator {
         map.put("required", "The " + fieldName + " is required.");
         map.put("min", "Minimum length for " + fieldName + " is " + ruleValue + ".");
         map.put("max", "Maximum length for " + fieldName + " is " + ruleValue + ".");
+        map.put("confirmed", "The " + fieldName + " confirmation does not match.");
+        map.put("minNumber", "Minimum Value for " + fieldName + " is " + ruleValue + ".");
+        map.put("maxNumber", "Maximum Value for " + fieldName + " is " + ruleValue + ".");
         map.put("number", "Text must be a valid number for the " + fieldName + " field.");
         map.put("regex", "Text must be a valid pattern  for the " + fieldName + " field.");
+        map.put(TYPES_INTEGER, "Please enter a Integer number in " + fieldName + " field.");
+        map.put(TYPES_FLOAT, "Please enter a Float number in " + fieldName + " field.");
+        map.put(TYPES_DOUBLE, "Please enter a Double number in  " + fieldName + " field.");
 
         return map;
     }
@@ -297,7 +475,7 @@ public class Validator {
         return pureMsg;
     }
 
-    public List getErrors() {
+    public Map<String, String> getErrors() {
         return errors;
     }
 }
