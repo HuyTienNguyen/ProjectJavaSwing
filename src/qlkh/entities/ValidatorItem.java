@@ -19,9 +19,6 @@ public class ValidatorItem {
     }
 
 
-    public ValidatorItem() {
-        
-    }   
 
     public ValidatorItem(Object component) {
         this.component = component;

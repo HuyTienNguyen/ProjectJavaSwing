@@ -90,10 +90,9 @@ public class Validator {
                         ruleError = isntRegex(value, regexCode);
                         break;
                     case "confirmed":
-                        // declare a new validatorItem
-                        ValidatorItem itemConfirm = new ValidatorItem();
+                     
                         // get the second item to confirm with the number one item
-                        itemConfirm = getItemConfirm(items, item);
+                     ValidatorItem   itemConfirm = getItemConfirm(items, item);
                         if (itemConfirm == null) {
                             ruleError = true;
                         } else {
