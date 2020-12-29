@@ -18,8 +18,7 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
 
 import javax.swing.table.DefaultTableModel;
 
@@ -440,7 +439,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         // set Name text field
         name.setName("name");
         address.setName("address");
-        phone.setName("address_confirmation");
+        phone.setName("phone");
         email.setName("email");
         character.setName("character");
 

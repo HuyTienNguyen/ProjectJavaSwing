@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -40,15 +42,18 @@ public class Validator {
             String ruleString = item.getRule(), field = item.getName();
             Object component = item.getField();
             String[] rules = splitRules(ruleString);
-
+    for (String rule : rules){
+        System.out.println(rule);
+    }
             for (String rule : rules) {
                 String ruleStr = getRule(rule), value = getValue(component);
-
+                System.out.println("rule: "+rule);
                 boolean ruleError = false;
                 int ruleVal = 0;
                 String typesCompare = "";
 
                 switch (ruleStr) {
+                    
                     case "required":
                         ruleError = isNull(value);
                         break;
@@ -87,7 +92,9 @@ public class Validator {
                         break;
                     case "regex":
                         String regexCode = getRegexValue(rule);
-                        ruleError = isntRegex(value, regexCode);
+                      
+                        System.out.println("regex code: "+regexCode);
+                       // ruleError = isntRegex(value, regexCode);
                         break;
                     case "confirmed":
                      
@@ -218,11 +225,14 @@ public class Validator {
     }
 
     private boolean isntRegex(String value, String regexCode) {
-        if (value.matches(regexCode)) {
-            return false;
+       Pattern pattern = Pattern.compile(regexCode);
+        Matcher matcher = pattern.matcher(value);    
+        if (matcher.matches()) {
+           return false;
         } else {
             return true;
         }
+         
     }
 
     private boolean isntInteger(String value) {
@@ -350,6 +360,7 @@ public class Validator {
 
     private String getRegexValue(String rule) throws Exception {
         if (isntNumber(rule) == true && rule.contains(":") == true) {
+            System.out.println("rulessssssss+ "+rule);
             return rule.split(":")[1];
         } else {
             throw new Exception("Validator rule '" + rule + "' required a correct integer value for the validation. Ex: " + rule + ":5.");
