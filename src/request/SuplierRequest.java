@@ -19,7 +19,7 @@ public class SuplierRequest extends GuiRequest {
         Map<String, String> myMap = new HashMap();
     //    myMap.put("name", "required");
      //   myMap.put("address", "required|max:5");
-        myMap.put("phone", "required|regex:(03\\|05\\|07|08|09|01[2|6|8|9])([0-9]{8})");
+        myMap.put("phone", "required|regex:(03|05|07|08|09|01[2|6|8|9])([0-9]{8})");
             //    myMap.put("phone", "required|regex:([A-Z\\|a-z]{4})");
 
     //    myMap.put("email", "required|regex:^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");

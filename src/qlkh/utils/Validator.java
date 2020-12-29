@@ -42,12 +42,10 @@ public class Validator {
             String ruleString = item.getRule(), field = item.getName();
             Object component = item.getField();
             String[] rules = splitRules(ruleString);
-    for (String rule : rules){
-        System.out.println(rule);
-    }
+   
             for (String rule : rules) {
                 String ruleStr = getRule(rule), value = getValue(component);
-                System.out.println("rule: "+rule);
+                
                 boolean ruleError = false;
                 int ruleVal = 0;
                 String typesCompare = "";
@@ -91,10 +89,8 @@ public class Validator {
                         ruleError = length(value, max, MAX);
                         break;
                     case "regex":
-                        String regexCode = getRegexValue(rule);
-                      
-                        System.out.println("regex code: "+regexCode);
-                       // ruleError = isntRegex(value, regexCode);
+                        String regexCode = getRegexValue(rule);                                          
+                        ruleError = isntRegex(value, regexCode);
                         break;
                     case "confirmed":
                      
@@ -126,8 +122,8 @@ public class Validator {
     }
 
     private String[] splitRules(String ruleString) {
-        if (ruleString.contains("(?![^\\\\(]*\\\\))\\\\|")) {
-            String[] solitted = ruleString.split("\\|");
+        if (ruleString.contains("|")) {
+            String[] solitted = ruleString.split("(?![^\\(]*\\))\\|");
             return solitted;
         }
         String[] defaultRule = {ruleString};
@@ -360,7 +356,7 @@ public class Validator {
 
     private String getRegexValue(String rule) throws Exception {
         if (isntNumber(rule) == true && rule.contains(":") == true) {
-            System.out.println("rulessssssss+ "+rule);
+           
             return rule.split(":")[1];
         } else {
             throw new Exception("Validator rule '" + rule + "' required a correct integer value for the validation. Ex: " + rule + ":5.");
