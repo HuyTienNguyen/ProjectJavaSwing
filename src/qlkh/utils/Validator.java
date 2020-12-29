@@ -126,7 +126,7 @@ public class Validator {
     }
 
     private String[] splitRules(String ruleString) {
-        if (ruleString.contains("|")) {
+        if (ruleString.contains("(?![^\\\\(]*\\\\))\\\\|")) {
             String[] solitted = ruleString.split("\\|");
             return solitted;
         }

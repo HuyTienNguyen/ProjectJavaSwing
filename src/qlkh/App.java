@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import qlkh.controller.SignInController;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -38,8 +39,7 @@ public class App {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                ResourceBundle newBundle = ResourceBundle.getBundle("qlkh/utils/languages");
-                Locale myLocale = Locale.getDefault(); 
+                Locale myLocale = Utils.getLocale();
                 SignIn signIn = new SignIn(myLocale);
                 SignInController mainController = new SignInController(signIn);
                 mainController.showSignIn();
