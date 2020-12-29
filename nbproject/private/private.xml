@@ -3,10 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/App.java</file>
             <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/utils/languages_en_US.properties</file>
             <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/utils/languages_vi_VN.properties</file>
             <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/ForgotPassword1.java</file>
+=======
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/test/ExampleFrame.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/utils/Validator.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/entities/ValidatorItem.java</file>
+>>>>>>> 1c785681c5d429c7a560e01c067aa7e4464fbcd4
         </group>
     </open-files>
 </project-private>

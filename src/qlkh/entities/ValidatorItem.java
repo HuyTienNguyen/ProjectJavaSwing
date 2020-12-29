@@ -9,7 +9,7 @@ package qlkh.entities;
 public class ValidatorItem {
 
     private  String rule;
-    private  final Object component;
+    private   Object component;
     private  String name;
 
     public ValidatorItem(String arg_rule, Object arg_component, String arg_name) {
@@ -18,9 +18,12 @@ public class ValidatorItem {
         this.name = arg_name;
     }
 
+
+
     public ValidatorItem(Object component) {
         this.component = component;
     }
+
     
     public String getRule() {
         return this.rule;
