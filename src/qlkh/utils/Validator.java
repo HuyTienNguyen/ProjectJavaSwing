@@ -45,7 +45,7 @@ public class Validator {
    
             for (String rule : rules) {
                 String ruleStr = getRule(rule), value = getValue(component);
-                
+                // strrule = required field = name ruleval =0
                 boolean ruleError = false;
                 int ruleVal = 0;
                 String typesCompare = "";
@@ -104,6 +104,7 @@ public class Validator {
                             // get Error if the name of two object not match to each other
                             ruleError = isntConfirmedValue(getValue(itemObject), getValue(itemConfirmObject));
                         }
+                        // field+"_ìnomation
                         break;
 
                     default:
@@ -382,7 +383,7 @@ public class Validator {
         }
     }
 
-    private String getValue(Object component) throws Exception {
+    public static String getValue(Object component) throws Exception {
         String value = null;
         if (isTextField(component)) {
             value = getTextField(component).getText();
@@ -463,6 +464,7 @@ public class Validator {
         Map<String, String> defaultMessage = getDefaultMessages();
         // Get errResponses mesage
         String customErrorResponse = msgs.get(field + "." + rule);
+        
         String defaultErrorResponse = defaultMessage.get(rule);
         String errResponse = "";
         // Assign value to error response

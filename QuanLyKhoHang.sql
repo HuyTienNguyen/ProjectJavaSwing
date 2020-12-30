@@ -13,9 +13,6 @@ create table UserRole(
 go
 
 
-Insert into users (name,Username,Password,IdRole,email,verifyCode)VALUES ('giang','truonggiang','123455',1,'abc@gmail.com',234567)
-SELECT * FROM Users WHERE (Name='abc@gmail.com'  OR EMAIL ='abc@gmail.com') AND verifyCode =23456
-DELETE FROM UserRole WHERE Name='giang';
 --tạo bảng Users
 create table Users(
 	Id int identity(1,1) primary key,
@@ -213,7 +210,7 @@ CREATE PROCEDURE sp_add_new_unit
 	*	@param 2: param id (Integer) input
 	*	@param 3: param name(String) input
 	*/
-	ALTER PROCEDURE sp_update_unit
+	CREATE PROCEDURE sp_update_unit
  (
 
 	@output int output,
@@ -279,6 +276,7 @@ CREATE PROCEDURE sp_add_new_unit
 				SET @output = 0
 			END
 	END
+	
 	-- Procedure dùng cho nhiều bảng nhưng chưa làm 
 	/*
 	ALTER PROCEDURE sp_delete

@@ -23,7 +23,7 @@ import qlkh.entities.ValidatorItem;
 import qlkh.testView.GiangTestFrameSupplier;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
-import request.SuplierRequest;
+import qlkh.request.SuplierRequest;
 
 /**
  *
@@ -63,25 +63,29 @@ public class SuplierController {
                 // Declare suplier request
                 SuplierRequest request = new SuplierRequest();
                 // get list rules from suplier request
-                Map<String,String> mapMess = request.getRules();
+                Map<String, String> mapRules = request.getRules();
                 // get list element from view
                 List<Object> listObject = view.getListElementToValidate();
                 // Set return messages
                 Validator.setErrorMessages(request.getMessages());
-                
+
                 // Declare List Item to Validate
-                List<ValidatorItem> listVals = Validator.setRules(listObject, mapMess);
+                List<ValidatorItem> listVals = Validator.setRules(listObject, mapRules);
                 // Declare instance of Validator
                 Validator validator = new Validator(listVals);
                 boolean isFormValid = validator.isPasses();
-                System.out.println("Pass: "+isFormValid);
-                Map<String,String > errors = validator.getErrors();
-              view.showErrors(errors);
+              
+                    Map<String, String> errors = validator.getErrors();
+                    view.showErrors(errors);
                
+                    for (Object obj : listObject) {
+                        System.out.println(Validator.getValue(obj));
+                    }
+               
+
             } catch (Exception ex) {
                 Logger.getLogger(SuplierController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
 
         }
     }
