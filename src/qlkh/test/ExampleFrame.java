@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import qlkh.entities.ValidatorItem;
 import qlkh.utils.Validator;
-import request.LoginRequest;
+import qlkh.request.LoginRequest;
 
 /*
  * @author Sahan Dissanayake (Disapamok)
