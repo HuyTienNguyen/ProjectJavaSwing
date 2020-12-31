@@ -170,9 +170,7 @@ ADD   status  int default 1
  INSERT INTO Unit(name) VALUES('manager')
  select * from Unit
 
- INSERT INTO Suplier(name,address,phone,email,MoreInfo,ContractDate)
- values('truong giang','ha noi','035723722','giang@gmail.com','hksajdfkhasdf','2020-09-05 09:32:22')
- select * from Suplier
+
  /*
   *  Tạo thủ tục
   PRocedure ADD new unit
@@ -215,7 +213,6 @@ CREATE PROCEDURE sp_add_new_unit
 	*/
 	ALTER PROCEDURE sp_update_unit
  (
-
 	@output int output,
 	@id int,
 	@name nvarchar(100)
@@ -267,8 +264,7 @@ CREATE PROCEDURE sp_add_new_unit
  AS
 	BEGIN 
 		IF  EXISTS(SELECT * FROM Unit  WHERE id= @id)
-			BEGIN
-		
+			BEGIN	
 				UPDATE  Unit
 				SET status = IIF(status = 0, 1, 0) 
 				WHERE id = @id
@@ -313,3 +309,47 @@ CREATE PROCEDURE sp_add_new_unit
 	*/
 	--	select * from unit 
 	--	ORDER BY  status DESC,name 
+/*
+	* Thủ tục thêm mới nhà sản xuất
+*/
+/*  Test  insert value
+	 INSERT INTO Suplier(name,address,phone,email,MoreInfo,ContractDate,characters)
+ values('truong giang','ha noi','035723722','giang@gmail.com','hksajdfkhasdf','2020-09-05 09:32:22','SS')
+ select * from Suplier
+ */
+ /*
+	*
+ */
+ ALTER PROC sp_check_value_insert_supplier (
+	 @nameoutput int output,
+	 @phoneoutput int output,
+	 @emailoutput int output,
+	 @charactersoutput int output,
+	 @name nvarchar(100),
+	 @phone nvarchar(20),
+	 @email nvarchar(200),
+	 @characters varchar(50)
+ 
+ )
+	AS
+		BEGIN
+			SET @nameoutput		  = (select count(name)   from Suplier where name =@name  	 )  
+			SET @phoneoutput	  = (select count(phone)  AS phone_sup from Suplier  where phone =@phone )  
+			SET @emailoutput	  = (select count(email) from Suplier where email =@email) 
+			SET @charactersoutput = (select count(characters) from Suplier  where characters =@characters) 						    
+		END
+
+
+
+ declare  @nameoutput1 int ,
+	 @phoneoutput1 int ,
+	 @emailoutput1 int ,
+	 @charactersoutput1 int 
+exec sp_check_value_insert_supplier   @nameoutput1  output ,
+	 @phoneoutput1  output,
+	 @emailoutput1 output  ,
+	 @charactersoutput1 output ,'truong giang','035723722','c','d'
+	 select @nameoutput1,@phoneoutput1, @emailoutput1  ,
+	 @charactersoutput1  
+		select * from Suplier
+		select count(name) as name, count(email) as mail from Suplier where name ='truong giang'
