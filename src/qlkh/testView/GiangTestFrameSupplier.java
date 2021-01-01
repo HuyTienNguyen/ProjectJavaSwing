@@ -15,15 +15,18 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.function.Supplier;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
+import qlkh.entities.Supliers;
 
 import qlkh.entities.Unit;
 import qlkh.test.IView;
 import qlkh.utils.Constants;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -192,8 +195,6 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
 
         errCharacter.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        messageSuplier.setText("jLabel1");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -230,13 +231,10 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
                         .addComponent(errMail, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(80, 80, 80))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(errAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(errName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(errAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(errName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -266,8 +264,8 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(messageSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(messageSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,11 +418,12 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
     }
     // Show view with list Suplier on Suplier Table
 
-    public void showView() {
+    public void showView(List<Supliers> supliers) {
         this.setVisible(true);
         setEnableBtnEdit(true);
         setEnableBtnDelete(true);
-        //  loadAllUnit(listUnit);
+        setEnableBtnEdit(false);
+        loadAllSupliers(supliers);
 
     }
 
@@ -450,7 +449,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         objects.add(address);
         objects.add(phone);
         objects.add(email);
-      //  objects.add(character);
+        //  objects.add(character);
 
         return objects;
     }
@@ -458,19 +457,31 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
     @Override
     public void showErrors(Map<String, String> errors) {
         //get error messages
-
         String errorNameMsg = ((errors.get("name") == null) ? "" : errors.get("name"));
         String errorMailMsg = ((errors.get("mail") == null) ? "" : errors.get("mail"));
         String errorAddressMsg = ((errors.get("address") == null) ? "" : errors.get("address"));
         String errorPhoneMsg = ((errors.get("phone") == null) ? "" : errors.get("phone"));
-      //  String errorCharacterMsg = ((errors.get("character") == null) ? "" : errors.get("character"));
+        //  String errorCharacterMsg = ((errors.get("character") == null) ? "" : errors.get("character"));
         //Show messages
         showErrorMessage(errName, errorNameMsg);
         showErrorMessage(errMail, errorMailMsg);
         showErrorMessage(errAddress, errorAddressMsg);
         showErrorMessage(errPhone, errorPhoneMsg);
-       // showErrorMessage(errCharacter, errorCharacterMsg);
+        // showErrorMessage(errCharacter, errorCharacterMsg);
 
+    }
+
+    public Supliers getSuplier() {
+        Supliers suplier = new Supliers();
+        suplier.setName(name.getText());
+        suplier.setPhone(phone.getText());
+        suplier.setAddress(address.getText());
+        suplier.setMoreInfo(info.getText());
+        suplier.setContractDate(Utils.getTimestampNow());
+        suplier.setEmail(email.getText());
+        suplier.setCharacters(character.getText());
+        // System.out.println("info: "+suplier.getMoreInfo());
+        return suplier;
     }
 
     public void showErrorMessage(JLabel label, String err) {
@@ -479,19 +490,25 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
     }
 
     // Load list Unit on Unit Table
-    public void loadAllSupliers(List<Unit> listUnit) {
-        DefaultTableModel unitModel = new DefaultTableModel();
-        unitModel.setColumnIdentifiers(Constants.HEADER_UNIT_TABLE);
+    public void loadAllSupliers(List<Supliers> supliers) {
+        DefaultTableModel supModel = new DefaultTableModel();
+        supModel.setColumnIdentifiers(Constants.HEADER_SUPLIER_TABLE);
         int startNumber = 1;
-        for (Unit unit : listUnit) {
+        for (Supliers sup : supliers) {
             Vector row = new Vector();
-            row.add(startNumber);
-            row.add(unit);
-            row.add((unit.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
+            row.add(sup.getId());
+            row.add(sup.getName());
+            row.add(sup.getPhone());
+            row.add(sup.getAddress());
+            row.add(sup.getEmail());
+            row.add(sup.getMoreInfo());
+            row.add(Utils.getSimpleDateFormat(sup.getContractDate()));
+            row.add(sup.getCharacters());
+            row.add((sup.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
             startNumber++;
-            unitModel.addRow(row);
+            supModel.addRow(row);
         }
-        tblSuplier.setModel(unitModel);
+        tblSuplier.setModel(supModel);
     }
 
     // Add event to button addNewUnit
@@ -516,9 +533,13 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
     }
 
     // Get text from txtNewUnitField
-    public void showMessage(String message, int color) {
-
+    private void showErrMess(String message, int color) {
         errName.setText(bundle.getString(message));
+        errName.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
+    }
+
+    public void showMessage(String message, int color) {
+        messageSuplier.setText(bundle.getString(message));
         errName.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }
 
@@ -526,30 +547,36 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         name.requestFocus();
     }
 
-    public Unit getEditUnit() {
+//    public Unit getEditUnit() {
+//        int row = tblSuplier.getSelectedRow();
+//        if (row < 0) {
+//            return null;
+//        }
+//        return (Unit) tblSuplier.getModel().getValueAt(row, 1);
+//    }
+    public int getEditSuplierId() {
         int row = tblSuplier.getSelectedRow();
         if (row < 0) {
-            return null;
+            return -1;
         }
-        return (Unit) tblSuplier.getModel().getValueAt(row, 1);
+        return (int) tblSuplier.getModel().getValueAt(row, 0);
     }
 
-    public void setEnableBtnAddNew(boolean value) {
+    private void setEnableBtnAddNew(boolean value) {
         btnAdd.setEnabled(value);
     }
 
-    public void setEnableBtnEdit(boolean value) {
+    private void setEnableBtnEdit(boolean value) {
         btnEdit.setEnabled(value);
     }
 
-    public void setEnableBtnDelete(boolean value) {
+    private void setEnableBtnDelete(boolean value) {
         btnDelete.setEnabled(value);
     }
 
-    public boolean checkUnitName(String unitName) {
-        return (unitName != null && unitName.equals("") == false);
-    }
-
+//    public boolean checkUnitName(String unitName) {
+//        return (unitName != null && unitName.equals("") == false);
+//    }
     public int showDialogMesage(JFrame frame, String message, String title) {
         return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
     }
@@ -558,6 +585,26 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         setEnableBtnAddNew(true);
         setEnableBtnEdit(false);
         setEnableBtnDelete(false);
+        messageSuplier.setText("");
+        name.setText("");
+        phone.setText("");
+        address.setText("");
+        info.setText("");
+        email.setText("");
+        character.setText("");
+    }
+
+    public void showEditSuplier(Supliers suplier) {
+        name.setText(suplier.getName());
+        phone.setText(suplier.getPhone());
+        address.setText(suplier.getAddress());
+        info.setText(suplier.getMoreInfo());
+        email.setText(suplier.getEmail());
+        character.setText(suplier.getCharacters());
+        setEnableBtnAddNew(false);
+
+        setEnableBtnEdit(true);
+        setEnableBtnDelete(true);
     }
 
 }

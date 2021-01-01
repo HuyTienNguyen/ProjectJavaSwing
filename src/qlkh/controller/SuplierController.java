@@ -51,7 +51,7 @@ public class SuplierController {
             view = new GiangTestFrameSupplier();
         }
         List<Supliers> listSup = suplierDao.getAllSupliers();
-        view.showView();
+        view.showView(listSup);
 
     }
 
@@ -65,24 +65,34 @@ public class SuplierController {
                 // get list rules from suplier request
                 Map<String, String> mapRules = request.getRules();
                 // get list element from view
-                List<Object> listObject = view.getListElementToValidate();
+                List<Object> listValueOfForm = view.getListElementToValidate();
                 // Set return messages
                 Validator.setErrorMessages(request.getMessages());
 
                 // Declare List Item to Validate
-                List<ValidatorItem> listVals = Validator.setRules(listObject, mapRules);
+                List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, mapRules);
                 // Declare instance of Validator
                 Validator validator = new Validator(listVals);
+                // Declare a boolean validate form
                 boolean isFormValid = validator.isPasses();
-              
-                    Map<String, String> errors = validator.getErrors();
-                    view.showErrors(errors);
-               
-                    for (Object obj : listObject) {
-                        System.out.println(Validator.getValue(obj));
-                    }
-               
+                // Get A list error from request validator
+                Map<String, String> errors = validator.getErrors();
+                // show errors to the view
+                view.showErrors(errors);
+                int recoreNumber = 0;
+                if (isFormValid == true) {
+                    Supliers suplier = view.getSuplier();
+                    recoreNumber = suplierDao.insert(suplier);
+                }
+                if (recoreNumber > 0) {
+                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+                    List<Supliers> list = new ArrayList<>();
+                    list = suplierDao.getAllSupliers();
+                    view.showView(list);
+                } else {
+                    view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
 
+                }
             } catch (Exception ex) {
                 Logger.getLogger(SuplierController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -120,7 +130,16 @@ public class SuplierController {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("a");
+            // get Id by row selected on suplier table
+            int suplierId = view.getEditSuplierId();
+            System.out.println(suplierId);
+            Supliers suplier = null;
+            if (suplierId > 0) {
+                suplier = suplierDao.getSuplierById(suplierId);
+            }if(suplier!= null){
+               view.showEditSuplier(suplier);           
+            }
+
         }
 
         @Override

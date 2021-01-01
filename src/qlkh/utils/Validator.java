@@ -424,7 +424,7 @@ public class Validator {
 
     }
 
-    private static String getName(Object component) throws Exception {
+    public static String getName(Object component) throws Exception {
         String value = null;
         if (isTextField(component)) {
             value = getTextField(component).getName();

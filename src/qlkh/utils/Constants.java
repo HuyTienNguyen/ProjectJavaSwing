@@ -47,8 +47,8 @@ public class Constants {
      public static final int ACTION_GET_USER_BY_USERNAME_PASS = 5;
 
     // SImple format date
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
+    public static final String DATE_FORMAT = "dd-MM-yyyy";
+    
     /*
      *   Unit Table
      */
@@ -60,6 +60,16 @@ public class Constants {
      *   END Unit Table
      */
     
+     /*
+     *   Suplier Table
+     */
+    // Header Suplier Table
+    public static final String[] HEADER_SUPLIER_TABLE = {"Id", "Name", "Phone","Address","Email","Info","ContractDate","Character","Status"};
+    public static final String MSG_SUPLIER_NAME_CANT_BE_EMPTY = "MSG_UNIT_NAME_CANT_BE_EMPTY";
+
+    /*
+     *   END Suplier Table
+     */
     /*
      *   SignIn view
      */
