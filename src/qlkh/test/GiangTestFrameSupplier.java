@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package qlkh.testView;
+package qlkh.test;
 
+import qlkh.testView.*;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -24,7 +25,6 @@ import javax.swing.table.DefaultTableModel;
 import qlkh.entities.Unit;
 import qlkh.test.IView;
 import qlkh.utils.Constants;
-import qlkh.utils.Utils;
 
 /**
  *
@@ -414,8 +414,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
     ResourceBundle bundle;
 
     public GiangTestFrameSupplier() {
-      //  Locale local = Utils.getLocale();
-         Locale local = Locale.getDefault();
+        Locale local = Locale.getDefault();
         setResourceBundle(local);
         initComponents();
 

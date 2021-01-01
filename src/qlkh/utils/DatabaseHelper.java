@@ -9,8 +9,10 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 
 import java.sql.DriverManager;
+import java.sql.JDBCType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
@@ -251,5 +253,20 @@ public class DatabaseHelper {
         cst.executeUpdate();
         return cst.getInt(1);
     }
-
+    public static <E> boolean checkUniqueData(String sql, E... args) throws SQLException {
+        boolean check = false;
+        PreparedStatement pstm = getPrepareStatement(false, sql, args);
+        ResultSet rs = pstm.executeQuery();
+        if(rs.next()){
+            check = true;
+        }
+        return check;
+    }
+    public static <E> String getDataTypeFieldName(String sql, E... args) throws Exception {
+        PreparedStatement pstm = getPrepareStatement(false, sql, args);
+        ResultSet rs = pstm.executeQuery();
+        ResultSetMetaData dataTypeFieldName = rs.getMetaData();
+        String dataType = JDBCType.valueOf(dataTypeFieldName.getColumnType(1)).toString();
+        return dataType;
+    }
 }

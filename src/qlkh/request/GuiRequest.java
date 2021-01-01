@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package request;
+package qlkh.request;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,10 +25,5 @@ public abstract class GuiRequest {
     public Map<String, String> getMessages() {
         Map<String, String> mess = setMesages();    
         return mess;
-    }
-
-    
-   
-
-  
+    }  
 }
