@@ -30,7 +30,7 @@ import qlkh.utils.Constants;
  *
  * @author GIANG
  */
-public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView {
+public class GiangTestFrameSupplier1 extends javax.swing.JFrame implements IView {
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -231,13 +231,10 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
                         .addComponent(errMail, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(80, 80, 80))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(errAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(errName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(errAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(errName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -413,7 +410,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
      */
     ResourceBundle bundle;
 
-    public GiangTestFrameSupplier() {
+    public GiangTestFrameSupplier1() {
         Locale local = Locale.getDefault();
         setResourceBundle(local);
         initComponents();
