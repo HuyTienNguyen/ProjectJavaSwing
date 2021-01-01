@@ -141,7 +141,7 @@ public class DatabaseHelper {
      * @param sql cú pháp SQL kèm tham số
      * @param args mảng tham số truyền vào
      */
-    private static <E> CallableStatement getCallableStatement( String sql, E... args) throws SQLException {
+    private static <E> CallableStatement getCallableStatement(String sql, E... args) throws SQLException {
         CallableStatement cst;
         if (connectionSqlserver == null || connectionSqlserver.isClosed() == true) {
             connectionSqlserver = getInstance().getConnectionSqlserver();
@@ -150,11 +150,10 @@ public class DatabaseHelper {
         // 1. Tạo PreparedStatement với tùy chọn lấy về danh sách ID của  dòng trong câu lệnh insert
         cst = connectionSqlserver.prepareCall(sql);
 
-        int size = args.length;     
-            // Đăng ký tham số đầu ra cho thủ tục
-            cst.registerOutParameter(1, Types.INTEGER);
-           int numberOne = 1;
-       
+        int size = args.length;
+        // Đăng ký tham số đầu ra cho thủ tục
+        cst.registerOutParameter(1, Types.INTEGER);
+        int numberOne = 1;
 
         // kieu object
         // Object [] param = new Object[]{String,integer}
@@ -240,12 +239,14 @@ public class DatabaseHelper {
         cst.executeUpdate();
         return cst.getInt(1);
     }
-     public static <E> int updateDataByCallableStatement(String sql, E... args) throws SQLException {
+
+    public static <E> int updateDataByCallableStatement(String sql, E... args) throws SQLException {
         CallableStatement cst = getCallableStatement(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
-      public static <E> int deleteDataByCallableStatement(String sql, E... args) throws SQLException {
+
+    public static <E> int deleteDataByCallableStatement(String sql, E... args) throws SQLException {
         CallableStatement cst = getCallableStatement(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);

@@ -24,7 +24,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import qlkh.testView.sendMailTest;
+
 
 /**
  *
@@ -143,7 +143,7 @@ public class Utils {
             message.setText(content);
             return message;
         } catch (Exception ex) {
-            Logger.getLogger(sendMailTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

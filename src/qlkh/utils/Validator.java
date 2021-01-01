@@ -26,6 +26,8 @@ public class Validator {
     private int MIN = 1, MAX = 2;
     private boolean fails = false;
     private String fieldName = "field_name", ruleValue = "value";
+    private static String tableName = "table", fieldSqlName = "field";
+
     private static Map<String, String> errorMessages = new HashMap<>();
     private static List<ValidatorItem> listValidatorItem = new ArrayList<>();
     private static Border errorBorder = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 0), 2);
@@ -43,7 +45,7 @@ public class Validator {
 
             for (String rule : rules) {
                 String ruleStr = getRule(rule), value = getValue(component);
-
+                // combobox.getIndex.toString    textFile/getText
                 boolean ruleError = false;
                 int ruleVal = 0;
                 String typesCompare = "";
@@ -90,9 +92,9 @@ public class Validator {
                         ruleError = isntRegex(value, regexCode);
                         break;
                     case "confirmed":
-                     
+
                         // get the second item to confirm with the number one item
-                     ValidatorItem   itemConfirm = getItemConfirm(items, item);
+                        ValidatorItem itemConfirm = getItemConfirm(items, item);
                         if (itemConfirm == null) {
                             ruleError = true;
                         } else {
@@ -119,8 +121,8 @@ public class Validator {
     }
 
     private String[] splitRules(String ruleString) {
-        if (ruleString.contains("(?![^\\\\(]*\\\\))\\\\|")) {
-            String[] solitted = ruleString.split("\\|");
+        if (ruleString.contains("|")) {
+            String[] solitted = ruleString.split("(?![^\\\\(]*\\\\))\\\\|");
             return solitted;
         }
         String[] defaultRule = {ruleString};
@@ -397,6 +399,16 @@ public class Validator {
 
     public static void setErrorMessages(Map<String, String> errorMessages) {
         Validator.errorMessages = errorMessages;
+    }
+
+    private static boolean checkUniqueFromTable(String tableName, String fieldName, String value) {
+        Object getparam[] = new Object[]{
+            value
+        };
+        String sql = Constants.QUERY_CHECK_UNIQUE_CONSTANTS.replaceAll(tableName, tableName);
+        sql = Constants.QUERY_CHECK_UNIQUE_CONSTANTS.replaceAll(fieldSqlName, fieldName);
+
+        return false;
     }
 
     public static List<ValidatorItem> setRules(List<Object> components, Map<String, String> mapRules) throws Exception {

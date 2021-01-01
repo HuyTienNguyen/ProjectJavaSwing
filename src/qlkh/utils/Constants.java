@@ -89,4 +89,6 @@ public class Constants {
     /*
      *   SignUp view
      */
+    
+    public static final String QUERY_CHECK_UNIQUE_CONSTANTS = "SELECT * FROM table where field =?";
 }
