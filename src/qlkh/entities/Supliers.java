@@ -24,8 +24,8 @@ public class Supliers {
     private String email;
     private String moreInfo;
     private Timestamp contractDate;
-    private String characters;
     private int status;
+    private String characters;
 
     public Supliers() {
     }
@@ -40,7 +40,8 @@ public class Supliers {
         this.contractDate = contractDate;
         this.characters = characters;
     }
-        public Supliers(int id, String name, String address, String phone, String email, String moreInfo, Timestamp contractDate, String characters,int status) {
+
+    public Supliers(int id, String name, String address, String phone, String email, String moreInfo, Timestamp contractDate, int status, String characters) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -51,7 +52,6 @@ public class Supliers {
         this.characters = characters;
         this.status = status;
     }
-
 
     public int getId() {
         return id;
@@ -116,7 +116,14 @@ public class Supliers {
     public void setCharacters(String characters) {
         this.characters = characters;
     }
-    
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
@@ -139,7 +146,7 @@ public class Supliers {
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
-                   this.getName(),
+                    this.getName(),
                     this.getAddress(),
                     this.getPhone(),
                     this.getEmail(),
@@ -161,9 +168,7 @@ public class Supliers {
 
     @Override
     public String toString() {
-        return "Supliers{" + "id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email + ", moreInfo=" + moreInfo + ", contractDate=" + contractDate + ", characters=" + characters + '}';
+        return name;
     }
-
-    
 
 }
