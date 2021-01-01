@@ -104,7 +104,6 @@ public class SignIn extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        signInController1 = new qlkh.controller.SignInController();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -123,9 +122,7 @@ public class SignIn extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        kGradientPanel1.setEndColor(new java.awt.Color(0, 204, 204));
-        kGradientPanel1.setGradientFocus(600);
-        kGradientPanel1.setStartColor(new java.awt.Color(153, 0, 153));
+        kGradientPanel1.setLayout(null);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/male-user-70.png"))); // NOI18N
         kGradientPanel1.add(jLabel1);
@@ -286,7 +283,6 @@ public class SignIn extends javax.swing.JFrame {
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JPasswordField siPassword;
     private javax.swing.JTextField siUsername;
-    private qlkh.controller.SignInController signInController1;
     // End of variables declaration//GEN-END:variables
 
 

@@ -25,10 +25,5 @@ public abstract class GuiRequest {
     public Map<String, String> getMessages() {
         Map<String, String> mess = setMesages();    
         return mess;
-    }
-
-    
-   
-
-  
+    }  
 }

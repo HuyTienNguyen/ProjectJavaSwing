@@ -35,8 +35,19 @@ public class testNew {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        String a= "5";
-        sendMailTest.sendMail("danvohoix4@gmail.com",a);
-
+//        String contentMail= "5";
+//        Utils.sendMail("danvohoix4@gmail.com",contentMail);
+        String regex = "unique:users,email";
+        String rules = regex.split(":")[1];
+        String[] ruless = rules.split(",");
+        ArrayList<String> newList = new ArrayList<>();
+        
+        System.out.println(ruless[0]);
+        
+        ruless[2] = "hi";
+        for(String x : ruless){
+            System.out.println(x);
+        }
+        String xx = "select * from  ? where ? = ?";
     }
 }

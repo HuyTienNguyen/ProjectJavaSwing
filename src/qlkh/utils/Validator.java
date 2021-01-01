@@ -28,6 +28,8 @@ public class Validator {
     private int MIN = 1, MAX = 2;
     private boolean fails = false;
     private String fieldName = "field_name", ruleValue = "value";
+    private static String tableSqlName = "table", fieldSqlName = "field";
+
     private static Map<String, String> errorMessages = new HashMap<>();
     private static List<ValidatorItem> listValidatorItem = new ArrayList<>();
     private static Border errorBorder = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 0), 2);
@@ -42,16 +44,15 @@ public class Validator {
             String ruleString = item.getRule(), field = item.getName();
             Object component = item.getField();
             String[] rules = splitRules(ruleString);
-   
+
             for (String rule : rules) {
                 String ruleStr = getRule(rule), value = getValue(component);
-                // strrule = required field = name ruleval =0
                 boolean ruleError = false;
                 int ruleVal = 0;
                 String typesCompare = "";
 
                 switch (ruleStr) {
-                    
+
                     case "required":
                         ruleError = isNull(value);
                         break;
@@ -89,13 +90,13 @@ public class Validator {
                         ruleError = length(value, max, MAX);
                         break;
                     case "regex":
-                        String regexCode = getRegexValue(rule);                                          
+                        String regexCode = getRegexValue(rule);
                         ruleError = isntRegex(value, regexCode);
                         break;
                     case "confirmed":
-                     
+
                         // get the second item to confirm with the number one item
-                     ValidatorItem   itemConfirm = getItemConfirm(items, item);
+                        ValidatorItem itemConfirm = getItemConfirm(items, item);
                         if (itemConfirm == null) {
                             ruleError = true;
                         } else {
@@ -105,6 +106,10 @@ public class Validator {
                             ruleError = isntConfirmedValue(getValue(itemObject), getValue(itemConfirmObject));
                         }
                         // field+"_ìnomation
+                        break;
+                    case "unique":
+                        String[] NameTableAndField = getRuleValue2(rule);
+                        ruleError = checkUniqueFromTable(NameTableAndField[0], NameTableAndField[1], value);
                         break;
 
                     default:
@@ -222,14 +227,14 @@ public class Validator {
     }
 
     private boolean isntRegex(String value, String regexCode) {
-       Pattern pattern = Pattern.compile(regexCode);
-        Matcher matcher = pattern.matcher(value);    
+        Pattern pattern = Pattern.compile(regexCode);
+        Matcher matcher = pattern.matcher(value);
         if (matcher.matches()) {
-           return false;
+            return false;
         } else {
             return true;
         }
-         
+
     }
 
     private boolean isntInteger(String value) {
@@ -280,6 +285,11 @@ public class Validator {
     }
 
     private String isComparisionNumber(String[] rules, String rule) {
+        /*
+         rules[]=[rewquired, min:5, integer]
+         rule = [min,max,required]
+         */
+
         String types = "";
         for (String rule1 : rules) {
             if (rule1.equals(TYPES_INTEGER)) {
@@ -354,10 +364,17 @@ public class Validator {
             throw new Exception("Validator rule '" + rule + "' required a correct integer value for the validation. Ex: " + rule + ":5.");
         }
     }
+    private String[] getRuleValue2(String rule) throws Exception{
+        if(rule.contains(":")){
+            return rule.split(":");
+        } else {
+            throw new Exception("Validator rule '" + rule + "' required a correct integer value for the validation. Ex: " + rule + ":5.");
+        }
+    }
 
     private String getRegexValue(String rule) throws Exception {
         if (isntNumber(rule) == true && rule.contains(":") == true) {
-           
+
             return rule.split(":")[1];
         } else {
             throw new Exception("Validator rule '" + rule + "' required a correct integer value for the validation. Ex: " + rule + ":5.");
@@ -407,6 +424,34 @@ public class Validator {
         Validator.errorMessages = errorMessages;
     }
 
+    private static boolean checkUniqueFromTable(String tableName, String fieldName, String value) throws Exception {
+        String sqlCheckDataType = Constants.QUERY_CHECK_DATA_TYPE_FIELD_NAME.replaceAll(tableSqlName, tableName);
+        sqlCheckDataType = sqlCheckDataType.replaceAll(fieldSqlName, fieldName);
+
+        String[] param = new String[]{};
+        String dataTypeFieldName = DatabaseHelper.getDataTypeFieldName(sqlCheckDataType, param);
+        Object value1 = null;
+        System.out.println(dataTypeFieldName);
+        if (dataTypeFieldName.equals("INTEGER")) {
+            value1 = Integer.parseInt(value);
+        } else if (dataTypeFieldName.equals("FLOAT")) {
+            value1 = Float.parseFloat(value);
+        } else if (dataTypeFieldName.equals("BOOLEAN")) {
+            value1 = Boolean.parseBoolean(value);
+        } else if(dataTypeFieldName.equals("STRING")){
+            value1 = value;
+        } else if(dataTypeFieldName.equals("STRING")){
+            value1 = Double.parseDouble(value);
+        }
+        Object getparam[] = new Object[]{
+            value1
+        };
+        String sql = Constants.QUERY_CHECK_UNIQUE_CONSTANTS.replaceAll(tableSqlName, tableName);
+        sql = sql.replaceAll(fieldSqlName, fieldName);
+        
+        return DatabaseHelper.checkUniqueData(sql, getparam) ? true : false;
+    }
+
     public static List<ValidatorItem> setRules(List<Object> components, Map<String, String> mapRules) throws Exception {
         List<ValidatorItem> listItem = new ArrayList<>();
         for (Map.Entry<String, String> entrySet : mapRules.entrySet()) {
@@ -450,6 +495,7 @@ public class Validator {
         map.put("maxNumber", "Maximum Value for " + fieldName + " is " + ruleValue + ".");
         map.put("number", "Text must be a valid number for the " + fieldName + " field.");
         map.put("regex", "Text must be a valid pattern  for the " + fieldName + " field.");
+        map.put("unqiue", "The " + fieldName + " was duplicated.");
         map.put(TYPES_INTEGER, "Please enter a Integer number in " + fieldName + " field.");
         map.put(TYPES_FLOAT, "Please enter a Float number in " + fieldName + " field.");
         map.put(TYPES_DOUBLE, "Please enter a Double number in  " + fieldName + " field.");
@@ -464,7 +510,7 @@ public class Validator {
         Map<String, String> defaultMessage = getDefaultMessages();
         // Get errResponses mesage
         String customErrorResponse = msgs.get(field + "." + rule);
-        
+
         String defaultErrorResponse = defaultMessage.get(rule);
         String errResponse = "";
         // Assign value to error response

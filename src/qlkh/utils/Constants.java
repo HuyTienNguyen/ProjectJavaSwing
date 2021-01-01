@@ -99,4 +99,7 @@ public class Constants {
     /*
      *   SignUp view
      */
+    
+    public static final String QUERY_CHECK_UNIQUE_CONSTANTS = "SELECT * FROM table where field =?";
+    public static final String QUERY_CHECK_DATA_TYPE_FIELD_NAME = "SELECT field FROM table";
 }
