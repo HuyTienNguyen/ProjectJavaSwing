@@ -77,12 +77,12 @@ public class SuplierController {
                 Map<String, String> errors = validator.getErrors();
                 // show errors to the view
                 view.showErrors(errors);
-                int recoreNumber = 0;
+                int recordNumber = 0;
                 if (isFormValid == true) {
-                    Supliers suplier = view.getSuplier();
-                    recoreNumber = suplierDao.insert(suplier);
+                    Supliers suplier = view.getNewSuplier();
+                    recordNumber = suplierDao.insert(suplier);
                 }
-                if (recoreNumber > 0) {
+                if (recordNumber > 0) {
                     view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
                     List<Supliers> list = new ArrayList<>();
                     list = suplierDao.getAllSupliers();
@@ -102,7 +102,41 @@ public class SuplierController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            try {
+                // Declare suplier request
+                SuplierRequest request = new SuplierRequest();
+                // get list rules from suplier request
+                Map<String, String> mapRules = request.getRules();
+                // get list element from view
+                List<Object> listValueOfForm = view.getListElementToValidate();
+                // Set return messages
+                Validator.setErrorMessages(request.getMessages());
+                
+                // Declare List Item to Validate
+                List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, mapRules);
+                // Declare instance of Validator
+                Validator validator = new Validator(listVals);
+                // Declare a boolean validate form
+                boolean isFormValid = validator.isPasses();
+                // Get A list error from request validator
+                Map<String, String> errors = validator.getErrors();
+                // show errors to the view
+                view.showErrors(errors);
+                int recordNumber = 0;
+                if (isFormValid == true) {
+                    Supliers suplier = view.getEditSuplier();                 
+                    recordNumber = suplierDao.update(suplier);
+                    if (recordNumber > 0) {
+                        view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
+                        view.clearView(false);
+                        List<Supliers> list = new ArrayList<>();
+                        list = suplierDao.getAllSupliers();
+                        view.showView(list);
+                    }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -110,7 +144,7 @@ public class SuplierController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            view.clearView();
+            view.clearView(true);
 
         }
 
@@ -120,7 +154,16 @@ public class SuplierController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            Supliers suplier = view.getEditSuplier();
+            int recordNumber = 0;
+            recordNumber = suplierDao.delete(suplier);
+            if (recordNumber > 0) {
+                view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
+                view.clearView(false);
+                List<Supliers> list = new ArrayList<>();
+                list = suplierDao.getAllSupliers();
+                view.showView(list);
+            }
         }
     }
 
@@ -130,12 +173,13 @@ public class SuplierController {
         public void mouseClicked(MouseEvent e) {
             // get Id by row selected on suplier table
             int suplierId = view.getEditSuplierId();
-            System.out.println(suplierId);
+
             Supliers suplier = null;
             if (suplierId > 0) {
                 suplier = suplierDao.getSuplierById(suplierId);
-            }if(suplier!= null){
-               view.showEditSuplier(suplier);           
+            }
+            if (suplier != null) {
+                view.showEditSuplier(suplier);
             }
 
         }

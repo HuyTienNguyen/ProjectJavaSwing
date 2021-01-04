@@ -12,14 +12,14 @@ import java.awt.Color;
  * @author GIANG
  */
 public class Constants {
-    
+
     // Hằng số cho Color message thông báo
     public static final int FLAG_ERROR = 1;
     public static final int FLAG_SUCCESS = 2;
     // Hằng số màu thông báo
     public static final Color COLOR_SUCCESS = new Color(3, 148, 252);
     public static final Color COLOR_ERROR = new Color(237, 56, 28);
-    
+
     // Hằng số cho các trường hợp INSERT, UPDATE, DELETE
     public static final int ACTION_INSERT = 1;
     public static final int ACTION_UPDATE = 2;
@@ -30,6 +30,9 @@ public class Constants {
     // Hằng số thông báo thành công
     public static final String MSG_ADD_SUCCESS = "MSG_ADD_SUCCESS";
     public static final String MSG_ADD_ERROR = "MSG_ADD_ERROR";
+    public static final String MSG_EDIT_SUCCESS = "MSG_EDIT_SUCCESS";
+    public static final String MSG_EDIT_ERROR = "MSG_EDIT_ERROR";
+
     public static final String MSG_UPDATE_SUCCESS = "MSG_UPDATE_SUCCESS";
     public static final String MSG_UPDATE_ERROR = "MSG_UPDATE_ERROR";
     public static final String MSG_DELETE_SUCCESS = "MSG_DELETE_SUCCESS";
@@ -42,13 +45,12 @@ public class Constants {
     public static final String STATUS_SHOW = "SHOW";
 
     // Hằng số cho Class UserDaoImpl
-
-     public static final int ACTION_GET_USER_BY_CODE = 4;
-     public static final int ACTION_GET_USER_BY_USERNAME_PASS = 5;
+    public static final int ACTION_GET_USER_BY_CODE = 4;
+    public static final int ACTION_GET_USER_BY_USERNAME_PASS = 5;
 
     // SImple format date
     public static final String DATE_FORMAT = "dd-MM-yyyy";
-    
+
     /*
      *   Unit Table
      */
@@ -59,12 +61,11 @@ public class Constants {
     /*
      *   END Unit Table
      */
-    
-     /*
+    /*
      *   Suplier Table
      */
     // Header Suplier Table
-    public static final String[] HEADER_SUPLIER_TABLE = {"Id", "Name", "Phone","Address","Email","Info","ContractDate","Character","Status"};
+    public static final String[] HEADER_SUPLIER_TABLE = {"Id", "Name", "Phone", "Address", "Email", "Info", "ContractDate", "Character", "Status"};
     public static final String MSG_SUPLIER_NAME_CANT_BE_EMPTY = "MSG_UNIT_NAME_CANT_BE_EMPTY";
 
     /*
@@ -73,7 +74,6 @@ public class Constants {
     /*
      *   SignIn view
      */
-    
     public static final String SIGN_IN_ERR_PASS_FIELD = "errPassword";
     public static final String MSG_ERROR_USERNAME_CANT_BE_EMPTY_SIGNIN = "MSG_ERROR_USERNAME_CANT_BE_EMPTY_SIGNIN";
     public static final String MSG_ERROR_PASSWORD_CANT_BE_EMPTY_SIGNIN = "MSG_ERROR_PASSWORD_CANT_BE_EMPTY_SIGNIN";
@@ -90,7 +90,7 @@ public class Constants {
     public static final String SIGN_UP_ERR_USERNAME = "SIGN_UP_ERR_USERNAME";
     public static final String SIGN_UP_ERR_PASSWORD = "SIGN_UP_ERR_PASSWORD";
     public static final String SIGN_UP_ERR_RE_PASSWORD = "SIGN_UP_ERR_RE_PASSWORD";
-    
+
     public static final String SIGN_UP_ERR_FULL_NAME_EMPTY = "SIGN_UP_ERR_FULL_NAME";
     public static final String SIGN_UP_ERR_EMAIL_EMPTY = "SIGN_UP_ERR_EMAIL";
     public static final String SIGN_UP_ERR_USERNAME_EMPTY = "SIGN_UP_ERR_USERNAME";
@@ -99,7 +99,7 @@ public class Constants {
     /*
      *   SignUp view
      */
-    
+
     public static final String QUERY_CHECK_UNIQUE_CONSTANTS = "SELECT * FROM table where field =?";
     public static final String QUERY_CHECK_DATA_TYPE_FIELD_NAME = "SELECT field FROM table";
 }
