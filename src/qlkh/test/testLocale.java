@@ -45,13 +45,15 @@ Connection con = null;
         }
       //Creating the Statement
       Statement stmt = con.createStatement();
-      String tableSqlName = "table", fieldSqlName = "field", tableName = "UserRole", fieldName = "id";
+      String tableSqlName = "table", fieldSqlName = "field", tableName = "UserRole", fieldName = "name";
+      int fieldId = 2;
       String sqlCheckDataType = Constants.QUERY_CHECK_DATA_TYPE_FIELD_NAME.replaceAll(tableSqlName, tableName);
+      //SELECT field FROM table
       sqlCheckDataType = sqlCheckDataType.replaceAll(fieldSqlName, fieldName);
       
       String[] param = new String[]{};
       String dataTypeFieldName = DatabaseHelper.getDataTypeFieldName(sqlCheckDataType, param);
-      String value = "2";
+      String value = "manager";
       Object value1 = null;
         System.out.println(dataTypeFieldName);
         if(dataTypeFieldName.equals("INTEGER")){
@@ -63,10 +65,16 @@ Connection con = null;
         else if(dataTypeFieldName.equals("BOOLEAN")){
             value1 = Boolean.parseBoolean(value);
         }
+        else if(dataTypeFieldName.equals("NVARCHAR")){
+            value1 = value;
+        }
+       
         Object getparam[] = new Object[]{
-            value1
+            value1,
+            fieldId
         };
-        String sql = Constants.QUERY_CHECK_UNIQUE_CONSTANTS.replaceAll(tableSqlName, tableName);
+        String sql = Constants.QUERY_CHECK_UNIQUE_CONSTANTS_WHEN_UPDATE.replaceAll(tableSqlName, tableName);
+        //SELECT * FROM table where field =? and id not like ?
         sql = sql.replaceAll(fieldSqlName, fieldName);
         if(DatabaseHelper.checkUniqueData(sql, getparam)){
             System.out.println("oke");

@@ -52,7 +52,7 @@ public class MainView1 extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         jPanel2.setPreferredSize(new java.awt.Dimension(200, 529));
 
-        kButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(204, 204, 204)));
+        kButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(204, 204, 204)));
         kButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/home-page-20.png"))); // NOI18N
         kButton1.setText("Home");
         kButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

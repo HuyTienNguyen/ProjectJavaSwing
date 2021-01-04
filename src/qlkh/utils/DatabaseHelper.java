@@ -262,6 +262,7 @@ public class DatabaseHelper {
         }
         return check;
     }
+
     public static <E> String getDataTypeFieldName(String sql, E... args) throws Exception {
         PreparedStatement pstm = getPrepareStatement(false, sql, args);
         ResultSet rs = pstm.executeQuery();

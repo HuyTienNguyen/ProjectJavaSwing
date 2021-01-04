@@ -122,7 +122,9 @@ public class SignIn extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        kGradientPanel1.setLayout(null);
+        kGradientPanel1.setEndColor(new java.awt.Color(0, 204, 204));
+        kGradientPanel1.setGradientFocus(600);
+        kGradientPanel1.setStartColor(new java.awt.Color(153, 0, 153));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/male-user-70.png"))); // NOI18N
         kGradientPanel1.add(jLabel1);
