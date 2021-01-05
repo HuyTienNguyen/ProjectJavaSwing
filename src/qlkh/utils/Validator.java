@@ -19,7 +19,7 @@ import qlkh.entities.ValidatorItem;
  * @author Sahan Dissanayake. (http://www.github.com/Disapamok);
  */
 public class Validator {
-
+    
     private Border defaultBorder = new JTextField().getBorder();
     private Border defaultBorder1 = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0);
 
