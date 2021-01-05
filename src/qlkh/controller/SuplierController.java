@@ -70,7 +70,7 @@ public class SuplierController {
                 // Declare List Item to Validate
                 List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, mapRules);
                 // Declare instance of Validator
-                Validator validator = new Validator(listVals);
+                Validator validator = new Validator(listVals, null);
                 // Declare a boolean validate form
                 boolean isFormValid = validator.isPasses();
                 // Get A list error from request validator
@@ -115,7 +115,7 @@ public class SuplierController {
                 // Declare List Item to Validate
                 List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, mapRules);
                 // Declare instance of Validator
-                Validator validator = new Validator(listVals);
+                Validator validator = new Validator(listVals,null);
                 // Declare a boolean validate form
                 boolean isFormValid = validator.isPasses();
                 // Get A list error from request validator

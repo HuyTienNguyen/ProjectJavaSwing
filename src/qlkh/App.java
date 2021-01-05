@@ -43,7 +43,6 @@ public class App {
                 SignIn signIn = new SignIn(myLocale);
                 SignInController mainController = new SignInController(signIn);
                 mainController.showSignIn();
-
             }
 
         });
