@@ -20,9 +20,6 @@ import qlkh.entities.ValidatorItem;
  */
 public class Validator {
 
-
-    private String id = null;
-
     private Border defaultBorder = new JTextField().getBorder();
     private Border defaultBorder1 = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0);
 
@@ -44,7 +41,6 @@ public class Validator {
     private boolean isInsert = true;
 
     public Validator(List<ValidatorItem> items, String valueId) throws Exception {
-        this.id = id;
         for (ValidatorItem item : items) {
             String ruleString = item.getRule(), field = item.getName();
             Object component = item.getField();
@@ -113,13 +109,15 @@ public class Validator {
                         // field+"_ìnomation
                         break;
                     case "unique":
-                        
-                        if (valueId == null) {
-                            String[] NameTableAndField = getUniqueRule(rule);
-                            ruleError = checkUniqueFromTableWhenInsert(NameTableAndField[0], NameTableAndField[1], value);
+
+                        if (valueId == null) {                        
+                            String x = getRuleUniqueValue(rule);
+                            String[] NameTableAndField = getUniqueRule(x);                        
+                            ruleError = checkUniqueFromTableWhenInsert(NameTableAndField[0], NameTableAndField[1], value);                           
                             break;
-                        } else {
-                            String[] NameTableAndField = getUniqueRule(rule);
+                        } else {                         
+                            String x = getRuleUniqueValue(rule);                         
+                            String[] NameTableAndField = getUniqueRule(x);
                             ruleError = checkUniqueFromTableWhenUpdate(NameTableAndField[0], NameTableAndField[1], value, valueId);
                             break;
                         }
@@ -176,7 +174,7 @@ public class Validator {
         return component.getClass() == JTextArea.class;
     }
 
-    private boolean isLabelComponent(Object component) {
+    private static boolean isLabelComponent(Object component) {
         return component.getClass() == JLabel.class;
     }
 
@@ -361,7 +359,7 @@ public class Validator {
         return (JTextArea) component;
     }
 
-    private JLabel getTextLabel(Object component) {
+    private static JLabel getTextLabel(Object component) {
         return (JLabel) component;
     }
 
@@ -372,6 +370,15 @@ public class Validator {
     private int getRuleValue(String rule) throws Exception {
         if (isntNumber(rule) && rule.contains(":")) {
             return Integer.parseInt(rule.split(":")[1]);
+        } else {
+            throw new Exception("Validator rule '" + rule + "' required a correct integer value for the validation. Ex: " + rule + ":5.");
+        }
+    }
+
+    private String getRuleUniqueValue(String rule) throws Exception {
+        if (rule.contains(":")) {
+            
+            return rule.split(":")[1];
         } else {
             throw new Exception("Validator rule '" + rule + "' required a correct integer value for the validation. Ex: " + rule + ":5.");
         }
@@ -423,6 +430,8 @@ public class Validator {
             value = getCombo(component).getSelectedItem().toString();
         } else if (isTextArea(component)) {
             value = getTextAreaField(component).getText();
+        } else if (isLabelComponent(component)) {
+            value = getTextLabel(component).getText();
         } else {
             throw new Exception("This component couldn't be validated.");
         }
@@ -436,6 +445,7 @@ public class Validator {
     public static void setErrorMessages(Map<String, String> errorMessages) {
         Validator.errorMessages = errorMessages;
     }
+
     //hàm check unique khi insert
     private static boolean checkUniqueFromTableWhenInsert(String tableName, String fieldName, String value) throws Exception {
         String dataTypeFieldName = getDataTypeFiledName(tableName, fieldName);
@@ -449,12 +459,13 @@ public class Validator {
 
         return DatabaseHelper.checkUniqueData(sql, getparam) ? true : false;
     }
-    
+
     //hàm check unique khi update
     private static boolean checkUniqueFromTableWhenUpdate(String tableName, String fieldName, String value, String id) throws Exception {
         //lấy kiểu dữ liệu của cột select và sau đo sẽ đổi dữ liệu sang kiểu dữ liệu từ database trả về
         String dataTypeColumn = getDataTypeFiledName(tableName, fieldName);
         Object valueColumn = convertDataType(dataTypeColumn, value);
+
         //lấy kiểu dữ liệu của cột id 
         String dataTypeColumnId = getDataTypeFiledName(tableName, "id");
         Object valueId = convertDataType(dataTypeColumnId, id);
@@ -475,12 +486,12 @@ public class Validator {
         sqlCheckDataType = sqlCheckDataType.replaceAll(fieldSqlName, fieldName);
         String[] param = new String[]{};
         String dataTypeFieldName = DatabaseHelper.getDataTypeFieldName(sqlCheckDataType, param);
-        dataTypeFieldName = dataType;
+
+        dataType = dataTypeFieldName;
         return dataType;
     }
 
     //hàm convert data filedname
-
     private static Object convertDataType(String dataTypeFieldName, String value) {
         Object value1 = null;
         if (dataTypeFieldName.equals("INTEGER")) {
@@ -526,6 +537,8 @@ public class Validator {
             value = getCombo(component).getName();
         } else if (isTextArea(component)) {
             value = getTextAreaField(component).getName();
+        } else if (isLabelComponent(component)) {
+            value = getTextLabel(component).getName();
         } else {
             throw new Exception("This component couldn't be validated.");
         }
@@ -542,7 +555,7 @@ public class Validator {
         map.put("maxNumber", "Maximum Value for " + fieldName + " is " + ruleValue + ".");
         map.put("number", "Text must be a valid number for the " + fieldName + " field.");
         map.put("regex", "Text must be a valid pattern  for the " + fieldName + " field.");
-        map.put("unqiue", "The " + fieldName + " was duplicated.");
+        map.put("unique", "The " + fieldName + " was exists. Please try again!");     
         map.put(TYPES_INTEGER, "Please enter a Integer number in " + fieldName + " field.");
         map.put(TYPES_FLOAT, "Please enter a Float number in " + fieldName + " field.");
         map.put(TYPES_DOUBLE, "Please enter a Double number in  " + fieldName + " field.");

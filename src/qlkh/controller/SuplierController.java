@@ -22,6 +22,7 @@ import qlkh.testView.GiangTestFrameSupplier;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
 import qlkh.request.SuplierRequest;
+import qlkh.request.UpdateSuplierRequest;
 
 /**
  *
@@ -104,18 +105,19 @@ public class SuplierController {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Declare suplier request
-                SuplierRequest request = new SuplierRequest();
+                UpdateSuplierRequest request = new UpdateSuplierRequest();
                 // get list rules from suplier request
                 Map<String, String> mapRules = request.getRules();
                 // get list element from view
                 List<Object> listValueOfForm = view.getListElementToValidate();
                 // Set return messages
                 Validator.setErrorMessages(request.getMessages());
-                
+
                 // Declare List Item to Validate
                 List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, mapRules);
                 // Declare instance of Validator
-                Validator validator = new Validator(listVals,null);
+                String id = view.getEditId();
+                Validator validator = new Validator(listVals, id);
                 // Declare a boolean validate form
                 boolean isFormValid = validator.isPasses();
                 // Get A list error from request validator
@@ -124,7 +126,7 @@ public class SuplierController {
                 view.showErrors(errors);
                 int recordNumber = 0;
                 if (isFormValid == true) {
-                    Supliers suplier = view.getEditSuplier();                 
+                    Supliers suplier = view.getEditSuplier();
                     recordNumber = suplierDao.update(suplier);
                     if (recordNumber > 0) {
                         view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
@@ -173,7 +175,7 @@ public class SuplierController {
         public void mouseClicked(MouseEvent e) {
             // get Id by row selected on suplier table
             int suplierId = view.getEditSuplierId();
-
+            view.clearError();
             Supliers suplier = null;
             if (suplierId > 0) {
                 suplier = suplierDao.getSuplierById(suplierId);
@@ -181,7 +183,6 @@ public class SuplierController {
             if (suplier != null) {
                 view.showEditSuplier(suplier);
             }
-
         }
 
         @Override

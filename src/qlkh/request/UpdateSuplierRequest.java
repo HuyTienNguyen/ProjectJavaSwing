@@ -12,15 +12,16 @@ import java.util.Map;
  *
  * @author GIANG
  */
-public class SuplierRequest extends GuiRequest {
+public class UpdateSuplierRequest extends GuiRequest {
 
     @Override
     public Map<String, String> setRules() {
         Map<String, String> myMap = new HashMap();
-      //  myMap.put("name", "required");
-      //  myMap.put("address", "required|max:255");
-        myMap.put("phone", "required|unique:suplier,phone|regex:(03|05|07|08|09|01[2|6|8|9])([0-9]{8})");
-      //  myMap.put("mail", "required|regex:^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+        myMap.put("id", "required");
+        myMap.put("name", "required");
+        myMap.put("address", "required|max:255");
+        myMap.put("phone", "required|regex:(03|05|07|08|09|01[2|6|8|9])([0-9]{8})|unique:suplier,phone");
+        myMap.put("mail", "required|regex:^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
         return myMap;
     }
 

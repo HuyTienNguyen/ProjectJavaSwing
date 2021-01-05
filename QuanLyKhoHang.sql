@@ -351,3 +351,8 @@ exec sp_check_value_insert_supplier   @nameoutput1  output ,
 	 @charactersoutput1  
 		select * from Suplier
 		select count(name) as name, count(email) as mail from Suplier where name ='truong giang'
+		select * from unit
+		select *from unit where name ='Tạ' or  id not like 1
+		-- table name, field, id $ this id
+		select * from tableName where field not Like value
+		select * from unit where id Not LIKE 1
