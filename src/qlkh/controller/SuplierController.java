@@ -49,8 +49,8 @@ public class SuplierController {
         if (view == null) {
             view = new GiangTestFrameSupplier();
         }
-        List<Supliers> listSup = suplierDao.getAllSupliers();
-        view.showView(listSup);
+        List<Supliers> supliers = suplierDao.getAllSupliers();
+        view.showView(supliers);
 
     }
 
@@ -62,14 +62,14 @@ public class SuplierController {
                 // Declare suplier request
                 SuplierRequest request = new SuplierRequest();
                 // get list rules from suplier request
-                Map<String, String> mapRules = request.getRules();
+                Map<String, String> rules = request.getRules();
                 // get list element from view
-                List<Object> listValueOfForm = view.getListElementToValidate();
+                List<Object> listValueOfForm = view.getListElements();
                 // Set return messages
                 Validator.setErrorMessages(request.getMessages());
 
                 // Declare List Item to Validate
-                List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, mapRules);
+                List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, rules);
                 // Declare instance of Validator
                 Validator validator = new Validator(listVals, null);
                 // Declare a boolean validate form
@@ -78,16 +78,16 @@ public class SuplierController {
                 Map<String, String> errors = validator.getErrors();
                 // show errors to the view
                 view.showErrors(errors);
-                int recordNumber = 0;
+                int records = 0;
                 if (isFormValid == true) {
                     Supliers suplier = view.getNewSuplier();
-                    recordNumber = suplierDao.insert(suplier);
+                    records = suplierDao.insert(suplier);
                 }
-                if (recordNumber > 0) {
+                if (records > 0) {
                     view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-                    List<Supliers> list = new ArrayList<>();
-                    list = suplierDao.getAllSupliers();
-                    view.showView(list);
+                    List<Supliers> supliers = new ArrayList<>();
+                    supliers = suplierDao.getAllSupliers();
+                    view.showView(supliers);
                 } else {
                     view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
 
@@ -107,33 +107,33 @@ public class SuplierController {
                 // Declare suplier request
                 UpdateSuplierRequest request = new UpdateSuplierRequest();
                 // get list rules from suplier request
-                Map<String, String> mapRules = request.getRules();
+                Map<String, String> rules = request.getRules();
                 // get list element from view
-                List<Object> listValueOfForm = view.getListElementToValidate();
+                List<Object> listElements = view.getListElements();
                 // Set return messages
                 Validator.setErrorMessages(request.getMessages());
 
                 // Declare List Item to Validate
-                List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, mapRules);
+                List<ValidatorItem> listItem = Validator.setRules(listElements, rules);
                 // Declare instance of Validator
                 String id = view.getEditId();
-                Validator validator = new Validator(listVals, id);
+                Validator validator = new Validator(listItem, id);
                 // Declare a boolean validate form
                 boolean isFormValid = validator.isPasses();
                 // Get A list error from request validator
                 Map<String, String> errors = validator.getErrors();
                 // show errors to the view
                 view.showErrors(errors);
-                int recordNumber = 0;
+                int records = 0;
                 if (isFormValid == true) {
                     Supliers suplier = view.getEditSuplier();
-                    recordNumber = suplierDao.update(suplier);
-                    if (recordNumber > 0) {
+                    records = suplierDao.update(suplier);
+                    if (records > 0) {
                         view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
                         view.clearView(false);
-                        List<Supliers> list = new ArrayList<>();
-                        list = suplierDao.getAllSupliers();
-                        view.showView(list);
+                        List<Supliers> supliers = new ArrayList<>();
+                        supliers = suplierDao.getAllSupliers();
+                        view.showView(supliers);
                     }
                 }
             } catch (Exception ex) {
@@ -157,14 +157,14 @@ public class SuplierController {
         @Override
         public void actionPerformed(ActionEvent e) {
             Supliers suplier = view.getEditSuplier();
-            int recordNumber = 0;
-            recordNumber = suplierDao.delete(suplier);
-            if (recordNumber > 0) {
+            int records = 0;
+            records = suplierDao.delete(suplier);
+            if (records > 0) {
                 view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
                 view.clearView(false);
-                List<Supliers> list = new ArrayList<>();
-                list = suplierDao.getAllSupliers();
-                view.showView(list);
+                List<Supliers> supliers = new ArrayList<>();
+                supliers = suplierDao.getAllSupliers();
+                view.showView(supliers);
             }
         }
     }

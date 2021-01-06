@@ -473,7 +473,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
     }
 
     @Override
-    public List<Object> getListElementToValidate() {
+    public List<Object> getListElements() {
         List<Object> objects = new ArrayList<>();
         // set Name text field
         id.setName("id");

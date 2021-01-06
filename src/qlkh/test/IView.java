@@ -13,6 +13,6 @@ import java.util.Map;
  * @author GIANG
  */
 public interface IView {
-    List<Object> getListElementToValidate();
+    List<Object> getListElements();
     void showErrors(Map<String,String> errors);
 }

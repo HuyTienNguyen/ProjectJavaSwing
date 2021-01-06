@@ -72,11 +72,11 @@ public class Validator {
                     case "min":
                         int min = ruleVal = getRuleValue(rule);
                         typesCompare = isComparisionNumber(rules, rule);
-                        if (typesCompare.equals("")) {
-                            ruleError = length(value, min, MIN);
-                        } else {
+                        if (typesCompare.equals("") == false) {
                             ruleStr = RULE_MIN_NUMBER;
                             ruleError = compareWithTypes(value, min, typesCompare, MIN);
+                        } else {
+                            ruleError = length(value, min, MIN);
                         }
                         break;
                     case "max":
@@ -110,13 +110,13 @@ public class Validator {
                         break;
                     case "unique":
 
-                        if (valueId == null) {                        
+                        if (valueId == null) {
                             String x = getRuleUniqueValue(rule);
-                            String[] NameTableAndField = getUniqueRule(x);                        
-                            ruleError = checkUniqueFromTableWhenInsert(NameTableAndField[0], NameTableAndField[1], value);                           
+                            String[] NameTableAndField = getUniqueRule(x);
+                            ruleError = checkUniqueFromTableWhenInsert(NameTableAndField[0], NameTableAndField[1], value);
                             break;
-                        } else {                         
-                            String x = getRuleUniqueValue(rule);                         
+                        } else {
+                            String x = getRuleUniqueValue(rule);
                             String[] NameTableAndField = getUniqueRule(x);
                             ruleError = checkUniqueFromTableWhenUpdate(NameTableAndField[0], NameTableAndField[1], value, valueId);
                             break;
@@ -299,7 +299,6 @@ public class Validator {
          rules[]=[rewquired, min:5, integer]
          rule = [min,max,required]
          */
-
         String types = "";
         for (String rule1 : rules) {
             if (rule1.equals(TYPES_INTEGER)) {
@@ -377,7 +376,7 @@ public class Validator {
 
     private String getRuleUniqueValue(String rule) throws Exception {
         if (rule.contains(":")) {
-            
+
             return rule.split(":")[1];
         } else {
             throw new Exception("Validator rule '" + rule + "' required a correct integer value for the validation. Ex: " + rule + ":5.");
@@ -394,7 +393,6 @@ public class Validator {
 
     private String getRegexValue(String rule) throws Exception {
         if (isntNumber(rule) == true && rule.contains(":") == true) {
-
             return rule.split(":")[1];
         } else {
             throw new Exception("Validator rule '" + rule + "' required a correct integer value for the validation. Ex: " + rule + ":5.");
@@ -555,7 +553,7 @@ public class Validator {
         map.put("maxNumber", "Maximum Value for " + fieldName + " is " + ruleValue + ".");
         map.put("number", "Text must be a valid number for the " + fieldName + " field.");
         map.put("regex", "Text must be a valid pattern  for the " + fieldName + " field.");
-        map.put("unique", "The " + fieldName + " was exists. Please try again!");     
+        map.put("unique", "The " + fieldName + " was exists. Please try again!");
         map.put(TYPES_INTEGER, "Please enter a Integer number in " + fieldName + " field.");
         map.put(TYPES_FLOAT, "Please enter a Float number in " + fieldName + " field.");
         map.put(TYPES_DOUBLE, "Please enter a Double number in  " + fieldName + " field.");
