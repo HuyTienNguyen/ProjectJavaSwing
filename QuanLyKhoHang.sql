@@ -156,6 +156,8 @@ ALTER TABLE Unit
 ADD   status  int default 1
 ALTER TABLE Suplier
 ADD   status  int default 1
+ ALTER TABLE Category
+ADD   status  int default 1
  
  
  -- them du lieu mau
@@ -398,3 +400,4 @@ CREATE PROCEDURE sp_delete_category
 				SET @output = 0
 			END
 	END
+	select * from category
