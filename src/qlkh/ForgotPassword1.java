@@ -5,6 +5,7 @@
  */
 package qlkh;
 
+import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -37,6 +38,10 @@ public class ForgotPassword1 extends javax.swing.JFrame {
     public void hideView(){
         this.dispose();
     }
+    //hàm btn gửi mail
+    public void addBtnSendMailActionListener(ActionListener listener){
+        btnSendMail.addActionListener(listener);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,7 +57,7 @@ public class ForgotPassword1 extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        kButton2 = new keeptoo.KButton();
+        btnSendMail = new keeptoo.KButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -86,15 +91,15 @@ public class ForgotPassword1 extends javax.swing.JFrame {
         jLabel6.setToolTipText("");
         jLabel6.setAlignmentY(0.0F);
 
-        kButton2.setForeground(new java.awt.Color(204, 204, 204));
-        kButton2.setText(bundle.getString("FORGOT_PASSWORD1_BTN_CONTINUE"));
-        kButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        kButton2.setkBorderRadius(40);
-        kButton2.setkEndColor(new java.awt.Color(0, 204, 204));
-        kButton2.setkHoverEndColor(new java.awt.Color(204, 0, 204));
-        kButton2.setkHoverForeGround(new java.awt.Color(255, 255, 255));
-        kButton2.setkHoverStartColor(new java.awt.Color(0, 204, 204));
-        kButton2.setkStartColor(new java.awt.Color(204, 0, 204));
+        btnSendMail.setForeground(new java.awt.Color(204, 204, 204));
+        btnSendMail.setText(bundle.getString("FORGOT_PASSWORD1_BTN_CONTINUE"));
+        btnSendMail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnSendMail.setkBorderRadius(40);
+        btnSendMail.setkEndColor(new java.awt.Color(0, 204, 204));
+        btnSendMail.setkHoverEndColor(new java.awt.Color(204, 0, 204));
+        btnSendMail.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnSendMail.setkHoverStartColor(new java.awt.Color(0, 204, 204));
+        btnSendMail.setkStartColor(new java.awt.Color(204, 0, 204));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-new-post-24.png"))); // NOI18N
 
@@ -114,7 +119,7 @@ public class ForgotPassword1 extends javax.swing.JFrame {
                 .addContainerGap(59, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSendMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(137, 137, 137))
         );
         jPanel1Layout.setVerticalGroup(
@@ -129,7 +134,7 @@ public class ForgotPassword1 extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSendMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
 
@@ -183,6 +188,7 @@ public class ForgotPassword1 extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private keeptoo.KButton btnSendMail;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -192,7 +198,6 @@ public class ForgotPassword1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField2;
-    private keeptoo.KButton kButton2;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 }
