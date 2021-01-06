@@ -18,7 +18,7 @@ public class UnitRequest extends GuiRequest {
     public Map<String, String> setRules() {
         Map<String, String> myMap = new HashMap();
         myMap.put("name", "unique:unit,name,email");
-      
+
         return myMap;
     }
 
@@ -26,7 +26,7 @@ public class UnitRequest extends GuiRequest {
     public Map<String, String> setMesages() {
         Map<String, String> innerMap = new HashMap<>();
         innerMap.put("name.required", "Mail is required");
-      
+        innerMap.put("name.unique", "Name already exists!Please try again!");
 
         return innerMap;
 
