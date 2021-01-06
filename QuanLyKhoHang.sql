@@ -115,7 +115,7 @@ go
  ALTER TABLE Objects
  ADD IdCate int
  --thêm bảng category
- create table category(
+ create table Category(
 	Id int identity(1,1) primary key,
 	name nvarchar(100),
 	characters nvarchar(20)
@@ -356,3 +356,45 @@ exec sp_check_value_insert_supplier   @nameoutput1  output ,
 		-- table name, field, id $ this id
 		select * from tableName where field not Like value
 		select * from unit where id Not LIKE 1
+
+		-- PROCEDURE DELETE SUPLIER
+CREATE PROCEDURE sp_delete_suplier
+ (
+	@output int output,
+	@id int
+ )
+ AS
+	BEGIN 
+		IF  EXISTS(SELECT * FROM suplier  WHERE id= @id)
+			BEGIN	
+				UPDATE  Suplier
+				SET status = IIF(status = 0, 1, 0) 
+				WHERE id = @id
+				SET @output = @@ROWCOUNT
+			END
+		ELSE
+			BEGIN
+				SET @output = 0
+			END
+	END
+	
+		-- PROCEDURE DELETE Category
+CREATE PROCEDURE sp_delete_category
+ (
+	@output int output,
+	@id int
+ )
+ AS
+	BEGIN 
+		IF  EXISTS(SELECT * FROM Category  WHERE id= @id)
+			BEGIN	
+				UPDATE  Category
+				SET status = IIF(status = 0, 1, 0) 
+				WHERE id = @id
+				SET @output = @@ROWCOUNT
+			END
+		ELSE
+			BEGIN
+				SET @output = 0
+			END
+	END

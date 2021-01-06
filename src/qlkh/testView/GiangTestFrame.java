@@ -33,7 +33,7 @@ public class GiangTestFrame extends javax.swing.JFrame {
     public GiangTestFrame() {
         Locale local = Locale.getDefault();
         setResourceBundle(local);
-      
+
         initComponents();
 
     }
@@ -63,8 +63,8 @@ public class GiangTestFrame extends javax.swing.JFrame {
             Vector row = new Vector();
             row.add(startNumber);
             row.add(unit);
-               
-            row.add((unit.getStatus()>0)?bundle.getString(Constants.STATUS_SHOW):bundle.getString(Constants.STATUS_HIDE));
+
+            row.add((unit.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
             startNumber++;
             unitModel.addRow(row);
         }
@@ -102,7 +102,7 @@ public class GiangTestFrame extends javax.swing.JFrame {
     }
 
     public void showMessage(String message, int color) {
-     //  MSG_DELETE_SUCCESS 
+        //  MSG_DELETE_SUCCESS 
         messageUnit.setText(bundle.getString(message));
         messageUnit.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }
@@ -135,9 +135,12 @@ public class GiangTestFrame extends javax.swing.JFrame {
         return (unitName != null && unitName.equals("") == false);
     }
 
-    public int showDialogMesage(JFrame frame, String message, String title) {
-        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+    public int showDialog(JFrame frame, String message, String title, int typeIcon) {
+        int iconNumber = (typeIcon == JOptionPane.QUESTION_MESSAGE) ? JOptionPane.QUESTION_MESSAGE : JOptionPane.ERROR_MESSAGE;
+        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, iconNumber);
     }
+
+ 
 
     public void clearView() {
         setNewUnitText("");

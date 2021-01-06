@@ -125,22 +125,27 @@ public class UnitController {
         public void actionPerformed(ActionEvent e) {
 
             String unitName = frame.getNewUnitText();
-            int choose = frame.showDialogMesage(frame, Constants.MSG_DIALOG_DELETE, Constants.MSG_DIALOG_TITLE);
-            if (choose == JOptionPane.YES_OPTION) {
-                int result = unitDao.delete(editUnit);
-                if (result > 0) {
-                    frame.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
-                    frame.clearView();
-                    List<Unit> units = new ArrayList<>();
-                    units = unitDao.getAllUnits();
-                    frame.showView(units);
-                } else {
+            int status = editUnit.getStatus();
+            int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
+            String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
+            String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
+            int choose = frame.showDialog(frame, message, title, typeIcon);
+            if (editUnit != null) {
+                if (choose == JOptionPane.YES_OPTION) {
+                    int result = unitDao.delete(editUnit);
+                    if (result > 0) {
+                        frame.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
+                        frame.clearView();
+                        List<Unit> units = new ArrayList<>();
+                        units = unitDao.getAllUnits();
+                        frame.showView(units);
+                    } else {
 
-                    frame.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
+                        frame.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
+                    }
+
                 }
-
             }
-
         }
 
     }

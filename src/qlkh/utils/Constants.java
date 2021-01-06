@@ -40,6 +40,8 @@ public class Constants {
     //Hằng số title and message dialog
     public static final String MSG_DIALOG_DELETE = "MSG_DIALOG_DELETE";
     public static final String MSG_DIALOG_TITLE = "MSG_DIALOG_TITLE";
+    public static final String MSG_DIALOG_SHOW = "MSG_DIALOG_SHOW";
+    public static final String MSG_DIALOG_TITLE_SHOW="MSG_DIALOG_TITLE_SHOW";
     // Hằng số show hide status
     public static final String STATUS_HIDE = "HIDE";
     public static final String STATUS_SHOW = "SHOW";
@@ -70,6 +72,16 @@ public class Constants {
 
     /*
      *   END Suplier Table
+     */
+    /*
+     *   Category Table
+     */
+    // Header Suplier Table
+    public static final String[] HEADER_CATEGORY_TABLE = {"Id", "Name", "Character", "Status"};
+    public static final String MSG_CATEGORY_NAME_CANT_BE_EMPTY = "MSG_UNIT_NAME_CANT_BE_EMPTY";
+
+    /*
+     *   END Category Table
      */
     /*
      *   SignIn view

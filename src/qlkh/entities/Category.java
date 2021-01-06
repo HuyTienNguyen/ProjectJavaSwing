@@ -5,6 +5,7 @@
  */
 package qlkh.entities;
 
+import java.sql.Types;
 import qlkh.utils.Constants;
 
 /**
@@ -12,9 +13,11 @@ import qlkh.utils.Constants;
  * @author user
  */
 public class Category {
+
     private int id;
     private String name;
     private String characters;
+    private int status;
 
     public Category() {
     }
@@ -23,6 +26,14 @@ public class Category {
         this.id = id;
         this.name = name;
         this.characters = characters;
+        this.status =1;
+    }
+
+    public Category(int id, String name, String characters, int status) {
+        this.id = id;
+        this.name = name;
+        this.characters = characters;
+        this.status = status;
     }
 
     public int getId() {
@@ -48,13 +59,20 @@ public class Category {
     public void setCharacters(String characters) {
         this.characters = characters;
     }
-    
-    public Object[] getParam(int action){
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Object[] getParam(int action) {
         Object param[] = null;
         switch (action) {
             case Constants.ACTION_INSERT:
                 param = new Object[]{
-                    this.getId(),
                     this.getName(),
                     this.getCharacters()
                 };
@@ -72,13 +90,20 @@ public class Category {
                     this.getId()
                 };
                 break;
+            case Constants.ACTION_DELETE_BY_PROC:
+                param = new Object[]{
+                    Types.INTEGER,
+                    this.getId()
+
+                };
+                break;
         }
         return param;
     }
 
     @Override
     public String toString() {
-        return "Category{" + "id=" + id + ", name=" + name + ", characters=" + characters + '}';
+        return name;
     }
-    
+
 }

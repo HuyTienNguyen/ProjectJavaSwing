@@ -7,6 +7,7 @@ package qlkh.entities;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.sql.Types;
 import qlkh.utils.Constants;
 import qlkh.utils.DatabaseHelper;
 import qlkh.utils.Utils;
@@ -26,6 +27,7 @@ public class Supliers {
     private Timestamp contractDate;
     private int status;
     private String characters;
+   
 
     public Supliers() {
     }
@@ -39,6 +41,7 @@ public class Supliers {
         this.moreInfo = moreInfo;
         this.contractDate = contractDate;
         this.characters = characters;
+        this.status =1;
     }
 
     public Supliers(int id, String name, String address, String phone, String email, String moreInfo, Timestamp contractDate, int status, String characters) {
@@ -160,6 +163,13 @@ public class Supliers {
             case Constants.ACTION_DELETE:
                 param = new Object[]{
                     this.getId()
+                };
+                break;
+                 case Constants.ACTION_DELETE_BY_PROC:
+                param = new Object[]{
+                    Types.INTEGER,
+                    this.getId()
+
                 };
                 break;
         }

@@ -23,19 +23,21 @@ import qlkh.utils.DatabaseHelper;
  */
 public class CategoryDaoImpl implements ICategoryDAO{
     private static Connection conn;
-    private static final String SQL_SELECT_ALL = "SELECT * FROM Category";
+    private static final String SQL_SELECT_ALL = "SELECT * FROM Category  ORDER BY  status DESC,name ";
     private static final String SQL_GET_BY_ID = "SELECT * FROM Category Where id = ?";
     private static final String SQL_INSERT = "INSERT INTO Category(name,characters) VALUES(?,?)";
     private static final String SQL_UPDATE = "UPDATE Category Set name = ?, characters = ? where id = ?";
     private static final String SQL_DELETE = "DELETE FROM Category where id = ?";
+        private static final String SQL_DELETE_BY_PROCEDURE = "{call sp_delete_category(?,?)}";
+
     @Override
-    public List<Category> getAllCategory() {
+    public List<Category> getAllCategoies() {
         List<Category> listCate = new ArrayList<>();
         String[] param = new String[]{};
         try {
             ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_ALL, param);
             while(rs.next()){
-                Category category = new Category(rs.getInt(1),rs.getString(2),rs.getString(3));
+                Category category = new Category(rs.getInt("id"),rs.getString("name"),rs.getString("characters"),rs.getInt("status"));
                 listCate.add(category);
             }
         } catch (SQLException ex) {
@@ -108,18 +110,19 @@ public class CategoryDaoImpl implements ICategoryDAO{
     @Override
     public int delete(Category element) {
         Integer countDelete = 0;
-//        try {
-//         
-//           countDelete = DatabaseHelper.deleteData(SQL_DELETE, element.getParam(Consta));
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            try {
-//                DatabaseHelper.getInstance().closeDatabaseConnection();
-//            } catch (SQLException ex) {
-//                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+        try {
+            // Khởi tạo mảng param kiểu Integer để chạy lệnh sql select from userRole by key Integer
+           
+            countDelete = DatabaseHelper.deleteDataByCallableStatement(SQL_DELETE_BY_PROCEDURE, element.getParam(Constants.ACTION_DELETE_BY_PROC));
+        } catch (SQLException ex) {
+            Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return countDelete;
     }
     
