@@ -29,6 +29,7 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
     private static final String SQL_UPDATE = "UPDATE Suplier SET name = ? , address = ?, phone = ?, email = ?, moreinfo = ?, contractDate = ?, characters = ? where id = ?";
     private static final String SQL_DELETE = "DELETE FROM Suplier where id = ?";
     private static final String SQL_GET_BY_ID = "SELECT * FROM Suplier WHERE id = ?";
+    private static final String SQL_DELETE_BY_PROCEDURE = "{call sp_delete_suplier(?,?)}";
 
     @Override
     public List<Supliers> getAllSupliers() {
@@ -38,7 +39,16 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
         try {
             ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);
             while (rs.next()) {
-                Supliers supliers = new Supliers(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getTimestamp(7), rs.getInt(8), rs.getString(9));
+                Supliers supliers = new Supliers(
+                                                 rs.getInt("id"),
+                                                 rs.getString("name"),
+                                                 rs.getString("address"),
+                                                 rs.getString("phone"),
+                                                 rs.getString("email"),
+                                                 rs.getString("moreInfo"),
+                                                 rs.getTimestamp("ContractDate"),
+                                                 rs.getInt("status"),
+                                                 rs.getString("characters"));
                 listSuplier.add(supliers);
             }
         } catch (SQLException ex) {
@@ -107,13 +117,16 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
         return countUpdate;
     }
 
-    public int delete(Integer key) {
+
+    @Override
+    public int delete(Supliers element) {
         Integer countDelete = 0;
-        Integer[] param = new Integer[]{key};
         try {
-            countDelete = DatabaseHelper.deleteData(SQL_DELETE, param);
+            // Khởi tạo mảng param kiểu Integer để chạy lệnh sql select from userRole by key Integer
+           
+            countDelete = DatabaseHelper.deleteDataByCallableStatement(SQL_DELETE_BY_PROCEDURE, element.getParam(Constants.ACTION_DELETE_BY_PROC));
         } catch (SQLException ex) {
-            Logger.getLogger(SuplierDaoImpl1.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
@@ -122,10 +135,5 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
             }
         }
         return countDelete;
-    }
-
-    @Override
-    public int delete(Supliers element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

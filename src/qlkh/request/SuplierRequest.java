@@ -16,29 +16,39 @@ public class SuplierRequest extends GuiRequest {
 
     @Override
     public Map<String, String> setRules() {
-        Map<String, String> myMap = new HashMap();
-        myMap.put("name", "required|unique:suplier,name");
-        myMap.put("address", "required|max:255");
-        myMap.put("phone", "required|regex:(03|05|07|08|09|01[2|6|8|9])([0-9]{8})|unique:suplier,phone");
-        myMap.put("mail", "required|regex:^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$|unique:suplier,email");
-        return myMap;
+        Map<String, String> maps = new HashMap();
+        maps.put("name", "required|max:100|unique:suplier,name");
+        maps.put("address", "required|max:100");
+        maps.put("phone", "required|max:20|regex:(03|05|07|08|09|01[2|6|8|9])([0-9]{8})|unique:suplier,phone");
+        maps.put("mail", "required|max:200|regex:^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$|unique:suplier,email");
+        maps.put("character", "max:50");
+        return maps;
     }
 
     @Override
     public Map<String, String> setMesages() {
-        Map<String, String> innerMap = new HashMap<>();
-        innerMap.put("name.required", "The name field is required");
-        innerMap.put("name.unique", "Name already exists!Please try again");
-        innerMap.put("address.required", "The address field is required");
-        innerMap.put("address.max", "The adress field is a maximum of value character");
-        innerMap.put("phone.required", "The phone field is required");
-        innerMap.put("phone.regex", "The address field is not a valid phone number pattern");
-        innerMap.put("phone.unique", "Phone already exists!Please try again");
-        innerMap.put("mail.required", "The mail field is required");
-        innerMap.put("mail.max", "The mail field is not a valid phone number pattern");
-        innerMap.put("mail.unique", "Email already exists!Please try again");
+        Map<String, String> messMaps = new HashMap<>();
+        messMaps.put("name.required", "The name field is required");
+        messMaps.put("name.unique", "Name already exists!Please try again");
+        messMaps.put("name.max", "The name field is a maximum of value character");
 
-        return innerMap;
+        messMaps.put("address.required", "The address field is required");
+        messMaps.put("address.max", "The adress field is a maximum of value character");
+        
+        messMaps.put("phone.required", "The phone field is required");
+        messMaps.put("phone.max", "The phone field is a maximum of value character");
+        messMaps.put("phone.regex", "The address field is not a valid phone number pattern");
+        messMaps.put("phone.unique", "Phone already exists!Please try again");
+        
+        messMaps.put("mail.required", "The mail field is required");
+        messMaps.put("mail.max", "The mail field is a maximum of value character");
+        messMaps.put("mail.unique", "Email already exists!Please try again");
+        messMaps.put("mail.regex", "The address field is not a valid phone number pattern");
+
+        
+        messMaps.put("character.max", "The character field is a maximum of value character");
+
+        return messMaps;
 
     }
 

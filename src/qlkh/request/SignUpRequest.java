@@ -20,7 +20,7 @@ public class SignUpRequest extends GuiRequest{
         myMap.put("name", "required");
         myMap.put("email","required|regex:^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$|unique:users,email");
         myMap.put("username","required|regex:^[a-zA-Z0-9]{8,30}$|unique:users,username");
-        myMap.put("password","required|regex:^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$\"");
+        myMap.put("password","required|regex:^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$|confirmed");
         myMap.put("password_confirmation", "required");
         return myMap;
     }

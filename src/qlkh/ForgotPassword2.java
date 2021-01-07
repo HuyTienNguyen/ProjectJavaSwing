@@ -5,6 +5,10 @@
  */
 package qlkh;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,10 +19,51 @@ public class ForgotPassword2 extends javax.swing.JFrame {
     /**
      * Creates new form ForgotPassword2
      */
-    public ForgotPassword2() {
+    private static Locale locale;
+    private static ResourceBundle bundle;
+    private static String addressEmail;
+    public ForgotPassword2(Locale local,String addEmail) {
+        this.locale = local;
+        this.addressEmail = addEmail;
+        setResourceBundle(local);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
+    //hàm set bundle khi truyền vào
+    public void setResourceBundle(Locale local) {
+        bundle = ResourceBundle.getBundle("qlkh/utils/languages", local);
+    }
+    //hàm show view
+    public void showView() {
+        this.setVisible(true);
+    }
+    
+    public void hideView(){
+        this.dispose();
+    }
+    //hàm lấy mã xác thực từ ô textfiel
+    public String getVerifyCode(){
+        String verifyCode = lblNumberCode.getText();
+        return verifyCode;
+    }
+    //hàm lấy về email mà khách hàng xác thực mã
+    public String getAddressEmail(){
+        return this.addressEmail;
+    }
+    //hàm button xác thực mã code
+    public void addBtnVerifyCode(ActionListener listener){
+        btnVerifyCode.addActionListener(listener);
+    }
+    //hàm show message
+    public void showMessage(String message){
+        errVerifyCode.setText(bundle.getString(message));
+        errVerifyCode.setForeground(Color.RED);
+    }
+    //hàm show thông báo gửi verifycode
+    public void showMessageVerify(String message){
+        JOptionPane.showMessageDialog(this, message);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,14 +75,15 @@ public class ForgotPassword2 extends javax.swing.JFrame {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        lblNumberCode = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        kButton2 = new keeptoo.KButton();
+        btnVerifyCode = new keeptoo.KButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        errVerifyCode = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -51,34 +97,34 @@ public class ForgotPassword2 extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
+        lblNumberCode.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNumberCode.setForeground(new java.awt.Color(102, 102, 102));
+        lblNumberCode.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Nhập mã xác nhận Email:");
+        jLabel5.setText(bundle.getString("FORGOT_PASSWORD2_LBL_ENTER_EMAIL"));
         jLabel5.setToolTipText("");
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Xác nhận địa chỉ Email");
+        jLabel6.setText(bundle.getString("FORGOT_PASSWORD2_LBL_VERIFY_EMAIL"));
         jLabel6.setToolTipText("");
         jLabel6.setAlignmentY(0.0F);
 
-        kButton2.setForeground(new java.awt.Color(204, 204, 204));
-        kButton2.setText("Continue");
-        kButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        kButton2.setkBorderRadius(40);
-        kButton2.setkEndColor(new java.awt.Color(0, 204, 204));
-        kButton2.setkHoverEndColor(new java.awt.Color(204, 0, 204));
-        kButton2.setkHoverForeGround(new java.awt.Color(255, 255, 255));
-        kButton2.setkHoverStartColor(new java.awt.Color(0, 204, 204));
-        kButton2.setkStartColor(new java.awt.Color(204, 0, 204));
+        btnVerifyCode.setForeground(new java.awt.Color(204, 204, 204));
+        btnVerifyCode.setText("Continue");
+        btnVerifyCode.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnVerifyCode.setkBorderRadius(40);
+        btnVerifyCode.setkEndColor(new java.awt.Color(0, 204, 204));
+        btnVerifyCode.setkHoverEndColor(new java.awt.Color(204, 0, 204));
+        btnVerifyCode.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnVerifyCode.setkHoverStartColor(new java.awt.Color(0, 204, 204));
+        btnVerifyCode.setkStartColor(new java.awt.Color(204, 0, 204));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-new-post-24.png"))); // NOI18N
 
@@ -86,22 +132,24 @@ public class ForgotPassword2 extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("<html>Chúng tôi vừa gửi cho bạn một lá thư kèm mã xác nhận. \nVui lòng nhập mã để xác nhận Email của bạn. \nLưu ý:  Lá thư có thể được gửi đến bạn trong vòng\n1 phút hoặc lâu hơn. </html>");
+        jLabel7.setText(bundle.getString("FORGOT_PASSWORD2_LBL_VERIFY_EMAIL_NOTE"));
         jLabel7.setToolTipText("");
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 51, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Gửi lại.");
+        jLabel9.setText(bundle.getString("FORGOT_PASSWORD2_LBL_SEND_TO_EMAIL"));
         jLabel9.setToolTipText("");
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Bạn không nhận được lá thư?");
+        jLabel10.setText(bundle.getString("FORGOT_PASSWORD2_LBL_NOT_SEND_EMAIL"));
         jLabel10.setToolTipText("");
+
+        errVerifyCode.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,23 +158,24 @@ public class ForgotPassword2 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel10)
-                            .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnVerifyCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNumberCode))
+                            .addComponent(errVerifyCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,16 +183,18 @@ public class ForgotPassword2 extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel7)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                    .addComponent(lblNumberCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addComponent(errVerifyCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnVerifyCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -156,20 +207,20 @@ public class ForgotPassword2 extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("<html>\nUNDERSTANDING YOUR USERS BEFORE\n<br>\nBEFORE THAT CRAZY UPDATE\n");
+        jLabel3.setText(bundle.getString("signUpTitle3"));
         kGradientPanel1.add(jLabel3);
         jLabel3.setBounds(50, 220, 370, 60);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("StoreManage");
+        jLabel4.setText(bundle.getString("signUpTitle1"));
         kGradientPanel1.add(jLabel4);
         jLabel4.setBounds(50, 60, 230, 40);
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 153, 255));
-        jLabel8.setText("ANALYTICS SOFTWARE");
+        jLabel8.setText(bundle.getString("signUpTitle2"));
         kGradientPanel1.add(jLabel8);
         jLabel8.setBounds(50, 190, 230, 40);
 
@@ -195,39 +246,11 @@ public class ForgotPassword2 extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ForgotPassword2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ForgotPassword2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ForgotPassword2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ForgotPassword2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ForgotPassword2().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private keeptoo.KButton btnVerifyCode;
+    private javax.swing.JLabel errVerifyCode;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -239,8 +262,7 @@ public class ForgotPassword2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField2;
-    private keeptoo.KButton kButton2;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JTextField lblNumberCode;
     // End of variables declaration//GEN-END:variables
 }

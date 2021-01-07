@@ -94,15 +94,15 @@ public class SignUp extends javax.swing.JFrame implements IView {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        email.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        email.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         email.setForeground(new java.awt.Color(102, 102, 102));
         email.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
 
-        name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        name.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         name.setForeground(new java.awt.Color(102, 102, 102));
         name.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
 
-        username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        username.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         username.setForeground(new java.awt.Color(102, 102, 102));
         username.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
 
@@ -142,7 +142,7 @@ public class SignUp extends javax.swing.JFrame implements IView {
         jLabel9.setText(bundle.getString("signUpPassword"));
         jLabel9.setToolTipText("");
 
-        password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        password.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         password.setForeground(new java.awt.Color(102, 102, 102));
         password.setToolTipText("");
         password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
@@ -167,7 +167,7 @@ public class SignUp extends javax.swing.JFrame implements IView {
         jLabel10.setText(bundle.getString("signUpRePassword"));
         jLabel10.setToolTipText("");
 
-        repassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        repassword.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         repassword.setForeground(new java.awt.Color(102, 102, 102));
         repassword.setToolTipText("");
         repassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(12, 91, 160)));
@@ -191,10 +191,6 @@ public class SignUp extends javax.swing.JFrame implements IView {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(152, Short.MAX_VALUE)
-                .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(143, 143, 143))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +211,11 @@ public class SignUp extends javax.swing.JFrame implements IView {
                         .addComponent(password)
                         .addComponent(lblErrPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(repassword)))
-                .addContainerGap())
+                .addContainerGap(48, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(153, Short.MAX_VALUE)
+                .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(142, 142, 142))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,13 +252,13 @@ public class SignUp extends javax.swing.JFrame implements IView {
                 .addComponent(repassword, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblErrRePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         kGradientPanel1.add(jPanel1);
-        jPanel1.setBounds(590, 50, 480, 750);
+        jPanel1.setBounds(590, 50, 480, 770);
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -305,7 +305,7 @@ public class SignUp extends javax.swing.JFrame implements IView {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 814, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
         );
 
         pack();
@@ -318,39 +318,14 @@ public class SignUp extends javax.swing.JFrame implements IView {
     /**
      * @param args the command line arguments
      */
-    //hiển thị thông báo fullname
-    public void showErrFullname(String message, Color color) {
-        lblErrFullname.setText(message);
-        lblErrFullname.setForeground(color);
-    }
-
-    //hiển thị thông báo email
-    public void showErrEmail(String message, Color color) {
-        lblErrEmail.setText(message);
-        lblErrEmail.setForeground(color);
-    }
-
-    //hiển thị thông báo username
-    public void showErrUsername(String message, Color color) {
-        lblErrUsername.setText(message);
-        lblErrUsername.setForeground(color);
-    }
-
-    //hiển thị thông báo password
-    public void showErrPassword(String message, Color color) {
-        lblErrPassword.setText(message);
-        lblErrPassword.setForeground(color);
-    }
-
-    //hiển thị thông báo repassword
-    public void showErrRePassword(String message, Color color) {
-        lblErrRePassword.setText(message);
-        lblErrRePassword.setForeground(color);
-    }
 
     //hàm show view
     public void showView() {
         this.setVisible(true);
+    }
+    
+    public void hideView(){
+        this.dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -383,7 +358,7 @@ public class SignUp extends javax.swing.JFrame implements IView {
     
     public void showMessage(String message, int color) {
         lblErrRePassword.setText(bundle.getString(message));
-        JOptionPane.showConfirmDialog(this, bundle.getString(message));
+        JOptionPane.showMessageDialog(this, bundle.getString(message));
     }
     public void showErrorMessage(JLabel label, String err) {
         label.setText(err);
@@ -427,7 +402,7 @@ public class SignUp extends javax.swing.JFrame implements IView {
         String errorUsernameMsg = ((errors.get("username") == null) ? "" : errors.get("username"));
         String errorPasswordMsg = ((errors.get("password") == null) ? "" : errors.get("password"));
         String errorPasswordConfirmMsg = ((errors.get("password_confirmation") == null) ? "" : errors.get("password_confirmation"));
-        
+        // name : name is required
         //show messages
         showErrorMessage(lblErrFullname,errorNameMsg);
         showErrorMessage(lblErrEmail,errorEmailMsg);

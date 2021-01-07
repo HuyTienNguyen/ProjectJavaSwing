@@ -481,7 +481,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         address.setName("address");
         phone.setName("phone");
         email.setName("mail");
-       // character.setName("character");
+        character.setName("character");
 
         // add object to map
         objects.add(id);
@@ -489,7 +489,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         objects.add(address);
         objects.add(phone);
         objects.add(email);
-        //  objects.add(character);
+        objects.add(character);
 
         return objects;
     }
@@ -501,13 +501,13 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         String errorMailMsg = ((errors.get("mail") == null) ? "" : errors.get("mail"));
         String errorAddressMsg = ((errors.get("address") == null) ? "" : errors.get("address"));
         String errorPhoneMsg = ((errors.get("phone") == null) ? "" : errors.get("phone"));
-        //  String errorCharacterMsg = ((errors.get("character") == null) ? "" : errors.get("character"));
+        String errorCharacterMsg = ((errors.get("character") == null) ? "" : errors.get("character"));
         //Show messages
         showErrorMessage(errName, errorNameMsg);
         showErrorMessage(errMail, errorMailMsg);
         showErrorMessage(errAddress, errorAddressMsg);
         showErrorMessage(errPhone, errorPhoneMsg);
-        // showErrorMessage(errCharacter, errorCharacterMsg);
+        showErrorMessage(errCharacter, errorCharacterMsg);
 
     }
 
@@ -525,17 +525,12 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
     }
 
     public Supliers getEditSuplier() {
-        Supliers suplier = new Supliers();
-        suplier.setId(Integer.parseInt(id.getText()));
-        suplier.setName(name.getText());
-        suplier.setPhone(phone.getText());
-        suplier.setAddress(address.getText());
-        suplier.setMoreInfo(info.getText());
-        suplier.setContractDate(Utils.getTimestampNow());
-        suplier.setEmail(email.getText());
-        suplier.setCharacters(character.getText());
-        // System.out.println("info: "+suplier.getMoreInfo());
-        return suplier;
+       
+        int row = tblSuplier.getSelectedRow();
+        if (row < 0) {
+            return null;
+        }
+        return (Supliers) tblSuplier.getModel().getValueAt(row, 1);
     }
 
     public void showErrorMessage(JLabel label, String err) {
@@ -551,7 +546,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         for (Supliers sup : supliers) {
             Vector row = new Vector();
             row.add(sup.getId());
-            row.add(sup.getName());
+            row.add(sup);
             row.add(sup.getPhone());
             row.add(sup.getAddress());
             row.add(sup.getEmail());
@@ -594,7 +589,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
 
     public void showMessage(String message, int color) {
         messageSuplier.setText(bundle.getString(message));
-        errName.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
+        messageSuplier.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }
 
     public void focusTxtUnitField() {
@@ -631,8 +626,9 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
 //    public boolean checkUnitName(String unitName) {
 //        return (unitName != null && unitName.equals("") == false);
 //    }
-    public int showDialogMesage(JFrame frame, String message, String title) {
-        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+    public int showDialog(JFrame frame, String message, String title, int typeIcon) {
+        int iconNumber = (typeIcon == JOptionPane.QUESTION_MESSAGE) ? JOptionPane.QUESTION_MESSAGE : JOptionPane.ERROR_MESSAGE;
+        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, iconNumber);
     }
 
     public void clearView(boolean clearAll) {

@@ -15,30 +15,30 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import qlkh.dao.ISuplierDAO;
-import qlkh.daoimpl.SuplierDaoImpl1;
+import qlkh.dao.ICategoryDAO;
+import qlkh.daoimpl.CategoryDaoImpl;
+import qlkh.entities.Category;
 import qlkh.entities.Supliers;
-import qlkh.entities.Unit;
 import qlkh.entities.ValidatorItem;
-import qlkh.testView.GiangTestFrameSupplier;
+import qlkh.request.CategoryRequest;
+import qlkh.request.CategoryUpdateRequest;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
-import qlkh.request.SuplierRequest;
-import qlkh.request.UpdateSuplierRequest;
+import qlkh.testView.GiangTestFrameCategory;
 
 /**
  *
  * @author user
  */
-public class SuplierController {
+public class CategoryController {
 
-    GiangTestFrameSupplier view;
-    ISuplierDAO suplierDao;
-    Supliers editSuplier;
+    GiangTestFrameCategory view;
+    ICategoryDAO cateDao;
+    Category editCate;
 
-    public SuplierController() {
-        view = new GiangTestFrameSupplier();
-        suplierDao = new SuplierDaoImpl1();
+    public CategoryController() {
+        view = new GiangTestFrameCategory();
+        cateDao = new CategoryDaoImpl();
         view.addBtnAddActionListener(new BtnAddNewActionListener());
         view.addBtnEditActionListener(new BtnEditActionListener());
         view.addBtnClearActionListener(new BtnClearActionListener());
@@ -49,10 +49,10 @@ public class SuplierController {
 
     public void showView() {
         if (view == null) {
-            view = new GiangTestFrameSupplier();
+            view = new GiangTestFrameCategory();
         }
-        List<Supliers> supliers = suplierDao.getAllSupliers();
-        view.showView(supliers);
+        List<Category> categories = cateDao.getAllCategoies();
+        view.showView(categories);
 
     }
 
@@ -62,7 +62,7 @@ public class SuplierController {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Declare suplier request
-                SuplierRequest request = new SuplierRequest();
+                CategoryRequest request = new CategoryRequest();
                 // get list rules from suplier request
                 Map<String, String> rules = request.getRules();
                 // get list element from view
@@ -82,20 +82,20 @@ public class SuplierController {
                 view.showErrors(errors);
                 int records = 0;
                 if (isFormValid == true) {
-                    Supliers suplier = view.getNewSuplier();
-                    records = suplierDao.insert(suplier);
+                    Category cate = view.getNewCategory();
+                    records = cateDao.insert(cate);
                 }
                 if (records > 0) {
                     view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-                    List<Supliers> supliers = new ArrayList<>();
-                    supliers = suplierDao.getAllSupliers();
-                    view.showView(supliers);
+                    List<Category> cates = new ArrayList<>();
+                    cates = cateDao.getAllCategoies();
+                    view.showView(cates);
                 } else {
                     view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
 
                 }
             } catch (Exception ex) {
-                Logger.getLogger(SuplierController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -107,7 +107,7 @@ public class SuplierController {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Declare suplier request
-                UpdateSuplierRequest request = new UpdateSuplierRequest();
+                CategoryUpdateRequest request = new CategoryUpdateRequest();
                 // get list rules from suplier request
                 Map<String, String> rules = request.getRules();
                 // get list element from view
@@ -128,14 +128,14 @@ public class SuplierController {
                 view.showErrors(errors);
                 int records = 0;
                 if (isFormValid == true) {
-                    Supliers suplier = view.getEditSuplier();
-                    records = suplierDao.update(suplier);
+                    Category cate = view.getEditCategory();
+                    records = cateDao.update(cate);
                     if (records > 0) {
                         view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
                         view.clearView(false);
-                        List<Supliers> supliers = new ArrayList<>();
-                        supliers = suplierDao.getAllSupliers();
-                        view.showView(supliers);
+                        List<Category> cates = new ArrayList<>();
+                        cates = cateDao.getAllCategoies();
+                        view.showView(cates);
                     }
                 }
             } catch (Exception ex) {
@@ -158,29 +158,24 @@ public class SuplierController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Supliers suplier = view.getEditSuplier();
-            if (suplier != null) {
-                String suplierName = suplier.getName();
+            Category cate = view.getEditCategory();
+        
 
-                int status = suplier.getStatus();
-                int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
-                String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
-                String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
+            int status = cate.getStatus();
+            int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
+            String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
+            String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
 
-                int yourChoose = view.showDialog(view, message, title, typeIcon);
-                int records = 0;
-                if (yourChoose == JOptionPane.YES_OPTION) {
-                    records = suplierDao.delete(suplier);
-                    if (records > 0) {
-                        view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
-                        view.clearView(false);
-                        List<Supliers> supliers = new ArrayList<>();
-                        supliers = suplierDao.getAllSupliers();
-                        view.showView(supliers);
-                    } else {
-                        view.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
-
-                    }
+            int yourChoose = view.showDialog(view, message, title, typeIcon);
+            int records = 0;
+            if (cate != null) {               
+                records = cateDao.delete(cate);
+                if (records > 0) {
+                    view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
+                    view.clearView(false);
+                    List<Category> cates = new ArrayList<>();
+                    cates = cateDao.getAllCategoies();
+                    view.showView(cates);
                 }
             }
         }
@@ -191,14 +186,14 @@ public class SuplierController {
         @Override
         public void mouseClicked(MouseEvent e) {
             // get Id by row selected on suplier table
-            int suplierId = view.getEditSuplierId();
+            int suplierId = view.getEditCategoryId();
             view.clearError();
-            Supliers suplier = null;
+            Category cate = null;
             if (suplierId > 0) {
-                suplier = suplierDao.getSuplierById(suplierId);
+                cate = cateDao.getCateById(suplierId);
             }
-            if (suplier != null) {
-                view.showEditSuplier(suplier);
+            if (cate != null) {
+                view.showEditCategory(cate);
             }
         }
 
