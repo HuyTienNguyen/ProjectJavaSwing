@@ -11,7 +11,7 @@ import qlkh.utils.Constants;
  *
  * @author GIANG
  */
-public class Objects {
+public class Products {
 
     private String id;
     private String name;
@@ -19,10 +19,10 @@ public class Objects {
     private int idSuplier;
     private int idCate;
 
-    public Objects() {
+    public Products() {
     }
 
-    public Objects(String id, String name, int idUnit, int idSuplier, int idCate) {
+    public Products(String id, String name, int idUnit, int idSuplier, int idCate) {
         this.id = id;
         this.name = name;
         this.idUnit = idUnit;

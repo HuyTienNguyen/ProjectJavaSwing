@@ -5,15 +5,16 @@
  */
 package qlkh.dao;
 import java.util.List;
-import qlkh.entities.Output;
+import qlkh.entities.Products;
+
 
 /**
  *
  * @author GIANG
  */
-public interface IOutputDAO extends IInventoryDAO<Output , String> {
-    public  List<Output> getAllOutputs();
-    public Output getOutputByID(String key);
-
+public interface IProductDAO extends IInventoryDAO<Products , String> {
+    public  List<Products> getAllProducts();
+    public Products getProductById(String key);
+    
   
 }

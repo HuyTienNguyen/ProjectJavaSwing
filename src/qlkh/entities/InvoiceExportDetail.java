@@ -11,26 +11,24 @@ import qlkh.utils.Constants;
  *
  * @author GIANG
  */
-public class InputInfo {
+public class InvoiceExportDetail {
 
     private String id;
-    private String idObjects;
-    private String idInput;
+    private String idProduct;
+    private String idInvoiceImportDetail;
+    private String idInvoiceExport;
     private int counts;
-    private float inputPrice;
-    private float outputPrice;
     private String status;
 
-    public InputInfo() {
+    public InvoiceExportDetail() {
     }
 
-    public InputInfo(String id, String idObjects, String idInput, int counts, float inputPrice, float outputPrice, String status) {
+    public InvoiceExportDetail(String id, String idProduct, String idInvoiceImportDetail, String idInvoiceExport, int counts, String status) {
         this.id = id;
-        this.idObjects = idObjects;
-        this.idInput = idInput;
+        this.idProduct = idProduct;
+        this.idInvoiceImportDetail = idInvoiceImportDetail;
+        this.idInvoiceExport = idInvoiceExport;
         this.counts = counts;
-        this.inputPrice = inputPrice;
-        this.outputPrice = outputPrice;
         this.status = status;
     }
 
@@ -42,20 +40,28 @@ public class InputInfo {
         this.id = id;
     }
 
-    public String getIdObjects() {
-        return idObjects;
+    public String getIdProduct() {
+        return idProduct;
     }
 
-    public void setIdObjects(String idObjects) {
-        this.idObjects = idObjects;
+    public void setIdProduct(String idProduct) {
+        this.idProduct = idProduct;
     }
 
-    public String getIdInput() {
-        return idInput;
+    public String getIdInvoiceImportDetail() {
+        return idInvoiceImportDetail;
     }
 
-    public void setIdInput(String idInput) {
-        this.idInput = idInput;
+    public void setIdInvoiceImportDetail(String idInvoiceImportDetail) {
+        this.idInvoiceImportDetail = idInvoiceImportDetail;
+    }
+
+    public String getIdInvoiceExport() {
+        return idInvoiceExport;
+    }
+
+    public void setIdInvoiceExport(String idInvoiceExport) {
+        this.idInvoiceExport = idInvoiceExport;
     }
 
     public int getCounts() {
@@ -66,22 +72,6 @@ public class InputInfo {
         this.counts = counts;
     }
 
-    public float getInputPrice() {
-        return inputPrice;
-    }
-
-    public void setInputPrice(float inputPrice) {
-        this.inputPrice = inputPrice;
-    }
-
-    public float getOutputPrice() {
-        return outputPrice;
-    }
-
-    public void setOutputPrice(float outputPrice) {
-        this.outputPrice = outputPrice;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -89,6 +79,9 @@ public class InputInfo {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    
+
 
     /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
@@ -101,22 +94,20 @@ public class InputInfo {
             case Constants.ACTION_INSERT:
                 param = new Object[]{
                     this.getId(),
-                    this.getIdObjects(),
-                    this.getIdInput(),
+                    this.getIdProduct(),
+                    this.getIdInvoiceImportDetail(),
+                    this.getIdInvoiceExport(),
                     this.getCounts(),
-                    this.getInputPrice(),
-                    this.getOutputPrice(),
                     this.getStatus()
 
                 };
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
-                    this.getIdObjects(),
-                    this.getIdInput(),
+                    this.getIdProduct(),
+                    this.getIdInvoiceImportDetail(),
+                    this.getIdInvoiceExport(),
                     this.getCounts(),
-                    this.getInputPrice(),
-                    this.getOutputPrice(),
                     this.getStatus(),
                     this.getId()
                 };
@@ -133,7 +124,11 @@ public class InputInfo {
 
     @Override
     public String toString() {
-        return "InputInfo{" + "id=" + id + ", idObjects=" + idObjects + ", idInput=" + idInput + ", counts=" + counts + ", inputPrice=" + inputPrice + ", outputPrice=" + outputPrice + ", status=" + status + '}';
+        return "InvoiceExportDetail{" + "id=" + id + ", idProduct=" + idProduct + ", idInvoiceImportDetail=" + idInvoiceImportDetail + ", idInvoiceExport=" + idInvoiceExport + ", counts=" + counts + ", status=" + status + '}';
     }
 
+    
+
+    
+    
 }

@@ -18,6 +18,7 @@ public class Users {
     private String userName;
     private String password;
     private String email;
+    private String images;
     private int verifyCode;
     private String rePassword;
 
@@ -29,11 +30,12 @@ public class Users {
         this.password = password;
     }
 
-    public Users(String name, String userName, String password, String email, String rePassword) {
+    public Users(String name, String userName, String password, String email,String images, String rePassword) {
         this.name = name;
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.images = images;
         this.rePassword = rePassword;
     }
     

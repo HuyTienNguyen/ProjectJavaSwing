@@ -9,6 +9,6 @@ package qlkh.controller;
  *
  * @author user
  */
-public class OutputController {
+public class InvoiceExportDetailController {
     
 }

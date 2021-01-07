@@ -23,7 +23,6 @@ public class Customers {
     private String email;
     private String moreInfo;
     private Timestamp contractDate;
-    private Date abc;
 
     public Customers() {
     }

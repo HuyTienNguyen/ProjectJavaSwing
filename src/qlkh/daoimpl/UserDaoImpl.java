@@ -48,6 +48,7 @@ public class UserDaoImpl implements IUserDAO {
                 user.setName(rs.getString("Name"));
                 user.setUserName(rs.getString("UserName"));
                 user.setEmail(rs.getString("email"));
+                
                 listUsers.add(user);
             }
         } catch (Exception e) {

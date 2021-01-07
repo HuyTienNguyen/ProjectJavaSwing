@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import qlkh.dao.IOutputDAO;
-import qlkh.entities.Output;
+import qlkh.dao.IInvoiceExportDAO;
+import qlkh.entities.InvoiceExport;
 import qlkh.utils.Constants;
 import qlkh.utils.DatabaseHelper;
 
@@ -20,24 +20,25 @@ import qlkh.utils.DatabaseHelper;
  *
  * @author GIANG
  */
-public class OutputDaoImpl implements IOutputDAO {
+public class InvoiceExportDaoImpl implements IInvoiceExportDAO {
 
-    private static final String SQL_GET_ALL = "SELECT * FROM Output";
-    private static final String SQL_INSERT = "INSERT INTO Output(Id,DateOutput) VALUES(?,?)";
+    private static final String SQL_GET_ALL = "SELECT * FROM InvoiceExport";
+    private static final String SQL_INSERT = "INSERT INTO InvoiceExport(Id,DateOutput,IdCustomer) VALUES(?,?,?)";
 
-    private static final String SQL_SELECT_BY_ID = "SELECT * FROM Output WHERE Id = ? ";
+    private static final String SQL_SELECT_BY_ID = "SELECT * FROM InvoiceExport WHERE Id = ? ";
 
     @Override
-    public List<Output> getAllOutputs() {
+    public List<InvoiceExport> getAllInvoiceExport() {
         // Khởi tạo list Outputs
-        List<Output> listOuputs = new ArrayList<>();
+        List<InvoiceExport> listOuputs = new ArrayList<>();
         // Khởi tạo mảng param rỗng để chạy lệnh sql select all from Output
         String[] param = new String[]{};
         try (ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);) {
             while (rs.next()) {
-                Output output = new Output(
+                InvoiceExport output = new InvoiceExport(
                         rs.getString("Id"),
-                        rs.getTimestamp("DateOutput"));
+                        rs.getTimestamp("DateOutput"),
+                        rs.getInt("idCustomer"));
                 listOuputs.add(output);
             }
         } catch (Exception e) {
@@ -46,23 +47,24 @@ public class OutputDaoImpl implements IOutputDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return listOuputs;
     }
 
     @Override
-    public Output getOutputByID(String key) {
+    public InvoiceExport getInvoiceExportByID(String key) {
         // Khởi tạo đối tượng output
-        Output output = null;
+        InvoiceExport invoiceExport = null;
         // Khởi tạo mảng param rỗng để chạy lệnh sql select all from Output
         String[] param = new String[]{key};
         try (ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_ID, param);) {
             while (rs.next()) {
-                output = new Output(
+                invoiceExport = new InvoiceExport(
                         rs.getString("Id"),
-                        rs.getTimestamp("DateOutput"));
+                        rs.getTimestamp("DateOutput"),
+                        rs.getInt("IdCustomer"));
 
             }
         } catch (Exception e) {
@@ -71,14 +73,14 @@ public class OutputDaoImpl implements IOutputDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return output;
+        return invoiceExport;
     }
 
     @Override
-    public int insert(Output element) {
+    public int insert(InvoiceExport element) {
         //Khởi tạo biến đếm số bản ghi được ghi vào csdl
         Integer countInsert = 0;
         try {
@@ -90,14 +92,14 @@ public class OutputDaoImpl implements IOutputDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countInsert;
     }
 
     @Override
-    public int update(Output element) {
+    public int update(InvoiceExport element) {
         return 0;
     }
 
@@ -107,7 +109,7 @@ public class OutputDaoImpl implements IOutputDAO {
     }
 
     @Override
-    public int delete(Output element) {
+    public int delete(InvoiceExport element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
