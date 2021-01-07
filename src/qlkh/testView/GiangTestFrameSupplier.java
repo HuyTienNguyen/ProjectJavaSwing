@@ -473,9 +473,10 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
     }
 
     @Override
-    public List<Object> getListElementToValidate() {
+    public List<Object> getListElements() {
         List<Object> objects = new ArrayList<>();
         // set Name text field
+        id.setName("id");
         name.setName("name");
         address.setName("address");
         phone.setName("phone");
@@ -483,6 +484,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
        // character.setName("character");
 
         // add object to map
+        objects.add(id);
         objects.add(name);
         objects.add(address);
         objects.add(phone);
@@ -510,7 +512,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
     }
 
     public Supliers getNewSuplier() {
-        Supliers suplier = new Supliers();      
+        Supliers suplier = new Supliers();
         suplier.setName(name.getText());
         suplier.setPhone(phone.getText());
         suplier.setAddress(address.getText());
@@ -521,8 +523,9 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         // System.out.println("info: "+suplier.getMoreInfo());
         return suplier;
     }
-public Supliers getEditSuplier() {
-        Supliers suplier = new Supliers();  
+
+    public Supliers getEditSuplier() {
+        Supliers suplier = new Supliers();
         suplier.setId(Integer.parseInt(id.getText()));
         suplier.setName(name.getText());
         suplier.setPhone(phone.getText());
@@ -534,6 +537,7 @@ public Supliers getEditSuplier() {
         // System.out.println("info: "+suplier.getMoreInfo());
         return suplier;
     }
+
     public void showErrorMessage(JLabel label, String err) {
         label.setText(err);
         label.setForeground(Color.red);
@@ -635,16 +639,29 @@ public Supliers getEditSuplier() {
         setEnableBtnAddNew(true);
         setEnableBtnEdit(false);
         setEnableBtnDelete(false);
-       if(clearAll ==true){
-       messageSuplier.setText("");
-       }
-        id.setText("");    
+        if (clearAll == true) {
+            messageSuplier.setText("");
+        }
+        id.setText("");
         name.setText("");
         phone.setText("");
         address.setText("");
         info.setText("");
         email.setText("");
         character.setText("");
+    }
+
+    public void clearError() {
+        errName.setText("");
+        errPhone.setText("");
+
+        errAddress.setText("");
+
+        errCharacter.setText("");
+        errMail.setText("");
+
+        messageSuplier.setText("");
+
     }
 
     public void showEditSuplier(Supliers suplier) {
@@ -661,12 +678,9 @@ public Supliers getEditSuplier() {
         setEnableBtnDelete(true);
     }
 
-    public int getEditId() {
-        int idSuplier = -1;
-        try {
-            idSuplier = Integer.parseInt(id.getText());
-        } catch (Exception e) {
-        }
-        return idSuplier;
+    public String getEditId() {
+
+        return id.getText();
+
     }
 }

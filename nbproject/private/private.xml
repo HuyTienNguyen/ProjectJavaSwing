@@ -5,12 +5,15 @@
         <group>
             <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/App.java</file>
             <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/SignIn.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/ForgotPassword1Controller.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/testView/TestUnitUniqueUpdate.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/testView/App.java</file>
             <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/entities/Users.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/SingUpController.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/request/SignUpRequest.java</file>
             <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/utils/Validator.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/SignInController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/entities/UserRole.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/ForgotPassword1.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/SignUp.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/testView/GiangTestFrameSupplier.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/daoimpl/UserDaoImpl.java</file>
         </group>
     </open-files>
 </project-private>

@@ -25,7 +25,7 @@ import qlkh.utils.DatabaseHelper;
 public class UserDaoImpl implements IUserDAO {
 
     private static final String SQL_GET_ALL = "SELECT * FROM Users";
-    private static final String SQL_INSERT = "INSERT INTO Users(Name,Username,password,idRole,email) VALUES(?,?,?,?,?)";
+    private static final String SQL_INSERT = "INSERT INTO Users(Name,Username,password,email) VALUES(?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE  Users SET NAME =?, username =?, password =?,idRole=? WHERE ID =?";
     private static final String SQL_DELETE = "DELETE FROM  Users  WHERE Name =?";
 

@@ -158,7 +158,6 @@ public class Users {
                     this.getName(),
                     this.getUserName(),
                     this.getPassword(),
-                    this.getIdRole(),
                     this.getEmail()
                 };
                 break;

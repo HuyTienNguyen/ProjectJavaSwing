@@ -12,12 +12,13 @@ import java.util.Map;
  *
  * @author GIANG
  */
-public class SuplierRequest extends GuiRequest {
+public class UpdateSuplierRequest extends GuiRequest {
 
     @Override
     public Map<String, String> setRules() {
         Map<String, String> myMap = new HashMap();
-        myMap.put("name", "required|unique:suplier,name");
+        myMap.put("id", "required|unique:suplier,name");
+        myMap.put("name", "required");
         myMap.put("address", "required|max:255");
         myMap.put("phone", "required|regex:(03|05|07|08|09|01[2|6|8|9])([0-9]{8})|unique:suplier,phone");
         myMap.put("mail", "required|regex:^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$|unique:suplier,email");
@@ -36,7 +37,7 @@ public class SuplierRequest extends GuiRequest {
         innerMap.put("phone.unique", "Phone already exists!Please try again");
         innerMap.put("mail.required", "The mail field is required");
         innerMap.put("mail.max", "The mail field is not a valid phone number pattern");
-        innerMap.put("mail.unique", "Email already exists!Please try again");
+        innerMap.put("mail.unique", "Email  already exists!Please try again");
 
         return innerMap;
 

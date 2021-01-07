@@ -131,7 +131,7 @@ public class GiangTestFrame extends javax.swing.JFrame {
         btnDelete.setEnabled(value);
     }
 
-    public boolean checkUnitName(String unitName) {
+    public boolean isNotNull(String unitName) {
         return (unitName != null && unitName.equals("") == false);
     }
 

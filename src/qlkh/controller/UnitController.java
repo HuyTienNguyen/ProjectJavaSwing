@@ -42,12 +42,12 @@ public class UnitController {
     }
 
     public void showView() {
-        List<Unit> listUnit = new ArrayList<>();
-        listUnit = unitDao.getAllUnits();
+        List<Unit> units = new ArrayList<>();
+        units = unitDao.getAllUnits();
         if (frame == null) {
-             frame = new GiangTestFrame();
+            frame = new GiangTestFrame();
         }
-        frame.showView(listUnit);
+        frame.showView(units);
 
     }
 
@@ -63,9 +63,9 @@ public class UnitController {
                 int result = unitDao.insert(newUnit);
                 // if result check =0 is not error
                 if (result == 0) {
-                    List<Unit> listUnit = new ArrayList<>();
-                    listUnit = unitDao.getAllUnits();
-                    frame.loadAllUnit(listUnit);
+                    List<Unit> units = new ArrayList<>();
+                    units = unitDao.getAllUnits();
+                    frame.loadAllUnit(units);
                     frame.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
                     frame.setNewUnitText("");
                 } else {
@@ -86,15 +86,15 @@ public class UnitController {
         public void actionPerformed(ActionEvent e) {
             int id = editUnit.getId();
             String newUnitName = frame.getNewUnitText();
-            // check new unit name not equals editUnitName
+            // if new unit name has changed 
             if (editUnit.getName().equals(newUnitName) == false) {
                 // check new unit name not null
-                if (frame.checkUnitName(newUnitName)) {
-                    int countUpdate = unitDao.update(new Unit(id, newUnitName));
-                    if (countUpdate > 0) {
+                if (frame.isNotNull(newUnitName) == true) {
+                    int result = unitDao.update(new Unit(id, newUnitName));
+                    if (result > 0) {
                         frame.showMessage(Constants.MSG_UPDATE_SUCCESS, Constants.FLAG_SUCCESS);
-                        List<Unit> listUnit = unitDao.getAllUnits();
-                        frame.showView(listUnit);
+                        List<Unit> units = unitDao.getAllUnits();
+                        frame.showView(units);
                         frame.setNewUnitText("");
                         frame.setEnableBtnAddNew(true);
                         frame.setEnableBtnEdit(false);
@@ -114,7 +114,6 @@ public class UnitController {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.clearView();
-           
 
         }
 
@@ -132,14 +131,14 @@ public class UnitController {
                 if (result > 0) {
                     frame.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
                     frame.clearView();
-                      List<Unit>listUnit = new ArrayList<>();
-                  listUnit = unitDao.getAllUnits();
-                    frame.showView(listUnit);
-                }else{
-                
+                    List<Unit> units = new ArrayList<>();
+                    units = unitDao.getAllUnits();
+                    frame.showView(units);
+                } else {
+
                     frame.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
                 }
-                    
+
             }
 
         }
@@ -151,7 +150,7 @@ public class UnitController {
         @Override
         public void mouseClicked(MouseEvent e) {
             editUnit = frame.getEditUnit();
-            if (frame.checkUnitName(editUnit.getName())) {
+            if (frame.isNotNull(editUnit.getName()) == true) {
                 frame.setNewUnitText(editUnit.getName());
                 frame.setEnableBtnAddNew(false);
                 frame.setEnableBtnEdit(true);

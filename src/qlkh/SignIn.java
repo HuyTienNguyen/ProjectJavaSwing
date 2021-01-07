@@ -36,10 +36,12 @@ public class SignIn extends javax.swing.JFrame {
 
     public SignIn(Locale local) {
 //        local = Locale.getDefault();
+        
         this.local = local;
         setResourceBundle(local);
         setValueComboxLanguages();
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     //hàm lấy bundle trong file languages
@@ -89,6 +91,7 @@ public class SignIn extends javax.swing.JFrame {
     //hàm show signIn
     public void showView() {
         this.setVisible(true);
+        
     }
     //hàm set value cho combobox
     private void setValueComboxLanguages(){
