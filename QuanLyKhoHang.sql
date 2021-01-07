@@ -50,7 +50,8 @@ create table Objects(
 	Id nvarchar(100) primary key,
 	name nvarchar(100),
 	IdUnit int not null,
-	IdSuplier int not null
+	IdSuplier int not null,
+	IdCate int not null
 )
 go
 
