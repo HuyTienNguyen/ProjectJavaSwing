@@ -13,18 +13,22 @@ import qlkh.utils.Constants;
  *
  * @author GIANG
  */
-public class Input {
+public class InvoiceExport {
 
     private String id;
-    private Timestamp dateInput;
+    private Timestamp dateOutput;
+    private int IdCustomer;
 
-    public Input() {
+    public InvoiceExport() {
     }
 
-    public Input(String id, Timestamp dateInput) {
+    public InvoiceExport(String id, Timestamp dateOutput, int IdCustomer) {
         this.id = id;
-        this.dateInput = dateInput;
+        this.dateOutput = dateOutput;
+        this.IdCustomer = IdCustomer;
     }
+
+    
 
     public String getId() {
         return id;
@@ -34,13 +38,22 @@ public class Input {
         this.id = id;
     }
 
-    public Timestamp getDateInput() {
-        return dateInput;
+    public Timestamp getDateOutput() {
+        return dateOutput;
     }
 
-    public void setDateInput(Timestamp dateInput) {
-        this.dateInput = dateInput;
+    public void setDateOutput(Timestamp dateOutput) {
+        this.dateOutput = dateOutput;
     }
+
+    public int getIdCustomer() {
+        return IdCustomer;
+    }
+
+    public void setIdCustomer(int IdCustomer) {
+        this.IdCustomer = IdCustomer;
+    }
+    
 
     /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
@@ -53,13 +66,15 @@ public class Input {
             case Constants.ACTION_INSERT:
                 param = new Object[]{
                     this.getId(),
-                    this.getDateInput()
+                    this.getDateOutput(),
+                    this.getIdCustomer()
 
                 };
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
-                    this.getDateInput(),
+                    this.getDateOutput(),
+                    this.getIdCustomer(),
                     this.getId()
                 };
                 break;
@@ -75,7 +90,9 @@ public class Input {
 
     @Override
     public String toString() {
-        return "Input{" + "id=" + id + ", dateInput=" + dateInput + '}';
+        return "InvoiceExport{" + "id=" + id + ", dateOutput=" + dateOutput + ", IdCustomer=" + IdCustomer + '}';
     }
+
+    
 
 }

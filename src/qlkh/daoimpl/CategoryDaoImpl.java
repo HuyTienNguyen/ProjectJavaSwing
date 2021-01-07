@@ -46,7 +46,7 @@ public class CategoryDaoImpl implements ICategoryDAO{
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return listCate;
@@ -67,7 +67,7 @@ public class CategoryDaoImpl implements ICategoryDAO{
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return category;
@@ -84,7 +84,7 @@ public class CategoryDaoImpl implements ICategoryDAO{
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countInsert;
@@ -101,7 +101,7 @@ public class CategoryDaoImpl implements ICategoryDAO{
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countUpdate;
@@ -120,7 +120,7 @@ public class CategoryDaoImpl implements ICategoryDAO{
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoryDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countDelete;

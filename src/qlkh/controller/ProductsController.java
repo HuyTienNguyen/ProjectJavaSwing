@@ -18,21 +18,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import qlkh.dao.ICategoryDAO;
-import qlkh.dao.IObjectDAO;
 import qlkh.dao.ISuplierDAO;
 import qlkh.dao.IUnitDAO;
 import qlkh.daoimpl.CategoryDaoImpl;
-import qlkh.daoimpl.ObjectDaoImpl;
+import qlkh.daoimpl.ProductDaoImpl;
 import qlkh.daoimpl.SuplierDaoImpl1;
 import qlkh.daoimpl.UnitDaoImpl;
 import qlkh.entities.Category;
-import qlkh.entities.Objects;
+import qlkh.entities.Products;
 import qlkh.entities.Supliers;
 import qlkh.entities.Unit;
 import qlkh.entities.ValidatorItem;
 import qlkh.request.SuplierRequest;
 import qlkh.request.UpdateSuplierRequest;
-import qlkh.testView.GiangTestFrameObjects;
+import qlkh.testView.GiangTestFrameProducts;
 import qlkh.testView.GiangTestFrameSupplier;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
@@ -41,19 +40,19 @@ import qlkh.utils.Validator;
  *
  * @author user
  */
-public class ObjectsController {
+public class ProductsController {
 
-    GiangTestFrameObjects view;
-    IObjectDAO objDao;
+    GiangTestFrameProducts view;
+    ProductDaoImpl proDao;
     ICategoryDAO cateDao;
     IUnitDAO unitDao;
     ISuplierDAO suplierDao;
 
     Object obj;
 
-    public ObjectsController() {
-        view = new GiangTestFrameObjects();
-        objDao = new ObjectDaoImpl();
+    public ProductsController() {
+        view = new GiangTestFrameProducts();
+        proDao = new ProductDaoImpl();
         cateDao = new CategoryDaoImpl();
         unitDao = new UnitDaoImpl();
         suplierDao = new SuplierDaoImpl1();
@@ -68,13 +67,13 @@ public class ObjectsController {
 
     public void showView() {
         if (view == null) {
-            view = new GiangTestFrameObjects();
+            view = new GiangTestFrameProducts();
         }
         List<Supliers> supliers = suplierDao.getAllSupliers();
         List<Unit> units = unitDao.getAllUnits();
         List<Category> categories = cateDao.getAllCategoies();
-        List<Objects> objects = objDao.getAllObjects();
-        view.showView(objects);
+        List<Products> products = proDao.getAllProducts();
+        view.showView(products);
         view.loadAllUnits(units);
         view.loadAllSupliers(supliers);
         view.loadAllCategories(categories);     
@@ -111,8 +110,8 @@ public class ObjectsController {
                 }
                 if (records > 0) {
                     view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-                    List<Objects> objects = new ArrayList<>();
-                    objects = objDao.getAllObjects();
+                    List<Products> objects = new ArrayList<>();
+                    objects = proDao.getAllProducts();
                     view.showView(objects);
                 } else {
                     view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
@@ -157,9 +156,9 @@ public class ObjectsController {
                     if (records > 0) {
                         view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
                         view.clearView(false);
-                        List<Objects> objects = new ArrayList<>();
-                        objects = objDao.getAllObjects();
-                        view.showView(objects);
+                        List<Products> products = new ArrayList<>();
+                        products = proDao.getAllProducts();
+                        view.showView(products);
                     }
                 }
             } catch (Exception ex) {
@@ -198,9 +197,9 @@ public class ObjectsController {
                     if (records > 0) {
                         view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
                         view.clearView(false);
-                        List<Objects> objects = new ArrayList<>();
-                        objects = objDao.getAllObjects();
-                        view.showView(objects);
+                        List<Products> products = new ArrayList<>();
+                        products = proDao.getAllProducts();
+                        view.showView(products);
                     } else {
                         view.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
 
@@ -249,4 +248,8 @@ public class ObjectsController {
             System.out.println(view.getUnitID());
         }
     }
+
+
+    
+
 }

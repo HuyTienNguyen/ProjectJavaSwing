@@ -24,7 +24,8 @@ import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
 import qlkh.entities.Category;
-import qlkh.entities.Objects;
+
+import qlkh.entities.Products;
 import qlkh.entities.Supliers;
 
 import qlkh.entities.Unit;
@@ -36,7 +37,7 @@ import qlkh.utils.Utils;
  *
  * @author GIANG
  */
-public class GiangTestFrameObjects extends javax.swing.JFrame implements IView {
+public class GiangTestFrameProducts extends javax.swing.JFrame implements IView {
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -340,7 +341,7 @@ public class GiangTestFrameObjects extends javax.swing.JFrame implements IView {
      */
     ResourceBundle bundle;
 
-    public GiangTestFrameObjects() {
+    public GiangTestFrameProducts() {
         //  Locale local = Utils.getLocale();
         Locale local = Locale.getDefault();
         setResourceBundle(local);
@@ -349,12 +350,12 @@ public class GiangTestFrameObjects extends javax.swing.JFrame implements IView {
     }
     // Show view with list Suplier on Suplier Table
 
-    public void showView(List<Objects> objects) {
+    public void showView(List<Products> products) {
         this.setVisible(true);
         setEnableBtnEdit(true);
         setEnableBtnDelete(true);
         setEnableBtnEdit(false);
-        loadAllObjects(objects);
+        loadAllProducts(products);
 
     }
 
@@ -440,11 +441,11 @@ public class GiangTestFrameObjects extends javax.swing.JFrame implements IView {
     }
 
     // Load list Unit on Unit Table
-    public void loadAllObjects(List<Objects> objects) {
+    public void loadAllProducts(List<Products> products) {
         DefaultTableModel supModel = new DefaultTableModel();
         supModel.setColumnIdentifiers(Constants.HEADER_SUPLIER_TABLE);
         int startNumber = 1;
-        for (Objects obj : objects) {
+        for (Products obj : products) {
             Vector row = new Vector();
             row.add(obj.getId());
             row.add(obj);

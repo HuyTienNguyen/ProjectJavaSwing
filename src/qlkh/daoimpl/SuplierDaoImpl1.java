@@ -57,7 +57,7 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SuplierDaoImpl1.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return listSuplier;
@@ -77,7 +77,7 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SuplierDaoImpl1.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return supliers;
@@ -94,7 +94,7 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SuplierDaoImpl1.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countInsert;
@@ -111,7 +111,7 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SuplierDaoImpl1.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countUpdate;
@@ -131,7 +131,7 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SuplierDaoImpl1.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countDelete;

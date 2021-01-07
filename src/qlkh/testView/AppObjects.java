@@ -8,7 +8,7 @@ package qlkh.testView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
-import qlkh.controller.ObjectsController;
+import qlkh.controller.ProductsController;
 import qlkh.controller.SuplierController;
 import qlkh.controller.UnitController;
 
@@ -33,7 +33,7 @@ public class AppObjects {
 //                studentController.showStudentView();
                 // ILogin controller = new LoginController();                     
                 // controller.showLoginView();  
-                ObjectsController obj = new ObjectsController();
+                ProductsController obj = new ProductsController();
                 obj.showView();
 //                UnitController unit  = new UnitController();
 //                unit.showView();

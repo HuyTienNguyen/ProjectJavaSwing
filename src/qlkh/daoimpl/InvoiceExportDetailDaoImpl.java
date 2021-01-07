@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import qlkh.dao.IOutputInfoDAO;
+import qlkh.dao.IInvoiceExportDetailDAO;
 import qlkh.entities.Customers;
-import qlkh.entities.OutputInfo;
+import qlkh.entities.InvoiceExportDetail;
 import qlkh.utils.Constants;
 import qlkh.utils.DatabaseHelper;
 
@@ -21,32 +21,31 @@ import qlkh.utils.DatabaseHelper;
  *
  * @author GIANG
  */
-public class OutputInfoDaoImpl implements IOutputInfoDAO {
+public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
 
-    private static final String SQL_GET_ALL = "SELECT * FROM OutputInfo";
-    private static final String SQL_INSERT = "INSERT INTO OutputInfo(Id,IdObjects,IdInputInfo,IdOutput,IdCustomer,Counts,Status) VALUES(?,?,?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE  OutputInfo SET IdObjects =?, IdInputInfo =?, IdOutput =?,IdCustomer=?,Counts=?,Status=? WHERE Id =?";
-    private static final String SQL_DELETE = "DELETE FROM  OutputInfo  WHERE Id =?";
+    private static final String SQL_GET_ALL = "SELECT * FROM InvoiceExportDetail";
+    private static final String SQL_INSERT = "INSERT INTO InvoiceExportDetail(Id,IdProduct,IdInvoiceImportDetail,IdInvoiceExport,Counts,Status) VALUES(?,?,?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE  InvoiceExportDetail SET IdProduct =?, IdInvoiceImportDetail =?, IdInvoiceExport =?,Counts=?,Status=? WHERE Id =?";
+    private static final String SQL_DELETE = "DELETE FROM  InvoiceExportDetail  WHERE Id =?";
 
-    private static final String SQL_SELECT_BY_Id = "SELECT * FROM OutputInfo WHERE Id= ? ";
+    private static final String SQL_SELECT_BY_Id = "SELECT * FROM InvoiceExportDetail WHERE Id= ? ";
 
     @Override
-    public List<OutputInfo> getAllOutputInfos() {
+    public List<InvoiceExportDetail> getAllInvoiceExportDetail() {
         // Khởi tạo list OutputInfo
-        List<OutputInfo> listOutputInfos = new ArrayList<>();
+        List<InvoiceExportDetail> listInvoiceExportDetail = new ArrayList<>();
         // Khởi tạo mảng param rỗng để chạy lệnh sql select all from OutputInfo
         String[] param = new String[]{};
         try (ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);) {
             while (rs.next()) {
-                OutputInfo outputInfo = new OutputInfo(
+                InvoiceExportDetail invoiceexportDetail = new InvoiceExportDetail(
                         rs.getString("Id"),
-                        rs.getString("IdObjects"),
-                        rs.getString("IdInputInfo"),
-                        rs.getString("IdOutput"),
-                        rs.getInt("IdCustomer"),
+                        rs.getString("IdProduct"),
+                        rs.getString("IdInvoiceImportDetail"),
+                        rs.getString("IdInvoiceExport"),
                         rs.getInt("Counts"),
                         rs.getString("Status"));
-                listOutputInfos.add(outputInfo);
+                listInvoiceExportDetail.add(invoiceexportDetail);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,28 +53,27 @@ public class OutputInfoDaoImpl implements IOutputInfoDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputInfoDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return listOutputInfos;
+        return listInvoiceExportDetail;
     }
 
     @Override
-    public OutputInfo getOutputInfoByID(String key) {
+    public InvoiceExportDetail getInvoiceExportDetailByID(String key) {
         //Khởi tạo đối tượng OutputInfo
-        OutputInfo outputInfo = null;
+        InvoiceExportDetail listInvoiceExportDetail = null;
         try {
             // Khởi tạo mảng param kiểu String để chạy lệnh sql select from OutputInfo by Id 
             String[] param = new String[]{key};
             // GỌi phương thức selectData trả về theo kiểu result set
             ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_Id, param);
             while (rs.next()) {
-                outputInfo = new OutputInfo(
+                listInvoiceExportDetail = new InvoiceExportDetail(
                         rs.getString("Id"),
-                        rs.getString("IdObjects"),
-                        rs.getString("IdInputInfo"),
-                        rs.getString("IdOutput"),
-                        rs.getInt("IdCustomer"),
+                        rs.getString("IdProduct"),
+                        rs.getString("IdInvoiceImportDetail"),
+                        rs.getString("IdInvoiceExport"),
                         rs.getInt("Counts"),
                         rs.getString("Status"));
             }
@@ -85,14 +83,14 @@ public class OutputInfoDaoImpl implements IOutputInfoDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputInfoDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return outputInfo;
+        return listInvoiceExportDetail;
     }
 
     @Override
-    public int insert(OutputInfo element) {
+    public int insert(InvoiceExportDetail element) {
         //Khởi tạo biến đếm số bản ghi được ghi vào csdl
         Integer countInsert = 0;
         try {
@@ -104,14 +102,14 @@ public class OutputInfoDaoImpl implements IOutputInfoDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputInfoDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countInsert;
     }
 
     @Override
-    public int update(OutputInfo element) {
+    public int update(InvoiceExportDetail element) {
         //Khởi tạo biến đếm số bản ghi được ghi vào csdl
         Integer countUpdate = 0;
         try {
@@ -123,7 +121,7 @@ public class OutputInfoDaoImpl implements IOutputInfoDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputInfoDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countUpdate;
@@ -144,14 +142,14 @@ public class OutputInfoDaoImpl implements IOutputInfoDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputInfoDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countDelete;
     }
 
     @Override
-    public int delete(OutputInfo element) {
+    public int delete(InvoiceExportDetail element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -5,15 +5,15 @@
  */
 package qlkh.dao;
 import java.util.List;
-import qlkh.entities.OutputInfo;
+import qlkh.entities.InvoiceExport;
 
 /**
  *
  * @author GIANG
  */
-public interface IOutputInfoDAO extends IInventoryDAO<OutputInfo , String> {
-    public  List<OutputInfo> getAllOutputInfos();
-    public OutputInfo getOutputInfoByID(String key);
+public interface IInvoiceExportDAO extends IInventoryDAO<InvoiceExport , String> {
+    public  List<InvoiceExport> getAllInvoiceExport();
+    public InvoiceExport getInvoiceExportByID(String key);
 
   
 }

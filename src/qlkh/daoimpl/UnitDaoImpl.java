@@ -48,7 +48,7 @@ public class UnitDaoImpl implements IUnitDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return listUnit;
@@ -72,7 +72,7 @@ public class UnitDaoImpl implements IUnitDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return unit;
@@ -90,7 +90,7 @@ public class UnitDaoImpl implements IUnitDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countInsert;
@@ -108,7 +108,7 @@ public class UnitDaoImpl implements IUnitDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countUpdate;
@@ -127,7 +127,7 @@ public class UnitDaoImpl implements IUnitDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(UserRoleDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UnitDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countDelete;

@@ -5,17 +5,47 @@
  */
 package qlkh;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+import qlkh.entities.Users;
+
 /**
  *
  * @author user
  */
-public class FotgotPassword3 extends javax.swing.JFrame {
+public class ForgotPassword3 extends javax.swing.JFrame {
 
     /**
      * Creates new form FotgotPassword3
      */
-    public FotgotPassword3() {
+    private static Locale locale;
+    private static ResourceBundle bundle;
+    private static String addressEmail;
+    public ForgotPassword3(Locale local,String addEmail) {
+        this.locale = local;
+        this.addressEmail = addEmail;
+        setResourceBundle(local);
         initComponents();
+        setLocationRelativeTo(null);
+    }
+    //hàm set bundle khi truyền vào
+    public void setResourceBundle(Locale local) {
+        bundle = ResourceBundle.getBundle("qlkh/utils/languages", local);
+    }
+    //hàm show view
+    public void showView() {
+        this.setVisible(true);
+    }
+    
+    public void hideView(){
+        this.dispose();
+    }
+    //hàm trả về username và email để xác thực
+    public Users getUsernameAndEmail(){
+        Users users = new Users();
+        users.setUserName(addressEmail);
+        users.setEmail(addressEmail);
+        return users;
     }
 
     /**
@@ -89,7 +119,7 @@ public class FotgotPassword3 extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("<html>\nVui lòng cài đặt một mật khẩu mới gồm 8-16 \n<br>\nký tự và phải khác so với tên đăng nhập của \n<br>\nbạn. Mật khẩu phải bao gồm ít nhất 1 ký tự \n<br>\n(AZ hoặc az) và một số (0-9)\n</html>");
+        jLabel7.setText("<html> Vui lòng cài đặt một mật khẩu mới gồm 8-16  <br> ký tự và phải khác so với tên đăng nhập của  <br> bạn. Mật khẩu phải bao gồm ít nhất 1 ký tự  <br> (AZ hoặc az) và một số (0-9) </html>");
         jLabel7.setToolTipText("");
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -165,20 +195,20 @@ public class FotgotPassword3 extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("<html>\nUNDERSTANDING YOUR USERS BEFORE\n<br>\nBEFORE THAT CRAZY UPDATE\n");
+        jLabel3.setText(bundle.getString("signUpTitle3"));
         kGradientPanel1.add(jLabel3);
         jLabel3.setBounds(50, 220, 370, 60);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("StoreManage");
+        jLabel4.setText(bundle.getString("signUpTitle1"));
         kGradientPanel1.add(jLabel4);
         jLabel4.setBounds(50, 60, 230, 40);
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 153, 255));
-        jLabel10.setText("ANALYTICS SOFTWARE");
+        jLabel10.setText(bundle.getString("signUpTitle2"));
         kGradientPanel1.add(jLabel10);
         jLabel10.setBounds(50, 190, 230, 40);
 
@@ -208,37 +238,7 @@ public class FotgotPassword3 extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FotgotPassword3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FotgotPassword3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FotgotPassword3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FotgotPassword3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FotgotPassword3().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

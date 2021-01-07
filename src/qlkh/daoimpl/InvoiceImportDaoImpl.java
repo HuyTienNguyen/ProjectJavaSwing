@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import qlkh.dao.IInputDAO;
-import qlkh.entities.Input;
-import qlkh.entities.Output;
+import qlkh.dao.IInvoiceImportDAO;
+import qlkh.entities.InvoiceImport;
+import qlkh.entities.InvoiceExport;
 import qlkh.utils.Constants;
 import qlkh.utils.DatabaseHelper;
 
@@ -23,23 +23,24 @@ import qlkh.utils.DatabaseHelper;
  *
  * @author GIANG
  */
-public class InputDaoImpl implements IInputDAO {
-    private static final String SQL_GET_ALL = "SELECT * FROM Input";
-    private static final String SQL_INSERT = "INSERT INTO Input(Id,DateInput) VALUES(?,?)";
+public class InvoiceImportDaoImpl implements IInvoiceImportDAO {
+    private static final String SQL_GET_ALL = "SELECT * FROM InvoiceImport";
+    private static final String SQL_INSERT = "INSERT INTO InvoiceImport(Id,DateInput,IdSuplier) VALUES(?,?,?)";
 
-    private static final String SQL_SELECT_BY_ID = "SELECT * FROM Input WHERE Id = ? ";
+    private static final String SQL_SELECT_BY_ID = "SELECT * FROM InvoiceImport WHERE Id = ? ";
     @Override
-    public List<Input> getAllInputs() {
+    public List<InvoiceImport> getAllInvoiceImport() {
         // Khởi tạo list Outputs
-        List<Input> listInput = new ArrayList<>();
+        List<InvoiceImport> listInvoiceImport = new ArrayList<>();
         // Khởi tạo mảng param rỗng để chạy lệnh sql select all from Output
         String[] param = new String[]{};
         try (ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);) {
             while (rs.next()) {
-                Input input = new Input(
+                InvoiceImport input = new InvoiceImport(
                         rs.getString("Id"),
-                        rs.getTimestamp("DateInput"));
-                listInput.add(input);
+                        rs.getTimestamp("DateInput"),
+                        rs.getInt("IdSuplier"));
+                listInvoiceImport.add(input);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,23 +48,24 @@ public class InputDaoImpl implements IInputDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return listInput;
+        return listInvoiceImport;
     }
 
     @Override
-    public Input getInputByID(String key) {
+    public InvoiceImport getInvoiceImportByID(String key) {
         // Khởi tạo đối tượng output
-        Input input = null;
+        InvoiceImport invoiceInport = null;
         // Khởi tạo mảng param rỗng để chạy lệnh sql select all from Output
         String[] param = new String[]{key};
         try (ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_ID, param);) {
             while (rs.next()) {
-                input = new Input(
+                invoiceInport = new InvoiceImport(
                         rs.getString("Id"),
-                        rs.getTimestamp("DateInput"));
+                        rs.getTimestamp("DateInput"),
+                        rs.getInt("IdSuplier"));
 
             }
         } catch (Exception e) {
@@ -72,14 +74,14 @@ public class InputDaoImpl implements IInputDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return input;
+        return invoiceInport;
     }
 
     @Override
-    public int insert(Input element) {
+    public int insert(InvoiceImport element) {
         //Khởi tạo biến đếm số bản ghi được ghi vào csdl
         Integer countInsert = 0;
         try {
@@ -91,19 +93,19 @@ public class InputDaoImpl implements IInputDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(OutputDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InvoiceExportDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return countInsert;
     }
 
     @Override
-    public int update(Input element) {
+    public int update(InvoiceImport element) {
         return 0;
     }
 
     @Override
-    public int delete(Input element) {
+    public int delete(InvoiceImport element) {
         return 0;
     }
 

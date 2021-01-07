@@ -25,13 +25,15 @@ import qlkh.utils.DatabaseHelper;
 public class UserDaoImpl implements IUserDAO {
 
     private static final String SQL_GET_ALL = "SELECT * FROM Users";
-    private static final String SQL_INSERT = "INSERT INTO Users(Name,Username,password,idRole,email) VALUES(?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE  Users SET NAME =?, username =?, password =?,idRole=? WHERE ID =?";
+    private static final String SQL_INSERT = "INSERT INTO Users(Name,Username,password,email) VALUES(?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE  Users SET NAME =?, username =?, password =? WHERE ID =?";
     private static final String SQL_DELETE = "DELETE FROM  Users  WHERE Name =?";
+    private static final String SQL_UPDATE_VERIFY_CODE = "UPDATE Users SET verifyCode = ? WHERE EMAIL = ?";
 
     private static final String SQL_SELECT_BY_USERNAME_AND_PASS = "SELECT * FROM Users WHERE Username = ? AND Password = ?";
     private static final String SQL_SELECT_BY_NAME_OR_EMAIL = "SELECT * FROM Users WHERE Name= ? OR EMAIL =?";
-    private static final String SQL_SELECT_BY_MAIL_AND_CODE = "SELECT * FROM Users WHERE (Name=?  OR EMAIL =?) AND verifyCode =?";
+    private static final String SQL_SELECT_BY_EMAIL = "SELECT * FROM Users WHERE EMAIL =?";
+    private static final String SQL_SELECT_BY_MAIL_AND_CODE = "SELECT * FROM Users WHERE EMAIL =? AND verifyCode =?";
 
     @Override
     public List<Users> getAllUsers() {
@@ -41,12 +43,12 @@ public class UserDaoImpl implements IUserDAO {
         String[] param = new String[]{};
         try (ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);) {
             while (rs.next()) {
-                Users user = new Users(
-                        rs.getInt("Id"),
-                        rs.getString("Name"),
-                        rs.getString("UserName"),
-                        rs.getInt("idRole"),
-                        rs.getString("email"));
+                Users user = new Users();
+                user.setId(rs.getInt("Id"));
+                user.setName(rs.getString("Name"));
+                user.setUserName(rs.getString("UserName"));
+                user.setEmail(rs.getString("email"));
+                
                 listUsers.add(user);
             }
         } catch (Exception e) {
@@ -76,7 +78,6 @@ public class UserDaoImpl implements IUserDAO {
                         rs.getString("Name"),
                         rs.getString("UserName"),
                         rs.getString("Password"),
-                        rs.getInt("idRole"),
                         rs.getString("email"),
                         rs.getInt("verifyCode"));
             }
@@ -100,6 +101,7 @@ public class UserDaoImpl implements IUserDAO {
     @Override
     public int insert(Users element) {
         //Khởi tạo biến đếm số bản ghi được ghi vào csdl
+        System.out.println("hihi");
         Integer countInsert = 0;
         try {
             // Thục hiện phương thức insert data với câu query SQL_INSERT và tham số user.getParam
@@ -171,7 +173,6 @@ public class UserDaoImpl implements IUserDAO {
                         rs.getString("Name"),
                         rs.getString("UserName"),
                         rs.getString("Password"),
-                        rs.getInt("idRole"),
                         rs.getString("email"),
                         rs.getInt("verifyCode"));
             }
@@ -207,6 +208,64 @@ public class UserDaoImpl implements IUserDAO {
     @Override
     public int delete(Users element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public boolean checkExistsUserByEmail(String key) {
+        boolean check = false;
+        try {
+            // Khởi tạo mảng param kiểu String để chạy lệnh sql select from user by name or email
+            String[] param = new String[]{key};
+            // GỌi phương thức selectData trả về theo kiểu result set
+            ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_EMAIL, param);
+            if(rs.next()){
+                check = true;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return check;
+    }
+    public int UpdateVerifyCode(String key,String Email) {
+        int countRecord = 0;
+        try {
+            // Khởi tạo mảng param kiểu String để chạy lệnh sql select from user by name or email
+            String[] param = new String[]{key,Email};
+            // GỌi phương thức selectData trả về theo kiểu result set
+            countRecord = DatabaseHelper.updateData(SQL_UPDATE_VERIFY_CODE, param);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return countRecord;
+    }
+    public int getRecordThroughVerifyCode(String key,String Email) {
+        int countRecord = 0;
+        try {
+            // Khởi tạo mảng param kiểu String để chạy lệnh sql select from user by name or email
+            String[] param = new String[]{Email,key};
+            // GỌi phương thức selectData trả về theo kiểu result set
+            countRecord = DatabaseHelper.updateData(SQL_SELECT_BY_MAIL_AND_CODE, param);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return countRecord;
     }
 
 

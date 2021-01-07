@@ -17,8 +17,8 @@ public class Users {
     private String name;
     private String userName;
     private String password;
-    private int idRole;
     private String email;
+    private String images;
     private int verifyCode;
     private String rePassword;
 
@@ -30,52 +30,41 @@ public class Users {
         this.password = password;
     }
 
-    public Users(String name, String userName, String password, String email, String rePassword) {
+    public Users(String name, String userName, String password, String email,String images, String rePassword) {
         this.name = name;
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.images = images;
         this.rePassword = rePassword;
     }
     
     
-    public Users(int id, String name, String userName, String password, int idRole) {
+    public Users(int id, String name, String userName, String password) {
         this.id = id;
         this.name = name;
         this.userName = userName;
         this.password = password;
-        this.idRole = idRole;
     }
 
-    public Users(int id, String name, String userName, int idRole, String email) {
-        this.id = id;
+    public Users(String name, String userName, String password) {
         this.name = name;
         this.userName = userName;
-        this.idRole = idRole;
+        this.password = password;
+    }
+
+    public Users(String name, String userName, String password, String email) {
+        this.name = name;
+        this.userName = userName;
+        this.password = password;
         this.email = email;
     }
 
-    public Users(String name, String userName, String password, int idRole) {
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.idRole = idRole;
-    }
-
-    public Users(String name, String userName, String password, int idRole, String email) {
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.idRole = idRole;
-        this.email = email;
-    }
-
-    public Users(int id, String name, String userName, String password, int idRole, String email, int verifyCode) {
+    public Users(int id, String name, String userName, String password, String email, int verifyCode) {
         this.id = id;
         this.name = name;
         this.userName = userName;
         this.password = password;
-        this.idRole = idRole;
         this.email = email;
         this.verifyCode = verifyCode;
     }
@@ -110,14 +99,6 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getIdRole() {
-        return idRole;
-    }
-
-    public void setIdRole(int idRole) {
-        this.idRole = idRole;
     }
 
     public String getEmail() {
@@ -158,7 +139,6 @@ public class Users {
                     this.getName(),
                     this.getUserName(),
                     this.getPassword(),
-                    this.getIdRole(),
                     this.getEmail()
                 };
                 break;
@@ -167,7 +147,6 @@ public class Users {
                     this.getName(),
                     this.getUserName(),
                     this.getPassword(),
-                    this.getIdRole(),
                     this.getId()
                 };
                 break;
@@ -189,14 +168,19 @@ public class Users {
                     this.getUserName(),
                     this.getPassword()
                 };
-            break;
+                break;
+            case Constants.ACTION_GET_USER_BY_EMAIL:
+                param = new Object[]{
+                    this.getEmail()
+                };
+                break;
         }
         return param;
     }
 
     @Override
     public String toString() {
-        return "Users{" + "id=" + id + ", name=" + name + ", userName=" + userName + ", password=" + password + ", idRole=" + idRole + ", email=" + email + ", verifyCode=" + verifyCode + '}';
+        return "Users{" + "id=" + id + ", name=" + name + ", userName=" + userName + ", password=" + password + ", email=" + email + ", verifyCode=" + verifyCode + '}';
     }
 
 }

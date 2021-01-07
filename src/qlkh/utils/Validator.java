@@ -19,7 +19,6 @@ import qlkh.entities.ValidatorItem;
  * @author Sahan Dissanayake. (http://www.github.com/Disapamok);
  */
 public class Validator {
-
     private Border defaultBorder = new JTextField().getBorder();
     private Border defaultBorder1 = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0);
 
@@ -48,6 +47,7 @@ public class Validator {
 
             for (String rule : rules) {
                 String ruleStr = getRule(rule), value = getValue(component);
+                String errorField = getName(component);
                 boolean ruleError = false;
                 int ruleVal = 0;
                 String typesCompare = "";
@@ -101,15 +101,16 @@ public class Validator {
                         if (itemConfirm == null) {
                             ruleError = true;
                         } else {
+                         errorField+="_confirmation";
                             Object itemObject = item.getField();
                             Object itemConfirmObject = itemConfirm.getField();
+                           
                             // get Error if the name of two object not match to each other
                             ruleError = isntConfirmedValue(getValue(itemObject), getValue(itemConfirmObject));
                         }
                         // field+"_ìnomation
                         break;
                     case "unique":
-
                         if (valueId == null) {
                             String x = getRuleUniqueValue(rule);
                             String[] NameTableAndField = getUniqueRule(x);
@@ -129,7 +130,7 @@ public class Validator {
                 if (ruleError == true) {
                     fails = true;
                     String error = getMessage(ruleStr, field, ruleVal);
-                    errors.put(getName(component), getMessage(ruleStr, field, ruleVal));
+                    errors.put(errorField, getMessage(ruleStr, field, ruleVal));
                     break;
                 }
             }
@@ -447,14 +448,12 @@ public class Validator {
     //hàm check unique khi insert
     private static boolean checkUniqueFromTableWhenInsert(String tableName, String fieldName, String value) throws Exception {
         String dataTypeFieldName = getDataTypeFiledName(tableName, fieldName);
-
         Object value1 = convertDataType(dataTypeFieldName, value);
         Object getparam[] = new Object[]{
             value1
         };
         String sql = Constants.QUERY_CHECK_UNIQUE_CONSTANTS.replaceAll(tableSqlName, tableName);
         sql = sql.replaceAll(fieldSqlName, fieldName);
-
         return DatabaseHelper.checkUniqueData(sql, getparam) ? true : false;
     }
 
@@ -504,6 +503,8 @@ public class Validator {
             value1 = Double.parseDouble(value);
         } else if (dataTypeFieldName.equals("NVARCHAR")) {
             value1 = value;
+        }  else if (dataTypeFieldName.equals("VARCHAR")) {
+            value1 = value;
         }
         return value1;
     }
@@ -542,7 +543,26 @@ public class Validator {
         }
         return value;
     }
-
+    public static void setName(Object component,String concatName) throws Exception {
+        String value = "";
+        if (isTextField(component)) {
+            value = getTextField(component).getName()+ concatName;
+            System.out.println("value: "+value);
+            getTextField(component).setName(value);
+        } else if (isPassField(component)) {
+            value = new String(getPwdField(component).getName());
+        } else if (isCombo(component)) {
+            value = getCombo(component).getName();
+        } else if (isTextArea(component)) {
+            value = getTextAreaField(component).getName();
+        } else if (isLabelComponent(component)) {
+            value = getTextLabel(component).getName()+concatName;
+            getTextLabel(component).setName(value);
+        } else {
+            throw new Exception("This component couldn't be validated.");
+        }
+       
+    }
     private Map<String, String> getDefaultMessages() {
         Map<String, String> map = new HashMap();
         map.put("required", "The " + fieldName + " is required.");

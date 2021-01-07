@@ -13,18 +13,32 @@ import qlkh.utils.Constants;
  *
  * @author GIANG
  */
-public class Output {
+public class InvoiceImport {
 
     private String id;
-    private Timestamp dateOutput;
+    private Timestamp dateInput;
+    private int IdSuplier;
 
-    public Output() {
+    public InvoiceImport() {
     }
 
-    public Output(String id, Timestamp dateOutput) {
+    public InvoiceImport(String id, Timestamp dateInput, int IdSuplier) {
         this.id = id;
-        this.dateOutput = dateOutput;
+        this.dateInput = dateInput;
+        this.IdSuplier = IdSuplier;
     }
+
+    public int getIdSuplier() {
+        return IdSuplier;
+    }
+
+    public void setIdSuplier(int IdSuplier) {
+        this.IdSuplier = IdSuplier;
+    }
+
+    
+
+    
 
     public String getId() {
         return id;
@@ -34,12 +48,12 @@ public class Output {
         this.id = id;
     }
 
-    public Timestamp getDateOutput() {
-        return dateOutput;
+    public Timestamp getDateInput() {
+        return dateInput;
     }
 
-    public void setDateOutput(Timestamp dateOutput) {
-        this.dateOutput = dateOutput;
+    public void setDateInput(Timestamp dateInput) {
+        this.dateInput = dateInput;
     }
 
     /**
@@ -53,13 +67,15 @@ public class Output {
             case Constants.ACTION_INSERT:
                 param = new Object[]{
                     this.getId(),
-                    this.getDateOutput()
+                    this.getDateInput(),
+                    this.getIdSuplier()
 
                 };
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
-                    this.getDateOutput(),
+                    this.getDateInput(),
+                    this.getIdSuplier(),
                     this.getId()
                 };
                 break;
@@ -75,7 +91,9 @@ public class Output {
 
     @Override
     public String toString() {
-        return "Output{" + "id=" + id + ", dateOutput=" + dateOutput + '}';
+        return "InvoiceImport{" + "id=" + id + ", dateInput=" + dateInput + ", IdSuplier=" + IdSuplier + '}';
     }
+
+    
 
 }

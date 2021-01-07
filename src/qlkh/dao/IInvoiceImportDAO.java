@@ -5,15 +5,15 @@
  */
 package qlkh.dao;
 import java.util.List;
-import qlkh.entities.Input;
+import qlkh.entities.InvoiceImport;
 
 /**
  *
  * @author GIANG
  */
-public interface IInputDAO extends IInventoryDAO<Input , String> {
-    public  List<Input> getAllInputs();
-    public Input getInputByID(String key);
+public interface IInvoiceImportDAO extends IInventoryDAO<InvoiceImport , String> {
+    public  List<InvoiceImport> getAllInvoiceImport();
+    public InvoiceImport getInvoiceImportByID(String key);
 
   
 }

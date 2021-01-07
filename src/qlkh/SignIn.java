@@ -36,10 +36,23 @@ public class SignIn extends javax.swing.JFrame {
 
     public SignIn(Locale local) {
 //        local = Locale.getDefault();
+        
         this.local = local;
         setResourceBundle(local);
-        setValueComboxLanguages();
         initComponents();
+        setValueComboLanguages();
+        setLocationRelativeTo(null);
+    }
+    
+    //hàm set value combobox languages
+    public void setValueComboLanguages(){
+        Locale locale = Utils.getLocale();
+        if(locale.getCountry().equals("VN")){
+            chkBoxMyLocale.setSelectedIndex(0);
+        }
+        else{
+            chkBoxMyLocale.setSelectedIndex(1);
+        }
     }
 
     //hàm lấy bundle trong file languages
@@ -89,10 +102,7 @@ public class SignIn extends javax.swing.JFrame {
     //hàm show signIn
     public void showView() {
         this.setVisible(true);
-    }
-    //hàm set value cho combobox
-    private void setValueComboxLanguages(){
-        System.out.println(local.getCountry());
+        
     }
 
     /**
@@ -290,7 +300,6 @@ public class SignIn extends javax.swing.JFrame {
 
     //hàm hiển thị lỗi password
     public void showErrPassword(String message, Color color) {
-        System.out.println(message);
         errPassword.setText(bundle.getString(message));
         errPassword.setForeground(color);
     }
@@ -303,10 +312,10 @@ public class SignIn extends javax.swing.JFrame {
 
     //hàm lấy dữ liệu từ các trường username, password
     public Users getUserLogin() {
-        String username = siUsername.getText();
-        String password = String.copyValueOf(siPassword.getPassword());
-        Users user = new Users(username, password);
-        return user;
+        Users users = new Users();
+        users.setUserName(siUsername.getText());
+        users.setPassword(String.valueOf(siPassword.getPassword()));
+        return users;
     }
 
     //hàm kiểm tra xem dữ liệu có bị trống hay không

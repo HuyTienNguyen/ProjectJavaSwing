@@ -9,12 +9,12 @@ package qlkh.views;
  *
  * @author user
  */
-public class InputView extends javax.swing.JPanel {
+public class InvoiceImportView extends javax.swing.JPanel {
 
     /**
      * Creates new form InputView
      */
-    public InputView() {
+    public InvoiceImportView() {
         initComponents();
     }
 

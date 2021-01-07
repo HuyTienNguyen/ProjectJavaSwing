@@ -47,8 +47,9 @@ public class Constants {
     public static final String STATUS_SHOW = "SHOW";
 
     // Hằng số cho Class UserDaoImpl
-    public static final int ACTION_GET_USER_BY_CODE = 4;
-    public static final int ACTION_GET_USER_BY_USERNAME_PASS = 5;
+    public static final int ACTION_GET_USER_BY_CODE = 7;
+    public static final int ACTION_GET_USER_BY_USERNAME_PASS = 8;
+    public static final int ACTION_GET_USER_BY_EMAIL = 9;
 
     // SImple format date
     public static final String DATE_FORMAT = "dd-MM-yyyy";
@@ -115,4 +116,13 @@ public class Constants {
     public static final String QUERY_CHECK_UNIQUE_CONSTANTS = "SELECT * FROM table where field =?";
     public static final String QUERY_CHECK_UNIQUE_CONSTANTS_WHEN_UPDATE = "SELECT * FROM table where field = ? and id not like ?";
     public static final String QUERY_CHECK_DATA_TYPE_FIELD_NAME = "SELECT field FROM table";
+    
+    
+    /*
+    * forgotPass2
+    */
+    
+    /*
+    *forgotPass2
+    */
 }
