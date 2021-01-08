@@ -5,9 +5,13 @@
  */
 package qlkh.testView;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -85,21 +89,61 @@ public class TestTableNavigation extends javax.swing.JFrame {
         addList();
         loadTable();
         mainRun();
+        panelToAdd.setLayout(new FlowLayout());
+        List<String> a = new ArrayList<>();
+        a.add("1");
+        System.out.println("size: " + a.size());
+
     }
     private int currentNumber;
     private int pageLimit;
+    private int pages = 8;
+    private int currentPage = 1;
+    private final int MAXPAGES = 7;
+    private List<JButton> buttons = new ArrayList<>();
     private static List<Product> products = new ArrayList<>();
 
     private void mainRun() {
         currentNumber = 1;
-        btnCurrentPage.setText(String.valueOf(currentNumber));
+        //  btnCurrentPage.setText(String.valueOf(currentNumber));
         pageLimit = Integer.parseInt(String.valueOf(cbbPageLimit.getSelectedItem()));
         System.out.println(pageLimit);
+        for (int i = 0; i < pages; i++) {
+             JButton btn = new JButton();
+             if(i==currentPage){
+                 btn.setBackground(Color.WHITE);
+                btn.setText(String.valueOf(i + 10));
+             }
+            if (i < 3 || i == currentPage || i == pages) {
+               
+                btn.setBackground(Color.WHITE);
+                btn.setText(String.valueOf(i + 10));
+            // addBtnActionListener(new TestAddJButtonToJPanel.ButtonActionListener(btn), btn);
+                // a.setSize(30, 40);
+                btn.setPreferredSize(new Dimension(45, 30));
+                btn.setVisible(true);
+                buttons.add(btn);
+            }else{
+            }
+        }
+        refreshPanel();
+
+    }
+
+    private void refreshPanel() {
+        for (JButton btn : buttons) {
+            panelToAdd.add(btn);
+
+        }
+
+        panelToAdd.revalidate();
+
+        panelToAdd.repaint();
 
     }
 
     private void refreshView() {
-        btnCurrentPage.setText(String.valueOf(currentNumber));
+        // btnCurrentPage.setText(String.valueOf(currentNumber));
     }
 
     private void addList() {
@@ -114,7 +158,7 @@ public class TestTableNavigation extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(HEADER_TABLE);
         int startNumber = 1;
-        
+
         for (Product product : products) {
             Vector rows = new Vector();
             rows.add(startNumber);
@@ -127,7 +171,7 @@ public class TestTableNavigation extends javax.swing.JFrame {
             startNumber++;
             model.addRow(rows);
         }
-        table.setModel(model);
+        //table.setModel(model);
     }
 
     /**
@@ -139,30 +183,15 @@ public class TestTableNavigation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
         btnPrevious = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
         btnFirst = new javax.swing.JButton();
         btnLast = new javax.swing.JButton();
-        btnCurrentPage = new javax.swing.JButton();
         cbbPageLimit = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        panelToAdd = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(table);
 
         btnPrevious.setText("Previous");
         btnPrevious.addActionListener(new java.awt.event.ActionListener() {
@@ -192,56 +221,65 @@ public class TestTableNavigation extends javax.swing.JFrame {
             }
         });
 
-        btnCurrentPage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCurrentPageActionPerformed(evt);
-            }
-        });
-
         cbbPageLimit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "20", "50", "100", " " }));
 
         jLabel1.setText("Page Limit");
+
+        javax.swing.GroupLayout panelToAddLayout = new javax.swing.GroupLayout(panelToAdd);
+        panelToAdd.setLayout(panelToAddLayout);
+        panelToAddLayout.setHorizontalGroup(
+            panelToAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 244, Short.MAX_VALUE)
+        );
+        panelToAddLayout.setVerticalGroup(
+            panelToAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 63, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addContainerGap()
                 .addComponent(btnFirst)
-                .addGap(28, 28, 28)
-                .addComponent(btnPrevious)
-                .addGap(13, 13, 13)
-                .addComponent(btnCurrentPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btnNext)
-                .addGap(22, 22, 22)
-                .addComponent(btnLast)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbbPageLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbbPageLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(panelToAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(btnPrevious)
+                                .addGap(161, 161, 161)
+                                .addComponent(btnNext)))
+                        .addGap(22, 22, 22)
+                        .addComponent(btnLast)
+                        .addContainerGap(162, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 81, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbbPageLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrevious)
                     .addComponent(btnNext)
                     .addComponent(btnFirst)
                     .addComponent(btnLast)
-                    .addComponent(btnCurrentPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPrevious))
+                .addGap(44, 44, 44)
+                .addComponent(panelToAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(293, 293, 293))
         );
 
         pack();
@@ -269,12 +307,18 @@ public class TestTableNavigation extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFirstActionPerformed
 
     private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
-        // TODO add your handling code here:
+        JButton btn = new JButton();
+        btn.setBackground(Color.WHITE);
+        btn.setText("1");
+        //  addBtnActionListener(new TestAddJButtonToJPanel.ButtonActionListener(btn), btn);
+        // a.setSize(30, 40);
+        btn.setPreferredSize(new Dimension(50, 40));
+        btn.setVisible(true);
+        buttons.add(btn);
+        //    number++;
+        refreshPanel();
+        System.out.println("2");
     }//GEN-LAST:event_btnLastActionPerformed
-
-    private void btnCurrentPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurrentPageActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCurrentPageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,15 +356,13 @@ public class TestTableNavigation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCurrentPage;
     private javax.swing.JButton btnFirst;
     private javax.swing.JButton btnLast;
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrevious;
     private javax.swing.JComboBox cbbPageLimit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable table;
+    private javax.swing.JPanel panelToAdd;
     // End of variables declaration//GEN-END:variables
 
 }

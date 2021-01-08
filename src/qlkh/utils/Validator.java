@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -19,6 +20,7 @@ import qlkh.entities.ValidatorItem;
  * @author Sahan Dissanayake. (http://www.github.com/Disapamok);
  */
 public class Validator {
+
     private Border defaultBorder = new JTextField().getBorder();
     private Border defaultBorder1 = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0);
 
@@ -101,10 +103,10 @@ public class Validator {
                         if (itemConfirm == null) {
                             ruleError = true;
                         } else {
-                         errorField+="_confirmation";
+                            errorField += "_confirmation";
                             Object itemObject = item.getField();
                             Object itemConfirmObject = itemConfirm.getField();
-                           
+
                             // get Error if the name of two object not match to each other
                             ruleError = isntConfirmedValue(getValue(itemObject), getValue(itemConfirmObject));
                         }
@@ -177,6 +179,10 @@ public class Validator {
 
     private static boolean isLabelComponent(Object component) {
         return component.getClass() == JLabel.class;
+    }
+
+    private static boolean isButtonComponent(Object component) {
+        return component.getClass() == JButton.class;
     }
 
     private boolean isNull(String value) {
@@ -363,6 +369,10 @@ public class Validator {
         return (JLabel) component;
     }
 
+    private static JButton getTextButton(Object component) {
+        return (JButton) component;
+    }
+
     private String getRule(String rule) {
         return (rule.contains(":") ? rule.split(":")[0] : rule);
     }
@@ -431,6 +441,8 @@ public class Validator {
             value = getTextAreaField(component).getText();
         } else if (isLabelComponent(component)) {
             value = getTextLabel(component).getText();
+        } else if (isButtonComponent(component)) {
+            value = getTextButton(component).getText();
         } else {
             throw new Exception("This component couldn't be validated.");
         }
@@ -503,7 +515,7 @@ public class Validator {
             value1 = Double.parseDouble(value);
         } else if (dataTypeFieldName.equals("NVARCHAR")) {
             value1 = value;
-        }  else if (dataTypeFieldName.equals("VARCHAR")) {
+        } else if (dataTypeFieldName.equals("VARCHAR")) {
             value1 = value;
         }
         return value1;
@@ -543,11 +555,12 @@ public class Validator {
         }
         return value;
     }
-    public static void setName(Object component,String concatName) throws Exception {
+
+    public static void setName(Object component, String concatName) throws Exception {
         String value = "";
         if (isTextField(component)) {
-            value = getTextField(component).getName()+ concatName;
-            System.out.println("value: "+value);
+            value = getTextField(component).getName() + concatName;
+            System.out.println("value: " + value);
             getTextField(component).setName(value);
         } else if (isPassField(component)) {
             value = new String(getPwdField(component).getName());
@@ -556,13 +569,14 @@ public class Validator {
         } else if (isTextArea(component)) {
             value = getTextAreaField(component).getName();
         } else if (isLabelComponent(component)) {
-            value = getTextLabel(component).getName()+concatName;
+            value = getTextLabel(component).getName() + concatName;
             getTextLabel(component).setName(value);
         } else {
             throw new Exception("This component couldn't be validated.");
         }
-       
+
     }
+
     private Map<String, String> getDefaultMessages() {
         Map<String, String> map = new HashMap();
         map.put("required", "The " + fieldName + " is required.");

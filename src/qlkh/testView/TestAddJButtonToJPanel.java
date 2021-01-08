@@ -7,12 +7,19 @@ package qlkh.testView;
 
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import qlkh.utils.Validator;
 
 /**
  *
@@ -23,11 +30,12 @@ public class TestAddJButtonToJPanel extends javax.swing.JFrame {
     /**
      * Creates new form TestAddJButtonToJPanel
      */
-    private int number =1;
+    private int number = 1;
     private int currentPage = 0;
+  //  private btnSize = new Dimension(50,40);
     public TestAddJButtonToJPanel() {
         initComponents();
-        panelToAdd.setLayout(new GridLayout(1, 8,5,5));
+        panelToAdd.setLayout(new FlowLayout());
     }
 
     /**
@@ -46,17 +54,15 @@ public class TestAddJButtonToJPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelToAdd.setBackground(new java.awt.Color(255, 153, 102));
-
         javax.swing.GroupLayout panelToAddLayout = new javax.swing.GroupLayout(panelToAdd);
         panelToAdd.setLayout(panelToAddLayout);
         panelToAddLayout.setHorizontalGroup(
             panelToAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 169, Short.MAX_VALUE)
         );
         panelToAddLayout.setVerticalGroup(
             panelToAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 217, Short.MAX_VALUE)
+            .addGap(0, 45, Short.MAX_VALUE)
         );
 
         btnAdd.setText("Add");
@@ -77,7 +83,6 @@ public class TestAddJButtonToJPanel extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelToAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addComponent(btnAdd)
@@ -88,6 +93,9 @@ public class TestAddJButtonToJPanel extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(155, 155, 155))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelToAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,46 +109,82 @@ public class TestAddJButtonToJPanel extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(gotoPageTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addComponent(panelToAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(94, 94, 94)
+                .addComponent(panelToAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private List<JLabel> labels = new ArrayList<>();
+    private List<JButton> buttons = new ArrayList<>();
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        JLabel a = new JLabel(String.valueOf(number));
-          a.setBackground(Color.WHITE);
-       // a.setSize(30, 40);
-        a.setPreferredSize(new Dimension(30,40));
-        a.setVisible(true);
-       labels.add(a);
-         number ++;
-         refreshPanel();
+        JButton btn = new JButton();
+        btn.setBackground(Color.WHITE);
+        btn.setText(String.valueOf(number));
+        addBtnActionListener(new ButtonActionListener(btn), btn);
+        // a.setSize(30, 40);
+        btn.setPreferredSize(new Dimension(50, 40));
+        btn.setVisible(true);
+        buttons.add(btn);
+        number++;
+        refreshPanel();
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void refreshPanel(){
-        for (JLabel label : labels) {
-             panelToAdd.add(label);
+    private void refreshPanel() {
+        for (JButton btn : buttons) {
+            panelToAdd.add(btn);
         }
-    
-      
+
         panelToAdd.revalidate();
+        
         panelToAdd.repaint();
-      
+
+    }
+
+    private void addBtnActionListener(ActionListener listener, JButton a) {
+        a.addActionListener(listener);
+    }
+
+    private class ButtonActionListener implements ActionListener {
+       
+        private JButton button;
+        public ButtonActionListener( JButton btn) {
+            this.button = btn;
+        }
+
+        public JButton getButton() {
+            return button;
+        }
+
+        public void setButton(JButton button) {
+            this.button = button;
+        }
+
+       
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                System.out.println(this.getButton().getText());
+            } catch (Exception ex) {
+                Logger.getLogger(TestAddJButtonToJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         String a = gotoPageTxt.getText();
-        for (JLabel label : labels) {
-            if(label.getText().equals(a)){
-            label.setForeground(Color.red);
-            }else{
-            label.setForeground(Color.BLACK);
+        for (JButton label : buttons) {
+            if (label.getText().equals(a)) {
+                label.setForeground(Color.red);
+            } else {
+                label.setForeground(Color.BLACK);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+   
 
     /**
      * @param args the command line arguments
