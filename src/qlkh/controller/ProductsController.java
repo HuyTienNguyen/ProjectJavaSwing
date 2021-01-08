@@ -73,10 +73,11 @@ public class ProductsController {
         List<Unit> units = unitDao.getAllUnits();
         List<Category> categories = cateDao.getAllCategoies();
         List<Products> products = proDao.getAllProducts();
-        view.showView(products);
+      
         view.loadAllUnits(units);
         view.loadAllSupliers(supliers);
-        view.loadAllCategories(categories);     
+        view.loadAllCategories(categories);
+          view.showView(products);
     }
 
     private class BtnAddNewActionListener implements ActionListener {
@@ -214,7 +215,7 @@ public class ProductsController {
         @Override
         public void mouseClicked(MouseEvent e) {
             // get Id by row selected on suplier table
-            int suplierId = view.getEditSuplierId();
+            int suplierId = 1;
             view.clearError();
             Supliers suplier = null;
             if (suplierId > 0) {

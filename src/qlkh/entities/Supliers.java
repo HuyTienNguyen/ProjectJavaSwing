@@ -16,7 +16,7 @@ import qlkh.utils.Utils;
  *
  * @author GIANG
  */
-public class Supliers {
+public class Supliers extends MyObject {
 
     private int id;
     private String name;
@@ -25,9 +25,8 @@ public class Supliers {
     private String email;
     private String moreInfo;
     private Timestamp contractDate;
-    private int status;
     private String characters;
-   
+    private int status;
 
     public Supliers() {
     }
@@ -41,7 +40,7 @@ public class Supliers {
         this.moreInfo = moreInfo;
         this.contractDate = contractDate;
         this.characters = characters;
-        this.status =1;
+        this.status = 1;
     }
 
     public Supliers(int id, String name, String address, String phone, String email, String moreInfo, Timestamp contractDate, int status, String characters) {
@@ -165,7 +164,7 @@ public class Supliers {
                     this.getId()
                 };
                 break;
-                 case Constants.ACTION_DELETE_BY_PROC:
+            case Constants.ACTION_DELETE_BY_PROC:
                 param = new Object[]{
                     Types.INTEGER,
                     this.getId()

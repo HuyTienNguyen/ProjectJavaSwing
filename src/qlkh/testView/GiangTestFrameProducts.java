@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
 import qlkh.entities.Category;
+import qlkh.entities.MyObject;
 
 import qlkh.entities.Products;
 import qlkh.entities.Supliers;
@@ -53,7 +54,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
         headerLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblSuplier = new javax.swing.JTable();
+        tblProducts = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         name = new javax.swing.JTextField();
@@ -101,7 +102,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
 
         jPanel2.setBackground(new java.awt.Color(102, 255, 102));
 
-        jScrollPane1.setViewportView(tblSuplier);
+        jScrollPane1.setViewportView(tblProducts);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -231,7 +232,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
                         .addComponent(btnAdd)
                         .addGap(18, 18, 18)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(id)
@@ -283,7 +284,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
             .addGroup(userRoleMainPanelLayout.createSequentialGroup()
                 .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -332,7 +333,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
     private javax.swing.JLabel lblUnit;
     private javax.swing.JLabel messageSuplier;
     private javax.swing.JTextField name;
-    private javax.swing.JTable tblSuplier;
+    private javax.swing.JTable tblProducts;
     private javax.swing.JPanel userRoleMainPanel;
     // End of variables declaration//GEN-END:variables
 
@@ -340,6 +341,9 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
      * Creates new form GiangTestFrame
      */
     ResourceBundle bundle;
+    private  Map<Integer, String> suplierMap = new HashMap<>();
+    private static Map<Integer, String> unitMap = new HashMap<>();
+    private static Map<Integer, String> cateMap = new HashMap<>();
 
     public GiangTestFrameProducts() {
         //  Locale local = Utils.getLocale();
@@ -363,20 +367,28 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
 
         for (Unit unit : units) {
             cbbUnit.addItem(unit);
+            unitMap.put(unit.getId(), unit.getName());
         }
     }
-  public void loadAllSupliers(List<Supliers> supliers) {
+
+    public void loadAllSupliers(List<Supliers> supliers) {
 
         for (Supliers sup : supliers) {
             cbbSuplier.addItem(sup);
+            suplierMap.put(sup.getId(), sup.getName());
         }
+       
     }
-   public void loadAllCategories(List<Category> categories) {
+
+    public void loadAllCategories(List<Category> categories) {
 
         for (Category cate : categories) {
             cbbCate.addItem(cate);
+            cateMap.put(cate.getId(), cate.getName());
+
         }
     }
+
     public Unit getUnitChoose() {
         return (Unit) cbbSuplier.getSelectedItem();
     }
@@ -428,11 +440,11 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
 
     public Supliers getEditSuplier() {
 
-        int row = tblSuplier.getSelectedRow();
+        int row = tblProducts.getSelectedRow();
         if (row < 0) {
             return null;
         }
-        return (Supliers) tblSuplier.getModel().getValueAt(row, 1);
+        return (Supliers) tblProducts.getModel().getValueAt(row, 1);
     }
 
     public void showErrorMessage(JLabel label, String err) {
@@ -443,16 +455,19 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
     // Load list Unit on Unit Table
     public void loadAllProducts(List<Products> products) {
         DefaultTableModel supModel = new DefaultTableModel();
-        supModel.setColumnIdentifiers(Constants.HEADER_SUPLIER_TABLE);
+        supModel.setColumnIdentifiers(Constants.HEADER_PRODUCT_TABLE);
         int startNumber = 1;
-        for (Products obj : products) {
+        for (Products product : products) {
             Vector row = new Vector();
-            row.add(obj.getId());
-            row.add(obj);
+            row.add(product.getId());
+            row.add(product);
+           row.add(suplierMap.get(product.getIdSuplier()));
+            row.add(cateMap.get(product.getIdCate()));
+            row.add(unitMap.get(product.getIdUnit()));
 
             supModel.addRow(row);
         }
-        tblSuplier.setModel(supModel);
+        tblProducts.setModel(supModel);
     }
 
     // Add event to button addNewUnit
@@ -473,7 +488,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
     }
 
     public void addTableMouseListener(MouseListener listener) {
-        tblSuplier.addMouseListener(listener);
+        tblProducts.addMouseListener(listener);
     }
 
     public void addComboboxStateChangedListener(ItemListener listener) {
@@ -502,13 +517,13 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
 //        }
 //        return (Unit) tblSuplier.getModel().getValueAt(row, 1);
 //    }
-    public int getEditSuplierId() {
-        int row = tblSuplier.getSelectedRow();
-        if (row < 0) {
-            return -1;
-        }
-        return (int) tblSuplier.getModel().getValueAt(row, 0);
-    }
+//    public int getEditSuplierId() {
+//        int row = tblProducts.getSelectedRow();
+//        if (row < 0) {
+//            return -1;
+//        }
+//        return (int) tblProducts.getModel().getValueAt(row, 0);
+//    }
 
     private void setEnableBtnAddNew(boolean value) {
         btnAdd.setEnabled(value);

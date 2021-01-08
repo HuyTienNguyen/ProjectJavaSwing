@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/lib/KGradientPanel.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/javax.mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/KControls.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/sqljdbc4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

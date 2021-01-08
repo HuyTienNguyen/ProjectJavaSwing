@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="ProjectJavaSwing">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/KControls.jar!/" />
+      <root url="jar://$PROJECT_DIR$/mysql-connector-java-8.0.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/protobuf-java-2.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/KGradientPanel.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

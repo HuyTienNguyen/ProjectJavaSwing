@@ -16,7 +16,7 @@ import qlkh.controller.UnitController;
  *
  * @author GIANG
  */
-public class AppObjects {
+public class AppProducts {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -26,7 +26,7 @@ public class AppObjects {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(AppObjects.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AppProducts.class.getName()).log(Level.SEVERE, null, ex);
                 }
 //                StudentView stview = new StudentView();
 //                StudentController studentController = new StudentController(stview);

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="jdbcfile and others file">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jdbcfile and others file/KControls.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jdbcfile and others file/sqljdbc4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jdbcfile and others file/javax.mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jdbcfile and others file/KGradientPanel.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

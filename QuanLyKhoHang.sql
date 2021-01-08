@@ -1,4 +1,4 @@
-﻿create database QuanLyKhoHang
+﻿drop database QuanLyKhoHang
 go
 use QuanLyKhoHang
 go

@@ -11,7 +11,7 @@ import qlkh.utils.Constants;
  *
  * @author GIANG
  */
-public class Products {
+public class Products extends MyObject {
 
     private String id;
     private String name;
@@ -108,7 +108,7 @@ public class Products {
 
     @Override
     public String toString() {
-        return "Objects{" + "id=" + id + ", name=" + name + ", idUnit=" + idUnit + ", idSuplier=" + idSuplier + ", idCate=" + idCate + '}';
+        return name;
     }
 
     
