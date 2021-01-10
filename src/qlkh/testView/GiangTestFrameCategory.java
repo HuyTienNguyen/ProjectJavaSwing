@@ -369,19 +369,17 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
 
     }
 
-    public Category getNewCategory() {
+    public Category getCategory() {
+        int categoryId = 0;
+        try {
+            categoryId = Integer.parseInt(id.getText());
+        } catch (Exception e) {
+        }
         Category cate = new Category();
+        cate.setId(categoryId);
         cate.setName(name.getText());
         cate.setCharacters(character.getText());
         return cate;
-    }
-
-    public Category getEditCategory() {
-        int row = tblCategory.getSelectedRow();
-        if (row < 0) {
-            return null;
-        }
-        return (Category) tblCategory.getModel().getValueAt(row, 1);
     }
 
     public void showErrorMessage(JLabel label, String err) {

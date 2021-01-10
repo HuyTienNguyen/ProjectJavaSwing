@@ -97,40 +97,54 @@ public class TestTableNavigation extends javax.swing.JFrame {
     }
     private int currentNumber;
     private int pageLimit;
-    private int pages = 8;
-    private int currentPage = 1;
+    private int pages = 6;
+    private int currentPage = 4;
     private final int MAXPAGES = 7;
-    private List<JButton> buttons = new ArrayList<>();
+    private List<JButton> buttons ;
     private static List<Product> products = new ArrayList<>();
+    private int counts = 0;
 
     private void mainRun() {
+        buttons= new ArrayList<>();
+
         currentNumber = 1;
         //  btnCurrentPage.setText(String.valueOf(currentNumber));
-        pageLimit = Integer.parseInt(String.valueOf(cbbPageLimit.getSelectedItem()));
-        System.out.println(pageLimit);
-        for (int i = 0; i < pages; i++) {
-             JButton btn = new JButton();
-             if(i==currentPage){
-                 btn.setBackground(Color.WHITE);
+        //   pageLimit = Integer.parseInt(String.valueOf(cbbPageLimit.getSelectedItem()));
+
+        for (int i = 0; i <= pages; i++) {
+            JButton btn = new JButton();
+            if (i == currentPage) {
+                btn.setBackground(Color.RED);
                 btn.setText(String.valueOf(i + 10));
-             }
-            if (i < 3 || i == currentPage || i == pages) {
-               
+                btn.setPreferredSize(new Dimension(45, 30));
+                btn.setVisible(true);
+                buttons.add(btn);
+            } else if (i < 3 || i == pages||i==currentPage-1||i==currentPage+1) {
+
                 btn.setBackground(Color.WHITE);
                 btn.setText(String.valueOf(i + 10));
-            // addBtnActionListener(new TestAddJButtonToJPanel.ButtonActionListener(btn), btn);
+                // addBtnActionListener(new TestAddJButtonToJPanel.ButtonActionListener(btn), btn);
                 // a.setSize(30, 40);
                 btn.setPreferredSize(new Dimension(45, 30));
                 btn.setVisible(true);
                 buttons.add(btn);
-            }else{
+            } else {
+                btn.setBackground(Color.WHITE);
+                btn.setText(".");
+                // addBtnActionListener(new TestAddJButtonToJPanel.ButtonActionListener(btn), btn);
+                // a.setSize(30, 40);
+                btn.setPreferredSize(new Dimension(45, 30));
+                btn.setVisible(true);
+                buttons.add(btn);
             }
+          
         }
         refreshPanel();
 
     }
 
     private void refreshPanel() {
+  
         for (JButton btn : buttons) {
             panelToAdd.add(btn);
 
@@ -287,18 +301,18 @@ public class TestTableNavigation extends javax.swing.JFrame {
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         int size = products.size();
-        if (currentNumber < size) {
-            currentNumber++;
+        if (currentPage < size) {
+            currentPage++;
         }
-        refreshView();
+        mainRun();
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
 
-        if (currentNumber > 0) {
-            currentNumber--;
+        if (currentPage > 0) {
+            currentPage--;
         }
-        refreshView();
+        mainRun();
 
     }//GEN-LAST:event_btnPreviousActionPerformed
 

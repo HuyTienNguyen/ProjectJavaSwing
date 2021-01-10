@@ -5,6 +5,7 @@
  */
 package qlkh.entities;
 
+import java.sql.Types;
 import qlkh.utils.Constants;
 
 /**
@@ -102,13 +103,26 @@ public class Products extends MyObject {
                     this.getId()
                 };
                 break;
+                 case Constants.ACTION_DELETE_BY_PROC:
+                param = new Object[]{
+                    Types.INTEGER
+                  
+
+                };
+                break;
         }
         return param;
     }
 
+   
+
     @Override
     public String toString() {
         return name;
+    }
+
+    public String showAll() {
+         return "Products{" + "id=" + id + ", name=" + name + ", idUnit=" + idUnit + ", idSuplier=" + idSuplier + ", idCate=" + idCate + '}';
     }
 
     

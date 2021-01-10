@@ -34,9 +34,9 @@ public class Validator {
     private static Map<String, String> errorMessages = new HashMap<>();
     private static List<ValidatorItem> listValidatorItem = new ArrayList<>();
     private static Border errorBorder = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 0), 2);
-    private static final String TYPES_INTEGER = "Integer";
-    private static final String TYPES_FLOAT = "Float";
-    private static final String TYPES_DOUBLE = "Double";
+    private static final String TYPES_INTEGER = "integer";
+    private static final String TYPES_FLOAT = "float";
+    private static final String TYPES_DOUBLE = "double";
     private static final String RULE_MIN_NUMBER = "minNumber";
     private static final String RULE_MAX_NUMBER = "maxNumber";
     private boolean isInsert = true;

@@ -5,7 +5,6 @@
  */
 package qlkh.controller;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -13,7 +12,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import qlkh.dao.IUnitDAO;
 import qlkh.daoimpl.UnitDaoImpl;
 import qlkh.entities.Unit;
@@ -26,28 +24,28 @@ import qlkh.utils.Constants;
  */
 public class UnitController {
 
-    GiangTestFrame frame;
+    GiangTestFrame view;
     IUnitDAO unitDao;
     Unit editUnit;
 
     public UnitController() {
-        frame = new GiangTestFrame();
+        view = new GiangTestFrame();
         unitDao = new UnitDaoImpl();
-        frame.addBtnAddNewUnitActionListener(new BtnAddNewActionListener());
-        frame.addBtnEditUnitActionListener(new BtnEditActionListener());
-        frame.addBtnClearUnitActionListener(new BtnClearActionListener());
-        frame.addTableUnitMouseListener(new TableUnitMouseListener());
-        frame.addBtnDeleteUnitActionListener(new BtnDeleteActionListener());
+        view.addBtnAddNewUnitActionListener(new BtnAddNewActionListener());
+        view.addBtnEditUnitActionListener(new BtnEditActionListener());
+        view.addBtnClearUnitActionListener(new BtnClearActionListener());
+        view.addTableUnitMouseListener(new TableUnitMouseListener());
+        view.addBtnDeleteUnitActionListener(new BtnDeleteActionListener());
 
     }
 
     public void showView() {
         List<Unit> units = new ArrayList<>();
         units = unitDao.getAllUnits();
-        if (frame == null) {
-            frame = new GiangTestFrame();
+        if (view == null) {
+            view = new GiangTestFrame();
         }
-        frame.showView(units);
+        view.showView(units);
 
     }
 
@@ -55,7 +53,7 @@ public class UnitController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String newUnitName = frame.getNewUnitText();
+            String newUnitName = view.getNewUnitText();
             if (newUnitName != null && newUnitName.equals("") == false) {
                 // Khởi tạo 1 instance of Unit
                 Unit newUnit = new Unit(newUnitName);
@@ -65,17 +63,17 @@ public class UnitController {
                 if (result == 0) {
                     List<Unit> units = new ArrayList<>();
                     units = unitDao.getAllUnits();
-                    frame.loadAllUnit(units);
-                    frame.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-                    frame.setNewUnitText("");
+                    view.loadAllUnit(units);
+                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+                    view.setNewUnitText("");
                 } else {
                     // Had error show message
-                    frame.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
-                    frame.focusTxtUnitField();
+                    view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
+                    view.focusTxtUnitField();
                 }
             } else {
-                frame.showMessage(Constants.MSG_UNIT_NAME_CANT_BE_EMPTY, Constants.FLAG_ERROR);
-                frame.focusTxtUnitField();
+                view.showMessage(Constants.MSG_UNIT_NAME_CANT_BE_EMPTY, Constants.FLAG_ERROR);
+                view.focusTxtUnitField();
             }
         }
     }
@@ -85,24 +83,24 @@ public class UnitController {
         @Override
         public void actionPerformed(ActionEvent e) {
             int id = editUnit.getId();
-            String newUnitName = frame.getNewUnitText();
+            String newUnitName = view.getNewUnitText();
             // if new unit name has changed 
             if (editUnit.getName().equals(newUnitName) == false) {
                 // check new unit name not null
-                if (frame.isNotNull(newUnitName) == true) {
+                if (view.isNotNull(newUnitName) == true) {
                     int result = unitDao.update(new Unit(id, newUnitName));
                     if (result > 0) {
-                        frame.showMessage(Constants.MSG_UPDATE_SUCCESS, Constants.FLAG_SUCCESS);
+                        view.showMessage(Constants.MSG_UPDATE_SUCCESS, Constants.FLAG_SUCCESS);
                         List<Unit> units = unitDao.getAllUnits();
-                        frame.showView(units);
-                        frame.setNewUnitText("");
-                        frame.setEnableBtnAddNew(true);
-                        frame.setEnableBtnEdit(false);
+                        view.showView(units);
+                        view.setNewUnitText("");
+                        view.setEnableBtnAddNew(true);
+                        view.setEnableBtnEdit(false);
                     } else {
-                        frame.showMessage(Constants.MSG_UPDATE_ERROR, Constants.FLAG_ERROR);
+                        view.showMessage(Constants.MSG_UPDATE_ERROR, Constants.FLAG_ERROR);
                     }
                 } else {
-                    frame.showMessage(Constants.MSG_UNIT_NAME_CANT_BE_EMPTY, Constants.FLAG_ERROR);
+                    view.showMessage(Constants.MSG_UNIT_NAME_CANT_BE_EMPTY, Constants.FLAG_ERROR);
                 }
             }
 
@@ -113,7 +111,7 @@ public class UnitController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            frame.clearView();
+            view.clearView();
 
         }
 
@@ -124,24 +122,24 @@ public class UnitController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            String unitName = frame.getNewUnitText();
+            String unitName = view.getNewUnitText();
             int status = editUnit.getStatus();
             int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
             String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
             String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
-            int choose = frame.showDialog(frame, message, title, typeIcon);
+            int choose = view.showDialog(view, message, title, typeIcon);
             if (editUnit != null) {
                 if (choose == JOptionPane.YES_OPTION) {
                     int result = unitDao.delete(editUnit);
                     if (result > 0) {
-                        frame.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
-                        frame.clearView();
+                        view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
+                        view.clearView();
                         List<Unit> units = new ArrayList<>();
                         units = unitDao.getAllUnits();
-                        frame.showView(units);
+                        view.showView(units);
                     } else {
 
-                        frame.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
+                        view.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
                     }
 
                 }
@@ -154,12 +152,12 @@ public class UnitController {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            editUnit = frame.getEditUnit();
-            if (frame.isNotNull(editUnit.getName()) == true) {
-                frame.setNewUnitText(editUnit.getName());
-                frame.setEnableBtnAddNew(false);
-                frame.setEnableBtnEdit(true);
-                frame.setEnableBtnDelete(true);
+            editUnit = view.getEditUnit();
+            if (view.isNotNull(editUnit.getName()) == true) {
+                view.setNewUnitText(editUnit.getName());
+                view.setEnableBtnAddNew(false);
+                view.setEnableBtnEdit(true);
+                view.setEnableBtnDelete(true);
             }
         }
 

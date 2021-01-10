@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author GIANG
  */
-public abstract class GuiRequest {                
+public abstract class IRequest {                
     protected  abstract  Map<String, String> setRules();
 
     protected abstract Map<String, String> setMesages();

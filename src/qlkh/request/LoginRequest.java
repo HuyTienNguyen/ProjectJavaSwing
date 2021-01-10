@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author GIANG
  */
-public class LoginRequest extends GuiRequest {
+public class LoginRequest extends IRequest {
 
     @Override
     public Map<String, String> setRules() {

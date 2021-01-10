@@ -2,7 +2,8 @@
 go
 use QuanLyKhoHang
 go
-
+select * from products
+SELECT @@ROWCOUNT
 
 --tạo bảng Users
 create table Users(
@@ -51,7 +52,6 @@ create table Products(
 	name nvarchar(100),
 	IdUnit int not null,
 	IdSuplier int not null,
-
 	IdCate int
 )
 go
@@ -283,4 +283,18 @@ create procedure sp_delete_category
 				SET @output = 0
 			END
 	END
-	select * from category
+
+	-- GET TOTAl row in product table
+	CREATE procedure sp_count_products (
+	@output int output
+	)
+
+ AS			
+		BEGIN
+		SET @output	=(select count(*)FROM  Products		)
+			
+		END
+	
+	declare @a int
+	exec sp_count_products @a output
+	select @a

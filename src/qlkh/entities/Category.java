@@ -22,6 +22,11 @@ public class Category extends MyObject {
     public Category() {
     }
 
+    public Category(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Category(int id, String name, String characters) {
         this.id = id;
         this.name = name;

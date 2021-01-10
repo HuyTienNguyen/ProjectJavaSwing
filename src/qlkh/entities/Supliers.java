@@ -31,6 +31,11 @@ public class Supliers extends MyObject {
     public Supliers() {
     }
 
+    public Supliers(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Supliers(int id, String name, String address, String phone, String email, String moreInfo, Timestamp contractDate, String characters) {
         this.id = id;
         this.name = name;
@@ -153,7 +158,6 @@ public class Supliers extends MyObject {
                     this.getPhone(),
                     this.getEmail(),
                     this.getMoreInfo(),
-                    this.getContractDate(),
                     this.getCharacters(),
                     this.getId()
                 };

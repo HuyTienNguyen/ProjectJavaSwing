@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author GIANG
  */
-public class UnitRequest extends GuiRequest {
+public class UnitRequest extends IRequest {
 
     @Override
     public Map<String, String> setRules() {

@@ -18,13 +18,13 @@ import javax.swing.JOptionPane;
 import qlkh.dao.ISuplierDAO;
 import qlkh.daoimpl.SuplierDaoImpl1;
 import qlkh.entities.Supliers;
-import qlkh.entities.Unit;
 import qlkh.entities.ValidatorItem;
+import qlkh.request.IRequest;
 import qlkh.testView.GiangTestFrameSupplier;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
 import qlkh.request.SuplierRequest;
-import qlkh.request.UpdateSuplierRequest;
+import qlkh.request.SuplierUpdateRequest;
 
 /**
  *
@@ -62,7 +62,7 @@ public class SuplierController {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Declare suplier request
-                SuplierRequest request = new SuplierRequest();
+                IRequest request = new SuplierRequest();
                 // get list rules from suplier request
                 Map<String, String> rules = request.getRules();
                 // get list element from view
@@ -82,7 +82,7 @@ public class SuplierController {
                 view.showErrors(errors);
                 int records = 0;
                 if (isFormValid == true) {
-                    Supliers suplier = view.getNewSuplier();
+                    Supliers suplier = view.getSuplier();
                     records = suplierDao.insert(suplier);
                 }
                 if (records > 0) {
@@ -107,7 +107,7 @@ public class SuplierController {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Declare suplier request
-                UpdateSuplierRequest request = new UpdateSuplierRequest();
+                IRequest request = new SuplierUpdateRequest();
                 // get list rules from suplier request
                 Map<String, String> rules = request.getRules();
                 // get list element from view
@@ -128,7 +128,7 @@ public class SuplierController {
                 view.showErrors(errors);
                 int records = 0;
                 if (isFormValid == true) {
-                    Supliers suplier = view.getEditSuplier();
+                    Supliers suplier = view.getSuplier();
                     records = suplierDao.update(suplier);
                     if (records > 0) {
                         view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
@@ -158,7 +158,7 @@ public class SuplierController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Supliers suplier = view.getEditSuplier();
+            Supliers suplier = view.getSuplier();
             if (suplier != null) {
                 String suplierName = suplier.getName();
 

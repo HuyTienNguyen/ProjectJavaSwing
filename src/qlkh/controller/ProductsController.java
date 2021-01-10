@@ -7,8 +7,6 @@ package qlkh.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -16,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import qlkh.dao.ICategoryDAO;
 import qlkh.dao.ISuplierDAO;
 import qlkh.dao.IUnitDAO;
@@ -29,10 +26,10 @@ import qlkh.entities.Products;
 import qlkh.entities.Supliers;
 import qlkh.entities.Unit;
 import qlkh.entities.ValidatorItem;
-import qlkh.request.SuplierRequest;
-import qlkh.request.UpdateSuplierRequest;
+import qlkh.request.IRequest;
+import qlkh.request.ProductRequest;
+import qlkh.request.ProductUpdateRequest;
 import qlkh.testView.GiangTestFrameProducts;
-import qlkh.testView.GiangTestFrameSupplier;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
 
@@ -47,8 +44,7 @@ public class ProductsController {
     ICategoryDAO cateDao;
     IUnitDAO unitDao;
     ISuplierDAO suplierDao;
-
-    Object obj;
+    private static final int MAX_LENGTH_ID = 6;
 
     public ProductsController() {
         view = new GiangTestFrameProducts();
@@ -56,12 +52,6 @@ public class ProductsController {
         cateDao = new CategoryDaoImpl();
         unitDao = new UnitDaoImpl();
         suplierDao = new SuplierDaoImpl1();
-        view.addBtnAddActionListener(new BtnAddNewActionListener());
-        view.addBtnEditActionListener(new BtnEditActionListener());
-        view.addBtnClearActionListener(new BtnClearActionListener());
-        view.addBtnDeleteActionListener(new BtnDeleteActionListener());
-        view.addTableMouseListener(new TableSuplierMouseListener());
-        view.addComboboxStateChangedListener(new CBBUnitItemListener());
 
     }
 
@@ -69,15 +59,21 @@ public class ProductsController {
         if (view == null) {
             view = new GiangTestFrameProducts();
         }
+
         List<Supliers> supliers = suplierDao.getAllSupliers();
         List<Unit> units = unitDao.getAllUnits();
         List<Category> categories = cateDao.getAllCategoies();
         List<Products> products = proDao.getAllProducts();
-      
+
         view.loadAllUnits(units);
         view.loadAllSupliers(supliers);
         view.loadAllCategories(categories);
-          view.showView(products);
+        view.showView(products);
+
+        view.addBtnAddActionListener(new BtnAddNewActionListener());
+        view.addBtnEditActionListener(new BtnEditActionListener());
+        view.addBtnClearActionListener(new BtnClearActionListener());
+        view.addTableMouseListener(new TableProductMouseListener());
     }
 
     private class BtnAddNewActionListener implements ActionListener {
@@ -86,16 +82,16 @@ public class ProductsController {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Declare suplier request
-                SuplierRequest request = new SuplierRequest();
+                IRequest request = new ProductRequest();
                 // get list rules from suplier request
                 Map<String, String> rules = request.getRules();
                 // get list element from view
-                List<Object> listValueOfForm = view.getListElements();
+                List<Object> objects = view.getListElements();
                 // Set return messages
                 Validator.setErrorMessages(request.getMessages());
 
                 // Declare List Item to Validate
-                List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, rules);
+                List<ValidatorItem> listVals = Validator.setRules(objects, rules);
                 // Declare instance of Validator
                 Validator validator = new Validator(listVals, null);
                 // Declare a boolean validate form
@@ -106,14 +102,16 @@ public class ProductsController {
                 view.showErrors(errors);
                 int records = 0;
                 if (isFormValid == true) {
-                    Supliers suplier = view.getNewSuplier();
-                    records = suplierDao.insert(suplier);
+                    int totalProducts = proDao.getCountProducts()+1;
+                    String productId =String.valueOf(totalProducts);             
+                    Products product = view.getProduct(true,productId);
+                      records = proDao.insert(product);
                 }
                 if (records > 0) {
                     view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-                    List<Products> objects = new ArrayList<>();
-                    objects = proDao.getAllProducts();
-                    view.showView(objects);
+                    List<Products> products = new ArrayList<>();
+                    products = proDao.getAllProducts();
+                    view.showView(products);
                 } else {
                     view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
 
@@ -131,18 +129,18 @@ public class ProductsController {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Declare suplier request
-                UpdateSuplierRequest request = new UpdateSuplierRequest();
+                IRequest request = new ProductUpdateRequest();
                 // get list rules from suplier request
                 Map<String, String> rules = request.getRules();
                 // get list element from view
-                List<Object> listElements = view.getListElements();
+                List<Object> objects = view.getListElements();
                 // Set return messages
                 Validator.setErrorMessages(request.getMessages());
 
                 // Declare List Item to Validate
-                List<ValidatorItem> listItem = Validator.setRules(listElements, rules);
+                List<ValidatorItem> listItem = Validator.setRules(objects, rules);
                 // Declare instance of Validator
-                String id = view.getEditId();
+                String id = view.getEditProductId();
                 Validator validator = new Validator(listItem, id);
                 // Declare a boolean validate form
                 boolean isFormValid = validator.isPasses();
@@ -150,16 +148,19 @@ public class ProductsController {
                 Map<String, String> errors = validator.getErrors();
                 // show errors to the view
                 view.showErrors(errors);
+
                 int records = 0;
                 if (isFormValid == true) {
-                    Supliers suplier = view.getEditSuplier();
-                    records = suplierDao.update(suplier);
+
+                    Products product = view.getProduct(false, id);
+                    records = proDao.update(product);
                     if (records > 0) {
                         view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
                         view.clearView(false);
                         List<Products> products = new ArrayList<>();
                         products = proDao.getAllProducts();
                         view.showView(products);
+                         view.addTableMouseListener(new TableProductMouseListener());
                     }
                 }
             } catch (Exception ex) {
@@ -178,51 +179,20 @@ public class ProductsController {
 
     }
 
-    private class BtnDeleteActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Supliers suplier = view.getEditSuplier();
-            if (suplier != null) {
-                String suplierName = suplier.getName();
-
-                int status = suplier.getStatus();
-                int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
-                String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
-                String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
-
-                int yourChoose = view.showDialog(view, message, title, typeIcon);
-                int records = 0;
-                if (yourChoose == JOptionPane.YES_OPTION) {
-                    records = suplierDao.delete(suplier);
-                    if (records > 0) {
-                        view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
-                        view.clearView(false);
-                        List<Products> products = new ArrayList<>();
-                        products = proDao.getAllProducts();
-                        view.showView(products);
-                    } else {
-                        view.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
-
-                    }
-                }
-            }
-        }
-    }
-
-    private class TableSuplierMouseListener implements MouseListener {
+    private class TableProductMouseListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
             // get Id by row selected on suplier table
-            int suplierId = 1;
+            String productId = view.getEditProductId();
+
             view.clearError();
-            Supliers suplier = null;
-            if (suplierId > 0) {
-                suplier = suplierDao.getSuplierById(suplierId);
+            Products product = null;
+            if (productId.equals("") == false && productId != null) {
+                product = proDao.getProductById(productId);
             }
-            if (suplier != null) {
-                view.showEditSuplier(suplier);
+            if (product != null) {
+                view.showUpdateProduct(product);
             }
         }
 
@@ -242,15 +212,4 @@ public class ProductsController {
         public void mouseExited(MouseEvent e) {
         }
     }
-    private  class CBBUnitItemListener implements ItemListener{
-
-        @Override
-        public void itemStateChanged(ItemEvent e) {
-            System.out.println(view.getUnitID());
-        }
-    }
-
-
-    
-
 }
