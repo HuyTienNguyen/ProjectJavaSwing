@@ -50,7 +50,8 @@ public class SignUp extends javax.swing.JFrame implements IView {
     public void setResourceBundle(Locale local) {
         bundle = ResourceBundle.getBundle("qlkh/utils/languages", local);
     }
-
+    
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

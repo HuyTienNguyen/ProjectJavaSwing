@@ -255,7 +255,10 @@ public class UserDaoImpl implements IUserDAO {
             // Khởi tạo mảng param kiểu String để chạy lệnh sql select from user by name or email
             String[] param = new String[]{Email,key};
             // GỌi phương thức selectData trả về theo kiểu result set
-            countRecord = DatabaseHelper.updateData(SQL_SELECT_BY_MAIL_AND_CODE, param);
+            ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_MAIL_AND_CODE, param);
+            if(rs.next()){
+                countRecord = 1;
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
