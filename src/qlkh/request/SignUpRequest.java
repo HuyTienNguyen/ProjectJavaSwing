@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author user
  */
-public class SignUpRequest extends GuiRequest{
+public class SignUpRequest extends IRequest{
 
     @Override
     protected Map<String, String> setRules() {

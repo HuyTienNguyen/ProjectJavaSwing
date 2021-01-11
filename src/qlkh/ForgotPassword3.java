@@ -51,6 +51,7 @@ public class ForgotPassword3 extends javax.swing.JFrame {
         users.setEmail(this.addressEmail);
         return users;
     }
+    //hàm 
 
     /**
      * This method is called from within the constructor to initialize the form.

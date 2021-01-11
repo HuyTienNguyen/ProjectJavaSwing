@@ -68,12 +68,6 @@ public class SingUpController {
                 Map<String,String> errors = validator.getErrors();
                 //show errors to the view
                 signUp.showErrors(errors);
-                for (Map.Entry<String, String> entrySet : errors.entrySet()) {
-                    String key = entrySet.getKey();
-                    String value = entrySet.getValue();
-                    System.out.println("key: "+key+", value: "+value);
-                    
-                }
                 int records = 0;
                 if(isFormValid == true){
                     Users users = signUp.getNewUsers();

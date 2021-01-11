@@ -26,7 +26,7 @@ public class SuplierDaoImpl1 implements ISuplierDAO {
     private static Connection conn;
     private static final String SQL_GET_ALL = "SELECT * FROM Suplier ORDER BY  status DESC,name";
     private static final String SQL_INSERT = "INSERT INTO Suplier(name,address,phone,email,moreinfo,contractDate,characters) values(?,?,?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE Suplier SET name = ? , address = ?, phone = ?, email = ?, moreinfo = ?, contractDate = ?, characters = ? where id = ?";
+    private static final String SQL_UPDATE = "UPDATE Suplier SET name = ? , address = ?, phone = ?, email = ?, moreinfo = ?, characters = ? where id = ?";
     private static final String SQL_DELETE = "DELETE FROM Suplier where id = ?";
     private static final String SQL_GET_BY_ID = "SELECT * FROM Suplier WHERE id = ?";
     private static final String SQL_DELETE_BY_PROCEDURE = "{call sp_delete_suplier(?,?)}";

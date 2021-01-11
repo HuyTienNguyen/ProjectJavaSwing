@@ -18,10 +18,10 @@ import javax.swing.JOptionPane;
 import qlkh.dao.ICategoryDAO;
 import qlkh.daoimpl.CategoryDaoImpl;
 import qlkh.entities.Category;
-import qlkh.entities.Supliers;
 import qlkh.entities.ValidatorItem;
 import qlkh.request.CategoryRequest;
 import qlkh.request.CategoryUpdateRequest;
+import qlkh.request.IRequest;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
 import qlkh.testView.GiangTestFrameCategory;
@@ -43,7 +43,7 @@ public class CategoryController {
         view.addBtnEditActionListener(new BtnEditActionListener());
         view.addBtnClearActionListener(new BtnClearActionListener());
         view.addBtnDeleteActionListener(new BtnDeleteActionListener());
-        view.addTableMouseListener(new TableSuplierMouseListener());
+        view.addTableMouseListener(new TableCategoryMouseListener());
 
     }
 
@@ -62,7 +62,7 @@ public class CategoryController {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Declare suplier request
-                CategoryRequest request = new CategoryRequest();
+                IRequest request = new CategoryRequest();
                 // get list rules from suplier request
                 Map<String, String> rules = request.getRules();
                 // get list element from view
@@ -82,7 +82,7 @@ public class CategoryController {
                 view.showErrors(errors);
                 int records = 0;
                 if (isFormValid == true) {
-                    Category cate = view.getNewCategory();
+                    Category cate = view.getCategory();
                     records = cateDao.insert(cate);
                 }
                 if (records > 0) {
@@ -107,7 +107,7 @@ public class CategoryController {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Declare suplier request
-                CategoryUpdateRequest request = new CategoryUpdateRequest();
+                IRequest request = new CategoryUpdateRequest();
                 // get list rules from suplier request
                 Map<String, String> rules = request.getRules();
                 // get list element from view
@@ -128,7 +128,7 @@ public class CategoryController {
                 view.showErrors(errors);
                 int records = 0;
                 if (isFormValid == true) {
-                    Category cate = view.getEditCategory();
+                    Category cate = view.getCategory();
                     records = cateDao.update(cate);
                     if (records > 0) {
                         view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
@@ -158,9 +158,7 @@ public class CategoryController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Category cate = view.getEditCategory();
-        
-
+            Category cate = view.getCategory();
             int status = cate.getStatus();
             int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
             String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
@@ -181,16 +179,16 @@ public class CategoryController {
         }
     }
 
-    private class TableSuplierMouseListener implements MouseListener {
+    private class TableCategoryMouseListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
             // get Id by row selected on suplier table
-            int suplierId = view.getEditCategoryId();
+            int cateId = view.getEditCategoryId();
             view.clearError();
             Category cate = null;
-            if (suplierId > 0) {
-                cate = cateDao.getCateById(suplierId);
+            if (cateId > 0) {
+                cate = cateDao.getCateById(cateId);
             }
             if (cate != null) {
                 view.showEditCategory(cate);

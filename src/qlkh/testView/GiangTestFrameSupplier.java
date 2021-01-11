@@ -511,8 +511,14 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
 
     }
 
-    public Supliers getNewSuplier() {
+    public Supliers getSuplier() {
+        int supId = 0;
         Supliers suplier = new Supliers();
+        try {
+            supId = Integer.parseInt(id.getText());
+        } catch (Exception e) {
+        }
+        suplier.setId(supId);
         suplier.setName(name.getText());
         suplier.setPhone(phone.getText());
         suplier.setAddress(address.getText());
@@ -524,15 +530,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
         return suplier;
     }
 
-    public Supliers getEditSuplier() {
-       
-        int row = tblSuplier.getSelectedRow();
-        if (row < 0) {
-            return null;
-        }
-        return (Supliers) tblSuplier.getModel().getValueAt(row, 1);
-    }
-
+   
     public void showErrorMessage(JLabel label, String err) {
         label.setText(err);
         label.setForeground(Color.red);

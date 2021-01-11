@@ -25,16 +25,11 @@ import qlkh.utils.DatabaseHelper;
  */
 public class testLocale {
 
-    /**
-     * @param args the command line arguments
-     */
-    private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyKhoHang";
-    private static final String USER = "sa";
-    private static final String PASS = "1";
-    public static void main(String[] args) throws SQLException, Exception {
-//  
-       
+    public static void main(String[] args) {
+        String table = "table";
+        String sql = "select * from table";
+        String a =sql.replace(table, "users");
+        System.out.println(a);
     }
 
 }

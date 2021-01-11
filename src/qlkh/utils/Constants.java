@@ -27,6 +27,8 @@ public class Constants {
     public static final int ACTION_INSERT_BY_PROC = 4;
     public static final int ACTION_UPDATE_BY_PROC = 5;
     public static final int ACTION_DELETE_BY_PROC = 6;
+    public static final int ACTION_SELECT_BY_PROC = 7;
+
     // Hằng số thông báo thành công
     public static final String MSG_ADD_SUCCESS = "MSG_ADD_SUCCESS";
     public static final String MSG_ADD_ERROR = "MSG_ADD_ERROR";
@@ -41,19 +43,21 @@ public class Constants {
     public static final String MSG_DIALOG_DELETE = "MSG_DIALOG_DELETE";
     public static final String MSG_DIALOG_TITLE = "MSG_DIALOG_TITLE";
     public static final String MSG_DIALOG_SHOW = "MSG_DIALOG_SHOW";
-    public static final String MSG_DIALOG_TITLE_SHOW="MSG_DIALOG_TITLE_SHOW";
+    public static final String MSG_DIALOG_TITLE_SHOW = "MSG_DIALOG_TITLE_SHOW";
     // Hằng số show hide status
     public static final String STATUS_HIDE = "HIDE";
     public static final String STATUS_SHOW = "SHOW";
 
     // Hằng số cho Class UserDaoImpl
-    public static final int ACTION_GET_USER_BY_CODE = 7;
-    public static final int ACTION_GET_USER_BY_USERNAME_PASS = 8;
-    public static final int ACTION_GET_USER_BY_EMAIL = 9;
+    public static final int ACTION_GET_USER_BY_CODE = 8;
+    public static final int ACTION_GET_USER_BY_USERNAME_PASS = 9;
+    public static final int ACTION_GET_USER_BY_EMAIL = 10;
 
     // SImple format date
     public static final String DATE_FORMAT = "dd-MM-yyyy";
 
+    //
+    public static final String PLEASE_CHOOSE_ONE = "PLEASE_CHOOSE_ONE";
     /*
      *   Unit Table
      */
@@ -74,7 +78,13 @@ public class Constants {
     /*
      *   END Suplier Table
      */
+    // Header Products Table
+    public static final String[] HEADER_PRODUCT_TABLE = {"Id", "Name", "Suplier", "Category", "Unit"};
+    public static final String MSG_PRODUCT_NAME_CANT_BE_EMPTY = "MSG_UNIT_NAME_CANT_BE_EMPTY";
+
     /*
+     *   END Suplier Table
+     /*
      *   Category Table
      */
     // Header Suplier Table
@@ -116,13 +126,11 @@ public class Constants {
     public static final String QUERY_CHECK_UNIQUE_CONSTANTS = "SELECT * FROM table where field =?";
     public static final String QUERY_CHECK_UNIQUE_CONSTANTS_WHEN_UPDATE = "SELECT * FROM table where field = ? and id not like ?";
     public static final String QUERY_CHECK_DATA_TYPE_FIELD_NAME = "SELECT field FROM table";
-    
-    
+
     /*
-    * forgotPass2
-    */
-    
+     * forgotPass2
+     */
     /*
-    *forgotPass2
-    */
+     *forgotPass2
+     */
 }

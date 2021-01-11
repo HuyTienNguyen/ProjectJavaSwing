@@ -58,7 +58,6 @@ public class DatabaseHelper {
      *
      */
     public Connection getConnectionSqlserver() {
-        System.out.println("ket noi thanh cong");
         return this.connectionSqlserver;
 
     }
@@ -89,7 +88,6 @@ public class DatabaseHelper {
     public void closeDatabaseConnection() throws SQLException {
         if (connectionSqlserver.isClosed() == false || connectionSqlserver != null) {
             connectionSqlserver.close();
-            System.out.println("dong ket noi thanh cong");
         }
     }
 
@@ -237,6 +235,11 @@ public class DatabaseHelper {
      * @throws java.sql.SQLException
      */
     public static <E> int insertDataByCallableStatement(String sql, E... args) throws SQLException {
+        CallableStatement cst = getCallableStatement(sql, args);
+        cst.executeUpdate();
+        return cst.getInt(1);
+    }
+     public static <E> int selectByCallableStatement(String sql, E... args) throws SQLException {
         CallableStatement cst = getCallableStatement(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);

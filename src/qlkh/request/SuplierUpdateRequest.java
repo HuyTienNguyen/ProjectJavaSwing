@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author GIANG
  */
-public class ObjectsUpdateRequest extends GuiRequest {
+public class SuplierUpdateRequest extends IRequest {
 
     @Override
     public Map<String, String> setRules() {
