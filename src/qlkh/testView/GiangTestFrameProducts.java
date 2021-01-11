@@ -583,9 +583,9 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
     }
 
     // Load list Unit on Unit Table
-    public void loadAllProducts(List<Products> products) {
+    public void loadAllProducts(List<Products> pros) {
         // set data for List<Product> lists
-        this.products = products;
+        this.products = pros;
         tblProducts = new JTable(createObjectDataModel());
         tblProducts.setAutoCreateRowSorter(true);
         PaginationDataProvider<Products> dataProvider = createDataProvider();

@@ -116,7 +116,7 @@ public class PaginatedTableDecorator<T> {
                 currentPage = ((currentPageStartRow - 1) / currentPageSize) + 1;
                 paginate();
             });
-            searchField = new JTextField(20);
+            searchField = new JTextField(10);
           
             searchField.addKeyListener(new KeyListener() {
 

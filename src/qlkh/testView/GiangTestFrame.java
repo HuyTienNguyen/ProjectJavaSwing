@@ -69,6 +69,8 @@ public class GiangTestFrame extends javax.swing.JFrame {
             unitModel.addRow(row);
         }
         tblUnit.setModel(unitModel);
+                        tblUnit.setAutoCreateRowSorter(true);
+
     }
 
     // Add event to button addNewUnit

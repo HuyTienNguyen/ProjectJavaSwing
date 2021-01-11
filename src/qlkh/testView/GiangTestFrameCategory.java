@@ -401,6 +401,8 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
             cateModel.addRow(row);
         }
         tblCategory.setModel(cateModel);
+                tblCategory.setAutoCreateRowSorter(true);
+
     }
 
     // Add event to button addNewUnit
