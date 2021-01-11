@@ -102,16 +102,17 @@ public class ProductsController {
                 view.showErrors(errors);
                 int records = 0;
                 if (isFormValid == true) {
-                    int totalProducts = proDao.getCountProducts()+1;
-                    String productId =String.valueOf(totalProducts);             
-                    Products product = view.getProduct(true,productId);
-                      records = proDao.insert(product);
+                    int totalProducts = proDao.getCountProducts() + 1;
+                    String productId = String.valueOf(totalProducts);
+                    Products product = view.getProduct(true, productId);
+                    records = proDao.insert(product);
                 }
                 if (records > 0) {
                     view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
                     List<Products> products = new ArrayList<>();
                     products = proDao.getAllProducts();
                     view.showView(products);
+                    view.addTableMouseListener(new TableProductMouseListener());
                 } else {
                     view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
 
@@ -160,7 +161,7 @@ public class ProductsController {
                         List<Products> products = new ArrayList<>();
                         products = proDao.getAllProducts();
                         view.showView(products);
-                         view.addTableMouseListener(new TableProductMouseListener());
+                        view.addTableMouseListener(new TableProductMouseListener());
                     }
                 }
             } catch (Exception ex) {

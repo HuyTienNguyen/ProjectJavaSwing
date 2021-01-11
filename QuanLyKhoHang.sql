@@ -1,4 +1,4 @@
-﻿drop database QuanLyKhoHang
+﻿create database QuanLyKhoHang
 go
 use QuanLyKhoHang
 go
@@ -46,7 +46,7 @@ go
 	status int default(1)
  )	
  go
---tạo bảng Objects
+--tạo bảng Products
 create table Products(
 	Id nvarchar(100) primary key,
 	name nvarchar(100),
@@ -116,12 +116,7 @@ ALTER TABLE Products
 ADD CONSTRAINT FK_03 FOREIGN KEY (IdUnit) REFERENCES Unit(Id);
 
 
---tạo khóa ngoại Products và InvoiceImport
-/* Tạm khóa lại
-ALTER TABLE InvoiceImport
-ADD CONSTRAINT FK_04 FOREIGN KEY (IdSuplier) REFERENCES Suplier(Id);
-*/
---tạo khóa ngoại InvoiceImportDetail và products
+
 ALTER TABLE InvoiceImportDetail
 ADD CONSTRAINT FK_05 FOREIGN KEY (IdProduct) REFERENCES Products(Id);
 
@@ -143,7 +138,7 @@ ADD CONSTRAINT FK_09 FOREIGN KEY (IdInvoiceImportDetail) REFERENCES InvoiceImpor
 --tạo khóa ngoại InvoiceExportDetail và invoiceExport
 ALTER TABLE InvoiceExportDetail
 ADD CONSTRAINT FK_10 FOREIGN KEY (idinvoiceExport) REFERENCES invoiceExport(Id)
-
+GO
 /*
   *  Tạo thủ tục
   PRocedure ADD new unit
@@ -171,7 +166,7 @@ create procedure sp_add_new_unit
 				SET @output =1
 			END
 	END
-
+	GO
 /* Test Procedure sp_add_new_unit
 	declare  @a int 
 	exec sp_add_new_unit  @a output ,'Kg'
@@ -206,6 +201,7 @@ create procedure sp_add_new_unit
 				SET @output =0
 			END
 	END
+	GO
 	/* Test PROCEDURE sp_update_unit
 	*	declare  @output int 
 	*	exec sp_update_unit @output output ,2,'aaa'
@@ -241,7 +237,7 @@ create procedure sp_add_new_unit
 				SET @output = 0
 			END
 	END
-
+	GO
 	
 		-- PROCEDURE DELETE SUPLIER
 create procedure sp_delete_suplier
@@ -263,7 +259,7 @@ create procedure sp_delete_suplier
 				SET @output = 0
 			END
 	END
-	
+	GO
 		-- PROCEDURE DELETE Category
 create procedure sp_delete_category
  (
@@ -284,7 +280,7 @@ create procedure sp_delete_category
 				SET @output = 0
 			END
 	END
-
+	GO
 	-- GET TOTAl row in product table
 	CREATE procedure sp_count_products (
 	@output int output
@@ -295,6 +291,7 @@ create procedure sp_delete_category
 		SET @output	=(select count(*)FROM  Products		)
 			
 		END
+		GO
 	/* Procedure insert to invoiceImportDetail with transaction
 	*	@Param @errOutput error output 0 = not error 1 = errors 
 	*	@param @dateImport: Date import data to database
@@ -304,7 +301,7 @@ create procedure sp_delete_category
 	*	@param @outPrice: out price of product
 	*	@param @status: status of product
 	*/
-create procedure sp_add_invoice_import_Detail(
+alter procedure sp_add_invoice_import_Detail(
 	@errOutput int output,	
 	@dateImport datetime,
 	@idProduct nvarchar(100),
@@ -312,7 +309,6 @@ create procedure sp_add_invoice_import_Detail(
 	@inputPrice float,
 	@outputPrice float,
 	@status nvarchar(100)	
-
 )
 
 	AS
@@ -323,13 +319,13 @@ create procedure sp_add_invoice_import_Detail(
 		BEGIN TRANSACTION
 			BEGIN TRY
 			-- get count from imvoiceimport table
-			set @countInvoiceImport = ((SELECT count(id) from invoiceimport)+1)		
+			set @countInvoiceImport = ((SELECT count(id) from invoiceimport)+1)	
 			-- set id for new record insert to invoiceimport table
-			SET @idInvoiceImport = CAST(@countInvoiceImport as varchar(20))
+			SET @idInvoiceImport = 'I'+ REPLICATE('0',6 - LEN(CAST(@countInvoiceImport as varchar(20)))) +CAST(@countInvoiceImport as varchar(20))
 				-- get count from imvoiceimportDetail table
 			set @countInvoiceImportDetail= ((SELECT count(id) from InvoiceImportDetail)+1)		
 			-- set id for new record insert to invoiceimportDetail table
-			SET @idInvoiceimportDetail = CAST(@countInvoiceImportDetail as varchar(20))
+			SET @idInvoiceimportDetail = 'ID'+ REPLICATE('0',6 - LEN(CAST(@countInvoiceImportDetail as varchar(20))))+CAST(@countInvoiceImportDetail as varchar(20))
 				INSERT INTO InvoiceImport (id,DateInput)VALUES(@idInvoiceImport,@dateImport)
 
 				INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,Number,InputPrice,OutputPrice,Status)
@@ -342,13 +338,15 @@ create procedure sp_add_invoice_import_Detail(
 			ROLLBACK TRANSACTION
 			 RETURN ERROR_MESSAGE()
 			END CATCH
+			GO
 /*	 Test sql insert into 2 table InvoiceImportDetail va InvoiceImport
 
 	select * from Products
 declare @output1 int	
-exec sp_add_invoice_import_Detail @output1 output,'02/10/2021','2',200,20000,80000,'1'
+exec sp_add_invoice_import_Detail @output1 output,'02/10/2021','SP002',200,20000,80000,'1'
 select @output1
 select * from InvoiceImportDetail
 select * from InvoiceImport
 */
 
+select * from products

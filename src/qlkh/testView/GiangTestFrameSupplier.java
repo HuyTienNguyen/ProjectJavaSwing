@@ -556,6 +556,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
             supModel.addRow(row);
         }
         tblSuplier.setModel(supModel);
+        tblSuplier.setAutoCreateRowSorter(true);
     }
 
     // Add event to button addNewUnit
