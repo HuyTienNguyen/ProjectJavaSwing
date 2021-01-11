@@ -27,6 +27,7 @@ import qlkh.entities.Supliers;
 import qlkh.entities.Unit;
 import qlkh.test.IView;
 import qlkh.utils.Constants;
+import qlkh.utils.Utils;
 import qlkh.utils.pagination.ObjectTableModel;
 import qlkh.utils.pagination.PaginatedTableDecorator;
 import qlkh.utils.pagination.PaginationDataProvider;
@@ -351,6 +352,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
     private static Map<Integer, String> cateMap = new HashMap<>();
     private static int[] pageSizes = new int[]{10, 20, 50, 75, 100};
     private static final int defaultPageSize = 10;
+    //button để hiện phân trang maximum 7
     private static final int maxPagingCompToShow = 7;
     private static List<Products> products = new ArrayList<>();
     private static List<Unit> listUnits = new ArrayList<>();
@@ -362,7 +364,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
 
     public GiangTestFrameProducts() {
         //  Locale local = Utils.getLocale();
-        Locale local = Locale.getDefault();
+        Locale local = Utils.getLocale();
         setResourceBundle(local);
         initComponents();
 
@@ -460,7 +462,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
 
                 List<Products> newLists = new ArrayList<>();
                 for (Products em : products) {
-                    if (String.valueOf(em.getId()).contains(searchText) || em.getName().contains(searchText)) {
+                    if (String.valueOf(em.getId()).contains(searchText) || em.getName().contains(searchText) ) {
                         newLists.add(em);
                     }
                 }

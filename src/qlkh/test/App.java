@@ -9,6 +9,7 @@ import qlkh.testView.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
+import qlkh.controller.CustomerController;
 import qlkh.controller.SuplierController;
 import qlkh.controller.UnitController;
 
@@ -27,17 +28,12 @@ public class App {
                     Thread.sleep(500);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-                }
-//                StudentView stview = new StudentView();
-//                StudentController studentController = new StudentController(stview);
-//                studentController.showStudentView();
-                // ILogin controller = new LoginController();                     
-                // controller.showLoginView();  
+                }  
                 SuplierController supli = new SuplierController();
                 supli.showView();
-//                UnitController unit  = new UnitController();
-//                unit.showView();
-
+                
+//                CustomerController custoController = new CustomerController();
+//                custoController.showView();
             }
 
         });

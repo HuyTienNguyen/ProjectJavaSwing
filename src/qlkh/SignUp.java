@@ -50,7 +50,8 @@ public class SignUp extends javax.swing.JFrame implements IView {
     public void setResourceBundle(Locale local) {
         bundle = ResourceBundle.getBundle("qlkh/utils/languages", local);
     }
-
+    
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -402,7 +403,6 @@ public class SignUp extends javax.swing.JFrame implements IView {
         String errorUsernameMsg = ((errors.get("username") == null) ? "" : errors.get("username"));
         String errorPasswordMsg = ((errors.get("password") == null) ? "" : errors.get("password"));
         String errorPasswordConfirmMsg = ((errors.get("password_confirmation") == null) ? "" : errors.get("password_confirmation"));
-        // name : name is required
         //show messages
         showErrorMessage(lblErrFullname,errorNameMsg);
         showErrorMessage(lblErrEmail,errorEmailMsg);

@@ -34,7 +34,7 @@ public class ForgotPassword3Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("okekkkk");
+            
         }
         
     }

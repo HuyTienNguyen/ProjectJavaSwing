@@ -60,7 +60,9 @@ public class SingUpController {
 
                 // show errors to the view
                 //show errors to the view
+
                 signUp.showErrors(validator.getErrors());
+
 
                 int records = 0;
                 if ( validator.isPasses() == true) {
