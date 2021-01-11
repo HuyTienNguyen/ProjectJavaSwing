@@ -74,19 +74,19 @@ public class GiangTestFrame extends javax.swing.JFrame {
     }
 
     // Add event to button addNewUnit
-    public void addBtnAddNewUnitActionListener(ActionListener listener) {
+    public void addBtnAddAction(ActionListener listener) {
         btnAdd.addActionListener(listener);
     }
 
-    public void addBtnEditUnitActionListener(ActionListener listener) {
+    public void addBtnEditAction(ActionListener listener) {
         btnEdit.addActionListener(listener);
     }
 
-    public void addBtnClearUnitActionListener(ActionListener listener) {
+    public void addBtnClearAction(ActionListener listener) {
         btnClear.addActionListener(listener);
     }
 
-    public void addBtnDeleteUnitActionListener(ActionListener listener) {
+    public void addBtnDeleteAction(ActionListener listener) {
         btnDelete.addActionListener(listener);
     }
    

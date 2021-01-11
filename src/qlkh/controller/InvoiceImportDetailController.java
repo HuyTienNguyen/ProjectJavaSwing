@@ -77,26 +77,17 @@ public class InvoiceImportDetailController {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Declare suplier request
-                IRequest request = new ProductRequest();
-                // get list rules from suplier request
-                Map<String, String> rules = request.getRules();
-                // get list element from view
-                List<Object> objects = view.getListElements();
-                // Set return messages
-                Validator.setErrorMessages(request.getMessages());
-
-                // Declare List Item to Validate
-                List<ValidatorItem> listVals = Validator.setRules(objects, rules);
+                IRequest request = new ProductRequest();               
                 // Declare instance of Validator
-                Validator validator = new Validator(listVals, null);
-                // Declare a boolean validate form
-                boolean isFormValid = validator.isPasses();
-                // Get A list error from request validator
-                Map<String, String> errors = validator.getErrors();
+                                                boolean isInsert = true;
+
+                Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), null);
+                // Set Error 
+                validator.setErrorMessages(request.getMessages());
                 // show errors to the view
-                view.showErrors(errors);
+                view.showErrors(validator.getErrors());
                 int records = 0;
-                if (isFormValid == true) {
+                if (validator.isPasses() == true) {
                     int totalProducts = proDao.getCountProducts() + 1;
                     String productId = String.valueOf(totalProducts);
                 //    Products product = view.getProduct(true, productId);
@@ -125,27 +116,18 @@ public class InvoiceImportDetailController {
             try {
                 // Declare suplier request
                 IRequest request = new ProductUpdateRequest();
-                // get list rules from suplier request
-                Map<String, String> rules = request.getRules();
-                // get list element from view
-                List<Object> objects = view.getListElements();
-                // Set return messages
-                Validator.setErrorMessages(request.getMessages());
+                String id = view.getEditId();
+                 // Declare instance of Validator
+                                boolean isInsert = false;
 
-                // Declare List Item to Validate
-                List<ValidatorItem> listItem = Validator.setRules(objects, rules);
-                // Declare instance of Validator
-               // String id = view.getEditProductId();
-                Validator validator = new Validator(listItem, "");
-                // Declare a boolean validate form
-                boolean isFormValid = validator.isPasses();
-                // Get A list error from request validator
-                Map<String, String> errors = validator.getErrors();
+                Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), id);
+                // Set Error 
+                validator.setErrorMessages(request.getMessages());
                 // show errors to the view
-                view.showErrors(errors);
+                view.showErrors( validator.getErrors());
 
                 int records = 0;
-                if (isFormValid == true) {
+                if (validator.isPasses() == true) {
 
                  //   Products product = view.getProduct(false, id);
                  //   records = proDao.update(product);

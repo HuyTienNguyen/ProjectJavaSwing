@@ -39,12 +39,16 @@ public class CategoryController {
     public CategoryController() {
         view = new GiangTestFrameCategory();
         cateDao = new CategoryDaoImpl();
-        view.addBtnAddActionListener(new BtnAddNewActionListener());
-        view.addBtnEditActionListener(new BtnEditActionListener());
-        view.addBtnClearActionListener(new BtnClearActionListener());
-        view.addBtnDeleteActionListener(new BtnDeleteActionListener());
-        view.addTableMouseListener(new TableCategoryMouseListener());
 
+        initListeners();
+    }
+
+    private void initListeners() {
+        view.addBtnAddAction(this::btnAddAction);
+        view.addBtnEditAction(this::btnEditAction);
+        view.addBtnClearAction(this::btnClearAction);
+        view.addBtnDeleteAction(this::btnDelteAction);
+        view.addTableMouseListener(new TableCategoryMouseListener());
     }
 
     public void showView() {
@@ -56,127 +60,98 @@ public class CategoryController {
 
     }
 
-    private class BtnAddNewActionListener implements ActionListener {
+    private void btnAddAction(ActionEvent e) {
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                // Declare suplier request
-                IRequest request = new CategoryRequest();
-                // get list rules from suplier request
-                Map<String, String> rules = request.getRules();
-                // get list element from view
-                List<Object> listValueOfForm = view.getListElements();
-                // Set return messages
-                Validator.setErrorMessages(request.getMessages());
+        try {
+            // Declare suplier request
+            IRequest request = new CategoryRequest();
 
-                // Declare List Item to Validate
-                List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, rules);
-                // Declare instance of Validator
-                Validator validator = new Validator(listVals, null);
-                // Declare a boolean validate form
-                boolean isFormValid = validator.isPasses();
-                // Get A list error from request validator
-                Map<String, String> errors = validator.getErrors();
-                // show errors to the view
-                view.showErrors(errors);
-                int records = 0;
-                if (isFormValid == true) {
-                    Category cate = view.getCategory();
-                    records = cateDao.insert(cate);
-                }
-                if (records > 0) {
-                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-                    List<Category> cates = new ArrayList<>();
-                    cates = cateDao.getAllCategoies();
-                    view.showView(cates);
-                } else {
-                    view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
+            // Declare instance of Validator
+            boolean isInsert = true;
+            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), null);
+            // Set Error 
+            validator.setErrorMessages(request.getMessages());
 
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-    }
-
-    private class BtnEditActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                // Declare suplier request
-                IRequest request = new CategoryUpdateRequest();
-                // get list rules from suplier request
-                Map<String, String> rules = request.getRules();
-                // get list element from view
-                List<Object> listElements = view.getListElements();
-                // Set return messages
-                Validator.setErrorMessages(request.getMessages());
-
-                // Declare List Item to Validate
-                List<ValidatorItem> listItem = Validator.setRules(listElements, rules);
-                // Declare instance of Validator
-                String id = view.getEditId();
-                Validator validator = new Validator(listItem, id);
-                // Declare a boolean validate form
-                boolean isFormValid = validator.isPasses();
-                // Get A list error from request validator
-                Map<String, String> errors = validator.getErrors();
-                // show errors to the view
-                view.showErrors(errors);
-                int records = 0;
-                if (isFormValid == true) {
-                    Category cate = view.getCategory();
-                    records = cateDao.update(cate);
-                    if (records > 0) {
-                        view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
-                        view.clearView(false);
-                        List<Category> cates = new ArrayList<>();
-                        cates = cateDao.getAllCategoies();
-                        view.showView(cates);
-                    }
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    private class BtnClearActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            view.clearView(true);
-
-        }
-
-    }
-
-    private class BtnDeleteActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Category cate = view.getCategory();
-            int status = cate.getStatus();
-            int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
-            String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
-            String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
-
-            int yourChoose = view.showDialog(view, message, title, typeIcon);
+            // show errors to the view
+            view.showErrors(validator.getErrors());
             int records = 0;
-            if (cate != null) {               
-                records = cateDao.delete(cate);
+            if (validator.isPasses() == true) {
+                Category cate = view.getCategory();
+                records = cateDao.insert(cate);
+            }
+            if (records > 0) {
+                view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+                List<Category> cates = new ArrayList<>();
+                cates = cateDao.getAllCategoies();
+                view.showView(cates);
+            } else {
+                view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void btnEditAction(ActionEvent e) {
+
+        try {
+            // Declare suplier request
+            IRequest request = new CategoryUpdateRequest();
+
+            String id = view.getEditId();
+            boolean isInsert = false;
+            // Declare instance of Validator
+            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), id);
+            // Set Error 
+            validator.setErrorMessages(request.getMessages());
+            // show errors to the view
+            view.showErrors(validator.getErrors());
+            int records = 0;
+            if (validator.isPasses() == true) {
+                Category cate = view.getCategory();
+                records = cateDao.update(cate);
                 if (records > 0) {
-                    view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
+                    view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
                     view.clearView(false);
                     List<Category> cates = new ArrayList<>();
                     cates = cateDao.getAllCategoies();
                     view.showView(cates);
                 }
             }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+
+    }
+
+    private void btnClearAction(ActionEvent e) {
+        view.clearView(true);
+
+    }
+
+    private void btnDelteAction(ActionEvent e) {
+        Category cate = view.getCategory();
+        int status = cate.getStatus();
+        int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
+        String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
+        String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
+
+        int yourChoose = view.showDialog(view, message, title, typeIcon);
+        int records = 0;
+        if (cate != null) {
+            records = cateDao.delete(cate);
+            if (records > 0) {
+                view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
+                view.clearView(false);
+                List<Category> cates = new ArrayList<>();
+                cates = cateDao.getAllCategoies();
+                view.showView(cates);
+
+            }
+        }
+
     }
 
     private class TableCategoryMouseListener implements MouseListener {

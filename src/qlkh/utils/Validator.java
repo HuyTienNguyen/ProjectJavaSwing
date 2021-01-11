@@ -41,7 +41,8 @@ public class Validator {
     private static final String RULE_MAX_NUMBER = "maxNumber";
     private boolean isInsert = true;
 
-    public Validator(List<ValidatorItem> items, String valueId) throws Exception {
+
+    private Validator(List<ValidatorItem> items, String valueId) throws Exception {
         for (ValidatorItem item : items) {
             String ruleString = item.getRule(), field = item.getName();
             Object component = item.getField();
@@ -521,7 +522,7 @@ public class Validator {
         return value1;
     }
 
-    public static List<ValidatorItem> setRules(List<Object> components, Map<String, String> mapRules) throws Exception {
+    public static Validator validate(List<Object> components, Map<String, String> mapRules, String id) throws Exception {
         List<ValidatorItem> listItem = new ArrayList<>();
         for (Map.Entry<String, String> entrySet : mapRules.entrySet()) {
             String key = entrySet.getKey();
@@ -533,9 +534,8 @@ public class Validator {
                     listItem.add(new ValidatorItem(value, obj, getName(obj)));
                 }
             }
-        }
-        return listItem;
-
+        }       
+        return new Validator(listItem, id);
     }
 
     public static String getName(Object component) throws Exception {

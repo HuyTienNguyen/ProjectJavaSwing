@@ -28,76 +28,62 @@ import qlkh.utils.Validator;
  * @author user
  */
 public class SingUpController {
+
     private static SignUp signUp; //view
     private static UserDaoImpl userModel; //model
 
     public SingUpController() {
     }
+
     public SingUpController(SignUp view) {
         signUp = view;
         signUp.addBtnSignUpActionListener(new BtnSignUpActionListener());
     }
+
     public void showSignIn() {
 
-            signUp.showView();
+        signUp.showView();
 
-        
     }
-    
-    private class BtnSignUpActionListener implements ActionListener{
+
+    private class BtnSignUpActionListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 //declare signup request
                 SignUpRequest request = new SignUpRequest();
-                //get list rules from signup request
-                Map<String,String> rules = request.getRules();
-                //get list element from view
-                List<Object> listValueOfForm = signUp.getListElements();
-                //set return messages
-                Validator.setErrorMessages(request.getMessages());
-                
-                //declare list item to validate
-                List<ValidatorItem> listVals = Validator.setRules(listValueOfForm, rules);
-                //declare instance of validator
-                Validator validator = new Validator(listVals,null);
-                //declare a boolean validate form
-                boolean isFormValid = validator.isPasses();
-                //Get a list error from request validator
-                Map<String,String> errors = validator.getErrors();
+                   boolean isInSert =false;
+                Validator validator = Validator.validate(signUp.getListElements(isInSert), request.getRules(), null);
+                // Declare instance of Validator
+                validator.setErrorMessages(request.getMessages());
+
+                // show errors to the view
                 //show errors to the view
-                signUp.showErrors(errors);
-                for (Map.Entry<String, String> entrySet : errors.entrySet()) {
-                    String key = entrySet.getKey();
-                    String value = entrySet.getValue();
-                    System.out.println("key: "+key+", value: "+value);
-                    
-                }
+                signUp.showErrors(validator.getErrors());
+
                 int records = 0;
-                if(isFormValid == true){
+                if ( validator.isPasses() == true) {
                     Users users = signUp.getNewUsers();
                     UserDaoImpl userModel = new UserDaoImpl();
                     records = userModel.insert(users);
-                    if(records > 0){
+                    if (records > 0) {
                         signUp.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
                         signUp.hideView();
                         Locale myLocale = Utils.getLocale();
                         SignIn signIn = new SignIn(myLocale);
                         SignInController mainController = new SignInController(signIn);
                         mainController.showSignIn();
-                    }
-                    else{
+                    } else {
                         signUp.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
                     }
                 }
             } catch (Exception ex) {
                 Logger.getLogger(SingUpController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
-        
+
     }
-    
-    
+
 }

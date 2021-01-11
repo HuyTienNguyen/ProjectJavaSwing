@@ -83,25 +83,15 @@ public class ProductsController {
             try {
                 // Declare suplier request
                 IRequest request = new ProductRequest();
-                // get list rules from suplier request
-                Map<String, String> rules = request.getRules();
-                // get list element from view
-                List<Object> objects = view.getListElements();
-                // Set return messages
-                Validator.setErrorMessages(request.getMessages());
-
-                // Declare List Item to Validate
-                List<ValidatorItem> listVals = Validator.setRules(objects, rules);
+                boolean isInsert = true;
                 // Declare instance of Validator
-                Validator validator = new Validator(listVals, null);
-                // Declare a boolean validate form
-                boolean isFormValid = validator.isPasses();
-                // Get A list error from request validator
-                Map<String, String> errors = validator.getErrors();
-                // show errors to the view
-                view.showErrors(errors);
+                Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), null);
+                // Set Error 
+                validator.setErrorMessages(request.getMessages());
+
+                view.showErrors(validator.getErrors());
                 int records = 0;
-                if (isFormValid == true) {
+                if (validator.isPasses() == true) {
                     int totalProducts = proDao.getCountProducts() + 1;
                     String productId = String.valueOf(totalProducts);
                     Products product = view.getProduct(true, productId);
@@ -131,18 +121,15 @@ public class ProductsController {
             try {
                 // Declare suplier request
                 IRequest request = new ProductUpdateRequest();
-                // get list rules from suplier request
-                Map<String, String> rules = request.getRules();
-                // get list element from view
-                List<Object> objects = view.getListElements();
-                // Set return messages
-                Validator.setErrorMessages(request.getMessages());
 
-                // Declare List Item to Validate
-                List<ValidatorItem> listItem = Validator.setRules(objects, rules);
                 // Declare instance of Validator
                 String id = view.getEditProductId();
-                Validator validator = new Validator(listItem, id);
+                boolean isInsert = false;
+                // Declare instance of Validator
+                Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), id);
+                // Set Error 
+                validator.setErrorMessages(request.getMessages());
+
                 // Declare a boolean validate form
                 boolean isFormValid = validator.isPasses();
                 // Get A list error from request validator

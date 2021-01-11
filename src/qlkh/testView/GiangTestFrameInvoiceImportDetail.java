@@ -565,7 +565,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     }
 
     @Override
-    public List<Object> getListElements() {
+    public List<Object> getListElements(boolean isInsert) {
         List<Object> objects = new ArrayList<>();
         // set Name text field
         id.setName("id");
@@ -744,7 +744,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
             }
             if (cate != null) {
                 cbbCategory.setSelectedItem(cate);
-                loadAllProducts(products, cate);
+               // loadAllProducts(products, cate);
                 cbbProducts.setSelectedItem(product);
             }
         }

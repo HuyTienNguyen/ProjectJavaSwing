@@ -6,7 +6,6 @@
 package qlkh.controller;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -31,16 +30,17 @@ public class UnitController {
     public UnitController() {
         view = new GiangTestFrame();
         unitDao = new UnitDaoImpl();
-        
-        view.addBtnAddNewUnitActionListener(this::btnAddAction);
-        view.addBtnEditUnitActionListener(this::btnEditAction);
-        view.addBtnClearUnitActionListener(this::btnClearAction);
-        view.addTableUnitMouseListener(new TableUnitMouseListener());
-        view.addBtnDeleteUnitActionListener(this::btnDeleteAction);
+        initListeners();
 
     }
 
-  
+    private void initListeners() {
+        view.addBtnAddAction(this::btnAddAction);
+        view.addBtnEditAction(this::btnEditAction);
+        view.addBtnClearAction(this::btnClearAction);
+        view.addBtnDeleteAction(this::btnDeleteAction);
+        view.addTableUnitMouseListener(new TableUnitMouseListener());
+    }
 
     public void showView() {
         List<Unit> units = new ArrayList<>();
