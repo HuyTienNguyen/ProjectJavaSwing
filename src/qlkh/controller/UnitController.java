@@ -31,13 +31,16 @@ public class UnitController {
     public UnitController() {
         view = new GiangTestFrame();
         unitDao = new UnitDaoImpl();
-        view.addBtnAddNewUnitActionListener(new BtnAddNewActionListener());
-        view.addBtnEditUnitActionListener(new BtnEditActionListener());
-        view.addBtnClearUnitActionListener(new BtnClearActionListener());
+        
+        view.addBtnAddNewUnitActionListener(this::btnAddAction);
+        view.addBtnEditUnitActionListener(this::btnEditAction);
+        view.addBtnClearUnitActionListener(this::btnClearAction);
         view.addTableUnitMouseListener(new TableUnitMouseListener());
-        view.addBtnDeleteUnitActionListener(new BtnDeleteActionListener());
+        view.addBtnDeleteUnitActionListener(this::btnDeleteAction);
 
     }
+
+  
 
     public void showView() {
         List<Unit> units = new ArrayList<>();
@@ -49,103 +52,83 @@ public class UnitController {
 
     }
 
-    private class BtnAddNewActionListener implements ActionListener {
+    private void btnAddAction(ActionEvent e) {
+        String newUnitName = view.getNewUnitText();
+        if (newUnitName != null && newUnitName.equals("") == false) {
+            // Khởi tạo 1 instance of Unit
+            Unit newUnit = new Unit(newUnitName);
+            // In sert data and get result check
+            int result = unitDao.insert(newUnit);
+            // if result check =0 is not error
+            if (result == 0) {
+                List<Unit> units = new ArrayList<>();
+                units = unitDao.getAllUnits();
+                view.loadAllUnit(units);
+                view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+                view.setNewUnitText("");
+            } else {
+                // Had error show message
+                view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
+                view.focusTxtUnitField();
+            }
+        } else {
+            view.showMessage(Constants.MSG_UNIT_NAME_CANT_BE_EMPTY, Constants.FLAG_ERROR);
+            view.focusTxtUnitField();
+        }
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String newUnitName = view.getNewUnitText();
-            if (newUnitName != null && newUnitName.equals("") == false) {
-                // Khởi tạo 1 instance of Unit
-                Unit newUnit = new Unit(newUnitName);
-                // In sert data and get result check
-                int result = unitDao.insert(newUnit);
-                // if result check =0 is not error
-                if (result == 0) {
-                    List<Unit> units = new ArrayList<>();
-                    units = unitDao.getAllUnits();
-                    view.loadAllUnit(units);
-                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+    }
+
+    private void btnEditAction(ActionEvent e) {
+
+        int id = editUnit.getId();
+        String newUnitName = view.getNewUnitText();
+        // if new unit name has changed 
+        if (editUnit.getName().equals(newUnitName) == false) {
+            // check new unit name not null
+            if (view.isNotNull(newUnitName) == true) {
+                int result = unitDao.update(new Unit(id, newUnitName));
+                if (result > 0) {
+                    view.showMessage(Constants.MSG_UPDATE_SUCCESS, Constants.FLAG_SUCCESS);
+                    List<Unit> units = unitDao.getAllUnits();
+                    view.showView(units);
                     view.setNewUnitText("");
+                    view.setEnableBtnAddNew(true);
+                    view.setEnableBtnEdit(false);
                 } else {
-                    // Had error show message
-                    view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
-                    view.focusTxtUnitField();
+                    view.showMessage(Constants.MSG_UPDATE_ERROR, Constants.FLAG_ERROR);
                 }
             } else {
                 view.showMessage(Constants.MSG_UNIT_NAME_CANT_BE_EMPTY, Constants.FLAG_ERROR);
-                view.focusTxtUnitField();
             }
         }
     }
 
-    private class BtnEditActionListener implements ActionListener {
+    private void btnClearAction(ActionEvent a) {
+        view.clearView();
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int id = editUnit.getId();
-            String newUnitName = view.getNewUnitText();
-            // if new unit name has changed 
-            if (editUnit.getName().equals(newUnitName) == false) {
-                // check new unit name not null
-                if (view.isNotNull(newUnitName) == true) {
-                    int result = unitDao.update(new Unit(id, newUnitName));
-                    if (result > 0) {
-                        view.showMessage(Constants.MSG_UPDATE_SUCCESS, Constants.FLAG_SUCCESS);
-                        List<Unit> units = unitDao.getAllUnits();
-                        view.showView(units);
-                        view.setNewUnitText("");
-                        view.setEnableBtnAddNew(true);
-                        view.setEnableBtnEdit(false);
-                    } else {
-                        view.showMessage(Constants.MSG_UPDATE_ERROR, Constants.FLAG_ERROR);
-                    }
+    }
+
+    private void btnDeleteAction(ActionEvent a) {
+        String unitName = view.getNewUnitText();
+        int status = editUnit.getStatus();
+        int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
+        String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
+        String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
+        int choose = view.showDialog(view, message, title, typeIcon);
+        if (editUnit != null) {
+            if (choose == JOptionPane.YES_OPTION) {
+                int result = unitDao.delete(editUnit);
+                if (result > 0) {
+                    view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
+                    view.clearView();
+                    List<Unit> units = new ArrayList<>();
+                    units = unitDao.getAllUnits();
+                    view.showView(units);
                 } else {
-                    view.showMessage(Constants.MSG_UNIT_NAME_CANT_BE_EMPTY, Constants.FLAG_ERROR);
-                }
-            }
-
-        }
-    }
-
-    private class BtnClearActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            view.clearView();
-
-        }
-
-    }
-
-    private class BtnDeleteActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            String unitName = view.getNewUnitText();
-            int status = editUnit.getStatus();
-            int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
-            String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
-            String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
-            int choose = view.showDialog(view, message, title, typeIcon);
-            if (editUnit != null) {
-                if (choose == JOptionPane.YES_OPTION) {
-                    int result = unitDao.delete(editUnit);
-                    if (result > 0) {
-                        view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
-                        view.clearView();
-                        List<Unit> units = new ArrayList<>();
-                        units = unitDao.getAllUnits();
-                        view.showView(units);
-                    } else {
-
-                        view.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
-                    }
-
+                    view.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
                 }
             }
         }
-
     }
 
     private class TableUnitMouseListener implements MouseListener {

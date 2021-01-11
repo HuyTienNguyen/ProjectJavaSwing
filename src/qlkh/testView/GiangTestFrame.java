@@ -87,6 +87,7 @@ public class GiangTestFrame extends javax.swing.JFrame {
     public void addBtnDeleteUnitActionListener(ActionListener listener) {
         btnDelete.addActionListener(listener);
     }
+   
 
     public void addTableUnitMouseListener(MouseListener listener) {
         tblUnit.addMouseListener(listener);
@@ -144,6 +145,7 @@ public class GiangTestFrame extends javax.swing.JFrame {
 
     public void clearView() {
         setNewUnitText("");
+        showMessage("", Constants.FLAG_SUCCESS);
         setEnableBtnAddNew(true);
         setEnableBtnEdit(false);
         setEnableBtnDelete(false);
@@ -263,8 +265,8 @@ public class GiangTestFrame extends javax.swing.JFrame {
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(messageUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
