@@ -127,7 +127,8 @@ public class ProductDaoImpl implements IProductDAO {
         return countDelete;
     }
 
-    public int getCountProducts() throws SQLException {
+    @Override
+    public int getCountProducts()  {
         int count = -1;
         try {
            Object param = new   Object[]{
@@ -142,7 +143,6 @@ public class ProductDaoImpl implements IProductDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);       
             }
-
         }
         return count;
     }

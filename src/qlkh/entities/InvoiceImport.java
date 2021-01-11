@@ -17,29 +17,16 @@ public class InvoiceImport {
 
     private String id;
     private Timestamp dateInput;
-    private int IdSuplier;
+ 
 
     public InvoiceImport() {
     }
 
-    public InvoiceImport(String id, Timestamp dateInput, int IdSuplier) {
+    public InvoiceImport(String id, Timestamp dateInput) {
         this.id = id;
         this.dateInput = dateInput;
-        this.IdSuplier = IdSuplier;
     }
-
-    public int getIdSuplier() {
-        return IdSuplier;
-    }
-
-    public void setIdSuplier(int IdSuplier) {
-        this.IdSuplier = IdSuplier;
-    }
-
-    
-
-    
-
+ 
     public String getId() {
         return id;
     }
@@ -67,15 +54,15 @@ public class InvoiceImport {
             case Constants.ACTION_INSERT:
                 param = new Object[]{
                     this.getId(),
-                    this.getDateInput(),
-                    this.getIdSuplier()
+                    this.getDateInput()
+                  
 
                 };
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
                     this.getDateInput(),
-                    this.getIdSuplier(),
+                   
                     this.getId()
                 };
                 break;
@@ -91,9 +78,10 @@ public class InvoiceImport {
 
     @Override
     public String toString() {
-        return "InvoiceImport{" + "id=" + id + ", dateInput=" + dateInput + ", IdSuplier=" + IdSuplier + '}';
+        return "InvoiceImport{" + "id=" + id + ", dateInput=" + dateInput + '}';
     }
 
+  
     
 
 }

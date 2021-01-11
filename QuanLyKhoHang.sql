@@ -2,8 +2,8 @@
 go
 use QuanLyKhoHang
 go
-select * from products
-SELECT @@ROWCOUNT
+
+
 
 --tạo bảng Users
 create table Users(
@@ -71,8 +71,8 @@ go
 --tạo bảng InvoiceImport
 create table InvoiceImport(
 	Id nvarchar(100) primary key,
-	DateInput DateTime,
-	IdSuplier int
+	DateInput DateTime
+	
 )
 go
 --tạo bảng InvoiceImportDetail
@@ -117,9 +117,10 @@ ADD CONSTRAINT FK_03 FOREIGN KEY (IdUnit) REFERENCES Unit(Id);
 
 
 --tạo khóa ngoại Products và InvoiceImport
+/* Tạm khóa lại
 ALTER TABLE InvoiceImport
 ADD CONSTRAINT FK_04 FOREIGN KEY (IdSuplier) REFERENCES Suplier(Id);
-
+*/
 --tạo khóa ngoại InvoiceImportDetail và products
 ALTER TABLE InvoiceImportDetail
 ADD CONSTRAINT FK_05 FOREIGN KEY (IdProduct) REFERENCES Products(Id);
@@ -294,7 +295,60 @@ create procedure sp_delete_category
 		SET @output	=(select count(*)FROM  Products		)
 			
 		END
-	
-	declare @a int
-	exec sp_count_products @a output
-	select @a
+	/* Procedure insert to invoiceImportDetail with transaction
+	*	@Param @errOutput error output 0 = not error 1 = errors 
+	*	@param @dateImport: Date import data to database
+	*	@param @idProduct: Id Product need import
+	*	@param @number: number of products import
+	*	@param @inputPrice: input price of product
+	*	@param @outPrice: out price of product
+	*	@param @status: status of product
+	*/
+create procedure sp_add_invoice_import_Detail(
+	@errOutput int output,	
+	@dateImport datetime,
+	@idProduct nvarchar(100),
+	@number int,
+	@inputPrice float,
+	@outputPrice float,
+	@status nvarchar(100)
+
+)
+
+	AS
+	declare  @idInvoiceImport varchar(20),
+			 @countInvoiceImport int,
+			 @idInvoiceimportDetail varchar(100),
+			 @countInvoiceImportDetail int
+		BEGIN TRANSACTION
+			BEGIN TRY
+			-- get count from imvoiceimport table
+			set @countInvoiceImport = ((SELECT count(id) from invoiceimport)+1)		
+			-- set id for new record insert to invoiceimport table
+			SET @idInvoiceImport = CAST(@countInvoiceImport as varchar(20))
+				-- get count from imvoiceimportDetail table
+			set @countInvoiceImportDetail= ((SELECT count(id) from InvoiceImportDetail)+1)		
+			-- set id for new record insert to invoiceimportDetail table
+			SET @idInvoiceimportDetail = CAST(@countInvoiceImportDetail as varchar(20))
+				INSERT INTO InvoiceImport (id,DateInput)VALUES(@idInvoiceImport,@dateImport)
+
+				INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,Number,InputPrice,OutputPrice,Status)
+							VALUES(@idinvoiceimportDetail,@idProduct,@idInvoiceImport,@number,@inputPrice,@outputPrice,@status)
+				SET @errOutput =0;
+				COMMIT TRANSACTION
+			END TRY
+			BEGIN CATCH
+			SET @errOutput =1;
+			ROLLBACK TRANSACTION
+			 RETURN ERROR_MESSAGE()
+			END CATCH
+/*	 Test sql insert into 2 table InvoiceImportDetail va InvoiceImport
+
+	select * from Products
+declare @output1 int	
+exec sp_add_invoice_import_Detail @output1 output,'02/10/2021','2',200,20000,80000,'1'
+select @output1
+select * from InvoiceImportDetail
+select * from InvoiceImport
+*/
+
