@@ -311,7 +311,7 @@ create procedure sp_add_invoice_import_Detail(
 	@number int,
 	@inputPrice float,
 	@outputPrice float,
-	@status nvarchar(100)
+	@status nvarchar(100)	
 
 )
 
