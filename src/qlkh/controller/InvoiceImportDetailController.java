@@ -11,30 +11,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import qlkh.dao.ICategoryDAO;
-import qlkh.dao.ISuplierDAO;
-import qlkh.dao.IUnitDAO;
-import qlkh.daoimpl.CategoryDaoImpl;
-import qlkh.daoimpl.InvoiceImportDaoImpl;
 import qlkh.daoimpl.InvoiceImportDetailDaoImpl;
 import qlkh.daoimpl.ProductDaoImpl;
-import qlkh.daoimpl.SuplierDaoImpl1;
-import qlkh.daoimpl.UnitDaoImpl;
 import qlkh.entities.Category;
-import qlkh.entities.InvoiceImport;
 import qlkh.entities.InvoiceImportDetail;
 import qlkh.entities.Products;
-import qlkh.entities.Supliers;
-import qlkh.entities.Unit;
-import qlkh.entities.ValidatorItem;
 import qlkh.request.IRequest;
 import qlkh.request.ProductRequest;
 import qlkh.request.ProductUpdateRequest;
 import qlkh.testView.GiangTestFrameInvoiceImportDetail;
-import qlkh.testView.GiangTestFrameProducts;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
 
@@ -60,10 +47,8 @@ public class InvoiceImportDetailController {
             view = new GiangTestFrameInvoiceImportDetail();
         }
 
-        List<Products> products = proDao.getAllProducts();
-        List<InvoiceImportDetail> invoiceImports = invoiceImDao.getAllInvoiceImportDetail();
-        view.loadAllProducts(products,true,new Category(0, ""));
-        view.showView(invoiceImports);
+        view.loadAllProducts(proDao.getAllProducts(),true,new Category(0, ""));
+        view.showView(invoiceImDao.getAllDetails());
 
         view.addBtnAddActionListener(new BtnAddNewActionListener());
         view.addBtnEditActionListener(new BtnEditActionListener());

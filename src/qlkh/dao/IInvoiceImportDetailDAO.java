@@ -12,7 +12,7 @@ import qlkh.entities.InvoiceImportDetail;
  * @author GIANG
  */
 public interface IInvoiceImportDetailDAO extends IInventoryDAO<InvoiceImportDetail , String> {
-    public  List<InvoiceImportDetail> getAllInvoiceImportDetail();
+    public  List<InvoiceImportDetail> getAllDetails();
     public InvoiceImportDetail getInvoiceImportDetailByID(String key);
 
   

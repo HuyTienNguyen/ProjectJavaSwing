@@ -599,15 +599,15 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
     }
 
     // Add event to button addNewUnit
-    public void addBtnAddActionListener(ActionListener listener) {
+    public void addBtnAddAction(ActionListener listener) {
         btnAdd.addActionListener(listener);
     }
 
-    public void addBtnEditActionListener(ActionListener listener) {
+    public void addBtnEditAction(ActionListener listener) {
         btnEdit.addActionListener(listener);
     }
 
-    public void addBtnClearActionListener(ActionListener listener) {
+    public void addBtnClearAction(ActionListener listener) {
         btnClear.addActionListener(listener);
     }
 

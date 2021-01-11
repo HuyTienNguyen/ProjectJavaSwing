@@ -60,6 +60,7 @@ public class PaginatedTableDecorator<T> {
 
     private void initListeners() {
         objectTableModel.addTableModelListener(this::refreshPageButtonPanel);
+      
     }
 
     private void initDataModel() {

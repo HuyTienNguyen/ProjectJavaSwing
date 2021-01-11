@@ -6,19 +6,16 @@
 package qlkh.controller;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import qlkh.dao.ICategoryDAO;
 import qlkh.daoimpl.CategoryDaoImpl;
 import qlkh.entities.Category;
-import qlkh.entities.ValidatorItem;
 import qlkh.request.CategoryRequest;
 import qlkh.request.CategoryUpdateRequest;
 import qlkh.request.IRequest;
@@ -55,8 +52,7 @@ public class CategoryController {
         if (view == null) {
             view = new GiangTestFrameCategory();
         }
-        List<Category> categories = cateDao.getAllCategoies();
-        view.showView(categories);
+        view.showView( cateDao.getAllCategoies());
 
     }
 
@@ -76,14 +72,11 @@ public class CategoryController {
             view.showErrors(validator.getErrors());
             int records = 0;
             if (validator.isPasses() == true) {
-                Category cate = view.getCategory();
-                records = cateDao.insert(cate);
+                records = cateDao.insert(view.getCategory());
             }
             if (records > 0) {
-                view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-                List<Category> cates = new ArrayList<>();
-                cates = cateDao.getAllCategoies();
-                view.showView(cates);
+                view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);          
+                view.showView(cateDao.getAllCategoies());
             } else {
                 view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
 
@@ -110,14 +103,12 @@ public class CategoryController {
             view.showErrors(validator.getErrors());
             int records = 0;
             if (validator.isPasses() == true) {
-                Category cate = view.getCategory();
-                records = cateDao.update(cate);
+                records = cateDao.update(view.getCategory());
                 if (records > 0) {
                     view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
                     view.clearView(false);
-                    List<Category> cates = new ArrayList<>();
-                    cates = cateDao.getAllCategoies();
-                    view.showView(cates);
+;
+                    view.showView(cateDao.getAllCategoies());
                 }
             }
         } catch (Exception ex) {
@@ -145,9 +136,8 @@ public class CategoryController {
             if (records > 0) {
                 view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
                 view.clearView(false);
-                List<Category> cates = new ArrayList<>();
-                cates = cateDao.getAllCategoies();
-                view.showView(cates);
+
+                view.showView(cateDao.getAllCategoies());
 
             }
         }

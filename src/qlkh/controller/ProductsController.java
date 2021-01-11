@@ -25,7 +25,6 @@ import qlkh.entities.Category;
 import qlkh.entities.Products;
 import qlkh.entities.Supliers;
 import qlkh.entities.Unit;
-import qlkh.entities.ValidatorItem;
 import qlkh.request.IRequest;
 import qlkh.request.ProductRequest;
 import qlkh.request.ProductUpdateRequest;
@@ -70,100 +69,83 @@ public class ProductsController {
         view.loadAllCategories(categories);
         view.showView(products);
 
-        view.addBtnAddActionListener(new BtnAddNewActionListener());
-        view.addBtnEditActionListener(new BtnEditActionListener());
-        view.addBtnClearActionListener(new BtnClearActionListener());
+        view.addBtnAddAction(this::btnAddAction);
+        view.addBtnEditAction(this::btnEditAction);
+        view.addBtnClearAction(this::btnClearAction);
         view.addTableMouseListener(new TableProductMouseListener());
     }
 
-    private class BtnAddNewActionListener implements ActionListener {
+    private void btnAddAction(ActionEvent e) {
+        try {
+            // Declare suplier request
+            IRequest request = new ProductRequest();
+            boolean isInsert = true;
+            // Declare instance of Validator
+            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), null);
+            // Set Error 
+            validator.setErrorMessages(request.getMessages());
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                // Declare suplier request
-                IRequest request = new ProductRequest();
-                boolean isInsert = true;
-                // Declare instance of Validator
-                Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), null);
-                // Set Error 
-                validator.setErrorMessages(request.getMessages());
+            view.showErrors(validator.getErrors());
+            int records = 0;
+            if (validator.isPasses() == true) {
+                String productId = String.valueOf(proDao.getCountProducts() + 1);          
+                records = proDao.insert(view.getProduct(true, productId));
+            }
+            if (records > 0) {
+                view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+               view.clearView(false);
+                view.showView(proDao.getAllProducts());
+                view.addTableMouseListener(new TableProductMouseListener());
+            } else {
+                view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
 
-                view.showErrors(validator.getErrors());
-                int records = 0;
-                if (validator.isPasses() == true) {
-                    int totalProducts = proDao.getCountProducts() + 1;
-                    String productId = String.valueOf(totalProducts);
-                    Products product = view.getProduct(true, productId);
-                    records = proDao.insert(product);
-                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(SuplierController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void btnEditAction(ActionEvent e) {
+        try {
+            // Declare suplier request
+            IRequest request = new ProductUpdateRequest();
+
+            // Declare instance of Validator
+            String id = view.getEditProductId();
+            boolean isInsert = false;
+            // Declare instance of Validator
+            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), id);
+            // Set Error 
+            validator.setErrorMessages(request.getMessages());
+
+            // Declare a boolean validate form
+            boolean isFormValid = validator.isPasses();
+            // Get A list error from request validator
+            Map<String, String> errors = validator.getErrors();
+            // show errors to the view
+            view.showErrors(errors);
+
+            int records = 0;
+            if (isFormValid == true) {
+
+                Products product = view.getProduct(false, id);
+                records = proDao.update(product);
                 if (records > 0) {
-                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-                    List<Products> products = new ArrayList<>();
-                    products = proDao.getAllProducts();
-                    view.showView(products);
+                    view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
+                    view.clearView(false);
+                    view.showView(proDao.getAllProducts());
                     view.addTableMouseListener(new TableProductMouseListener());
-                } else {
-                    view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
-
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(SuplierController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+
     }
 
-    private class BtnEditActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                // Declare suplier request
-                IRequest request = new ProductUpdateRequest();
-
-                // Declare instance of Validator
-                String id = view.getEditProductId();
-                boolean isInsert = false;
-                // Declare instance of Validator
-                Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), id);
-                // Set Error 
-                validator.setErrorMessages(request.getMessages());
-
-                // Declare a boolean validate form
-                boolean isFormValid = validator.isPasses();
-                // Get A list error from request validator
-                Map<String, String> errors = validator.getErrors();
-                // show errors to the view
-                view.showErrors(errors);
-
-                int records = 0;
-                if (isFormValid == true) {
-
-                    Products product = view.getProduct(false, id);
-                    records = proDao.update(product);
-                    if (records > 0) {
-                        view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
-                        view.clearView(false);
-                        List<Products> products = new ArrayList<>();
-                        products = proDao.getAllProducts();
-                        view.showView(products);
-                        view.addTableMouseListener(new TableProductMouseListener());
-                    }
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    private class BtnClearActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            view.clearView(true);
-
-        }
+    private void btnClearAction(ActionEvent e) {
+        view.clearView(true);
 
     }
 
@@ -174,12 +156,13 @@ public class ProductsController {
             // get Id by row selected on suplier table
             String productId = view.getEditProductId();
 
-            view.clearError();
+            
             Products product = null;
             if (productId.equals("") == false && productId != null) {
                 product = proDao.getProductById(productId);
             }
             if (product != null) {
+                view.clearView(true);
                 view.showUpdateProduct(product);
             }
         }

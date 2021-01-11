@@ -29,7 +29,7 @@ public class InvoiceImportDetailDaoImpl implements IInvoiceImportDetailDAO {
 
     private static final String SQL_SELECT_BY_Id = "SELECT * FROM InvoiceImportDetail WHERE Id= ? ";
     @Override
-    public List<InvoiceImportDetail> getAllInvoiceImportDetail() {
+    public List<InvoiceImportDetail> getAllDetails() {
         List<InvoiceImportDetail> listInvoiceImportDetail = new ArrayList<>();
         String[] param = new String[]{};
         try {

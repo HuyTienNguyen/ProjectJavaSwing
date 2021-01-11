@@ -6,19 +6,16 @@
 package qlkh.controller;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import qlkh.dao.ISuplierDAO;
 import qlkh.daoimpl.SuplierDaoImpl1;
 import qlkh.entities.Supliers;
-import qlkh.entities.ValidatorItem;
 import qlkh.request.IRequest;
 import qlkh.testView.GiangTestFrameSupplier;
 import qlkh.utils.Constants;
@@ -51,8 +48,7 @@ public class SuplierController {
         if (view == null) {
             view = new GiangTestFrameSupplier();
         }
-        List<Supliers> supliers = suplierDao.getAllSupliers();
-        view.showView(supliers);
+        view.showView(suplierDao.getAllSupliers());
 
     }
 
@@ -61,7 +57,7 @@ public class SuplierController {
             // Declare suplier request
             IRequest request = new SuplierRequest();
             // Set return messages
-                        boolean isInSert =false;
+            boolean isInSert = false;
 
             // Declare List Item to Validate
             Validator validator = Validator.validate(view.getListElements(isInSert), request.getRules(), null);
@@ -72,14 +68,11 @@ public class SuplierController {
             view.showErrors(validator.getErrors());
             int records = 0;
             if (validator.isPasses() == true) {
-                Supliers suplier = view.getSuplier();
-                records = suplierDao.insert(suplier);
+                records = suplierDao.insert(view.getSuplier());
             }
             if (records > 0) {
-                view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-                List<Supliers> supliers = new ArrayList<>();
-                supliers = suplierDao.getAllSupliers();
-                view.showView(supliers);
+                view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);          
+                view.showView(suplierDao.getAllSupliers());
             } else {
                 view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
 
@@ -96,23 +89,19 @@ public class SuplierController {
             IRequest request = new SuplierUpdateRequest();
             // Declare instance of Validator
             String id = view.getEditId();
-            boolean isInSert =false;
-               Validator validator = Validator.validate(view.getListElements(isInSert), request.getRules(), id);
+            boolean isInSert = false;
+            Validator validator = Validator.validate(view.getListElements(isInSert), request.getRules(), id);
             // Declare instance of Validator
             validator.setErrorMessages(request.getMessages());
-                  
             // show errors to the view
             view.showErrors(validator.getErrors());
             int records = 0;
             if (validator.isPasses() == true) {
-                Supliers suplier = view.getSuplier();
-                records = suplierDao.update(suplier);
+                records = suplierDao.update(view.getSuplier());
                 if (records > 0) {
                     view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
                     view.clearView(false);
-                    List<Supliers> supliers = new ArrayList<>();
-                    supliers = suplierDao.getAllSupliers();
-                    view.showView(supliers);
+                    view.showView(suplierDao.getAllSupliers());
                 }
             }
         } catch (Exception ex) {
@@ -142,10 +131,8 @@ public class SuplierController {
                 records = suplierDao.delete(suplier);
                 if (records > 0) {
                     view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
-                    view.clearView(false);
-                    List<Supliers> supliers = new ArrayList<>();
-                    supliers = suplierDao.getAllSupliers();
-                    view.showView(supliers);
+                    view.clearView(false);                
+                    view.showView(suplierDao.getAllSupliers());
                 } else {
                     view.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
 
