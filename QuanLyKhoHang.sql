@@ -3,8 +3,6 @@ go
 use QuanLyKhoHang
 go
 
-
-
 --tạo bảng Users
 create table Users(
 	Id int identity(1,1) primary key,

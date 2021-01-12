@@ -8,6 +8,8 @@ package qlkh.testView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
+import qlkh.controller.InvoiceImportController;
+import qlkh.controller.InvoiceImportDetailController;
 import qlkh.controller.ProductsController;
 import qlkh.controller.SuplierController;
 import qlkh.controller.UnitController;
@@ -33,8 +35,8 @@ public class AppInvoiceImportDetail {
 //                studentController.showStudentView();
                 // ILogin controller = new LoginController();                     
                 // controller.showLoginView();  
-                ProductsController obj = new ProductsController();
-                obj.showView();
+                InvoiceImportDetailController controller = new InvoiceImportDetailController();
+                controller.showView();
 //                UnitController unit  = new UnitController();
 //                unit.showView();
 

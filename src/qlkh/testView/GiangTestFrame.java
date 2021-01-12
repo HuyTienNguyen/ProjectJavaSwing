@@ -5,8 +5,10 @@
  */
 package qlkh.testView;
 
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -33,7 +35,6 @@ public class GiangTestFrame extends javax.swing.JFrame {
     public GiangTestFrame() {
         Locale local = Locale.getDefault();
         setResourceBundle(local);
-
         initComponents();
 
     }
@@ -69,7 +70,7 @@ public class GiangTestFrame extends javax.swing.JFrame {
             unitModel.addRow(row);
         }
         tblUnit.setModel(unitModel);
-                        tblUnit.setAutoCreateRowSorter(true);
+        tblUnit.setAutoCreateRowSorter(true);
 
     }
 
@@ -89,7 +90,11 @@ public class GiangTestFrame extends javax.swing.JFrame {
     public void addBtnDeleteAction(ActionListener listener) {
         btnDelete.addActionListener(listener);
     }
-   
+
+    public void addActionByName(String name, ActionListener listener) {
+
+    }
+
 
     public void addTableUnitMouseListener(MouseListener listener) {
         tblUnit.addMouseListener(listener);
@@ -142,8 +147,6 @@ public class GiangTestFrame extends javax.swing.JFrame {
         int iconNumber = (typeIcon == JOptionPane.QUESTION_MESSAGE) ? JOptionPane.QUESTION_MESSAGE : JOptionPane.ERROR_MESSAGE;
         return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, iconNumber);
     }
-
- 
 
     public void clearView() {
         setNewUnitText("");

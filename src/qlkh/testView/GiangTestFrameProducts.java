@@ -618,7 +618,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
     public void addComboboxStateChangedListener(ItemListener listener) {
         cbbUnit.addItemListener(listener);
     }
-
+   
     // Get text from txtNewUnitField
     private void showErrMess(String message, int color) {
         errName.setText(bundle.getString(message));

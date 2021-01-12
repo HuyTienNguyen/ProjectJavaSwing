@@ -23,6 +23,11 @@ public class Products extends MyObject {
     public Products() {
     }
 
+    public Products(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Products(String id, String name, int idUnit, int idSuplier, int idCate) {
         this.id = id;
         this.name = name;

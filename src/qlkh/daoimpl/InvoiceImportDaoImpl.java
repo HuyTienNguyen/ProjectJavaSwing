@@ -29,7 +29,7 @@ public class InvoiceImportDaoImpl implements IInvoiceImportDAO {
 
     private static final String SQL_SELECT_BY_ID = "SELECT * FROM InvoiceImport WHERE Id = ? ";
     @Override
-    public List<InvoiceImport> getAllInvoiceImport() {
+    public List<InvoiceImport> getImports() {
         // Khởi tạo list Outputs
         List<InvoiceImport> listInvoiceImport = new ArrayList<>();
         // Khởi tạo mảng param rỗng để chạy lệnh sql select all from Output

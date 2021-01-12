@@ -31,7 +31,7 @@ public class CategoryDaoImpl implements ICategoryDAO{
         private static final String SQL_DELETE_BY_PROCEDURE = "{call sp_delete_category(?,?)}";
 
     @Override
-    public List<Category> getAllCategoies() {
+    public List<Category> getCategoies() {
         List<Category> listCate = new ArrayList<>();
         String[] param = new String[]{};
         try {

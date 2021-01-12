@@ -13,6 +13,6 @@ import qlkh.entities.Category;
  * @author user
  */
 public interface ICategoryDAO extends IInventoryDAO<Category, Integer>{
-    public List<Category> getAllCategoies();
+    public List<Category> getCategoies();
     public Category getCateById(Integer key);
 }
