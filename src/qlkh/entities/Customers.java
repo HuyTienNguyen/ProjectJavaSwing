@@ -118,7 +118,6 @@ public class Customers {
                     this.getEmail(),
                     this.getMoreInfo(),
                     this.getContractDate()
-
                 };
                 break;
             case Constants.ACTION_UPDATE:

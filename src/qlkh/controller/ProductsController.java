@@ -68,20 +68,24 @@ public class ProductsController {
         view.loadAllSupliers(supliers);
         view.loadAllCategories(categories);
         view.showView(products);
-
+        // gọi lên đây
+        // đấy có thế thôi, oke anh, vậy để e đọc qua
         view.addBtnAddAction(this::btnAddAction);
         view.addBtnEditAction(this::btnEditAction);
         view.addBtnClearAction(this::btnClearAction);
         view.addTableMouseListener(new TableProductMouseListener());
     }
-
+    // chỗ này dùng lambda 8 để gọi method ActionEvent 
     private void btnAddAction(ActionEvent e) {
         try {
             // Declare suplier request
             IRequest request = new ProductRequest();
             boolean isInsert = true;
             // Declare instance of Validator
-            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), null);
+          
+            Validator validator = Validator.validate(
+                                                    view.getListElements(isInsert),
+                                                    request.getRules(), null);
             // Set Error 
             validator.setErrorMessages(request.getMessages());
 

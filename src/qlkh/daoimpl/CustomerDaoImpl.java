@@ -23,6 +23,7 @@ import qlkh.utils.DatabaseHelper;
 public class CustomerDaoImpl implements ICustomerDAO {
 
     private static final String SQL_GET_ALL = "SELECT * FROM Customer";
+    private static final String SQL_SELECT_BY_ID = "SELECT * FROM Customer WHERE ID = ?";
     private static final String SQL_INSERT = "INSERT INTO Customer(Name,address,phone,email,MoreInfo,ContractDate) VALUES(?,?,?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE  Customer SET NAME =?, address =?, phone =?,email=?,MoreInfo=?,ContractDate=? WHERE ID =?";
     private static final String SQL_DELETE = "DELETE FROM  Customer  WHERE ID =?";
@@ -129,24 +130,41 @@ public class CustomerDaoImpl implements ICustomerDAO {
     }
 
     @Override
-    public int delete(Customers element) {
+    public int delete(int idCustomer) {
         //Khởi tạo biến đếm số bản ghi bi xoa khoi csdl
         Integer countDelete = 0;
-//      try {
-//            // Khởi tạo mảng @param kiểu Integer để chạy lệnh sql Delete from Customers by key Integer
-//            Integer[] param = new Integer[]{key};
-//            // GỌi phương thức selectData trả về theo kiểu result set
-//            countDelete = DatabaseHelper.deleteData(SQL_DELETE, param);
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        } finally {
-//            try {
-//                DatabaseHelper.getInstance().closeDatabaseConnection();
-//            } catch (SQLException ex) {
-//                Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-//            } 
-//        }
+        Integer[] param = new Integer[]{idCustomer};
+        try {
+            countDelete = DatabaseHelper.deleteData(SQL_DELETE, param);
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return countDelete;
+    }
+    
+    public Customers getCustomerById(String key) {
+        Customers customer = null;
+        String[] param = new String[]{key};
+        try {
+            ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_ID, param);
+            if (rs.next()) {
+                customer = new Customers(rs.getInt("id"), rs.getString("name"), rs.getString("Address"), rs.getString("Phone"), rs.getString("Email"), rs.getString("MoreInfo"),rs.getTimestamp("ContractDate"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return customer;
+    }
+
+    @Override
+    public int delete(Customers element) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

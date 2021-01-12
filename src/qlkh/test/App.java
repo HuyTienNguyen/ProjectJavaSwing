@@ -29,11 +29,11 @@ public class App {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                 }  
-                SuplierController supli = new SuplierController();
-                supli.showView();
+//                SuplierController supli = new SuplierController();
+//                supli.showView();
                 
-//                CustomerController custoController = new CustomerController();
-//                custoController.showView();
+                CustomerController custoController = new CustomerController();
+                custoController.showView();
             }
 
         });
