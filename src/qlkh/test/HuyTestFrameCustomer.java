@@ -642,7 +642,7 @@ public class HuyTestFrameCustomer extends javax.swing.JFrame implements IView{
     }
     
     @Override
-    public List<Object> getListElements(boolean isInsert) {
+    public List<Object> getElements(boolean isInsert) {
         List<Object> objects = new ArrayList<>();
         if(isInsert== false){
                 id.setName("id");
@@ -691,4 +691,5 @@ public class HuyTestFrameCustomer extends javax.swing.JFrame implements IView{
         return id.getText();
 
     }
+    
 }

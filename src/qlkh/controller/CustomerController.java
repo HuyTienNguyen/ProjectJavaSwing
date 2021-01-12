@@ -52,7 +52,7 @@ public class CustomerController {
         view.addBtnClearAction(this::btnClearAction);
         view.addTableMouseListener(new TableProductMouseListener());
     }
-
+;
     private void btnAddAction(ActionEvent e) {
         try {
             // Declare suplier request
@@ -61,7 +61,7 @@ public class CustomerController {
             // Declare instance of Validator
 
             Validator validator = Validator.validate(
-                    view.getListElements(isInsert),
+                    view.getElements(isInsert),
                     request.getRules(), null);
             // Set Error 
             validator.setErrorMessages(request.getMessages());
@@ -94,7 +94,7 @@ public class CustomerController {
             String id = view.getEditCustomerId();
             boolean isInsert = false;
             // Declare instance of Validator
-            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), id);
+            Validator validator = Validator.validate(view.getElements(isInsert), request.getRules(), id);
             // Set Error 
             validator.setErrorMessages(request.getMessages());
             // show errors to the view
