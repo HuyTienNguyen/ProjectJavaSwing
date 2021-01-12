@@ -5,19 +5,15 @@
  */
 package qlkh.controller;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import qlkh.SignIn;
 import qlkh.SignUp;
 import qlkh.daoimpl.UserDaoImpl;
 import qlkh.entities.Users;
-import qlkh.entities.ValidatorItem;
 import qlkh.request.SignUpRequest;
 import qlkh.utils.Constants;
 import qlkh.utils.Utils;

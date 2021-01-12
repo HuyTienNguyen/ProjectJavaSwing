@@ -75,9 +75,11 @@ public class InvoiceImportDetailController {
             // show errors to the view
             view.showErrors(validator.getErrors());
             if (validator.isPasses() == true) {
+              
                 int records = invoiceImDetailDao.insert(view.getInVoiceDetail());
-                if (records > 0) {
+                if (records == 0) {
                     view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+                    view.clearView(false);
                     view.showView(invoiceImDetailDao.getAllDetails());
                 } else {
                     view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);

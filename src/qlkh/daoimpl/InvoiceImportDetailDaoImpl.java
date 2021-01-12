@@ -76,6 +76,7 @@ public class InvoiceImportDetailDaoImpl implements IInvoiceImportDetailDAO {
         Integer countInsert = 0;
         try {
             countInsert = DatabaseHelper.insertDataByCallableStatement(SQL_INSERT_BY_PROC, element.getParam(Constants.ACTION_INSERT_BY_PROC));
+           
         } catch (SQLException ex) {
             Logger.getLogger(InvoiceImportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

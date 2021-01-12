@@ -112,6 +112,17 @@ public class Constants {
     /*
      *   END Suplier Table
     /*
+    
+    /*
+     *   Customers Table
+     */
+    // Header Customers Table
+    public static final String[] HEADER_USER_TABLE = {"Id", "Name", "User Name","Email"};
+
+    /*
+     *   END Customers Table
+     */
+    /*
      *   SignIn view
      */
     public static final String SIGN_IN_ERR_PASS_FIELD = "errPassword";
