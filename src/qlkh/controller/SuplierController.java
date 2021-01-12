@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -60,7 +61,7 @@ public class SuplierController {
             boolean isInSert = false;
 
             // Declare List Item to Validate
-            Validator validator = Validator.validate(view.getListElements(isInSert), request.getRules(), null);
+            Validator validator = Validator.validate(view.getElements(isInSert), request.getRules(), null);
             // Declare instance of Validator
             validator.setErrorMessages(request.getMessages());
 
@@ -90,7 +91,7 @@ public class SuplierController {
             // Declare instance of Validator
             String id = view.getEditId();
             boolean isInSert = false;
-            Validator validator = Validator.validate(view.getListElements(isInSert), request.getRules(), id);
+            Validator validator = Validator.validate(view.getElements(isInSert), request.getRules(), id);
             // Declare instance of Validator
             validator.setErrorMessages(request.getMessages());
             // show errors to the view

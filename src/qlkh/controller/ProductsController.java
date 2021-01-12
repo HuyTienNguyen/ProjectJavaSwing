@@ -6,10 +6,8 @@
 package qlkh.controller;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -81,7 +79,7 @@ public class ProductsController {
             IRequest request = new ProductRequest();
             boolean isInsert = true;
             // Declare instance of Validator
-            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), null);
+            Validator validator = Validator.validate(view.getElements(isInsert), request.getRules(), null);
             // Set Error 
             validator.setErrorMessages(request.getMessages());
 
@@ -101,8 +99,8 @@ public class ProductsController {
 
             }
         } catch (Exception ex) {
-            Logger.getLogger(SuplierController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(ProductsController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
 
     }
 
@@ -115,7 +113,7 @@ public class ProductsController {
             String id = view.getEditProductId();
             boolean isInsert = false;
             // Declare instance of Validator
-            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), id);
+            Validator validator = Validator.validate(view.getElements(isInsert), request.getRules(), id);
             // Set Error 
             validator.setErrorMessages(request.getMessages());
 

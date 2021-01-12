@@ -5,7 +5,9 @@
  */
 package qlkh.entities;
 
+import java.sql.Types;
 import qlkh.utils.Constants;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -100,16 +102,14 @@ public class InvoiceImportDetail {
     public Object[] getParam(int action) {
         Object param[] = null;
         switch (action) {
-            case Constants.ACTION_INSERT:
+            case Constants.ACTION_INSERT_BY_PROC:
                 param = new Object[]{
-                    this.getId(),
+                    Types.INTEGER,
+                    Utils.getTimestampNow(),
                     this.getIdProduct(),
-                    this.getIdInvoiceImport(),
                     this.getNumber(),
                     this.getInputPrice(),
-                    this.getOutputPrice(),
-                    this.getStatus()
-
+                    this.getOutputPrice() 
                 };
                 break;
             case Constants.ACTION_UPDATE:

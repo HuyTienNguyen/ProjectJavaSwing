@@ -8,8 +8,6 @@ package qlkh.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -64,7 +62,7 @@ public class CategoryController {
 
             // Declare instance of Validator
             boolean isInsert = true;
-            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), null);
+            Validator validator = Validator.validate(view.getElements(isInsert), request.getRules(), null);
             // Set Error 
             validator.setErrorMessages(request.getMessages());
 
@@ -96,7 +94,7 @@ public class CategoryController {
             String id = view.getEditId();
             boolean isInsert = false;
             // Declare instance of Validator
-            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), id);
+            Validator validator = Validator.validate(view.getElements(isInsert), request.getRules(), id);
             // Set Error 
             validator.setErrorMessages(request.getMessages());
             // show errors to the view

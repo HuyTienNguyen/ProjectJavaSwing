@@ -226,12 +226,12 @@ public class DatabaseHelper {
     }
 
     /**
-     * Hàm cập nhật dữ liệu: INSERT
+     * Method insert by procedure and return a number result
      *
      * @param <E> paramameter generic
      * @param sql cú pháp SQL kèm tham số
      * @param args mảng tham số truyền vào
-     * @return CallableStatement
+     * @return an number error
      * @throws java.sql.SQLException
      */
     public static <E> int insertDataByCallableStatement(String sql, E... args) throws SQLException {
@@ -239,23 +239,56 @@ public class DatabaseHelper {
         cst.executeUpdate();
         return cst.getInt(1);
     }
+     /**
+     * Method select by procedure and return a number result
+     *
+     * @param <E> paramameter generic
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     * @return an number error
+     * @throws java.sql.SQLException
+     */
      public static <E> int selectByCallableStatement(String sql, E... args) throws SQLException {
         CallableStatement cst = getCallableStatement(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
-
+ /**
+     * Method update by procedure and return a number result
+     *
+     * @param <E> paramameter generic
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     * @return an number error
+     * @throws java.sql.SQLException
+     */
     public static <E> int updateDataByCallableStatement(String sql, E... args) throws SQLException {
         CallableStatement cst = getCallableStatement(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
-
+ /**
+     * Method delete by procedure and return a number result
+     *
+     * @param <E> paramameter generic
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     * @return an number error
+     * @throws java.sql.SQLException
+     */
     public static <E> int deleteDataByCallableStatement(String sql, E... args) throws SQLException {
         CallableStatement cst = getCallableStatement(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
+    /**
+     *  Method check unique in database
+     * @param <E>
+     * @param sql A query statement 
+     * @param args An instance of Object of parameters for Prepared statement
+     * @return  A resultSet of Results
+     * @throws SQLException 
+     */
     public static <E> boolean checkUniqueData(String sql, E... args) throws SQLException {
         boolean check = false;
         PreparedStatement pstm = getPrepareStatement(false, sql, args);
@@ -265,7 +298,14 @@ public class DatabaseHelper {
         }
         return check;
     }
-
+/**
+ * Method get type  of field in database
+ * @param <E>
+ * @param sql
+ * @param args
+ * @return  A string of type of field in database
+ * @throws Exception 
+ */
     public static <E> String getDataTypeFieldName(String sql, E... args) throws Exception {
         PreparedStatement pstm = getPrepareStatement(false, sql, args);
         ResultSet rs = pstm.executeQuery();

@@ -57,7 +57,6 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         jPanel1 = new javax.swing.JPanel();
         inputPrice = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         errInputPrice = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
@@ -128,15 +127,6 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                 btnAddActionPerformed(evt);
             }
         });
-
-        btnEdit.setBackground(new java.awt.Color(204, 255, 204));
-        btnEdit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/edit_40.png"))); // NOI18N
-        btnEdit.setText(bundle.getString("btnEdit")
-        );
-        btnEdit.setFocusPainted(false);
-        btnEdit.setMaximumSize(new java.awt.Dimension(134, 40));
-        btnEdit.setMinimumSize(new java.awt.Dimension(134, 40));
 
         btnClear.setBackground(new java.awt.Color(51, 153, 255));
         btnClear.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -231,12 +221,11 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                             .addComponent(errNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(errInputPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(errOuputPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(132, 132, 132)
+                        .addGap(55, 55, 55)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(82, 82, 82))))
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(159, 159, 159))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(117, 117, 117)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -260,7 +249,6 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                     .addComponent(idInVoiceImport, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(inputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,35 +261,34 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                                 .addComponent(errCate, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(11, 11, 11)
-                                .addComponent(errInputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(errInputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAdd)
+                        .addGap(11, 11, 11)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCate2)
-                            .addComponent(cbbProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(errProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(cbbProducts, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCate2))
+                        .addGap(3, 3, 3)
+                        .addComponent(errProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 106, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(outputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblName1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(errOuputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(outputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblName1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(errOuputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblName2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(errNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(32, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -360,7 +347,6 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JComboBox<Category> cbbCategory;
     private javax.swing.JComboBox<Products> cbbProducts;
     private javax.swing.JLabel errCate;
@@ -393,7 +379,8 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     ResourceBundle bundle;
     private static Map<String, String> productMap = new HashMap<>();
     private static Map<String, String> importMap = new HashMap<>();
-    private static int[] pageSizes = new int[]{10, 20, 50, 75, 100};
+    private static Map<Category, List<Products>> cateMap = new HashMap<>();
+    private static int[] pageSizes = new int[]{100, 1000, 10000};
     private static final int defaultPageSize = 10;
     private static final int maxPagingCompToShow = 7;
     private static List<Products> products = new ArrayList<>();
@@ -412,15 +399,23 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
 
     }
 
-    // Show view with list Suplier on Suplier Table
+    /**
+     * Display a view of InvoiceImportDetail elements
+     *
+     * @param details a list of InvoiceImportDetail elements
+     */
     public void showView(List<InvoiceImportDetail> details) {
         this.setVisible(true);
-        setEnableBtnEdit(true);
-        setEnableBtnEdit(false);
         loadAllDetails(details);
 
     }
 
+    /**
+     * Return an instance of ObjectDataModel
+     *
+     * @return
+     *
+     */
     private static TableModel createObjectDataModel() {
         return new ObjectTableModel<InvoiceImportDetail>() {
             @Override
@@ -525,7 +520,12 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
 
     }
 
-    public void loadAllImport(List<InvoiceImport> imports) {
+    /**
+     * Put imports to memory of form
+     *
+     * @param imports
+     */
+    public void loadImports(List<InvoiceImport> imports) {
 
         this.imports = imports;
         for (InvoiceImport ip : imports) {
@@ -533,7 +533,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         }
     }
 
-    public void loadAllCategories(List<Category> listCate) {
+    public void loadAllCategories(List<Category> listCate, List<Products> listProducts) {
         if (categories.isEmpty() == true) {
             categories = listCate;
         }
@@ -542,59 +542,86 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         for (Category cate : categories) {
             if (cate.getStatus() > 0) {
                 cbbCategory.addItem(cate);
+                List<Products> childList = new ArrayList<>();
+                for (Products listProduct : listProducts) {
+                    if (cate.getId() == listProduct.getIdCate()) {
+                        childList.add(listProduct);
+                    }
+                }
+                cateMap.put(cate, childList);
+            }
+        }
+
+    }
+
+    /**
+     * Display the products in the view search by an instance of Category
+     *
+     * @param listProduct List of elements Products
+     * @param cate
+     */
+    public void loadProducts(List<Products> listProduct, Category cate) {
+        clearCbbProducts();
+        if (cate != null) {
+            List<Products> listAddToCbb = new ArrayList<>();
+            listAddToCbb = cateMap.get(cate);
+            if (listAddToCbb != null) {
+                for (Products pro : listAddToCbb) {
+                    cbbProducts.addItem(pro);
+                }
             }
         }
     }
 
-    // Load list Unit on Unit Table
-    public void loadAllProducts(List<Products> listProduct, Category cate) {
-        clearCbbProducts();
-
+    /**
+     * Display the products in the view
+     *
+     * @param listProduct
+     */
+    public void loadProducts(List<Products> listProduct) {
         // set data for List<Product> lists
         if (products.isEmpty() == true) {
             products = listProduct;
         }
 
-        cbbProducts.addItem(new Products("0", ""));
-        if (cate != null) {
-            for (Products pro : products) {
-                if (pro.getIdCate() == cate.getId()) {
-                    cbbProducts.addItem(pro);
-                }
-                productMap.put(pro.getId(), pro.getName());
-            }
-        } else {
-            for (Products pro : products) {
-                productMap.put(pro.getId(), pro.getName());
-            }
+        for (Products pro : products) {
+            productMap.put(pro.getId(), pro.getName());
         }
     }
 
+    /**
+     * Clear combobox Product
+     */
     public void clearCbbProducts() {
         cbbProducts.removeAllItems();
     }
 
-    // Set ResourceBundle to this view
+    /**
+     * Set ResourceBundle to this view
+     *
+     * @param locale
+     */
     private void setResourceBundle(Locale locale) {
         //Set Resources Bundle theo local 
         bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
 
     }
 
+    /**
+     * @Return listElements can use for validate Request by class Validator
+     * @param isInsert
+     * @return
+     */
     @Override
-    public List<Object> getListElements(boolean isInsert) {
+    public List<Object> getElements(boolean isInsert) {
         List<Object> objects = new ArrayList<>();
-        // set Name text field
-        id.setName("id");
-        cbbCategory.setName("category");
+
         cbbProducts.setName("product");
         inputPrice.setName("inputPrice");
         outputPrice.setName("outputPrice");
         number.setName("number");
 
         // add object to map
-        objects.add(id);
-        objects.add(cbbCategory);
         objects.add(cbbProducts);
         objects.add(inputPrice);
         objects.add(outputPrice);
@@ -603,126 +630,175 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         return objects;
     }
 
+    /**
+     * Display errors on view
+     *
+     * @param errors
+     */
     @Override
     public void showErrors(Map<String, String> errors) {
         //get error messages
-        String errorCate = ((errors.get("category") == null) ? "" : errors.get("category"));
-        String errorPro = ((errors.get("product") == null) ? "" : errors.get("product"));
-        String errorInput = ((errors.get("inputPrice") == null) ? "" : errors.get("inputPrice"));
-        String errorOutput = ((errors.get("outputPrice") == null) ? "" : errors.get("outputPrice"));
+        String errorProduct = ((errors.get("product") == null) ? "" : errors.get("product"));
+        String errorInputPrice = ((errors.get("inputPrice") == null) ? "" : errors.get("inputPrice"));
+        String errorOutputPrice = ((errors.get("outputPrice") == null) ? "" : errors.get("outputPrice"));
         String errorNumber = ((errors.get("number") == null) ? "" : errors.get("number"));
 
         //Show messages
-        showErrorMessage(errCate, errorCate);
-        showErrorMessage(errProduct, errorPro);
-        showErrorMessage(errInputPrice, errorInput);
-        showErrorMessage(errOuputPrice, errorOutput);
+        showErrorMessage(errProduct, errorProduct);
+        showErrorMessage(errInputPrice, errorInputPrice);
+        showErrorMessage(errOuputPrice, errorOutputPrice);
         showErrorMessage(errNumber, errorNumber);
     }
 
-    public InvoiceImportDetail getInVoiceDetail(boolean isInsert, String productId) {
+    /**
+     * @return a instance of InvoiceImportDetail
+     *
+     */
+    public InvoiceImportDetail getInVoiceDetail() {
         Products product = (Products) cbbProducts.getSelectedItem();
-
         InvoiceImportDetail invoiceDetail = new InvoiceImportDetail();
-
-        invoiceDetail.setId((isInsert == true) ? "" : id.getText());
-        invoiceDetail.setIdInvoiceImport(idInVoiceImport.getText());
-        invoiceDetail.setIdProduct(product.getName());
+        invoiceDetail.setIdProduct(product.getId());
         invoiceDetail.setInputPrice(Float.parseFloat(inputPrice.getText()));
         invoiceDetail.setOutputPrice(Float.parseFloat(outputPrice.getText()));
         invoiceDetail.setNumber(Integer.parseInt(number.getText()));
         return invoiceDetail;
     }
 
-    public void showErrorMessage(JLabel label, String err) {
-        label.setText(err);
-        label.setForeground(Color.red);
+    /**
+     * Return a list of products from memory of form
+     *
+     * @param cate an instance of Category
+     * @return
+     */
+    public List<Products> getListProduct(Category cate) {
+        List<Products> listProducts = cateMap.get(cate);
+        return listProducts;
     }
 
+    /**
+     * Display the elements of InvoiceImportDetail on the table of view
+     *
+     * @param listDetails List elements of InvoiceImportDetail
+     */
     public void loadAllDetails(List<InvoiceImportDetail> listDetails) {
-        this.details = listDetails;
-        tblDetails = new JTable(createObjectDataModel());
-        tblDetails.setAutoCreateRowSorter(true);
-        PaginationDataProvider<InvoiceImportDetail> dataProvider = createDataProvider();
-        paginatedDecorator = PaginatedTableDecorator.decorate(tblDetails,
-                dataProvider, pageSizes, defaultPageSize, maxPagingCompToShow);
-        tableInvoiceImDetail.removeAll();
-        tableInvoiceImDetail.setLayout(new CardLayout());
-        tableInvoiceImDetail.add(paginatedDecorator.getContentPanel());
-
+        if (listDetails != null) {
+            this.details = listDetails;
+            tblDetails = new JTable(createObjectDataModel());
+            tblDetails.setAutoCreateRowSorter(true);
+            PaginationDataProvider<InvoiceImportDetail> dataProvider = createDataProvider();
+            paginatedDecorator = PaginatedTableDecorator.decorate(tblDetails,
+                    dataProvider, pageSizes, defaultPageSize, maxPagingCompToShow);
+            tableInvoiceImDetail.removeAll();
+            tableInvoiceImDetail.setLayout(new CardLayout());
+            tableInvoiceImDetail.add(paginatedDecorator.getContentPanel());
+        }
     }
 
-    // Add event to button addNewUnit
+    /**
+     * Add Event Action to button add new
+     *
+     * @param listener
+     */
     public void addBtnAddAction(ActionListener listener) {
         btnAdd.addActionListener(listener);
     }
 
-    public void addBtnEditAction(ActionListener listener) {
-        btnEdit.addActionListener(listener);
-    }
-
+    /**
+     * Add Event Action to button clear
+     *
+     * @param listener
+     */
     public void addBtnClearAction(ActionListener listener) {
         btnClear.addActionListener(listener);
     }
 
+    /**
+     * Add Event Action to Table
+     *
+     * @param listener
+     */
     public void addTableMouseListener(MouseListener listener) {
         paginatedDecorator.addTableMouseListener(listener);
     }
 
+    /**
+     * Add Item Event to Category combobox
+     *
+     * @param listener
+     */
     public void addCbbCateStateChanged(ItemListener listener) {
         cbbCategory.addItemListener(listener);
     }
 
-    // Get text from txtNewUnitField
+    /**
+     * Return an instance of Category from category combobox
+     *
+     * @return
+     */
     public Category getCateSelected() {
-        Category row = (Category)cbbCategory.getSelectedItem();
-        return row;
+        return (Category) cbbCategory.getSelectedItem();
     }
 
-    private void showErrMess(String message, int color) {
-        errInputPrice.setText(bundle.getString(message));
-        errInputPrice.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
-    }
-
+    /**
+     * Display message to the user
+     *
+     * @param message
+     * @param color
+     */
     public void showMessage(String message, int color) {
         messageInvoiceImportDetail.setText(bundle.getString(message));
         messageInvoiceImportDetail.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }
 
+    /**
+     * Focus to the first file of the form
+     */
     public void focusTxtUnitField() {
         inputPrice.requestFocus();
     }
 
-//    public Unit getEditUnit() {
-//        int row = tblSuplier.getSelectedRow();
-//        if (row < 0) {
-//            return null;
-//        }
-//        return (Unit) tblSuplier.getModel().getValueAt(row, 1);
-//    }
-//    public String getEditProductId() {
-//        int row = tblProducts.getSelectedRow();
-//        if (row < 0) {
-//            return null;
-//        }
-//        return tblProducts.getModel().getValueAt(row, 0).toString();
-//    }
+    /**
+     * Display text on labels
+     *
+     * @param label
+     * @param err
+     */
+    public void showErrorMessage(JLabel label, String err) {
+        label.setText(err);
+        label.setForeground(Color.red);
+    }
+
+    /**
+     * Set Enable for Add New button
+     *
+     * @param value new value of the Add button
+     */
     private void setEnableBtnAddNew(boolean value) {
         btnAdd.setEnabled(value);
     }
 
-    private void setEnableBtnEdit(boolean value) {
-        btnEdit.setEnabled(value);
-    }
-
-    public int showDialog(JFrame frame, String message, String title, int typeIcon) {
+    /**
+     * Returns a dialog box for the user to choose from
+     *
+     * @param parentFrame parent frame of the dialog box
+     * @param message messages sent to users
+     * @param title title of the dialog box
+     * @param typeIcon type Icon of dialog box
+     * @return
+     */
+    public int showDialog(JFrame parentFrame, String message, String title, int typeIcon) {
         int iconNumber = (typeIcon == JOptionPane.QUESTION_MESSAGE) ? JOptionPane.QUESTION_MESSAGE : JOptionPane.ERROR_MESSAGE;
-        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, iconNumber);
+        return JOptionPane.showConfirmDialog(parentFrame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, iconNumber);
     }
 
+    /**
+     * Clear the view
+     *
+     * @param clearAll true : clear all the view ; false: clear all except the
+     * notification of the view
+     */
     public void clearView(boolean clearAll) {
         setEnableBtnAddNew(true);
-        setEnableBtnEdit(false);
         if (clearAll == true) {
             messageInvoiceImportDetail.setText("");
         }
@@ -735,6 +811,9 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         inputPrice.requestFocus();
     }
 
+    /**
+     * Clear all error on the form
+     */
     public void clearError() {
         errInputPrice.setText("");
         errOuputPrice.setText("");
@@ -745,39 +824,11 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         inputPrice.requestFocus();
     }
 
-    public void showUpdateDetail(InvoiceImportDetail invoiceDetail) {
-        id.setText(invoiceDetail.getId());
-        inputPrice.setText(Float.toString(invoiceDetail.getInputPrice()));
-        outputPrice.setText(Float.toString(invoiceDetail.getOutputPrice()));
-        number.setText(Integer.toString(invoiceDetail.getNumber()));
-        String proId = invoiceDetail.getIdProduct();
-        Products product = null;
-        for (Products pro : products) {
-            if (pro.getId().compareTo(proId) == 0) {
-                product = pro;
-                break;
-            }
-        }
-        Category cate = null;
-        if (product != null) {
-            for (Category cat : categories) {
-                if (cat.getId() == product.getIdCate()) {
-                    cate = cat;
-                    break;
-
-                }
-
-            }
-            if (cate != null) {
-                cbbCategory.setSelectedItem(cate);
-                loadAllProducts(products, cate);
-                cbbProducts.setSelectedItem(product);
-            }
-        }
-        setEnableBtnAddNew(false);
-        setEnableBtnEdit(true);
-    }
-
+    /**
+     * Return id of Edit InvoiceImportDetail
+     *
+     * @return
+     */
     public String getEditId() {
         return id.getText();
 

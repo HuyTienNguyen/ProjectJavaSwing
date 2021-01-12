@@ -6,9 +6,7 @@
 package qlkh.controller;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -23,8 +21,7 @@ import qlkh.entities.Category;
 import qlkh.entities.InvoiceImportDetail;
 import qlkh.entities.Products;
 import qlkh.request.IRequest;
-import qlkh.request.ProductRequest;
-import qlkh.request.ProductUpdateRequest;
+import qlkh.request.InvoiceImportDetailRequest;
 import qlkh.testView.GiangTestFrameInvoiceImportDetail;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
@@ -53,90 +50,49 @@ public class InvoiceImportDetailController {
         if (view == null) {
             view = new GiangTestFrameInvoiceImportDetail();
         }
-        view.loadAllCategories(cateDao.getCategoies());
-        view.loadAllImport(invoiceImDao.getImports());
-        view.loadAllProducts(proDao.getAllProducts(), null);
+        List<Products> products = proDao.getAllProducts();
+        view.loadAllCategories(cateDao.getCategoies(), products);
+        view.loadImports(invoiceImDao.getImports());
+        view.loadProducts(products);
         view.showView(invoiceImDetailDao.getAllDetails());
 
         view.addBtnAddAction(this::btnAddAction);
-        view.addBtnEditAction(this::btnEditAction);
         view.addBtnClearAction(this::btnClearAction);
         view.addCbbCateStateChanged(this::cateBoxStateChanged);
-        view.addTableMouseListener(new TableProductMouseListener());
+        view.addTableMouseListener(new TableMouseListener());
     }
 
     private void btnAddAction(ActionEvent e) {
         try {
             // Declare suplier request
-            IRequest request = new ProductRequest();
+            IRequest request = new InvoiceImportDetailRequest();
             // Declare instance of Validator
             boolean isInsert = true;
 
-            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), null);
+            Validator validator = Validator.validate(view.getElements(isInsert), request.getRules(), null);
             // Set Error 
             validator.setErrorMessages(request.getMessages());
             // show errors to the view
             view.showErrors(validator.getErrors());
-            int records = 0;
             if (validator.isPasses() == true) {
-                int totalProducts = proDao.getCountProducts() + 1;
-                String productId = String.valueOf(totalProducts);
-                //    Products product = view.getProduct(true, productId);
-                // records = proDao.insert(product);
-            }
-            if (records > 0) {
-                view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-                List<Products> products = new ArrayList<>();
-                products = proDao.getAllProducts();
-                //view.showView(products);
-            } else {
-                view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
-
+                int records = invoiceImDetailDao.insert(view.getInVoiceDetail());
+                if (records > 0) {
+                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+                    view.showView(invoiceImDetailDao.getAllDetails());
+                } else {
+                    view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
+                }
             }
         } catch (Exception ex) {
-            Logger.getLogger(SuplierController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(InvoiceImportDetailController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
 
     }
 
     private void cateBoxStateChanged(ItemEvent e) {
-       Category cate = view.getCateSelected();
-               System.out.println(cate.getName());
-                      Category cate1 = view.getCateSelected();
-               System.out.println(cate1.getName());
-
-    }
-
-    private void btnEditAction(ActionEvent e) {
-        try {
-            // Declare suplier request
-            IRequest request = new ProductUpdateRequest();
-            String id = view.getEditId();
-            // Declare instance of Validator
-            boolean isInsert = false;
-
-            Validator validator = Validator.validate(view.getListElements(isInsert), request.getRules(), id);
-            // Set Error 
-            validator.setErrorMessages(request.getMessages());
-            // show errors to the view
-            view.showErrors(validator.getErrors());
-
-            int records = 0;
-            if (validator.isPasses() == true) {
-
-                 //   Products product = view.getProduct(false, id);
-                //   records = proDao.update(product);
-                if (records > 0) {
-                    view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
-                    view.clearView(false);
-                    List<Products> products = new ArrayList<>();
-                    products = proDao.getAllProducts();
-                    //   view.showView(products);
-                    view.addTableMouseListener(new TableProductMouseListener());
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        Category cate = view.getCateSelected();
+        if (cate != null) {
+            view.loadProducts(view.getListProduct(cate), cate);
         }
 
     }
@@ -144,16 +100,14 @@ public class InvoiceImportDetailController {
     private void btnClearAction(ActionEvent e) {
         view.clearView(true);
 
-    
+    }
 
-}
+    private class TableMouseListener implements MouseListener {
 
-private class TableProductMouseListener implements MouseListener {
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
+        @Override
+        public void mouseClicked(MouseEvent e) {
             // get Id by row selected on suplier table
-        //   String productId = view.getEditProductId();
+            //   String productId = view.getEditProductId();
 
 //            view.clearError();
 //            Products product = null;
@@ -163,22 +117,22 @@ private class TableProductMouseListener implements MouseListener {
 //            if (product != null) {
 //                view.showUpdateProduct(product);
 //            }
-    }
+        }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
     }
-}
 }

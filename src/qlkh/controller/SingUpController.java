@@ -54,7 +54,7 @@ public class SingUpController {
                 //declare signup request
                 SignUpRequest request = new SignUpRequest();
                    boolean isInSert =false;
-                Validator validator = Validator.validate(signUp.getListElements(isInSert), request.getRules(), null);
+                Validator validator = Validator.validate(signUp.getElements(isInSert), request.getRules(), null);
                 // Declare instance of Validator
                 validator.setErrorMessages(request.getMessages());
 

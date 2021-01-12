@@ -376,7 +376,7 @@ public class SignUp extends javax.swing.JFrame implements IView {
     }
 
     @Override
-    public List<Object> getListElements(boolean isInsert) {
+    public List<Object> getElements(boolean isInsert) {
         List<Object> objects = new ArrayList<>();
         // set Name text field
         name.setName("name");

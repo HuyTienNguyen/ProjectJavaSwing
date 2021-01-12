@@ -13,6 +13,6 @@ import java.util.Map;
  * @author GIANG
  */
 public interface IView {
-    List<Object> getListElements(boolean isInsert);
+    List<Object> getElements(boolean isInsert);
     void showErrors(Map<String,String> errors);
 }
