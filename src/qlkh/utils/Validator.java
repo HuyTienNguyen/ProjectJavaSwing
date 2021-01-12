@@ -41,7 +41,7 @@ public class Validator {
     private static final String RULE_MAX_NUMBER = "maxNumber";
     private boolean isInsert = true;
 
-
+    // chỗ này sửa lại private  để chuyển ve singeleton pattern
     private Validator(List<ValidatorItem> items, String valueId) throws Exception {
         for (ValidatorItem item : items) {
             String ruleString = item.getRule(), field = item.getName();
@@ -524,17 +524,7 @@ public class Validator {
 
     public static Validator validate(List<Object> components, Map<String, String> mapRules, String id) throws Exception {
         List<ValidatorItem> listItem = new ArrayList<>();
-//        for (Map.Entry<String, String> entrySet : mapRules.entrySet()) {
-//            String key = entrySet.getKey();
-//            String value = entrySet.getValue();
-//            // Create  a validatorItem if the component has declared inside its request
-//
-//            for (Object obj : components) {
-//                if (key.equals(getName(obj))) {
-//                    listItem.add(new ValidatorItem(value, obj, getName(obj)));
-//                }
-//            }
-//        }
+
         
         for (Object obj : components) {
             for (Map.Entry<String, String> entrySet : mapRules.entrySet()) {

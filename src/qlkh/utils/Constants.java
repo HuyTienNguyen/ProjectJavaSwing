@@ -94,6 +94,18 @@ public class Constants {
     /*
      *   END Category Table
      */
+    
+    /*
+     *   Customers Table
+     */
+    // Header Customers Table
+    public static final String[] HEADER_CUSTOMERS_TABLE = {"Id", "Name", "Address", "Phone","Email","MoreInfo","ContractDate"};
+    public static final String MSG_CUSTOMERS_NAME_CANT_BE_EMPTY = "MSG_UNIT_NAME_CANT_BE_EMPTY";
+
+    /*
+     *   END Customers Table
+     */
+
      // Header InvoiceImportDetail Table
     public static final String[] HEADER_IMPORT_DETAIL_TABLE = {"Id", "Product Name", "Number", "Input Price", "OutputPrice","Date"};
 
