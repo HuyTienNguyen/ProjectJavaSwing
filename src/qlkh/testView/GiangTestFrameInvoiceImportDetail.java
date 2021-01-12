@@ -180,7 +180,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         errNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         lblName2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblName2.setText(bundle.getString("outputPrice")
+        lblName2.setText(bundle.getString("iidNumber")
         );
 
         idInVoiceImport.setForeground(new java.awt.Color(240, 240, 240));
@@ -196,14 +196,8 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblCate2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbbProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblCate1)
-                                .addGap(13, 13, 13)
-                                .addComponent(cbbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblCate2)
+                            .addComponent(lblCate1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(94, 94, 94)
                         .addComponent(errProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,26 +209,28 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                         .addComponent(messageInvoiceImportDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblName1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblName2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblName2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblName1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(2, 2, 2)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addComponent(inputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(outputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(errInputPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(errOuputPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(errNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(19, 19, 19)
+                                        .addComponent(inputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(errNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(errInputPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(errOuputPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(132, 132, 132)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,9 +239,14 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                         .addGap(82, 82, 82))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(117, 117, 117)
-                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addComponent(idInVoiceImport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbbProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(54, 54, 54)
+                            .addComponent(idInVoiceImport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -391,12 +392,14 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
      */
     ResourceBundle bundle;
     private static Map<String, String> productMap = new HashMap<>();
+    private static Map<String, String> importMap = new HashMap<>();
     private static int[] pageSizes = new int[]{10, 20, 50, 75, 100};
     private static final int defaultPageSize = 10;
     private static final int maxPagingCompToShow = 7;
     private static List<Products> products = new ArrayList<>();
     private static List<Category> categories = new ArrayList<>();
     private static List<InvoiceImportDetail> details = new ArrayList<>();
+    private static List<InvoiceImport> imports = new ArrayList<>();
 
     JTable tblDetails;
     PaginatedTableDecorator<InvoiceImportDetail> paginatedDecorator;
@@ -419,17 +422,22 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     }
 
     private static TableModel createObjectDataModel() {
-        return new ObjectTableModel<Products>() {
+        return new ObjectTableModel<InvoiceImportDetail>() {
             @Override
-            public Object getValueAt(Products product, int columnIndex) {
+            public Object getValueAt(InvoiceImportDetail iid, int columnIndex) {
                 switch (columnIndex) {
                     case 0:
-                        return product.getId();
+                        return iid.getId();
                     case 1:
-                        return product.getName();
-
+                        return productMap.get(iid.getIdProduct());
+                    case 2:
+                        return iid.getNumber();
                     case 3:
-                        return productMap.get(product.getId());
+                        return iid.getInputPrice();
+                    case 4:
+                        return iid.getOutputPrice();
+                    case 5:
+                        return importMap.get(iid.getIdInvoiceImport());
 
                 }
                 return null;
@@ -437,22 +445,24 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
 
             @Override
             public int getColumnCount() {
-                return Constants.HEADER_PRODUCT_TABLE.length;
+                return Constants.HEADER_IMPORT_DETAIL_TABLE.length;
             }
 
             @Override
             public String getColumnName(int column) {
                 switch (column) {
                     case 0:
-                        return Constants.HEADER_PRODUCT_TABLE[0];
+                        return Constants.HEADER_IMPORT_DETAIL_TABLE[0];
                     case 1:
-                        return Constants.HEADER_PRODUCT_TABLE[1];
+                        return Constants.HEADER_IMPORT_DETAIL_TABLE[1];
                     case 2:
-                        return Constants.HEADER_PRODUCT_TABLE[2];
+                        return Constants.HEADER_IMPORT_DETAIL_TABLE[2];
                     case 3:
-                        return Constants.HEADER_PRODUCT_TABLE[3];
+                        return Constants.HEADER_IMPORT_DETAIL_TABLE[3];
                     case 4:
-                        return Constants.HEADER_PRODUCT_TABLE[4];
+                        return Constants.HEADER_IMPORT_DETAIL_TABLE[4];
+                    case 5:
+                        return Constants.HEADER_IMPORT_DETAIL_TABLE[5];
                 }
                 return null;
             }
@@ -477,7 +487,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
 
             @Override
             public int getTotalRowCount(boolean isSearch) {
-                return (isSearch == false ? products.size() : getListsSearchByText().size());
+                return (isSearch == false ? details.size() : getListsSearchByText().size());
             }
 
             @Override
@@ -515,6 +525,14 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
 
     }
 
+    public void loadAllImport(List<InvoiceImport> imports) {
+
+        this.imports = imports;
+        for (InvoiceImport ip : imports) {
+            importMap.put(ip.getId(), ip.getDateInput().toString());
+        }
+    }
+
     public void loadAllCategories(List<Category> listCate) {
         if (categories.isEmpty() == true) {
             categories = listCate;
@@ -529,25 +547,24 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     }
 
     // Load list Unit on Unit Table
-    public void loadAllProducts(List<Products> listProduct, boolean isFirstLoad, Category cate) {
+    public void loadAllProducts(List<Products> listProduct, Category cate) {
         clearCbbProducts();
-        Products newPro = new Products();
-        newPro.setId("0");
-        newPro.setName("");
-        if (isFirstLoad == true) {
-            cbbProducts.addItem(newPro);
 
-        } else {
-            // set data for List<Product> lists
-            if (products.isEmpty() == true) {
-                products = listProduct;
-            }
+        // set data for List<Product> lists
+        if (products.isEmpty() == true) {
+            products = listProduct;
+        }
 
-            cbbProducts.addItem(newPro);
+        cbbProducts.addItem(new Products("0", ""));
+        if (cate != null) {
             for (Products pro : products) {
                 if (pro.getIdCate() == cate.getId()) {
                     cbbProducts.addItem(pro);
                 }
+                productMap.put(pro.getId(), pro.getName());
+            }
+        } else {
+            for (Products pro : products) {
                 productMap.put(pro.getId(), pro.getName());
             }
         }
@@ -636,15 +653,15 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     }
 
     // Add event to button addNewUnit
-    public void addBtnAddActionListener(ActionListener listener) {
+    public void addBtnAddAction(ActionListener listener) {
         btnAdd.addActionListener(listener);
     }
 
-    public void addBtnEditActionListener(ActionListener listener) {
+    public void addBtnEditAction(ActionListener listener) {
         btnEdit.addActionListener(listener);
     }
 
-    public void addBtnClearActionListener(ActionListener listener) {
+    public void addBtnClearAction(ActionListener listener) {
         btnClear.addActionListener(listener);
     }
 
@@ -652,7 +669,16 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         paginatedDecorator.addTableMouseListener(listener);
     }
 
+    public void addCbbCateStateChanged(ItemListener listener) {
+        cbbCategory.addItemListener(listener);
+    }
+
     // Get text from txtNewUnitField
+    public Category getCateSelected() {
+        Category row = (Category)cbbCategory.getSelectedItem();
+        return row;
+    }
+
     private void showErrMess(String message, int color) {
         errInputPrice.setText(bundle.getString(message));
         errInputPrice.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
@@ -744,7 +770,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
             }
             if (cate != null) {
                 cbbCategory.setSelectedItem(cate);
-               // loadAllProducts(products, cate);
+                loadAllProducts(products, cate);
                 cbbProducts.setSelectedItem(product);
             }
         }
@@ -756,4 +782,5 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         return id.getText();
 
     }
+
 }

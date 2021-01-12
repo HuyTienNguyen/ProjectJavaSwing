@@ -94,6 +94,11 @@ public class Constants {
     /*
      *   END Category Table
      */
+     // Header InvoiceImportDetail Table
+    public static final String[] HEADER_IMPORT_DETAIL_TABLE = {"Id", "Product Name", "Number", "Input Price", "OutputPrice","Date"};
+
+    /*
+     *   END Suplier Table
     /*
      *   SignIn view
      */

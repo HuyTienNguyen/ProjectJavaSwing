@@ -52,7 +52,7 @@ public class CategoryController {
         if (view == null) {
             view = new GiangTestFrameCategory();
         }
-        view.showView( cateDao.getAllCategoies());
+        view.showView( cateDao.getCategoies());
 
     }
 
@@ -76,7 +76,7 @@ public class CategoryController {
             }
             if (records > 0) {
                 view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);          
-                view.showView(cateDao.getAllCategoies());
+                view.showView(cateDao.getCategoies());
             } else {
                 view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
 
@@ -108,7 +108,7 @@ public class CategoryController {
                     view.showMessage(Constants.MSG_EDIT_SUCCESS, Constants.FLAG_SUCCESS);
                     view.clearView(false);
 ;
-                    view.showView(cateDao.getAllCategoies());
+                    view.showView(cateDao.getCategoies());
                 }
             }
         } catch (Exception ex) {
@@ -137,7 +137,7 @@ public class CategoryController {
                 view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
                 view.clearView(false);
 
-                view.showView(cateDao.getAllCategoies());
+                view.showView(cateDao.getCategoies());
 
             }
         }

@@ -401,7 +401,7 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
             cateModel.addRow(row);
         }
         tblCategory.setModel(cateModel);
-                tblCategory.setAutoCreateRowSorter(true);
+        tblCategory.setAutoCreateRowSorter(true);
 
     }
 
@@ -431,7 +431,11 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
         errName.setText(bundle.getString(message));
         errName.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }
-
+    /**
+     * Show the message in header of the view
+     * @param message The message will be show
+     * @param color Color of the message 
+     */
     public void showMessage(String message, int color) {
         messageCategory.setText(bundle.getString(message));
         messageCategory.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
@@ -472,6 +476,9 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
     public int showDialogMesage(JFrame frame, String message, String title) {
         return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
     }
+    /**
+     *hello
+     **/
 
     public void clearView(boolean clearAll) {
         setEnableBtnAddNew(true);

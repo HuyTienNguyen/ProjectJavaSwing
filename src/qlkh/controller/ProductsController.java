@@ -61,7 +61,7 @@ public class ProductsController {
 
         List<Supliers> supliers = suplierDao.getAllSupliers();
         List<Unit> units = unitDao.getAllUnits();
-        List<Category> categories = cateDao.getAllCategoies();
+        List<Category> categories = cateDao.getCategoies();
         List<Products> products = proDao.getAllProducts();
 
         view.loadAllUnits(units);
