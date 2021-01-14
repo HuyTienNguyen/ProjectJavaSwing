@@ -26,7 +26,7 @@ public class InvoiceImportDetailDaoImpl implements IInvoiceImportDetailDAO {
     private static final String SQL_INSERT = "INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,number,inputPrice,outputPrice,Status) VALUES(?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE  InvoiceImportDetail SET IdProduct =?, IdInvoiceImport =?, number =?,inputPrice=?,OutputPrice=?,Status=? WHERE Id =?";
     private static final String SQL_DELETE = "DELETE FROM  InvoiceImportDetail  WHERE Id =?";
-    private static final String SQL_INSERT_BY_PROC ="{call sp_add_invoice_import_Detail(?,?,?,?,?,?)}";
+    private static final String SQL_INSERT_BY_PROC ="{call sp_add_invoice_import_Detail(?,?,?,?,?,?,?)}";
     private static final String SQL_SELECT_BY_Id = "SELECT * FROM InvoiceImportDetail WHERE Id= ? ";
     @Override
     public List<InvoiceImportDetail> getAllDetails() {
@@ -73,7 +73,7 @@ public class InvoiceImportDetailDaoImpl implements IInvoiceImportDetailDAO {
 
     @Override
     public int insert(InvoiceImportDetail element) {
-        Integer countInsert = 0;
+        Integer countInsert = -1;
         try {
             countInsert = DatabaseHelper.insertDataByCallableStatement(SQL_INSERT_BY_PROC, element.getParam(Constants.ACTION_INSERT_BY_PROC));
            

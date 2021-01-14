@@ -107,6 +107,7 @@ public class InvoiceImportDetail {
                     Types.INTEGER,
                     Utils.getTimestampNow(),
                     this.getIdProduct(),
+                    this.getIdInvoiceImport(),
                     this.getNumber(),
                     this.getInputPrice(),
                     this.getOutputPrice() 

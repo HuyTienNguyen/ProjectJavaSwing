@@ -24,7 +24,7 @@ import qlkh.utils.DatabaseHelper;
  * @author GIANG
  */
 public class InvoiceImportDaoImpl implements IInvoiceImportDAO {
-    private static final String SQL_GET_ALL = "SELECT * FROM InvoiceImport";
+    private static final String SQL_GET_ALL = "SELECT * FROM InvoiceImport ORDER BY DateInput DESC ";
     private static final String SQL_INSERT = "INSERT INTO InvoiceImport(Id,DateInput) VALUES(?,?)";
 
     private static final String SQL_SELECT_BY_ID = "SELECT * FROM InvoiceImport WHERE Id = ? ";

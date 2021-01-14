@@ -303,14 +303,16 @@ alter procedure sp_add_invoice_import_Detail(
 	@errOutput int output,	
 	@dateImport datetime,
 	@idProduct nvarchar(100),
+	@idImportInput varchar(20),
 	@number int,
 	@inputPrice float,
 	@outputPrice float
-
+	
 )
 
 	AS
-	declare  @idInvoiceImport varchar(20),
+	declare	 @idInvoiceImport varchar(20),
+			 @newIdInvoiceImport varchar(20),
 			 @countInvoiceImport int,
 			 @idInvoiceimportDetail varchar(100),
 			 @countInvoiceImportDetail int
@@ -319,12 +321,20 @@ alter procedure sp_add_invoice_import_Detail(
 			-- get count from imvoiceimport table
 			set @countInvoiceImport = ((SELECT count(id) from invoiceimport)+1)	
 			-- set id for new record insert to invoiceimport table
-			SET @idInvoiceImport = 'I'+ REPLICATE('0',6 - LEN(CAST(@countInvoiceImport as varchar(20)))) +CAST(@countInvoiceImport as varchar(20))
-				-- get count from imvoiceimportDetail table
+			SET @newIdInvoiceImport = 'I'+ REPLICATE('0',6 - LEN(CAST(@countInvoiceImport as varchar(20)))) +CAST(@countInvoiceImport as varchar(20))
+			
+			
+
+			SET @idInvoiceImport =IIF(LEN(@idImportInput)>3,@idImportInput,@newIdInvoiceImport)
+			-- get count from imvoiceimportDetail table
 			set @countInvoiceImportDetail= ((SELECT count(id) from InvoiceImportDetail)+1)		
 			-- set id for new record insert to invoiceimportDetail table
 			SET @idInvoiceimportDetail = 'ID'+ REPLICATE('0',6 - LEN(CAST(@countInvoiceImportDetail as varchar(20))))+CAST(@countInvoiceImportDetail as varchar(20))
-				INSERT INTO InvoiceImport (id,DateInput)VALUES(@idInvoiceImport,@dateImport)
+				IF NOT EXISTS(SELECT id from InvoiceImport where id = @idInvoiceImport)
+					BEGIN
+						INSERT INTO InvoiceImport (id,DateInput)VALUES(@idInvoiceImport,@dateImport)
+					END
+				
 
 				INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,Number,InputPrice,OutputPrice,Status)
 							VALUES(@idinvoiceimportDetail,@idProduct,@idInvoiceImport,@number,@inputPrice,@outputPrice,'1')
@@ -337,6 +347,8 @@ alter procedure sp_add_invoice_import_Detail(
 			 RETURN ERROR_MESSAGE()
 			END CATCH
 			GO
+			SELECT * FROM InvoiceImportDetail
+			select * from InvoiceImport
 /*	 Test sql insert into 2 table InvoiceImportDetail va InvoiceImport
 
 	select * from Products
@@ -347,4 +359,4 @@ select * from InvoiceImportDetail
 select * from InvoiceImport
 */
 
-select * from users
+select * from InvoiceImport

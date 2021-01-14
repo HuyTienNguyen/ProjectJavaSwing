@@ -54,7 +54,7 @@ public class Constants {
     public static final int ACTION_GET_USER_BY_EMAIL = 10;
 
     // SImple format date
-    public static final String DATE_FORMAT = "dd-MM-yyyy";
+    public static final String DATE_FORMAT = "dd-MM-yyyy hh:mm:ss";
 
     //
     public static final String PLEASE_CHOOSE_ONE = "PLEASE_CHOOSE_ONE";
