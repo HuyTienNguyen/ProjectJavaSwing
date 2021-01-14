@@ -454,8 +454,8 @@ public class Validator {
         return errorMessages;
     }
 
-    public static void setErrorMessages(Map<String, String> errorMessages) {
-        Validator.errorMessages = errorMessages;
+    public  void setErrorMessages(Map<String, String> errorMessages) {
+      this.errorMessages = errorMessages;
     }
 
     //hàm check unique khi insert
@@ -525,9 +525,9 @@ public class Validator {
     public static Validator validate(List<Object> components, Map<String, String> mapRules, String id) throws Exception {
         List<ValidatorItem> listItem = new ArrayList<>();
 
-        
         for (Object obj : components) {
             for (Map.Entry<String, String> entrySet : mapRules.entrySet()) {
+             
                 String key = entrySet.getKey();
                 String value = entrySet.getValue();
                 if (key.equals(getName(obj))) {
@@ -535,7 +535,7 @@ public class Validator {
                 }
             }
         }       
-        return new Validator(listItem, id);
+        return  new Validator(listItem, id);
     }
 
     public static String getName(Object component) throws Exception {

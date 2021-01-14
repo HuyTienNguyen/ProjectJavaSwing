@@ -107,6 +107,7 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
         );
 
         name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        name.setNextFocusableComponent(character);
 
         btnAdd.setBackground(new java.awt.Color(0, 255, 204));
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -154,6 +155,7 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
         );
 
         character.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        character.setNextFocusableComponent(btnAdd);
 
         lblCharacterCode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCharacterCode.setText(bundle.getString("characterCate"));

@@ -270,6 +270,9 @@
                         <LineBorder/>
                       </Border>
                     </Property>
+                    <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="cbbUnit"/>
+                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnAdd">
@@ -374,6 +377,11 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cbbSuplier">
+                  <Properties>
+                    <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="cbbCategory"/>
+                    </Property>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Supliers&gt;"/>
                   </AuxValues>
@@ -387,6 +395,11 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cbbUnit">
+                  <Properties>
+                    <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="cbbSuplier"/>
+                    </Property>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Unit&gt;"/>
                   </AuxValues>

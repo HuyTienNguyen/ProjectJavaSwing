@@ -14,7 +14,7 @@ create table Users(
 	verifyCode int NULL
 )
 go
-
+select * from Users
 --tạo bảng Unit
 create table Unit(
 	Id int identity(1,1) primary key,
@@ -305,8 +305,8 @@ alter procedure sp_add_invoice_import_Detail(
 	@idProduct nvarchar(100),
 	@number int,
 	@inputPrice float,
-	@outputPrice float,
-	@status nvarchar(100)	
+	@outputPrice float
+
 )
 
 	AS
@@ -327,7 +327,7 @@ alter procedure sp_add_invoice_import_Detail(
 				INSERT INTO InvoiceImport (id,DateInput)VALUES(@idInvoiceImport,@dateImport)
 
 				INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,Number,InputPrice,OutputPrice,Status)
-							VALUES(@idinvoiceimportDetail,@idProduct,@idInvoiceImport,@number,@inputPrice,@outputPrice,@status)
+							VALUES(@idinvoiceimportDetail,@idProduct,@idInvoiceImport,@number,@inputPrice,@outputPrice,'1')
 				SET @errOutput =0;
 				COMMIT TRANSACTION
 			END TRY
@@ -347,4 +347,4 @@ select * from InvoiceImportDetail
 select * from InvoiceImport
 */
 
-select * from products
+select * from users

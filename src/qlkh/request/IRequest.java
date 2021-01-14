@@ -18,12 +18,12 @@ public abstract class IRequest {
     protected abstract Map<String, String> setMesages();
 
     public Map<String, String> getRules() {
-        Map<String, String> myList = setRules();  
-        return myList;
+      
+        return setRules();
     }
 
     public Map<String, String> getMessages() {
-        Map<String, String> mess = setMesages();    
-        return mess;
+        
+        return setMesages();
     }  
 }

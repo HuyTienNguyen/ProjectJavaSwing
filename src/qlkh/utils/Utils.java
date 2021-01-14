@@ -37,7 +37,7 @@ public class Utils {
      *
      * @return Chuỗi thời gian trả về
      * @see DateFormat
-     */
+     **/
     public static Timestamp getTimestampNow() {
         return new Timestamp(System.currentTimeMillis());
 
@@ -49,17 +49,17 @@ public class Utils {
      * @param time kiểu timestamp
      * @return Chuỗi thời gian trả về
      * @see DateFormat
-     */
+     **/
     public static String getSimpleDateFormat(Timestamp time) {
         return new SimpleDateFormat(Constants.DATE_FORMAT).format(time);
 
     }
 
-    /*
+    /**
      *
      Hàm set Locale
      *
-     */
+     **/
     public static void setLocale(String country) {
         try {
             //Bước 1: Tạo đối tượng luồng và liên kết nguồn dữ liệu
@@ -75,11 +75,11 @@ public class Utils {
         }
     }
 
-    /*
+    /**
      *
      Hàm get Locale
      *
-     */
+     **/
     public static Locale getLocale() {
         // đọc lại file
         Locale newLocale = null;
@@ -104,11 +104,11 @@ public class Utils {
         return newLocale;
     }
     
-    /*
+    /**
      *
      Hàm send mail
      *
-     */
+     **/
     public static void sendMail(String recepient,String content) throws Exception{
         System.out.println("starting");
         Properties properties = new Properties();

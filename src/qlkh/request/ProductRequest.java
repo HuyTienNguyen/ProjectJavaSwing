@@ -27,7 +27,7 @@ public class ProductRequest extends IRequest {
     @Override
     public Map<String, String> setMesages() {
         Map<String, String> messes = new HashMap<>();
-        messes.put("name.required", "The name field is required");
+        messes.put("name.required", "The name  is required");
         messes.put("name.unique", "Name already exists!Please try again");
         messes.put("name.max", "The name field is a maximum of value character");
        

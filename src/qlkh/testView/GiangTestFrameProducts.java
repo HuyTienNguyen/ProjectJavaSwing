@@ -110,6 +110,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
         );
 
         name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        name.setNextFocusableComponent(cbbUnit);
 
         btnAdd.setBackground(new java.awt.Color(0, 255, 204));
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -154,8 +155,12 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
         id.setOpaque(true);
         id.setRequestFocusEnabled(false);
 
+        cbbSuplier.setNextFocusableComponent(cbbCategory);
+
         lblSuplier.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSuplier.setText(bundle.getString("cbbSuplier"));
+
+        cbbUnit.setNextFocusableComponent(cbbSuplier);
 
         lblCate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCate.setText(bundle.getString("cbbCategory"));
@@ -351,7 +356,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
     private static Map<Integer, String> unitMap = new HashMap<>();
     private static Map<Integer, String> cateMap = new HashMap<>();
     private static int[] pageSizes = new int[]{10, 20, 50, 75, 100};
-    private static final int defaultPageSize = 10;
+    private static final int defaultPageSize = pageSizes[0];
     //button để hiện phân trang maximum 7
     private static final int maxPagingCompToShow = 7;
     private static List<Products> products = new ArrayList<>();

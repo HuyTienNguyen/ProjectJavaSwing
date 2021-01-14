@@ -32,11 +32,13 @@ public class UserDaoImpl implements IUserDAO {
 
     private static final String SQL_SELECT_BY_USERNAME_AND_PASS = "SELECT * FROM Users WHERE Username = ? AND Password = ?";
     private static final String SQL_SELECT_BY_NAME_OR_EMAIL = "SELECT * FROM Users WHERE Name= ? OR EMAIL =?";
+        private static final String SQL_SELECT_BY_ID = "SELECT * FROM Users WHERE Id =?";
+
     private static final String SQL_SELECT_BY_EMAIL = "SELECT * FROM Users WHERE EMAIL =?";
     private static final String SQL_SELECT_BY_MAIL_AND_CODE = "SELECT * FROM Users WHERE EMAIL =? AND verifyCode =?";
 
     @Override
-    public List<Users> getAllUsers() {
+    public List<Users> getUsers() {
         // Khởi tạo list UserRole
         List<Users> listUsers = new ArrayList<>();
         // Khởi tạo mảng param rỗng để chạy lệnh sql select all from users
@@ -65,7 +67,7 @@ public class UserDaoImpl implements IUserDAO {
 
     @Override
     public Users getUserByNameOrEmail(String key) {
-        //Khởi tạo đối tượng userRole
+        //Khởi tạo đối tượng User
         Users user = null;
         try {
             // Khởi tạo mảng param kiểu String để chạy lệnh sql select from user by name or email
@@ -92,7 +94,34 @@ public class UserDaoImpl implements IUserDAO {
         }
         return user;
     }
-
+ @Override
+    public Users getUserById(int id) {
+        //Khởi tạo đối tượng User
+        Users user = null;
+        try {
+            // Khởi tạo mảng param kiểu String để chạy lệnh sql select from user by name or email
+            Integer[] param = new Integer[]{ id};
+            // GỌi phương thức selectData trả về theo kiểu result set
+            ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_ID, param);
+            while (rs.next()) {
+                user = new Users(
+                        rs.getInt("Id"),
+                        rs.getString("Name"),
+                        rs.getString("UserName"),
+                        rs.getString("Password"),
+                        rs.getString("email"),
+                        rs.getInt("verifyCode"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                DatabaseHelper.getInstance().closeDatabaseConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return user;}
     @Override
     public boolean login(Users element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -270,6 +299,8 @@ public class UserDaoImpl implements IUserDAO {
         }
         return countRecord;
     }
+
+   
 
 
 }

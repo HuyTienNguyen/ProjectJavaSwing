@@ -5,6 +5,10 @@
  */
 package qlkh;
 
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 /**
  *
  * @author user
@@ -27,143 +31,205 @@ public class MainView1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
-        leftPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
-        kButton1 = new keeptoo.KButton();
-        mainPanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        header = new javax.swing.JPanel();
+        iconminmaxclose = new javax.swing.JPanel();
+        ButtonClose = new javax.swing.JPanel();
+        close = new javax.swing.JLabel();
+        ButtonScreen = new javax.swing.JPanel();
+        RestoreDown = new javax.swing.JLabel();
+        ButtonHide = new javax.swing.JPanel();
+        minimize = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        menuMain = new javax.swing.JPanel();
+        content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
-        jSplitPane1.setDividerLocation(200);
-        jSplitPane1.setDividerSize(3);
+        header.setBackground(new java.awt.Color(0, 51, 153));
+        header.setMinimumSize(new java.awt.Dimension(100, 50));
+        header.setPreferredSize(new java.awt.Dimension(977, 30));
+        header.setLayout(new java.awt.BorderLayout());
 
-        leftPanel.setPreferredSize(new java.awt.Dimension(200, 552));
+        iconminmaxclose.setPreferredSize(new java.awt.Dimension(150, 70));
+        iconminmaxclose.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(0, 51, 153));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.setPreferredSize(new java.awt.Dimension(200, 529));
+        ButtonClose.setLayout(new java.awt.BorderLayout());
 
-        kButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(204, 204, 204)));
-        kButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/home-page-20.png"))); // NOI18N
-        kButton1.setText("Home");
-        kButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        kButton1.setkEndColor(new java.awt.Color(0, 102, 204));
-        kButton1.setkStartColor(new java.awt.Color(0, 102, 204));
-        kButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kButton1ActionPerformed(evt);
+        close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-delete-20.png"))); // NOI18N
+        close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                closeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                closeMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                closeMouseReleased(evt);
             }
         });
+        ButtonClose.add(close, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(145, 145, 145)
-                .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(422, Short.MAX_VALUE))
-        );
+        iconminmaxclose.add(ButtonClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 50, 30));
 
-        jScrollPane1.setViewportView(jPanel2);
+        ButtonScreen.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
-        leftPanel.setLayout(leftPanelLayout);
-        leftPanelLayout.setHorizontalGroup(
-            leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-        );
-        leftPanelLayout.setVerticalGroup(
-            leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
-        );
+        RestoreDown.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        RestoreDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-restore-down-20.png"))); // NOI18N
+        RestoreDown.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RestoreDownMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                RestoreDownMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                RestoreDownMouseExited(evt);
+            }
+        });
+        ButtonScreen.add(RestoreDown, java.awt.BorderLayout.CENTER);
 
-        jSplitPane1.setLeftComponent(leftPanel);
+        iconminmaxclose.add(ButtonScreen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 50, 30));
 
-        jPanel5.setLayout(new java.awt.BorderLayout());
+        ButtonHide.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 729, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 224, Short.MAX_VALUE)
-        );
+        minimize.setBackground(new Color(240, 240, 240));
+        minimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-compress-20 (1).png"))); // NOI18N
+        minimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minimizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                minimizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                minimizeMouseExited(evt);
+            }
+        });
+        ButtonHide.add(minimize, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        iconminmaxclose.add(ButtonHide, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 30));
+
+        header.add(iconminmaxclose, java.awt.BorderLayout.LINE_END);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 815, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 285, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
         );
 
-        jScrollPane2.setViewportView(jPanel4);
+        header.add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+        getContentPane().add(header, java.awt.BorderLayout.PAGE_START);
+
+        menuMain.setPreferredSize(new java.awt.Dimension(200, 575));
+
+        javax.swing.GroupLayout menuMainLayout = new javax.swing.GroupLayout(menuMain);
+        menuMain.setLayout(menuMainLayout);
+        menuMainLayout.setHorizontalGroup(
+            menuMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
-        );
-
-        jSplitPane1.setRightComponent(mainPanel);
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+        menuMainLayout.setVerticalGroup(
+            menuMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 635, Short.MAX_VALUE)
         );
 
-        pack();
+        getContentPane().add(menuMain, java.awt.BorderLayout.LINE_START);
+
+        content.setBackground(new java.awt.Color(102, 255, 0));
+
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 765, Short.MAX_VALUE)
+        );
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 635, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(content, java.awt.BorderLayout.CENTER);
+
+        setSize(new java.awt.Dimension(965, 665));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
+    public void changeColor(JPanel hover, Color rand) {
+        hover.setBackground(rand);
+    }
+    private void closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_kButton1ActionPerformed
+        changeColor(ButtonClose, new Color(232, 17, 35));
+    }//GEN-LAST:event_closeMouseEntered
+
+    private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_closeMouseClicked
+
+    private void closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseExited
+        changeColor(ButtonClose, new Color(240, 240, 240));
+    }//GEN-LAST:event_closeMouseExited
+
+    
+    
+    
+    private void RestoreDownMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RestoreDownMouseClicked
+        // TODO add your handling code here:
+        if (this.getExtendedState() != MainView1.MAXIMIZED_BOTH) {
+            this.setExtendedState(MainView1.MAXIMIZED_BOTH);
+        } else {
+            this.setExtendedState(MainView1.NORMAL);
+        }
+    }//GEN-LAST:event_RestoreDownMouseClicked
+
+    private void RestoreDownMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RestoreDownMouseEntered
+        // TODO add your handling code here:
+        changeColor(ButtonScreen, new Color(229, 229, 229));
+    }//GEN-LAST:event_RestoreDownMouseEntered
+
+    private void RestoreDownMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RestoreDownMouseExited
+        changeColor(ButtonScreen, new Color(240, 240, 240));
+    }//GEN-LAST:event_RestoreDownMouseExited
+
+    
+    
+    
+    private void closeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_closeMouseReleased
+
+    
+    
+    private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
+        // TODO add your handling code here:
+        this.setState(MainView1.ICONIFIED);
+    }//GEN-LAST:event_minimizeMouseClicked
+
+    private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseEntered
+        // TODO add your handling code here:
+        changeColor(ButtonHide, new Color(229, 229, 229));
+    }//GEN-LAST:event_minimizeMouseEntered
+
+    private void minimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseExited
+        // TODO add your handling code here:
+        changeColor(ButtonHide, new Color(240, 240, 240));
+    }//GEN-LAST:event_minimizeMouseExited
 
     /**
      * @param args the command line arguments
@@ -202,18 +268,16 @@ public class MainView1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSplitPane jSplitPane1;
-    private keeptoo.KButton kButton1;
-    private javax.swing.JPanel leftPanel;
-    private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel ButtonClose;
+    private javax.swing.JPanel ButtonHide;
+    private javax.swing.JPanel ButtonScreen;
+    private javax.swing.JLabel RestoreDown;
+    private javax.swing.JLabel close;
+    private javax.swing.JPanel content;
+    private javax.swing.JPanel header;
+    private javax.swing.JPanel iconminmaxclose;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel menuMain;
+    private javax.swing.JLabel minimize;
     // End of variables declaration//GEN-END:variables
 }
