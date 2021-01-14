@@ -25,8 +25,6 @@ import qlkh.entities.Category;
 import qlkh.entities.InvoiceImport;
 import qlkh.entities.InvoiceImportDetail;
 import qlkh.entities.Products;
-import qlkh.entities.Supliers;
-import qlkh.entities.Unit;
 import qlkh.test.IView;
 import qlkh.utils.Constants;
 import qlkh.utils.Utils;
@@ -75,6 +73,9 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         errNumber = new javax.swing.JLabel();
         lblName2 = new javax.swing.JLabel();
         idInVoiceImport = new javax.swing.JLabel();
+        lblCate3 = new javax.swing.JLabel();
+        cbbInvoiceImport = new javax.swing.JComboBox<InvoiceImport>();
+        errProduct1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,12 +149,12 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         id.setOpaque(true);
         id.setRequestFocusEnabled(false);
 
-        lblCate1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCate1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCate1.setText(bundle.getString("cbbCategory"));
 
         errCate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        lblCate2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCate2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCate2.setText(bundle.getString("cbbProduct"));
 
         cbbProducts.addActionListener(new java.awt.event.ActionListener() {
@@ -186,6 +187,17 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         idInVoiceImport.setOpaque(true);
         idInVoiceImport.setRequestFocusEnabled(false);
 
+        lblCate3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCate3.setText(bundle.getString("cbbIdInvoice"));
+
+        cbbInvoiceImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbInvoiceImportActionPerformed(evt);
+            }
+        });
+
+        errProduct1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -193,18 +205,29 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(lblCate1)
+                            .addGap(246, 246, 246))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(errCate, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblCate1)
-                        .addGap(246, 246, 246))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(errCate, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(lblCate3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(errProduct1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cbbInvoiceImport, 0, 223, Short.MAX_VALUE)
+                                .addGap(20, 20, 20)))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(messageInvoiceImportDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,11 +266,12 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                                 .addComponent(idInVoiceImport, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblCate2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(errProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbbProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblCate2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                                .addComponent(cbbProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(errProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -285,6 +309,12 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                             .addComponent(lblCate2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(errProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCate3)
+                            .addComponent(cbbInvoiceImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(errProduct1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -357,6 +387,10 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbProductsActionPerformed
 
+    private void cbbInvoiceImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbInvoiceImportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbInvoiceImportActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -365,12 +399,14 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
     private javax.swing.JComboBox<Category> cbbCategory;
+    private javax.swing.JComboBox<InvoiceImport> cbbInvoiceImport;
     private javax.swing.JComboBox<Products> cbbProducts;
     private javax.swing.JLabel errCate;
     private javax.swing.JLabel errInputPrice;
     private javax.swing.JLabel errNumber;
     private javax.swing.JLabel errOuputPrice;
     private javax.swing.JLabel errProduct;
+    private javax.swing.JLabel errProduct1;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel id;
@@ -380,6 +416,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCate1;
     private javax.swing.JLabel lblCate2;
+    private javax.swing.JLabel lblCate3;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblName1;
     private javax.swing.JLabel lblName2;
@@ -545,7 +582,14 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     public void loadImports(List<InvoiceImport> imports) {
 
         this.imports = imports;
+        int counts = 1;
+        InvoiceImport newInvoiceImport = new InvoiceImport("0", Utils.getTimestampNow());
+        cbbInvoiceImport.addItem(newInvoiceImport);
+
         for (InvoiceImport ip : imports) {
+            if (counts < 10) {
+                cbbInvoiceImport.addItem(ip);
+            }
             importMap.put(ip.getId(), ip.getDateInput().toString());
         }
     }
@@ -600,7 +644,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         if (products.isEmpty() == true) {
             products = listProduct;
         }
-        cbbProducts.addItem(new Products("0",""));
+        cbbProducts.addItem(new Products("0", ""));
         for (Products pro : products) {
             productMap.put(pro.getId(), pro.getName());
         }
@@ -673,6 +717,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     public InvoiceImportDetail getInVoiceDetail() {
         Products product = (Products) cbbProducts.getSelectedItem();
         InvoiceImportDetail invoiceDetail = new InvoiceImportDetail();
+        invoiceDetail.setIdInvoiceImport(((InvoiceImport) cbbInvoiceImport.getSelectedItem()).getId());
         invoiceDetail.setIdProduct(product.getId());
         invoiceDetail.setInputPrice(Float.parseFloat(inputPrice.getText()));
         invoiceDetail.setOutputPrice(Float.parseFloat(outputPrice.getText()));
@@ -824,6 +869,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         outputPrice.setText("");
         number.setText("");
         cbbCategory.setSelectedIndex(0);
+        cbbInvoiceImport.setSelectedIndex(0);
         inputPrice.requestFocus();
     }
 

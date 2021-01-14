@@ -8,6 +8,7 @@ package qlkh.entities;
 import java.sql.Date;
 import java.sql.Timestamp;
 import qlkh.utils.Constants;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -78,7 +79,7 @@ public class InvoiceImport {
 
     @Override
     public String toString() {
-        return "InvoiceImport{" + "id=" + id + ", dateInput=" + dateInput + '}';
+        return  Utils.getSimpleDateFormat(dateInput) ;
     }
 
   
