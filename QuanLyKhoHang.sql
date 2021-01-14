@@ -14,7 +14,7 @@ create table Users(
 	verifyCode int NULL
 )
 go
-select * from Users
+
 --tạo bảng Unit
 create table Unit(
 	Id int identity(1,1) primary key,
@@ -22,7 +22,18 @@ create table Unit(
 	status int default(1)
 )
 go
+Alter proc getunitNameById
+@input_id int
 
+AS	
+	BEGIN 
+
+	SELECT name from unit where id = @input_id
+	END
+	
+	exec getunitNameById 0
+	select @name1
+	select * from users
 --tạo bảng Suplier
 create table Suplier(
 	Id int identity(1,1) primary key,
@@ -280,13 +291,13 @@ create procedure sp_delete_category
 	END
 	GO
 	-- GET TOTAl row in product table
-	CREATE procedure sp_count_products (
+	create procedure sp_count_products (
 	@output int output
 	)
 
  AS			
 		BEGIN
-		SET @output	=(select count(*)FROM  Products		)
+		SET @output	=(select count(*)FROM  Products	)
 			
 		END
 		GO

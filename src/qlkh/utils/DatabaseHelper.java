@@ -141,7 +141,7 @@ public class DatabaseHelper {
      * @param sql cú pháp SQL kèm tham số
      * @param args mảng tham số truyền vào
      */
-    private static <E> CallableStatement getCallableStatement(String sql, E... args) throws SQLException {
+    private static <E> CallableStatement getCallableReturnParam(String sql, E... args) throws SQLException {
         CallableStatement cst;
         if (connectionSqlserver == null || connectionSqlserver.isClosed() == true) {
             connectionSqlserver = getInstance().getConnectionSqlserver();
@@ -235,7 +235,7 @@ public class DatabaseHelper {
      * @throws java.sql.SQLException
      */
     public static <E> int insertDataByCallableStatement(String sql, E... args) throws SQLException {
-        CallableStatement cst = getCallableStatement(sql, args);
+        CallableStatement cst = getCallableReturnParam(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
@@ -249,7 +249,7 @@ public class DatabaseHelper {
      * @throws java.sql.SQLException
      */
      public static <E> int selectByCallableStatement(String sql, E... args) throws SQLException {
-        CallableStatement cst = getCallableStatement(sql, args);
+        CallableStatement cst = getCallableReturnParam(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
@@ -263,7 +263,7 @@ public class DatabaseHelper {
      * @throws java.sql.SQLException
      */
     public static <E> int updateDataByCallableStatement(String sql, E... args) throws SQLException {
-        CallableStatement cst = getCallableStatement(sql, args);
+        CallableStatement cst = getCallableReturnParam(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
@@ -277,7 +277,7 @@ public class DatabaseHelper {
      * @throws java.sql.SQLException
      */
     public static <E> int deleteDataByCallableStatement(String sql, E... args) throws SQLException {
-        CallableStatement cst = getCallableStatement(sql, args);
+        CallableStatement cst = getCallableReturnParam(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
