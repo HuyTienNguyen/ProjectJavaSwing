@@ -25,7 +25,6 @@ import qlkh.entities.Category;
 import qlkh.entities.InvoiceImport;
 import qlkh.entities.InvoiceImportDetail;
 import qlkh.entities.Products;
-import qlkh.test.IView;
 import qlkh.utils.Constants;
 import qlkh.utils.Utils;
 import qlkh.utils.pagination.ObjectTableModel;
@@ -52,6 +51,8 @@ public class InvoiceImportDetailView extends javax.swing.JPanel implements IView
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+
+        setBackground(new java.awt.Color(204, 0, 0));
         headerPanel = new javax.swing.JPanel();
         headerLabel = new javax.swing.JLabel();
         tableInvoiceImDetail = new javax.swing.JPanel();

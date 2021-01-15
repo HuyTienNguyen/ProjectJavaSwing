@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import qlkh.entities.Unit;
-import qlkh.test.IView;
+import qlkh.views.IView;
 import qlkh.utils.Constants;
 
 /**

@@ -24,7 +24,7 @@ import qlkh.entities.Category;
 import qlkh.entities.Supliers;
 
 import qlkh.entities.Unit;
-import qlkh.test.IView;
+import qlkh.views.IView;
 import qlkh.utils.Constants;
 import qlkh.utils.Utils;
 

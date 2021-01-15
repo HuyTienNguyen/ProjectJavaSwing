@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package qlkh.test;
+package qlkh.views;
 
+import qlkh.test.*;
 import java.util.List;
 import java.util.Map;
 

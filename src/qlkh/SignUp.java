@@ -20,8 +20,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import qlkh.entities.Users;
-import qlkh.test.IView;
+
 import qlkh.utils.Constants;
+import qlkh.views.IView;
 
 /**
  *

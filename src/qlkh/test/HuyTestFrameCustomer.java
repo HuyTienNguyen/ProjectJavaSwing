@@ -21,11 +21,11 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import qlkh.utils.Utils;
 import qlkh.entities.Customers;
-import qlkh.entities.Products;
 import qlkh.utils.Constants;
 import qlkh.utils.pagination.ObjectTableModel;
 import qlkh.utils.pagination.PaginatedTableDecorator;
 import qlkh.utils.pagination.PaginationDataProvider;
+import qlkh.views.IView;
 
 /**
  *

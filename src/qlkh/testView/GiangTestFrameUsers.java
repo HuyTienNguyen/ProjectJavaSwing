@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import qlkh.entities.Users;
-import qlkh.test.IView;
+import qlkh.views.IView;
 import qlkh.utils.Constants;
 import qlkh.utils.pagination.ObjectTableModel;
 import qlkh.utils.pagination.PaginatedTableDecorator;
