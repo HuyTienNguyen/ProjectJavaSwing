@@ -81,6 +81,7 @@ public class InvoiceImportDetailController {
                 if (records == 0) {
                     view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
                     view.clearView(false);
+                            view.loadImports(invoiceImDao.getImports());
                     view.showView(invoiceImDetailDao.getAllDetails());
                 } else {
                     view.showMessage(Constants.MSG_ADD_ERROR, Constants.FLAG_ERROR);
