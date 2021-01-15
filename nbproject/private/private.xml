@@ -3,17 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/controller/InvoiceImportDetailController.java</file>
             <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/testView/GiangTestFrameInvoiceImportDetail.java</file>
-            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/utils/Utils.java</file>
-            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/MainView1.java</file>
-            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/utils/Constants.java</file>
-            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/daoimpl/InvoiceImportDetailDaoImpl.java</file>
-            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/dao/IInvoiceImportDetailDAO.java</file>
-            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/entities/InvoiceImportDetail.java</file>
-            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/entities/InvoiceImport.java</file>
-            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/controller/ProductsController.java</file>
-            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/daoimpl/InvoiceImportDaoImpl.java</file>
+            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/utils/pagination/PaginatedTableDecorator.java</file>
+            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/utils/pagination/PaginationDataProvider.java</file>
+            <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/views/InvoiceImportDetailView.java</file>
         </group>
     </open-files>
 </project-private>
