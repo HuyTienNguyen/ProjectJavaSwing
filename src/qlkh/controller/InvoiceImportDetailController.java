@@ -18,6 +18,7 @@ import qlkh.daoimpl.InvoiceImportDaoImpl;
 import qlkh.daoimpl.InvoiceImportDetailDaoImpl;
 import qlkh.daoimpl.ProductDaoImpl;
 import qlkh.entities.Category;
+import qlkh.entities.InvoiceImport;
 import qlkh.entities.InvoiceImportDetail;
 import qlkh.entities.Products;
 import qlkh.request.IRequest;
