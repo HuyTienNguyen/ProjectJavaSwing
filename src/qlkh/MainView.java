@@ -17,9 +17,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import qlkh.controller.InvoiceImportDetailController;
 import qlkh.testView.GiangTestFrameInvoiceImportDetail;
 import qlkh.views.CustomerView;
 import qlkh.views.Home;
+import qlkh.views.InvoiceImportDetail2View;
 import qlkh.views.InvoiceImportDetailView;
 
 /**
@@ -363,7 +365,8 @@ public class MainView extends javax.swing.JFrame {
 
     private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
         // TODO add your handling code here:
-        InvoiceImportDetailView x = new InvoiceImportDetailView();
+        InvoiceImportDetailController y = new InvoiceImportDetailController();
+        JPanel x = y.getView();
         content.add(x);
         x.setVisible(true);
     }//GEN-LAST:event_kButton1ActionPerformed
