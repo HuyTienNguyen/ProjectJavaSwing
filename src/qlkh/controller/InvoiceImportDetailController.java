@@ -47,13 +47,8 @@ public class InvoiceImportDetailController {
         invoiceImDetailDao = new InvoiceImportDetailDaoImpl();
         invoiceImDao = new InvoiceImportDaoImpl();
         cateDao = new CategoryDaoImpl();
-    }
-
-    public void showView() {
-        if (view == null) {
-            view = new InvoiceImportDetail2View();
-        }
-        List<Products> products = proDao.getAllProducts();
+        
+         List<Products> products = proDao.getAllProducts();
         view.loadAllCategories(cateDao.getCategoies(), products);
         view.loadImports(invoiceImDao.getImports());
         view.loadProducts(products);
@@ -65,7 +60,9 @@ public class InvoiceImportDetailController {
         view.addTableMouseListener(new TableMouseListener());
     }
 
-    public JPanel getView() {
+
+
+    public JPanel getContentPage() {
         return view.getContent();
     }
 

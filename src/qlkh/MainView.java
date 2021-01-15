@@ -5,6 +5,7 @@
  */
 package qlkh;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
@@ -54,21 +55,22 @@ public class MainView extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         iconminmaxclose = new javax.swing.JPanel();
         ButtonClose = new javax.swing.JPanel();
-        close = new javax.swing.JLabel();
-        ButtonScreen = new javax.swing.JPanel();
         RestoreDown = new javax.swing.JLabel();
-        ButtonHide = new javax.swing.JPanel();
+        ButtonScreen = new javax.swing.JPanel();
         minimize = new javax.swing.JLabel();
+        ButtonHide = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         FrameDrag = new javax.swing.JLabel();
+        close = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        content = new javax.swing.JPanel();
         menuMain = new javax.swing.JPanel();
         kButton1 = new keeptoo.KButton();
         kButton2 = new keeptoo.KButton();
         kButton3 = new keeptoo.KButton();
         kButton4 = new keeptoo.KButton();
-        content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -85,30 +87,6 @@ public class MainView extends javax.swing.JFrame {
         ButtonClose.setBackground(new java.awt.Color(231, 234, 237));
         ButtonClose.setLayout(new java.awt.BorderLayout());
 
-        close.setBackground(new java.awt.Color(23, 169, 204));
-        close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-delete-15.png"))); // NOI18N
-        close.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                closeMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                closeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                closeMouseExited(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                closeMouseReleased(evt);
-            }
-        });
-        ButtonClose.add(close, java.awt.BorderLayout.CENTER);
-
-        iconminmaxclose.add(ButtonClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 50, 30));
-
-        ButtonScreen.setBackground(new java.awt.Color(231, 234, 237));
-        ButtonScreen.setLayout(new java.awt.BorderLayout());
-
         RestoreDown.setBackground(new Color(0,0,0,0));
         RestoreDown.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         RestoreDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-restore-down-15.png"))); // NOI18N
@@ -123,12 +101,12 @@ public class MainView extends javax.swing.JFrame {
                 RestoreDownMouseExited(evt);
             }
         });
-        ButtonScreen.add(RestoreDown, java.awt.BorderLayout.CENTER);
+        ButtonClose.add(RestoreDown, java.awt.BorderLayout.CENTER);
 
-        iconminmaxclose.add(ButtonScreen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 50, 30));
+        iconminmaxclose.add(ButtonClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 50, 30));
 
-        ButtonHide.setBackground(new java.awt.Color(231, 234, 237));
-        ButtonHide.setLayout(new java.awt.BorderLayout());
+        ButtonScreen.setBackground(new java.awt.Color(231, 234, 237));
+        ButtonScreen.setLayout(new java.awt.BorderLayout());
 
         minimize.setBackground(new java.awt.Color(23, 169, 204));
         minimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -144,8 +122,12 @@ public class MainView extends javax.swing.JFrame {
                 minimizeMouseExited(evt);
             }
         });
-        ButtonHide.add(minimize, java.awt.BorderLayout.CENTER);
+        ButtonScreen.add(minimize, java.awt.BorderLayout.CENTER);
 
+        iconminmaxclose.add(ButtonScreen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 50, 30));
+
+        ButtonHide.setBackground(new java.awt.Color(231, 234, 237));
+        ButtonHide.setLayout(new java.awt.BorderLayout());
         iconminmaxclose.add(ButtonHide, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 30));
 
         header.add(iconminmaxclose, java.awt.BorderLayout.LINE_END);
@@ -174,7 +156,28 @@ public class MainView extends javax.swing.JFrame {
 
         header.add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(header, java.awt.BorderLayout.PAGE_START);
+        close.setBackground(new java.awt.Color(23, 169, 204));
+        close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-delete-15.png"))); // NOI18N
+        close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                closeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                closeMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                closeMouseReleased(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(153, 255, 153));
+
+        content.setBackground(new java.awt.Color(102, 255, 0));
+        content.setLayout(new java.awt.CardLayout());
 
         menuMain.setBackground(new java.awt.Color(28, 43, 65));
         menuMain.setPreferredSize(new java.awt.Dimension(200, 575));
@@ -242,7 +245,7 @@ public class MainView extends javax.swing.JFrame {
         menuMainLayout.setHorizontalGroup(
             menuMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(kButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(kButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(kButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(menuMainLayout.createSequentialGroup()
                 .addComponent(kButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,18 +260,52 @@ public class MainView extends javax.swing.JFrame {
                 .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(kButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(kButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(493, Short.MAX_VALUE))
+                .addContainerGap(342, Short.MAX_VALUE))
         );
 
-        getContentPane().add(menuMain, java.awt.BorderLayout.LINE_START);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(menuMain, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, 1076, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(menuMain, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        content.setBackground(new java.awt.Color(102, 255, 0));
-        content.setLayout(new java.awt.CardLayout());
-        getContentPane().add(content, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, 1225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(close, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(close, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        setSize(new java.awt.Dimension(1225, 756));
+        setSize(new java.awt.Dimension(1281, 756));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -343,12 +380,23 @@ public class MainView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_kButton3ActionPerformed
 
-    private void FrameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FrameDragMouseDragged
+    private void kButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton2ActionPerformed
+        CustomerView x = new CustomerView();
+        content.removeAll();
+        content.add(x);
+       
+        System.out.println("â");
+    }//GEN-LAST:event_kButton2ActionPerformed
+
+    private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
         // TODO add your handling code here:
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
-        this.setLocation(x - xMouse, y - yMouse);
-    }//GEN-LAST:event_FrameDragMouseDragged
+        InvoiceImportDetailController y = new InvoiceImportDetailController();
+     JPanel x = y.getContentPage();
+      content.removeAll();
+        content.add(x);
+       
+
+    }//GEN-LAST:event_kButton1ActionPerformed
 
     private void FrameDragMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FrameDragMousePressed
         // TODO add your handling code here:
@@ -356,20 +404,12 @@ public class MainView extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_FrameDragMousePressed
 
-    private void kButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton2ActionPerformed
-        CustomerView x = new CustomerView();
-        content.add(x);
-        
-        x.setVisible(true);
-    }//GEN-LAST:event_kButton2ActionPerformed
-
-    private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
+    private void FrameDragMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FrameDragMouseDragged
         // TODO add your handling code here:
-        InvoiceImportDetailController y = new InvoiceImportDetailController();
-        JPanel x = y.getView();
-        content.add(x);
-        x.setVisible(true);
-    }//GEN-LAST:event_kButton1ActionPerformed
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_FrameDragMouseDragged
 
     /**
      * @param args the command line arguments
@@ -422,6 +462,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private keeptoo.KButton kButton1;
     private keeptoo.KButton kButton2;
     private keeptoo.KButton kButton3;

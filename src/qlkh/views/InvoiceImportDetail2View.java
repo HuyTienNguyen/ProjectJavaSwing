@@ -46,7 +46,7 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
     private static Map<String, String> productMap = new HashMap<>();
     private static Map<String, String> importMap = new HashMap<>();
     private static Map<Category, List<Products>> cateMap = new HashMap<>();
-    private static int[] pageSizes = new int[]{100, 1000, 10000};
+    private static int[] pageSizes = new int[]{10,100, 1000, 10000};
     private static final int defaultPageSize = pageSizes[0];
     private static final int maxPagingCompToShow = 7;
     private static List<Products> products = new ArrayList<>();
@@ -485,6 +485,7 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         cbbCategory.setSelectedIndex(0);
         cbbInvoiceImport.setSelectedIndex(0);
         inputPrice.requestFocus();
+        clearError();
     }
 
     /**
@@ -561,7 +562,7 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(headerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(759, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -802,7 +803,8 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -814,8 +816,8 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(tableInvoiceImDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
