@@ -46,7 +46,7 @@
                   <Component id="header" min="-2" max="-2" attributes="0"/>
                   <Component id="close" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="145" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -303,10 +303,7 @@
                   <Component id="kButton1" max="32767" attributes="0"/>
                   <Component id="kButton3" alignment="0" max="32767" attributes="0"/>
                   <Component id="kButton4" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="kButton2" min="-2" pref="198" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="kButton2" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -318,9 +315,9 @@
                       <Component id="kButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="kButton3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="kButton4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="342" max="32767" attributes="0"/>
+                      <EmptySpace pref="348" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -328,9 +325,6 @@
           <SubComponents>
             <Component class="keeptoo.KButton" name="kButton1">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/qlkh/icons/icons8-home-30.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Unit"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
@@ -358,9 +352,6 @@
             </Component>
             <Component class="keeptoo.KButton" name="kButton2">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/qlkh/icons/icons8-home-30.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="InvoiceImportDetail"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
