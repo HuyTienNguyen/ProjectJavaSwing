@@ -40,7 +40,7 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
     private final String unitBtnName ="unit";
         private final String importBtnName ="import";
 
-            private final String reportBtnName ="report";
+        private final String reportBtnName ="report";
 
     public TestMainViewWithItem() {
 
@@ -121,13 +121,15 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
                 .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sidebarPanelLayout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(reportBtn)
-                            .addComponent(invoiceImportBtn)))
+                        .addComponent(reportBtn))
                     .addGroup(sidebarPanelLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(unitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(invoiceImportBtn)
+                .addGap(24, 24, 24))
         );
         sidebarPanelLayout.setVerticalGroup(
             sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +140,7 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
                 .addComponent(invoiceImportBtn)
                 .addGap(44, 44, 44)
                 .addComponent(reportBtn)
-                .addContainerGap(397, Short.MAX_VALUE))
+                .addContainerGap(383, Short.MAX_VALUE))
         );
 
         contentPanel.setLayout(new java.awt.CardLayout());
@@ -150,8 +152,9 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
             .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 954, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,6 +200,7 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
     public void goToPageMainPanel(String name) {
         CardLayout layout = (CardLayout) contentPanel.getLayout();
         layout.show(contentPanel,name);
+        this.pack();
     }
 
     public void changeColor(JPanel hover, Color rand) {
@@ -207,43 +211,7 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TestMainViewWithItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TestMainViewWithItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TestMainViewWithItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TestMainViewWithItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+      
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

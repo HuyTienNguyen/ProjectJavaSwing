@@ -36,6 +36,8 @@ public class UserDaoImpl implements IUserDAO {
 
     private static final String SQL_SELECT_BY_EMAIL = "SELECT * FROM Users WHERE EMAIL =?";
     private static final String SQL_SELECT_BY_MAIL_AND_CODE = "SELECT * FROM Users WHERE EMAIL =? AND verifyCode =?";
+    private static final String SQL_SELECT_USERNAME_AND_EMAIL = "SELECT * From users where username = ? and email = ?";
+    private static final String SQL_UPDATE_PASSWORD_BY_EMAIL = "Update Users Set Password = ? Where Email = ?";
 
     @Override
     public List<Users> getUsers() {
@@ -300,7 +302,20 @@ public class UserDaoImpl implements IUserDAO {
         return countRecord;
     }
 
-   
-
+    public boolean checkUsernameAndEmail(Users element) throws SQLException{
+        boolean check = false;
+        ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_USERNAME_AND_EMAIL,element.getParam(Constants.ACTION_SELECT_USERNAME_AND_EMAIL));
+        if(rs.next()){
+            check = true;
+        }
+        return check;
+    }
+    
+    public int updatePasswordByEmail(String password, String Email) throws SQLException{
+        int countUpdate = 0;
+        String[] param = new String[]{password,Email};
+        countUpdate = DatabaseHelper.updateData(SQL_UPDATE_PASSWORD_BY_EMAIL, param);
+        return countUpdate;
+    }
 
 }
