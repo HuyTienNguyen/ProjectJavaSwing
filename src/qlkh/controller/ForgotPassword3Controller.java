@@ -23,7 +23,7 @@ public class ForgotPassword3Controller {
 
     public ForgotPassword3Controller(ForgotPassword3 view) {
         forgotPass3 = view;
-//        forgotPass3.addBtnVerifyCode();
+        forgotPass3.addBtnVerify(new BtnChangePassActionListener());
 
     }
 
@@ -34,7 +34,9 @@ public class ForgotPassword3Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            
+            if(forgotPass3.validateData()){
+                System.out.println("oke");
+            }
         }
         
     }
