@@ -8,25 +8,11 @@ package qlkh.testView;
 import qlkh.*;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import java.awt.Point;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import qlkh.controller.InvoiceImportDetailController;
 import qlkh.controller.ReportsController;
-import qlkh.controller.UnitController;
-import qlkh.testView.GiangTestFrameInvoiceImportDetail;
-import qlkh.views.CustomerView;
 import qlkh.views.Home;
-import qlkh.views.InvoiceImportDetail2View;
-import qlkh.views.InvoiceImportDetailView;
+
 
 /**
  *
@@ -37,23 +23,23 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
     /**
      * Creates new form MainView
      */
-    private final String unitBtnName ="unit";
-        private final String importBtnName ="import";
+    private final String unitBtnName = "unit";
+    private final String importBtnName = "import";
 
-        private final String reportBtnName ="report";
+    private final String reportBtnName = "report";
 
     public TestMainViewWithItem() {
 
         initComponents();
         Home home = new Home();
-        contentPanel.add(home,unitBtnName);
+        contentPanel.add(home, unitBtnName);
         InvoiceImportDetailController y = new InvoiceImportDetailController();
         JPanel x = y.getContentPage();
 
-        contentPanel.add(x,importBtnName);
+        contentPanel.add(x, importBtnName);
         ReportsController controller = new ReportsController();
         JPanel z = controller.getContentPage();
-        contentPanel.add(z,reportBtnName);
+        contentPanel.add(z, reportBtnName);
     }
 
     /**
@@ -140,7 +126,8 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
                 .addComponent(invoiceImportBtn)
                 .addGap(44, 44, 44)
                 .addComponent(reportBtn)
-                .addContainerGap(383, Short.MAX_VALUE))
+              
+                .addContainerGap(473, Short.MAX_VALUE))
         );
 
         contentPanel.setLayout(new java.awt.CardLayout());
@@ -153,8 +140,9 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 954, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 954, javax.swing.GroupLayout.PREFERRED_SIZE)              
+                .addGap(0, 0, 0)
+                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,12 +165,11 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
             .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(1141, 672));
+        setSize(new java.awt.Dimension(1152, 748));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void unitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unitBtnActionPerformed
-      
 
         goToPageMainPanel(unitBtnName);
     }//GEN-LAST:event_unitBtnActionPerformed
@@ -194,12 +181,15 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
 
     private void reportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportBtnActionPerformed
 
-
         goToPageMainPanel(reportBtnName);
     }//GEN-LAST:event_reportBtnActionPerformed
     public void goToPageMainPanel(String name) {
         CardLayout layout = (CardLayout) contentPanel.getLayout();
-        layout.show(contentPanel,name);
+
+        layout.show(contentPanel, name);
+
+        layout.show(contentPanel, name);
+
         this.pack();
     }
 
@@ -211,7 +201,7 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-      
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

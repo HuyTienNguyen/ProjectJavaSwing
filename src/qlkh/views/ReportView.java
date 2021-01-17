@@ -119,96 +119,110 @@ public class ReportView extends javax.swing.JPanel {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        subPanelLeftOn = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        subPanelRightOn = new javax.swing.JPanel();
-        subPanelLeftBelow = new javax.swing.JPanel();
-        subPanelRightBelow = new javax.swing.JPanel();
+        leftPanel = new javax.swing.JPanel();
+        subPanelLeftUp = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jComboBox2 = new javax.swing.JComboBox();
+        subPanelRightUp = new javax.swing.JPanel();
+        rightPanel = new javax.swing.JPanel();
+        subPanelLeftDown = new javax.swing.JPanel();
+        subPanelLefDown = new javax.swing.JPanel();
 
-        setPreferredSize(new java.awt.Dimension(898, 600));
+        mainPanel.setLayout(new javax.swing.BoxLayout(mainPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        subPanelLeftOn.setBackground(new java.awt.Color(255, 204, 204));
+        leftPanel.setBackground(new java.awt.Color(255, 153, 204));
+        leftPanel.setLayout(new javax.swing.BoxLayout(leftPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel1.setText("Hello");
+        subPanelLeftUp.setBackground(new java.awt.Color(255, 153, 51));
 
-        javax.swing.GroupLayout subPanelLeftOnLayout = new javax.swing.GroupLayout(subPanelLeftOn);
-        subPanelLeftOn.setLayout(subPanelLeftOnLayout);
-        subPanelLeftOnLayout.setHorizontalGroup(
-            subPanelLeftOnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(subPanelLeftOnLayout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout subPanelLeftUpLayout = new javax.swing.GroupLayout(subPanelLeftUp);
+        subPanelLeftUp.setLayout(subPanelLeftUpLayout);
+        subPanelLeftUpLayout.setHorizontalGroup(
+            subPanelLeftUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+            .addGroup(subPanelLeftUpLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        subPanelLeftOnLayout.setVerticalGroup(
-            subPanelLeftOnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(subPanelLeftOnLayout.createSequentialGroup()
-                .addGap(139, 139, 139)
-                .addComponent(jLabel1)
-                .addContainerGap(147, Short.MAX_VALUE))
-        );
-
-        subPanelRightOn.setBackground(new java.awt.Color(51, 153, 0));
-
-        javax.swing.GroupLayout subPanelRightOnLayout = new javax.swing.GroupLayout(subPanelRightOn);
-        subPanelRightOn.setLayout(subPanelRightOnLayout);
-        subPanelRightOnLayout.setHorizontalGroup(
-            subPanelRightOnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        subPanelRightOnLayout.setVerticalGroup(
-            subPanelRightOnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        subPanelLeftBelow.setBackground(new java.awt.Color(0, 153, 102));
-
-        javax.swing.GroupLayout subPanelLeftBelowLayout = new javax.swing.GroupLayout(subPanelLeftBelow);
-        subPanelLeftBelow.setLayout(subPanelLeftBelowLayout);
-        subPanelLeftBelowLayout.setHorizontalGroup(
-            subPanelLeftBelowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        subPanelLeftBelowLayout.setVerticalGroup(
-            subPanelLeftBelowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        subPanelLeftUpLayout.setVerticalGroup(
+            subPanelLeftUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelLeftUpLayout.createSequentialGroup()
+                .addGap(0, 21, Short.MAX_VALUE)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        subPanelRightBelow.setBackground(new java.awt.Color(0, 204, 255));
+        leftPanel.add(subPanelLeftUp);
 
-        javax.swing.GroupLayout subPanelRightBelowLayout = new javax.swing.GroupLayout(subPanelRightBelow);
-        subPanelRightBelow.setLayout(subPanelRightBelowLayout);
-        subPanelRightBelowLayout.setHorizontalGroup(
-            subPanelRightBelowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 446, Short.MAX_VALUE)
+        subPanelRightUp.setBackground(new java.awt.Color(102, 255, 0));
+
+        javax.swing.GroupLayout subPanelRightUpLayout = new javax.swing.GroupLayout(subPanelRightUp);
+        subPanelRightUp.setLayout(subPanelRightUpLayout);
+        subPanelRightUpLayout.setHorizontalGroup(
+            subPanelRightUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 456, Short.MAX_VALUE)
         );
-        subPanelRightBelowLayout.setVerticalGroup(
-            subPanelRightBelowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        subPanelRightUpLayout.setVerticalGroup(
+            subPanelRightUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 452, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(subPanelLeftBelow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(subPanelLeftOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subPanelRightBelow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(subPanelRightOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        leftPanel.add(subPanelRightUp);
+
+        mainPanel.add(leftPanel);
+
+        rightPanel.setBackground(new java.awt.Color(0, 255, 102));
+        rightPanel.setLayout(new javax.swing.BoxLayout(rightPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        subPanelLeftDown.setBackground(new java.awt.Color(0, 255, 255));
+
+        javax.swing.GroupLayout subPanelLeftDownLayout = new javax.swing.GroupLayout(subPanelLeftDown);
+        subPanelLeftDown.setLayout(subPanelLeftDownLayout);
+        subPanelLeftDownLayout.setHorizontalGroup(
+            subPanelLeftDownLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 456, Short.MAX_VALUE)
         );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(subPanelRightOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(subPanelLeftOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subPanelLeftBelow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(subPanelRightBelow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        subPanelLeftDownLayout.setVerticalGroup(
+            subPanelLeftDownLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 415, Short.MAX_VALUE)
         );
+
+        rightPanel.add(subPanelLeftDown);
+
+        subPanelLefDown.setBackground(new java.awt.Color(0, 204, 102));
+
+        javax.swing.GroupLayout subPanelLefDownLayout = new javax.swing.GroupLayout(subPanelLefDown);
+        subPanelLefDown.setLayout(subPanelLefDownLayout);
+        subPanelLefDownLayout.setHorizontalGroup(
+            subPanelLefDownLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 456, Short.MAX_VALUE)
+        );
+        subPanelLefDownLayout.setVerticalGroup(
+            subPanelLefDownLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 415, Short.MAX_VALUE)
+        );
+
+        rightPanel.add(subPanelLefDown);
+
+        mainPanel.add(rightPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -218,17 +232,21 @@ public class ReportView extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JPanel subPanelLeftBelow;
-    private javax.swing.JPanel subPanelLeftOn;
-    private javax.swing.JPanel subPanelRightBelow;
-    private javax.swing.JPanel subPanelRightOn;
+    private javax.swing.JPanel rightPanel;
+    private javax.swing.JPanel subPanelLefDown;
+    private javax.swing.JPanel subPanelLeftDown;
+    private javax.swing.JPanel subPanelLeftUp;
+    private javax.swing.JPanel subPanelRightUp;
     // End of variables declaration//GEN-END:variables
 }
