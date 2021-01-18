@@ -185,11 +185,7 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
     }//GEN-LAST:event_reportBtnActionPerformed
     public void goToPageMainPanel(String name) {
         CardLayout layout = (CardLayout) contentPanel.getLayout();
-
         layout.show(contentPanel, name);
-
-        layout.show(contentPanel, name);
-
         this.pack();
     }
 

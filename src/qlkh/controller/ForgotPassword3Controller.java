@@ -47,6 +47,8 @@ public class ForgotPassword3Controller {
                 try {
                     Users users = forgotPass3.getUsernameAndEmail();
                     UserDaoImpl userModel = new UserDaoImpl();
+                    System.out.println(users.getUserName());
+                    System.out.println(users.getEmail());
                     if (userModel.checkUsernameAndEmail(users)) {
                         forgotPass3.showMessageUsername("MSG_EMPTY");
                         String password = forgotPass3.getPassword();

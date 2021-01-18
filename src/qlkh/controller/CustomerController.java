@@ -13,8 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 import qlkh.daoimpl.CustomerDaoImpl;
-import qlkh.test.HuyTestFrameCustomer;
+import qlkh.views.CustomerView;
 import qlkh.entities.Customers;
 import qlkh.entities.Products;
 import qlkh.request.CustomersRequest;
@@ -28,17 +29,17 @@ import qlkh.utils.Validator;
  */
 public class CustomerController {
 
-    HuyTestFrameCustomer view;
+    CustomerView view;
     CustomerDaoImpl cusDao;
 
     public CustomerController() {
-        view = new HuyTestFrameCustomer();
+        view = new CustomerView();
         cusDao = new CustomerDaoImpl();
     }
 
     public void showView() {
         if (view == null) {
-            view = new HuyTestFrameCustomer();
+            view = new CustomerView();
         }
 
         List<Customers> customer = cusDao.getAllCustomers();
@@ -51,8 +52,11 @@ public class CustomerController {
         view.addBtnDeleteAction(this::btnDeleteAction);
         view.addBtnClearAction(this::btnClearAction);
         view.addTableMouseListener(new TableProductMouseListener());
+        view.clearView(true);
     }
-;
+  public JPanel getContentPage() {
+        return view.getContent();
+    }
     private void btnAddAction(ActionEvent e) {
         try {
             // Declare suplier request

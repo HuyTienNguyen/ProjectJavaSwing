@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import qlkh.entities.Category;
@@ -40,8 +41,6 @@ public class ProductsView extends javax.swing.JPanel implements IView {
     /**
      * Creates new form ObjectsView
      */
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,7 +86,7 @@ public class ProductsView extends javax.swing.JPanel implements IView {
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(headerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(970, Short.MAX_VALUE))
+                .addContainerGap(851, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,11 +100,11 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         tablePanel.setLayout(tablePanelLayout);
         tablePanelLayout.setHorizontalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1109, Short.MAX_VALUE)
+            .addGap(0, 990, Short.MAX_VALUE)
         );
         tablePanelLayout.setVerticalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 249, Short.MAX_VALUE)
+            .addGap(0, 309, Short.MAX_VALUE)
         );
 
         name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -350,11 +349,19 @@ public class ProductsView extends javax.swing.JPanel implements IView {
 
     // Show view with list Suplier on Suplier Table
     public void showView(List<Products> products) {
+
         this.setVisible(true);
         setEnableBtnEdit(true);
         setEnableBtnEdit(false);
-        loadAllProducts(products);
+        if (products != null) {
+            loadAllProducts(products);
 
+        }
+
+    }
+
+    public JPanel getContentPage() {
+        return this;
     }
 
     private static TableModel createObjectDataModel() {
@@ -440,7 +447,11 @@ public class ProductsView extends javax.swing.JPanel implements IView {
 
                 List<Products> newLists = new ArrayList<>();
                 for (Products em : products) {
-                    if (String.valueOf(em.getId()).contains(searchText) || em.getName().contains(searchText) ) {
+                    if (String.valueOf(em.getId()).contains(searchText) 
+                            || em.getName().contains(searchText)
+                            || cateMap.get(em.getIdCate()).contains(searchText)
+                            || unitMap.get(em.getIdUnit()).contains(searchText)
+                            || suplierMap.get(em.getIdSuplier()).contains(searchText)) {
                         newLists.add(em);
                     }
                 }
@@ -460,6 +471,7 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         if (listUnits.isEmpty() == true) {
             listUnits = units;
         }
+        cbbUnit.removeAllItems();
         Unit numberOneUnit = new Unit(0, "");
         cbbUnit.addItem(numberOneUnit);
         for (Unit un : units) {
@@ -476,6 +488,8 @@ public class ProductsView extends javax.swing.JPanel implements IView {
             listSupliers = supliers;
         }
         Supliers numberOneSuplier = new Supliers(0, "");
+                cbbSuplier.removeAllItems();
+
         cbbSuplier.addItem(numberOneSuplier);
         for (Supliers sup : supliers) {
             if (sup.getStatus() > 0) {
@@ -490,6 +504,7 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         if (listCategories.isEmpty() == true) {
             listCategories = categories;
         }
+        cbbCategory.removeAllItems();
         Category numberOneCate = new Category(0, "");
         cbbCategory.addItem(numberOneCate);
         for (Category cate : categories) {
@@ -500,7 +515,6 @@ public class ProductsView extends javax.swing.JPanel implements IView {
 
         }
     }
- 
 
     // Set ResourceBundle to this view
     private void setResourceBundle(Locale locale) {
@@ -596,7 +610,7 @@ public class ProductsView extends javax.swing.JPanel implements IView {
     public void addComboboxStateChangedListener(ItemListener listener) {
         cbbUnit.addItemListener(listener);
     }
-   
+
     // Get text from txtNewUnitField
     private void showErrMess(String message, int color) {
         errName.setText(bundle.getString(message));
@@ -635,7 +649,6 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         btnEdit.setEnabled(value);
     }
 
-
     public int showDialog(JFrame frame, String message, String title, int typeIcon) {
         int iconNumber = (typeIcon == JOptionPane.QUESTION_MESSAGE) ? JOptionPane.QUESTION_MESSAGE : JOptionPane.ERROR_MESSAGE;
         return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, iconNumber);
@@ -646,6 +659,7 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         setEnableBtnEdit(false);
         if (clearAll == true) {
             messageProduct.setText("");
+            clearError();
         }
         id.setText("");
         name.setText("");
@@ -661,7 +675,7 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         errSuplier.setText("");
         errUnit.setText("");
         messageProduct.setText("");
-         name.requestFocus();
+        name.requestFocus();
     }
 
     public void showUpdateProduct(Products product) {

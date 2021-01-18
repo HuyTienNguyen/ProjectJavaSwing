@@ -32,7 +32,7 @@ import qlkh.utils.Utils;
  *
  * @author GIANG
  */
-public class GiangTestFrameCategory extends javax.swing.JFrame implements IView {
+public class CategoryView extends javax.swing.JFrame implements IView {
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -321,7 +321,7 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
      */
     ResourceBundle bundle;
 
-    public GiangTestFrameCategory() {
+    public CategoryView() {
         //  Locale local = Utils.getLocale();
         Locale local = Locale.getDefault();
         setResourceBundle(local);

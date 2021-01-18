@@ -155,7 +155,7 @@ public class ReportView extends javax.swing.JPanel {
         subPanelLeftUp.setLayout(subPanelLeftUpLayout);
         subPanelLeftUpLayout.setHorizontalGroup(
             subPanelLeftUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
             .addGroup(subPanelLeftUpLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,7 +164,7 @@ public class ReportView extends javax.swing.JPanel {
         subPanelLeftUpLayout.setVerticalGroup(
             subPanelLeftUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelLeftUpLayout.createSequentialGroup()
-                .addGap(0, 21, Short.MAX_VALUE)
+                .addGap(0, 8, Short.MAX_VALUE)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -178,11 +178,11 @@ public class ReportView extends javax.swing.JPanel {
         subPanelRightUp.setLayout(subPanelRightUpLayout);
         subPanelRightUpLayout.setHorizontalGroup(
             subPanelRightUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 456, Short.MAX_VALUE)
+            .addGap(0, 492, Short.MAX_VALUE)
         );
         subPanelRightUpLayout.setVerticalGroup(
             subPanelRightUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGap(0, 441, Short.MAX_VALUE)
         );
 
         leftPanel.add(subPanelRightUp);
@@ -198,11 +198,11 @@ public class ReportView extends javax.swing.JPanel {
         subPanelLeftDown.setLayout(subPanelLeftDownLayout);
         subPanelLeftDownLayout.setHorizontalGroup(
             subPanelLeftDownLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 456, Short.MAX_VALUE)
+            .addGap(0, 495, Short.MAX_VALUE)
         );
         subPanelLeftDownLayout.setVerticalGroup(
             subPanelLeftDownLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
+            .addGap(0, 176, Short.MAX_VALUE)
         );
 
         rightPanel.add(subPanelLeftDown);
@@ -213,11 +213,11 @@ public class ReportView extends javax.swing.JPanel {
         subPanelLefDown.setLayout(subPanelLefDownLayout);
         subPanelLefDownLayout.setHorizontalGroup(
             subPanelLefDownLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 456, Short.MAX_VALUE)
+            .addGap(0, 495, Short.MAX_VALUE)
         );
         subPanelLefDownLayout.setVerticalGroup(
             subPanelLefDownLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
+            .addGap(0, 176, Short.MAX_VALUE)
         );
 
         rightPanel.add(subPanelLefDown);
@@ -228,11 +228,11 @@ public class ReportView extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 990, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import qlkh.dao.ISuplierDAO;
 import qlkh.dao.IUserDAO;
 import qlkh.daoimpl.SuplierDaoImpl1;
@@ -19,11 +20,8 @@ import qlkh.daoimpl.UserDaoImpl;
 import qlkh.entities.Supliers;
 import qlkh.entities.Users;
 import qlkh.request.IRequest;
-import qlkh.request.SuplierRequest;
-import qlkh.request.SuplierUpdateRequest;
 import qlkh.request.UsersRequest;
-import qlkh.testView.GiangTestFrameSupplier;
-import qlkh.testView.GiangTestFrameUsers;
+import qlkh.views.UsersView;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
 
@@ -33,12 +31,12 @@ import qlkh.utils.Validator;
  */
 public class UsersController {
 
-    GiangTestFrameUsers view;
+    UsersView view;
     IUserDAO userDao;
     Supliers editSuplier;
 
     public UsersController() {
-        view = new GiangTestFrameUsers();
+        view = new UsersView();
         userDao = new UserDaoImpl();
         view.addBtnAddAction(this::btnAddAction);
         view.addBtnEditAction(this::btnEditAction);
@@ -49,12 +47,16 @@ public class UsersController {
 
     public void showView() {
         if (view == null) {
-            view = new GiangTestFrameUsers();
+            view = new UsersView();
         }
         view.showView(userDao.getUsers());
         view.addTableMouseListener(new TableMouseListener());
-    }
+                view.clearView(true);
 
+    }
+  public JPanel getContentPage() {
+        return view.getContent();
+    }
     private void btnAddAction(ActionEvent e) {
         try {
             // Declare suplier request

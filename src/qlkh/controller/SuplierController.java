@@ -14,15 +14,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import qlkh.dao.ISuplierDAO;
 import qlkh.daoimpl.SuplierDaoImpl1;
 import qlkh.entities.Supliers;
 import qlkh.request.IRequest;
-import qlkh.testView.GiangTestFrameSupplier;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
 import qlkh.request.SuplierRequest;
 import qlkh.request.SuplierUpdateRequest;
+import qlkh.views.SuplierView;
 
 /**
  *
@@ -30,12 +31,12 @@ import qlkh.request.SuplierUpdateRequest;
  */
 public class SuplierController {
 
-    GiangTestFrameSupplier view;
+    SuplierView view;
     ISuplierDAO suplierDao;
     Supliers editSuplier;
 
     public SuplierController() {
-        view = new GiangTestFrameSupplier();
+        view = new SuplierView();
         suplierDao = new SuplierDaoImpl1();
         view.addBtnAddAction(this::btnAddAction);
         view.addBtnEditAction(this::btnEditAction);
@@ -47,12 +48,15 @@ public class SuplierController {
 
     public void showView() {
         if (view == null) {
-            view = new GiangTestFrameSupplier();
+            view = new SuplierView();
         }
         view.showView(suplierDao.getAllSupliers());
+        view.clearView(true);
 
     }
-
+  public JPanel getContentPage() {
+        return view.getContent();
+    }
     private void btnAddAction(ActionEvent e) {
         try {
             // Declare suplier request
@@ -126,9 +130,7 @@ public class SuplierController {
             String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
             String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
 
-            int yourChoose = view.showDialog(view, message, title, typeIcon);
             int records = 0;
-            if (yourChoose == JOptionPane.YES_OPTION) {
                 records = suplierDao.delete(suplier);
                 if (records > 0) {
                     view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
@@ -138,7 +140,6 @@ public class SuplierController {
                     view.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
 
                 }
-            }
         }
 
     }

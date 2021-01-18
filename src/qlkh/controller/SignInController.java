@@ -120,6 +120,10 @@ public class SignInController {
                 //nếu tài khoản hợp lệ thì cho đi tiếp còn thì thông báo lỗi sai
                 if (userModel.checkUser(dataSignIn) == true) {
                     JOptionPane.showMessageDialog(signIn, "Dang nhap thanh cong");
+                    signIn.closeLoginView();
+                    MainViewController c = new MainViewController();
+                    c.showView();
+                    
                 } else {
                     signIn.showErrPassword(Constants.MSG_FAIL_CONNECT_SIGNIN, Color.RED);
                 }

@@ -27,7 +27,7 @@ import qlkh.utils.Utils;
  *
  * @author GIANG
  */
-public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView {
+public class SuplierView extends javax.swing.JFrame implements IView {
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -442,7 +442,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
      */
     ResourceBundle bundle;
 
-    public GiangTestFrameSupplier() {
+    public SuplierView() {
         //  Locale local = Utils.getLocale();
         Locale local = Locale.getDefault();
         setResourceBundle(local);

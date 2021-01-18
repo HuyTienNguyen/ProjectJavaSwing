@@ -18,16 +18,7 @@ import qlkh.daoimpl.CategoryDaoImpl;
 import qlkh.daoimpl.InvoiceImportDaoImpl;
 import qlkh.daoimpl.InvoiceImportDetailDaoImpl;
 import qlkh.daoimpl.ProductDaoImpl;
-import qlkh.entities.Category;
-import qlkh.entities.InvoiceImport;
-import qlkh.entities.InvoiceImportDetail;
-import qlkh.entities.Products;
-import qlkh.request.IRequest;
-import qlkh.request.InvoiceImportDetailRequest;
-import qlkh.testView.GiangTestFrameInvoiceImportDetail;
-import qlkh.utils.Constants;
-import qlkh.utils.Validator;
-import qlkh.views.InvoiceImportDetail2View;
+
 import qlkh.views.ReportView;
 
 /**
@@ -50,7 +41,7 @@ public class ReportsController {
     public JPanel getContentPage() {
         return view.getContent();
     }
-
+public void showView(){};
     private void cateBoxStateChanged(ItemEvent e) {
 //        Category cate = view.getCateSelected();
 //        if (cate != null) {

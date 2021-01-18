@@ -17,6 +17,7 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import qlkh.entities.Category;
 import qlkh.utils.Constants;
@@ -30,7 +31,6 @@ public class CategoryView extends javax.swing.JPanel implements IView {
     /**
      * Creates new form CategoryView
      */
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +60,8 @@ public class CategoryView extends javax.swing.JPanel implements IView {
         messageCategory = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(990, 618));
+
         headerPanel.setBackground(new java.awt.Color(51, 0, 51));
 
         headerLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -73,7 +75,7 @@ public class CategoryView extends javax.swing.JPanel implements IView {
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(headerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(970, Short.MAX_VALUE))
+                .addContainerGap(851, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,7 +97,7 @@ public class CategoryView extends javax.swing.JPanel implements IView {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
         );
 
         name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -290,7 +292,6 @@ public class CategoryView extends javax.swing.JPanel implements IView {
     // End of variables declaration//GEN-END:variables
  ResourceBundle bundle;
 
-
     public CategoryView() {
         //  Locale local = Utils.getLocale();
         Locale local = Locale.getDefault();
@@ -305,11 +306,21 @@ public class CategoryView extends javax.swing.JPanel implements IView {
         setEnableBtnEdit(true);
         setEnableBtnDelete(true);
         setEnableBtnEdit(false);
-        loadAllCategories(categories);
+        if(categories != null){
+                    loadAllCategories(categories);
+
+        }
 
     }
 
+    public JPanel getContent() {
+        return this;
+    }
+
+  
+
     // Set ResourceBundle to this view
+
     private void setResourceBundle(Locale locale) {
         //Set Resources Bundle theo local 
         bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
@@ -403,10 +414,12 @@ public class CategoryView extends javax.swing.JPanel implements IView {
         errName.setText(bundle.getString(message));
         errName.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }
+
     /**
      * Show the message in header of the view
+     *
      * @param message The message will be show
-     * @param color Color of the message 
+     * @param color Color of the message
      */
     public void showMessage(String message, int color) {
         messageCategory.setText(bundle.getString(message));
@@ -448,9 +461,11 @@ public class CategoryView extends javax.swing.JPanel implements IView {
     public int showDialogMesage(JFrame frame, String message, String title) {
         return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
     }
+
     /**
-     *hello
-     **/
+     * hello
+     *
+     */
 
     public void clearView(boolean clearAll) {
         setEnableBtnAddNew(true);
@@ -458,6 +473,7 @@ public class CategoryView extends javax.swing.JPanel implements IView {
         setEnableBtnDelete(false);
         if (clearAll == true) {
             messageCategory.setText("");
+            clearError();
         }
         id.setText("");
         name.setText("");
