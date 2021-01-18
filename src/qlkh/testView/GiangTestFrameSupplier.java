@@ -544,7 +544,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
             row.add(sup.getAddress());
             row.add(sup.getEmail());
             row.add(sup.getMoreInfo());
-            row.add(Utils.getSimpleDateFormat(sup.getContractDate()));
+            row.add(Utils.getSimpleDateFormatWithHours(sup.getContractDate()));
             row.add(sup.getCharacters());
             row.add((sup.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
             startNumber++;

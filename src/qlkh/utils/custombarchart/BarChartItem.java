@@ -9,14 +9,14 @@ package qlkh.utils.custombarchart;
  *
  * @author Windows 10
  */
-public class BarChartInventoryItem {
+public class BarChartItem {
      private double value;
         private String rowKey;
 
-        public BarChartInventoryItem() {
+        public BarChartItem() {
         }
 
-        public BarChartInventoryItem(double value, String rowKey) {
+        public BarChartItem(double value, String rowKey) {
 
             this.value = value;
             this.rowKey = rowKey;
@@ -39,8 +39,10 @@ public class BarChartInventoryItem {
             this.rowKey = rowKey;
         }
 
-        @Override
-        public String toString() {
-            return "BarChartInventoryItem{" + ", value=" + value + ", rowKey=" + rowKey + '}';
-        }
+    @Override
+    public String toString() {
+        return "BarChartItem{" + "value=" + value + ", rowKey=" + rowKey + '}';
+    }
+
+      
 }

@@ -79,7 +79,7 @@ public class InvoiceImport {
 
     @Override
     public String toString() {
-        return  Utils.getSimpleDateFormat(dateInput) ;
+        return  Utils.getSimpleDateFormatWithHours(dateInput) ;
     }
 
   

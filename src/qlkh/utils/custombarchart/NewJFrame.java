@@ -21,14 +21,14 @@ public class NewJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     private static final String[] valueOfCbbBarchart = {"Những năm gần nhất", "Năm gần nhất", "7 ngày gần nhất"};
-    private static List<BarChartInventoryItem> items = new ArrayList<>();
-    private static Map<Integer, List<BarChartInventoryItem>> mapItems = new HashMap<>();
+    private static List<BarChartItem> items = new ArrayList<>();
+    private static Map<Integer, List<BarChartItem>> mapItems = new HashMap<>();
 
     public NewJFrame() {
         initComponents();
         loadComboBoxBarchart();
         for (int m = 1; m <= 12; m++) {
-            List<BarChartInventoryItem> list = new ArrayList<>();
+            List<BarChartItem> list = new ArrayList<>();
             int valueImport = 0;
             int valueExport = 0;
             if (m % 2 == 0) {
@@ -38,8 +38,8 @@ public class NewJFrame extends javax.swing.JFrame {
                 valueImport = 5;
                 valueExport = 10 * 50;
             }
-            BarChartInventoryItem item1 = new BarChartInventoryItem(valueImport, "Import Amount");
-            BarChartInventoryItem item2 = new BarChartInventoryItem(valueExport, "Export Amount");
+            BarChartItem item1 = new BarChartItem(valueImport, "Import Amount");
+            BarChartItem item2 = new BarChartItem(valueExport, "Export Amount");
 
             list.add(item1);
             list.add(item2);

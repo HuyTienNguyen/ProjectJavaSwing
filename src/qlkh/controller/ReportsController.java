@@ -5,29 +5,16 @@
  */
 package qlkh.controller;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+
 import javax.swing.JPanel;
 import qlkh.daoimpl.CategoryDaoImpl;
 import qlkh.daoimpl.InvoiceImportDaoImpl;
 import qlkh.daoimpl.InvoiceImportDetailDaoImpl;
 import qlkh.daoimpl.ProductDaoImpl;
-import qlkh.entities.Category;
-import qlkh.entities.InvoiceImport;
-import qlkh.entities.InvoiceImportDetail;
-import qlkh.entities.Products;
-import qlkh.request.IRequest;
-import qlkh.request.InvoiceImportDetailRequest;
-import qlkh.testView.GiangTestFrameInvoiceImportDetail;
-import qlkh.utils.Constants;
-import qlkh.utils.Validator;
-import qlkh.views.InvoiceImportDetail2View;
+import qlkh.utils.Utils;
+
 import qlkh.views.ReportView;
 
 /**
@@ -45,6 +32,10 @@ public class ReportsController {
     public ReportsController() {
         view = new ReportView();
         view.showView();
+        SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
+        System.out.println(dateFormat.format(Utils.getDateToday()));
+                System.out.println(dateFormat.format(Utils.getDateIncrementer(7)));
+
     }
 
     public JPanel getContentPage() {

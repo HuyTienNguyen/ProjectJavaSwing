@@ -26,8 +26,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class BarChart_AWT extends JPanel {
 
-    private static List<BarChartInventoryItem> items = new ArrayList<>();
-    private static Map<Integer, List<BarChartInventoryItem>> mapItems = new HashMap<>();
+    private static List<BarChartItem> items = new ArrayList<>();
+    private static Map<Integer, List<BarChartItem>> mapItems = new HashMap<>();
 
     private void setContentPane(ChartPanel chartPanel) {       
         this.add(chartPanel);
@@ -35,7 +35,7 @@ public class BarChart_AWT extends JPanel {
 
     
 
-    public BarChart_AWT(String applicationTitle, String chartTitle, Map<Integer, List<BarChartInventoryItem>> mapItem,String horizontalTitle,String verticalTitle) {
+    public BarChart_AWT(String applicationTitle, String chartTitle, Map<Integer, List<BarChartItem>> mapItem,String horizontalTitle,String verticalTitle) {
       //  super(applicationTitle);
         mapItems = getMapSortByKeyASC(mapItem);
 
@@ -52,20 +52,20 @@ public class BarChart_AWT extends JPanel {
         setContentPane(chartPanel);
     }
 
-    private TreeMap getMapSortByKeyASC(Map<Integer, List<BarChartInventoryItem>> mapItem) {
+    private TreeMap getMapSortByKeyASC(Map<Integer, List<BarChartItem>> mapItem) {
         return new TreeMap(mapItem);
     }
 
-    private CategoryDataset createDataset(Map<Integer, List<BarChartInventoryItem>> mapItem) {
+    private CategoryDataset createDataset(Map<Integer, List<BarChartItem>> mapItem) {
 
         final DefaultCategoryDataset dataset
                 = new DefaultCategoryDataset();
 
 
-        for (Map.Entry<Integer, List<BarChartInventoryItem>> entrySet : mapItem.entrySet()) {
+        for (Map.Entry<Integer, List<BarChartItem>> entrySet : mapItem.entrySet()) {
             String key = entrySet.getKey().toString();
-            List<BarChartInventoryItem> value = entrySet.getValue();
-            for (BarChartInventoryItem value1 : value) {
+            List<BarChartItem> value = entrySet.getValue();
+            for (BarChartItem value1 : value) {
                 dataset.addValue(value1.getValue(), value1.getRowKey(), key);
             }
         }
