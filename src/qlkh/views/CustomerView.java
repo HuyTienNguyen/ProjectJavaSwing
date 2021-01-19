@@ -53,7 +53,6 @@ public class CustomerView extends javax.swing.JPanel implements IView {
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         errName = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         lblAddress = new javax.swing.JLabel();
@@ -130,15 +129,6 @@ public class CustomerView extends javax.swing.JPanel implements IView {
         btnClear.setFocusPainted(false);
         btnClear.setMaximumSize(new java.awt.Dimension(134, 40));
         btnClear.setMinimumSize(new java.awt.Dimension(134, 40));
-
-        btnDelete.setBackground(new java.awt.Color(255, 0, 0));
-        btnDelete.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/delete_50.png"))); // NOI18N
-        btnDelete.setText(bundle.getString("btnDelete")
-        );
-        btnDelete.setFocusPainted(false);
-        btnDelete.setMaximumSize(new java.awt.Dimension(134, 40));
-        btnDelete.setMinimumSize(new java.awt.Dimension(134, 40));
 
         errName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -231,7 +221,6 @@ public class CustomerView extends javax.swing.JPanel implements IView {
                         .addComponent(errPhone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(371, 371, 371)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -248,20 +237,17 @@ public class CustomerView extends javax.swing.JPanel implements IView {
                 .addComponent(messageCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAdd)
-                                .addGap(24, 24, 24)
-                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(13, 13, 13)
-                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(13, 13, 13)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(159, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(btnAdd)
+                            .addGap(24, 24, 24)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(233, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -354,7 +340,6 @@ public class CustomerView extends javax.swing.JPanel implements IView {
     private javax.swing.JTextField address;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JTextField email;
     private javax.swing.JLabel errAddress;
@@ -440,10 +425,6 @@ public class CustomerView extends javax.swing.JPanel implements IView {
 
     public void addBtnAddAction(ActionListener listener) {
         btnAdd.addActionListener(listener);
-    }
-
-    public void addBtnDeleteAction(ActionListener listener) {
-        btnDelete.addActionListener(listener);
     }
 
     public void addBtnEditAction(ActionListener listener) {
