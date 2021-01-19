@@ -477,7 +477,7 @@ exec  sp_create_temp_get_reports_invoiceexportdetail_nearest_week
 /*
 *	Procedure get records invoiceimportdetail from atmost 5 year  to current year
 */
-
+select * from customer
 alter PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
 AS
  SET NOCOUNT ON
