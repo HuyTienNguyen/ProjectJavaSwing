@@ -552,11 +552,11 @@ public class MainView2 extends javax.swing.JFrame {
 
     }
 
-    public void addBtnShowReports(ActionListener listener, ReportsController c) {
-        btnReports.addActionListener(listener);
-        contentPanel.add(c.getContentPage(),reportView);
-
-    }
+//    public void addBtnShowReports(ActionListener listener, ReportsController c) {
+//        btnReports.addActionListener(listener);
+//        contentPanel.add(c.getContentPage(),reportView);
+//
+//    }
 
     public void showView() {
         this.setVisible(true);

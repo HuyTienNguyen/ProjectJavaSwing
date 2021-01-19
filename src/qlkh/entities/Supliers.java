@@ -16,7 +16,7 @@ import qlkh.utils.Utils;
  *
  * @author GIANG
  */
-public class Supliers extends MyObject {
+public class Supliers  {
 
     private int id;
     private String name;

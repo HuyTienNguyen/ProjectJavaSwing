@@ -580,7 +580,6 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
      * @param imports
      */
     public void loadImports(List<InvoiceImport> imports) {
-
         this.imports = imports;
         int counts = 1;
         InvoiceImport newInvoiceImport = new InvoiceImport("0", Utils.getTimestampNow());

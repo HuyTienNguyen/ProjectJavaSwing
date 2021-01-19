@@ -537,10 +537,11 @@ public class SuplierView extends javax.swing.JPanel implements IView {
             row.add(sup.getMoreInfo());
             String date = "";
             try {
-                date = Utils.getSimpleDateFormat(sup.getContractDate());
+                date = Utils.getSimpleDateFormatWithHours(sup.getContractDate());
             } catch (Exception e) {
             }
             row.add(date);
+            row.add(Utils.getSimpleDateFormatWithHours(sup.getContractDate()));
             row.add(sup.getCharacters());
             row.add((sup.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
             startNumber++;

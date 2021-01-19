@@ -23,7 +23,7 @@ import qlkh.utils.DatabaseHelper;
 public class InvoiceExportDaoImpl implements IInvoiceExportDAO {
 
     private static final String SQL_GET_ALL = "SELECT * FROM InvoiceExport";
-    private static final String SQL_INSERT = "INSERT INTO InvoiceExport(Id,DateOutput,IdCustomer) VALUES(?,?,?)";
+    private static final String SQL_INSERT = "INSERT INTO InvoiceExport(Id,DateOutput,IdCustomer,idUser) VALUES(?,?,?,?)";
 
     private static final String SQL_SELECT_BY_ID = "SELECT * FROM InvoiceExport WHERE Id = ? ";
 
@@ -38,7 +38,8 @@ public class InvoiceExportDaoImpl implements IInvoiceExportDAO {
                 InvoiceExport output = new InvoiceExport(
                         rs.getString("Id"),
                         rs.getTimestamp("DateOutput"),
-                        rs.getInt("idCustomer"));
+                        rs.getInt("idCustomer"),
+                        rs.getInt("idUser"));
                 listOuputs.add(output);
             }
         } catch (Exception e) {
@@ -64,7 +65,8 @@ public class InvoiceExportDaoImpl implements IInvoiceExportDAO {
                 invoiceExport = new InvoiceExport(
                         rs.getString("Id"),
                         rs.getTimestamp("DateOutput"),
-                        rs.getInt("IdCustomer"));
+                        rs.getInt("IdCustomer"),
+                        rs.getInt("idUser"));
 
             }
         } catch (Exception e) {

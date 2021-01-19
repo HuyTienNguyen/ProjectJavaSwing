@@ -51,7 +51,7 @@ public class MainViewController {
        
         view.addBtnShowUsers(this::showViewUser, user);
       
-        view.addBtnShowReports(this::showViewReport, report);
+//        view.addBtnShowReports(this::showViewReport, report);
         
     }
 

@@ -31,15 +31,16 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
     public TestMainViewWithItem() {
 
         initComponents();
+         ReportsController controller = new ReportsController();
+       JPanel z = controller.getContentPage();
+       contentPanel.add(z, reportBtnName);
         Home home = new Home();
         contentPanel.add(home, unitBtnName);
         InvoiceImportDetailController y = new InvoiceImportDetailController();
         JPanel x = y.getContentPage();
 
         contentPanel.add(x, importBtnName);
-        ReportsController controller = new ReportsController();
-        JPanel z = controller.getContentPage();
-        contentPanel.add(z, reportBtnName);
+       
     }
 
     /**

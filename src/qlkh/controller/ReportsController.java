@@ -5,21 +5,17 @@
  */
 package qlkh.controller;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+
 import javax.swing.JPanel;
 import qlkh.daoimpl.CategoryDaoImpl;
 import qlkh.daoimpl.InvoiceImportDaoImpl;
 import qlkh.daoimpl.InvoiceImportDetailDaoImpl;
 import qlkh.daoimpl.ProductDaoImpl;
+import qlkh.utils.Utils;
 
-import qlkh.views.ReportView;
+//import qlkh.views.ReportView;
 
 /**
  *
@@ -27,20 +23,24 @@ import qlkh.views.ReportView;
  */
 public class ReportsController {
 
-    ReportView view;
+//    ReportView view;
     ProductDaoImpl proDao;
     InvoiceImportDetailDaoImpl invoiceImDetailDao;
     InvoiceImportDaoImpl invoiceImDao;
     CategoryDaoImpl cateDao;
 
     public ReportsController() {
-        view = new ReportView();
-        view.showView();
+//        view = new ReportView();
+//        view.showView();
+        SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
+        System.out.println(dateFormat.format(Utils.getDateToday()));
+                System.out.println(dateFormat.format(Utils.getDateIncrementer(7)));
+
     }
 
-    public JPanel getContentPage() {
-        return view.getContent();
-    }
+//    public JPanel getContentPage() {
+////        return view.getContent();
+//    }
 public void showView(){};
     private void cateBoxStateChanged(ItemEvent e) {
 //        Category cate = view.getCateSelected();

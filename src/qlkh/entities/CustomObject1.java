@@ -12,7 +12,7 @@ import qlkh.utils.Constants;
  *
  * @author GIANG
  */
-public class MyObject {
+public class CustomObject1 {
 
     public Object[] getParam(int action) {
         Object param[] = null;

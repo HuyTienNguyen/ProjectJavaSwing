@@ -56,6 +56,8 @@ public class Constants {
 
     // SImple format date
     public static final String DATE_FORMAT = "dd-MM-yyyy hh:mm:ss";
+        public static final String DATE_FORMAT_WITH_HOUR = "dd-MM-yyyy";
+
 
     //
     public static final String PLEASE_CHOOSE_ONE = "PLEASE_CHOOSE_ONE";
@@ -82,6 +84,14 @@ public class Constants {
     // Header Products Table
     public static final String[] HEADER_PRODUCT_TABLE = {"Id", "Name", "Suplier", "Category", "Unit"};
     public static final String MSG_PRODUCT_NAME_CANT_BE_EMPTY = "MSG_UNIT_NAME_CANT_BE_EMPTY";
+ 
+    
+// Header Report Table1
+    public static final String[] HEADER_REPORT_TABLE1 = {"Id", "Name", "Suplier", "Category", "Unit"};
+  
+    public static final String[] HEADER_REPORT_TABLE2 = {"Id", "Name", "Suplier", "Category", "Unit"};
+    public static final String[] HEADER_REPORT_TABLE3 = {"Id", "Name", "Suplier", "Category", "Unit"};
+
 
     /*
      *   END Suplier Table

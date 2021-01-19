@@ -18,7 +18,7 @@ public class InvoiceImport {
 
     private String id;
     private Timestamp dateInput;
- 
+    private int idUser;
 
     public InvoiceImport() {
     }
@@ -27,6 +27,15 @@ public class InvoiceImport {
         this.id = id;
         this.dateInput = dateInput;
     }
+    
+
+    public InvoiceImport(String id, Timestamp dateInput, int idUser) {
+        this.id = id;
+        this.dateInput = dateInput;
+        this.idUser = idUser;
+    }
+
+    
  
     public String getId() {
         return id;
@@ -44,6 +53,15 @@ public class InvoiceImport {
         this.dateInput = dateInput;
     }
 
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+    
+
     /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
      *
@@ -55,15 +73,15 @@ public class InvoiceImport {
             case Constants.ACTION_INSERT:
                 param = new Object[]{
                     this.getId(),
-                    this.getDateInput()
-                  
+                    this.getDateInput(),
+                    this.getIdUser()
 
                 };
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
                     this.getDateInput(),
-                   
+                    this.getIdUser(),
                     this.getId()
                 };
                 break;
@@ -79,7 +97,7 @@ public class InvoiceImport {
 
     @Override
     public String toString() {
-        return  Utils.getSimpleDateFormat(dateInput) ;
+        return  Utils.getSimpleDateFormatWithHours(dateInput) ;
     }
 
   

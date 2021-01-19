@@ -12,7 +12,7 @@ import qlkh.utils.Constants;
  *
  * @author GIANG
  */
-public class Products extends MyObject {
+public class Products {
 
     private String id;
     private String name;

@@ -3,37 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/MainView2.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/test/AppTestMainView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/ForgotPassword3Controller.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/views/Home.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/views/UnitView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/daoimpl/UserDaoImpl.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/SignIn.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/App.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/SignInController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/UsersController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/test/CustomerView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/views/ProductsView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/UnitController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/views/ReportView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/views/SuplierView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/testView/SuplierView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/CustomerController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/daoimpl/CustomerDaoImpl.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/ReportsController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/ProductsController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/views/UsersView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/CategoryController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/SuplierController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/views/CategoryView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/InvoiceExportDetailController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/views/CustomerView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/utils/Utils.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/testView/UnitView.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/MainViewController.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/testView/TestMainViewWithItem.java</file>
-            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/InvoiceImportController.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/views/InvoiceImportDetail2View.java</file>
+            <file>file:/C:/Users/user/Desktop/ProjectJavaSwing/src/qlkh/controller/InvoiceImportDetailController.java</file>
         </group>
     </open-files>
 </project-private>
