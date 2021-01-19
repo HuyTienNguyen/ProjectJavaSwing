@@ -15,7 +15,7 @@ import qlkh.daoimpl.InvoiceImportDetailDaoImpl;
 import qlkh.daoimpl.ProductDaoImpl;
 import qlkh.utils.Utils;
 
-import qlkh.views.ReportView;
+//import qlkh.views.ReportView;
 
 /**
  *
@@ -23,25 +23,25 @@ import qlkh.views.ReportView;
  */
 public class ReportsController {
 
-    ReportView view;
+//    ReportView view;
     ProductDaoImpl proDao;
     InvoiceImportDetailDaoImpl invoiceImDetailDao;
     InvoiceImportDaoImpl invoiceImDao;
     CategoryDaoImpl cateDao;
 
     public ReportsController() {
-        view = new ReportView();
-        view.showView();
+//        view = new ReportView();
+//        view.showView();
         SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
         System.out.println(dateFormat.format(Utils.getDateToday()));
                 System.out.println(dateFormat.format(Utils.getDateIncrementer(7)));
 
     }
 
-    public JPanel getContentPage() {
-        return view.getContent();
-    }
-
+//    public JPanel getContentPage() {
+////        return view.getContent();
+//    }
+public void showView(){};
     private void cateBoxStateChanged(ItemEvent e) {
 //        Category cate = view.getCateSelected();
 //        if (cate != null) {

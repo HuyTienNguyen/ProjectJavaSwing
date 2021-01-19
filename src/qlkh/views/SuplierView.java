@@ -17,6 +17,7 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import qlkh.entities.Supliers;
 import qlkh.utils.Constants;
@@ -31,8 +32,6 @@ public class SuplierView extends javax.swing.JPanel implements IView {
     /**
      * Creates new form SuplierView
      */
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -310,7 +309,7 @@ public class SuplierView extends javax.swing.JPanel implements IView {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,7 +330,7 @@ public class SuplierView extends javax.swing.JPanel implements IView {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
         );
 
         headerPanel.setBackground(new java.awt.Color(51, 0, 51));
@@ -347,7 +346,7 @@ public class SuplierView extends javax.swing.JPanel implements IView {
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(headerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(972, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,7 +419,6 @@ public class SuplierView extends javax.swing.JPanel implements IView {
     // End of variables declaration//GEN-END:variables
   ResourceBundle bundle;
 
-  
     public SuplierView() {
         //  Locale local = Utils.getLocale();
         Locale local = Locale.getDefault();
@@ -435,11 +433,19 @@ public class SuplierView extends javax.swing.JPanel implements IView {
         setEnableBtnEdit(true);
         setEnableBtnDelete(true);
         setEnableBtnEdit(false);
-        loadAllSupliers(supliers);
+        if(supliers != null && supliers.size() > 0){
+        loadAllSupliers(supliers);    
+        }
+        
 
     }
 
+    public JPanel getContent() {
+        return this;
+    }
+
     // Set ResourceBundle to this view
+
     private void setResourceBundle(Locale locale) {
         //Set Resources Bundle theo local 
         bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
@@ -504,13 +510,19 @@ public class SuplierView extends javax.swing.JPanel implements IView {
         return suplier;
     }
 
-   
     public void showErrorMessage(JLabel label, String err) {
         label.setText(err);
         label.setForeground(Color.red);
     }
 
+    public int showDialog(JFrame frame, String message, String title, int typeIcon) {
+        int iconNumber = (typeIcon == JOptionPane.QUESTION_MESSAGE) ? JOptionPane.QUESTION_MESSAGE : JOptionPane.ERROR_MESSAGE;
+        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, iconNumber);
+    }
+
+  
     // Load list Unit on Unit Table
+
     public void loadAllSupliers(List<Supliers> supliers) {
         DefaultTableModel supModel = new DefaultTableModel();
         supModel.setColumnIdentifiers(Constants.HEADER_SUPLIER_TABLE);
@@ -523,6 +535,12 @@ public class SuplierView extends javax.swing.JPanel implements IView {
             row.add(sup.getAddress());
             row.add(sup.getEmail());
             row.add(sup.getMoreInfo());
+            String date = "";
+            try {
+                date = Utils.getSimpleDateFormatWithHours(sup.getContractDate());
+            } catch (Exception e) {
+            }
+            row.add(date);
             row.add(Utils.getSimpleDateFormatWithHours(sup.getContractDate()));
             row.add(sup.getCharacters());
             row.add((sup.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
@@ -599,17 +617,13 @@ public class SuplierView extends javax.swing.JPanel implements IView {
 //    public boolean checkUnitName(String unitName) {
 //        return (unitName != null && unitName.equals("") == false);
 //    }
-    public int showDialog(JFrame frame, String message, String title, int typeIcon) {
-        int iconNumber = (typeIcon == JOptionPane.QUESTION_MESSAGE) ? JOptionPane.QUESTION_MESSAGE : JOptionPane.ERROR_MESSAGE;
-        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, iconNumber);
-    }
-
     public void clearView(boolean clearAll) {
         setEnableBtnAddNew(true);
         setEnableBtnEdit(false);
         setEnableBtnDelete(false);
         if (clearAll == true) {
             messageSuplier.setText("");
+            clearError();
         }
         id.setText("");
         name.setText("");

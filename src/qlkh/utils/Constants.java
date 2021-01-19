@@ -52,6 +52,7 @@ public class Constants {
     public static final int ACTION_GET_USER_BY_CODE = 8;
     public static final int ACTION_GET_USER_BY_USERNAME_PASS = 9;
     public static final int ACTION_GET_USER_BY_EMAIL = 10;
+    public static final int ACTION_SELECT_USERNAME_AND_EMAIL = 11;
 
     // SImple format date
     public static final String DATE_FORMAT = "dd-MM-yyyy hh:mm:ss";

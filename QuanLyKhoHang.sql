@@ -114,6 +114,11 @@ create table InvoiceExportDetail(
 )
 go
 
+--thêm cột cho invoiceexport va invoiceimport
+ALTER TABLE invoiceexport
+ADD idUser int;
+ALTER TABLE invoiceimport
+ADD idUser int;
 --tạo khóa ngoại Cateogry và Products
 ALTER TABLE Products
 ADD CONSTRAINT FK_01 FOREIGN KEY (IdCate) REFERENCES Category(Id);
@@ -317,8 +322,8 @@ alter procedure sp_add_invoice_import_Detail(
 	@idImportInput varchar(20),
 	@number int,
 	@inputPrice float,
-	@outputPrice float
-	
+	@outputPrice float,
+	@idUser int
 )
 
 	AS
@@ -343,7 +348,7 @@ alter procedure sp_add_invoice_import_Detail(
 			SET @idInvoiceimportDetail = 'ID'+ REPLICATE('0',6 - LEN(CAST(@countInvoiceImportDetail as varchar(20))))+CAST(@countInvoiceImportDetail as varchar(20))
 				IF NOT EXISTS(SELECT id from InvoiceImport where id = @idInvoiceImport)
 					BEGIN
-						INSERT INTO InvoiceImport (id,DateInput)VALUES(@idInvoiceImport,@dateImport)
+						INSERT INTO InvoiceImport (id,DateInput, idUser)VALUES(@idInvoiceImport,@dateImport,@idUser)
 					END
 				
 

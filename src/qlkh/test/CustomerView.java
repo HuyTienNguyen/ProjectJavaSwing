@@ -31,7 +31,7 @@ import qlkh.views.IView;
  *
  * @author user
  */
-public class HuyTestFrameCustomer extends javax.swing.JFrame implements IView{
+public class CustomerView extends javax.swing.JFrame implements IView{
 
     /**
      * Creates new form HuyTestFrameCustomer
@@ -410,7 +410,7 @@ public class HuyTestFrameCustomer extends javax.swing.JFrame implements IView{
     JTable tblCustomers;
     PaginatedTableDecorator<Customers> paginatedDecorator;
     ResourceBundle bundle;
-    public HuyTestFrameCustomer() {
+    public CustomerView() {
         Locale local = Utils.getLocale();
         setResourceBundle(local);
         initComponents();

@@ -5,6 +5,7 @@
  */
 package qlkh.views;
 
+import java.awt.Container;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.ResourceBundle;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import qlkh.entities.Unit;
 import qlkh.utils.Constants;
@@ -34,15 +36,20 @@ public class UnitView extends javax.swing.JPanel {
         initComponents();
     }
 
-    
-
     // Show view with listUnit on Unit Table
     public void showView(List<Unit> listUnit) {
         this.setVisible(true);
         setEnableBtnEdit(false);
         setEnableBtnDelete(false);
-        loadAllUnit(listUnit);
+        if(listUnit != null){
+                    loadAllUnit(listUnit);
 
+        }
+
+    }
+
+    public JPanel getContent() {
+        return this;
     }
 
     // Set ResourceBundle to this view
@@ -61,8 +68,8 @@ public class UnitView extends javax.swing.JPanel {
             Vector row = new Vector();
             row.add(startNumber);
             row.add(unit);
-               
-            row.add((unit.getStatus()>0)?bundle.getString(Constants.STATUS_SHOW):bundle.getString(Constants.STATUS_HIDE));
+
+            row.add((unit.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
             startNumber++;
             unitModel.addRow(row);
         }
@@ -70,19 +77,19 @@ public class UnitView extends javax.swing.JPanel {
     }
 
     // Add event to button addNewUnit
-    public void addBtnAddNewUnitActionListener(ActionListener listener) {
+    public void addBtnAddAction(ActionListener listener) {
         btnAdd.addActionListener(listener);
     }
 
-    public void addBtnEditUnitActionListener(ActionListener listener) {
+    public void addBtnEditAction(ActionListener listener) {
         btnEdit.addActionListener(listener);
     }
 
-    public void addBtnClearUnitActionListener(ActionListener listener) {
+    public void addBtnClearAction(ActionListener listener) {
         btnClear.addActionListener(listener);
     }
 
-    public void addBtnDeleteUnitActionListener(ActionListener listener) {
+    public void addBtnDeleteAction(ActionListener listener) {
         btnDelete.addActionListener(listener);
     }
 
@@ -93,6 +100,10 @@ public class UnitView extends javax.swing.JPanel {
     // Get text from txtNewUnitField
     public String getNewUnitText() {
         return txtNewUnit.getText();
+    }
+
+    public boolean isNotNull(String unitName) {
+        return (unitName != null && unitName.equals("") == false);
     }
 
     public void setNewUnitText(String text) {
@@ -176,7 +187,7 @@ public class UnitView extends javax.swing.JPanel {
         );
         footerPanelLayout.setVerticalGroup(
             footerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
         );
 
         btnClear.setBackground(new java.awt.Color(51, 153, 255));
@@ -222,7 +233,7 @@ public class UnitView extends javax.swing.JPanel {
                 .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNewUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(messageUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(bodyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -306,4 +317,11 @@ public class UnitView extends javax.swing.JPanel {
     private javax.swing.JTable tblUnit;
     private javax.swing.JTextField txtNewUnit;
     // End of variables declaration//GEN-END:variables
+
+ 
+     public int showDialog(JFrame frame, String message, String title, int typeIcon) {
+        int iconNumber = (typeIcon == JOptionPane.QUESTION_MESSAGE) ? JOptionPane.QUESTION_MESSAGE : JOptionPane.ERROR_MESSAGE;
+        return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, iconNumber);
+    }
+
 }

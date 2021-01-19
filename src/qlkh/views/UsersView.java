@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import qlkh.entities.Users;
@@ -361,10 +362,15 @@ public class UsersView extends javax.swing.JPanel implements IView {
     public void showView(List<Users> listUsers) {
         this.setVisible(true);
         setEnableBtnEdit(false);
-        loadUsers(listUsers);
+        if(listUsers != null){
+                    loadUsers(listUsers);
+
+        }
 
     }
-
+public JPanel getContent(){
+    return this;
+    }
     private static TableModel createObjectDataModel() {
         return new ObjectTableModel<Users>() {
             @Override
@@ -598,12 +604,13 @@ public class UsersView extends javax.swing.JPanel implements IView {
     }
 
     public void clearView(boolean clearAll) {
-        clearError();
+        
 
         setEnableBtnAddNew(true);
         setEnableBtnEdit(false);
         if (clearAll == true) {
             messageUser.setText("");
+            clearError();
         }
         id.setText("");
         loginName.setText("");

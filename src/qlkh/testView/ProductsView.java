@@ -36,7 +36,7 @@ import qlkh.utils.pagination.PaginationDataProvider;
  *
  * @author GIANG
  */
-public class GiangTestFrameProducts extends javax.swing.JFrame implements IView {
+public class ProductsView extends javax.swing.JFrame implements IView {
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -367,7 +367,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
     JTable tblProducts;
     PaginatedTableDecorator<Products> paginatedDecorator;
 
-    public GiangTestFrameProducts() {
+    public ProductsView() {
         //  Locale local = Utils.getLocale();
         Locale local = Utils.getLocale();
         setResourceBundle(local);
