@@ -114,11 +114,6 @@ create table InvoiceExportDetail(
 )
 go
 
---thêm cột cho invoiceexport va invoiceimport
-ALTER TABLE invoiceexport
-ADD idUser int;
-ALTER TABLE invoiceimport
-ADD idUser int;
 --tạo khóa ngoại Cateogry và Products
 ALTER TABLE Products
 ADD CONSTRAINT FK_01 FOREIGN KEY (IdCate) REFERENCES Category(Id);
@@ -322,8 +317,8 @@ alter procedure sp_add_invoice_import_Detail(
 	@idImportInput varchar(20),
 	@number int,
 	@inputPrice float,
-	@outputPrice float,
-	@idUser int
+	@outputPrice float
+	
 )
 
 	AS
@@ -348,7 +343,7 @@ alter procedure sp_add_invoice_import_Detail(
 			SET @idInvoiceimportDetail = 'ID'+ REPLICATE('0',6 - LEN(CAST(@countInvoiceImportDetail as varchar(20))))+CAST(@countInvoiceImportDetail as varchar(20))
 				IF NOT EXISTS(SELECT id from InvoiceImport where id = @idInvoiceImport)
 					BEGIN
-						INSERT INTO InvoiceImport (id,DateInput, idUser)VALUES(@idInvoiceImport,@dateImport,@idUser)
+						INSERT INTO InvoiceImport (id,DateInput)VALUES(@idInvoiceImport,@dateImport)
 					END
 				
 
@@ -398,12 +393,11 @@ AS
 			END		
 	END
 	GO
-	
 	/*
 	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin xuất hàng từ trước tới nay
 	*/
 
-create PROCEDURE sp_create_temp_get_all_reports_invoiceexportdetail
+alter PROCEDURE sp_create_temp_get_all_reports_invoiceexportdetail
 
 AS
 	BEGIN		
@@ -412,7 +406,7 @@ AS
 			DROP TABLE ##reports_invoiceexportdetail
 		END
 			BEGIN
-				SELECT ied.Id ,iid.Number,iid.InputPrice,iid.OutputPrice,ie.DateOutput  INTO ##reports_invoiceexportdetail
+				SELECT ied.Id ,ied.Counts,iid.InputPrice,iid.OutputPrice,ie.DateOutput  INTO ##reports_invoiceexportdetail
 				FROM  InvoiceExportDetail ied
 				JOIN InvoiceImportDetail iid
 				ON ied.IdInvoiceImportDetail = iid.Id	
@@ -492,8 +486,9 @@ exec  sp_create_temp_get_reports_invoiceexportdetail_nearest_week
 *	Procedure get records invoiceimportdetail from atmost 5 year  to current year
 */
 
-create PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
+alter PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
 AS
+ SET NOCOUNT ON
 	declare  @firstyear  datetime, @currentyear datetime ,@startyear datetime ;
 	BEGIN
 		IF OBJECT_ID('tempdb..##reports_invoiceimportdetail','U') IS  NULL
@@ -501,13 +496,14 @@ AS
 				exec sp_create_temp_get_all_reports_invoiceimportdetail
 			END
 		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS  NULL
-		BEGIN
-			exec sp_create_temp_get_all_reports_invoiceexportdetail
-		END
-		set @firstyear =( SELECT  TOP 1 CONVERT(varchar(10),DateInput,101)  from InvoiceImport ORDER BY DateInput ASC)	
-		set @currentyear = dateadd(year,0,getdate());
-		set @startyear = IIF(year(@currentyear) -year(@firstyear)>5,dateadd(year,-5,getdate()), @firstyear );
-
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceexportdetail
+			END
+		set @currentyear = dateadd(year,0,getdate());--2021
+		set @firstyear =( SELECT  TOP 1 CONVERT(varchar(10),DateInput,101)  from InvoiceImport ORDER BY DateInput ASC)	 -- 2017 2021- 2017 =4
+		
+		set @startyear = IIF(year(@currentyear) -year(@firstyear)>5,dateadd(year,-5,getdate()), @firstyear ); --8 2021 -5 2017
+		
 		IF OBJECT_ID('tempdb..##tmpimportsyear','U') IS NOT NULL
 		BEGIN
 			DROP TABLE ##tmpimportsyear;
@@ -517,27 +513,25 @@ AS
 			totalimport  bigint,
 			totalexport bigint default 0
 		)	
-			
-		
-		
-		
-			declare @sum int;
-			SET @sum =0;
-			BEGIN
-				INSERT INTO ##tmpimportsyear(numberyear,totalimport,totalexport)		
-				SELECT year(DateInput) , sum(Number*InputPrice),
-				 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail  where year(dateoutput) = year(@startyear ))
-						THEN (select sum(outputprice*number) from ##reports_invoiceexportdetail  where year(dateoutput) =  year(@startyear ) GROUP BY year(dateoutput)) ELSE '0' END)
-					FROM ##reports_invoiceimportdetail	
-					WHERE ( year(DateInput)<= year(@currentyear) AND year(DateInput)>=year(@startyear))
-					GROUP by year(DateInput)
-		
-					
+		WHILE(@startyear <=@currentyear)
+			BEGIN		
+				declare @sum int;
+				SET @sum =0;		
+					BEGIN
+						IF EXISTS(SELECT 1 from ##reports_invoiceimportdetail  where year(dateinput)=  year(@startyear ))	
+						INSERT INTO ##tmpimportsyear(numberyear,totalimport,totalexport)		
+						SELECT year(DateInput) , sum(Number*InputPrice),
+						 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail  where year(dateoutput) = year(@startyear ))
+								THEN (select sum(outputprice*Counts) from ##reports_invoiceexportdetail  where year(dateoutput) =  year(@startyear ) GROUP BY year(dateoutput)) ELSE '0' END)
+							FROM ##reports_invoiceimportdetail	
+							WHERE  year(DateInput)=year(@startyear)
+							GROUP by year(DateInput)								
+					END
+				SET  @startyear = dateadd(year,1, @startyear);
 			END
-	
-		
 		select * from ##tmpimportsyear
 	END
+	
 	exec sp_get_total_reports_from_atmost_5year_to_now
 	
 	/*
@@ -570,8 +564,7 @@ ALTER PROCEDURE sp_get_total_reports_from_nearest_week
 AS
  SET NOCOUNT ON
 	declare  @firstday  datetime, @currentday datetime  ;
-	BEGIN
-	
+	BEGIN	
 			BEGIN
 				exec sp_create_temp_get_all_reports_invoiceimportdetail;
 			END
@@ -629,16 +622,7 @@ AS
 		select * from ##tmpimport;
 		
 	END
-	select sum(number),p.name from 
-	 InvoiceImportDetail  iid
-	 join InvoiceImport id
-	 on iid.IdInvoiceImport = id.id
-	 join Products p 
-	 on iid.IdProduct = p.id
-	 GROUP BY iid.IdProduct,p.name
-	 select * from InvoiceImportDetail a join Products p on a.IdProduct = p.Id
-	 select * from InvoiceExportDetail
-	 select * from InvoiceImportDetail
+
 	/*
 	end procedure
 	*/

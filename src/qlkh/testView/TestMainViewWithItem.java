@@ -32,8 +32,10 @@ public class TestMainViewWithItem extends javax.swing.JFrame {
 
         initComponents();
          ReportsController controller = new ReportsController();
+
 //       JPanel z = controller.getContentPage();
 //       contentPanel.add(z, reportBtnName);
+
         Home home = new Home();
         contentPanel.add(home, unitBtnName);
         InvoiceImportDetailController y = new InvoiceImportDetailController();
