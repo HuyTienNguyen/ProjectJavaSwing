@@ -327,7 +327,7 @@ public class ProductsView extends javax.swing.JPanel implements IView {
     private static Map<Integer, String> suplierMap = new HashMap<>();
     private static Map<Integer, String> unitMap = new HashMap<>();
     private static Map<Integer, String> cateMap = new HashMap<>();
-    private static int[] pageSizes = new int[]{10, 20, 50, 75, 100};
+    private static int[] pageSizes = new int[]{100, 1000,10000};
     private static final int defaultPageSize = pageSizes[0];
     //button để hiện phân trang maximum 7
     private static final int maxPagingCompToShow = 7;
@@ -449,8 +449,7 @@ public class ProductsView extends javax.swing.JPanel implements IView {
                 for (Products em : products) {
                     if (String.valueOf(em.getId()).contains(searchText) 
                             || em.getName().contains(searchText)
-                            || cateMap.get(em.getIdCate()).contains(searchText)
-                            || unitMap.get(em.getIdUnit()).contains(searchText)
+                            || cateMap.get(em.getIdCate()).contains(searchText)                            
                             || suplierMap.get(em.getIdSuplier()).contains(searchText)) {
                         newLists.add(em);
                     }

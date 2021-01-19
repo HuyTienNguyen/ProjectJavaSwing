@@ -433,10 +433,9 @@ public class SuplierView extends javax.swing.JPanel implements IView {
         setEnableBtnEdit(true);
         setEnableBtnDelete(true);
         setEnableBtnEdit(false);
-        if(supliers != null && supliers.size() > 0){
-        loadAllSupliers(supliers);    
+        if (supliers != null && supliers.size() > 0) {
+            loadAllSupliers(supliers);
         }
-        
 
     }
 
@@ -445,7 +444,6 @@ public class SuplierView extends javax.swing.JPanel implements IView {
     }
 
     // Set ResourceBundle to this view
-
     private void setResourceBundle(Locale locale) {
         //Set Resources Bundle theo local 
         bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
@@ -520,32 +518,32 @@ public class SuplierView extends javax.swing.JPanel implements IView {
         return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, iconNumber);
     }
 
-  
     // Load list Unit on Unit Table
-
     public void loadAllSupliers(List<Supliers> supliers) {
         DefaultTableModel supModel = new DefaultTableModel();
         supModel.setColumnIdentifiers(Constants.HEADER_SUPLIER_TABLE);
         int startNumber = 1;
-        for (Supliers sup : supliers) {
-            Vector row = new Vector();
-            row.add(sup.getId());
-            row.add(sup);
-            row.add(sup.getPhone());
-            row.add(sup.getAddress());
-            row.add(sup.getEmail());
-            row.add(sup.getMoreInfo());
-            String date = "";
-            try {
-                date = Utils.getSimpleDateFormatWithHours(sup.getContractDate());
-            } catch (Exception e) {
+        if (supliers != null) {
+            for (Supliers sup : supliers) {
+                Vector row = new Vector();
+                row.add(sup.getId());
+                row.add(sup);
+                row.add(sup.getPhone());
+                row.add(sup.getAddress());
+                row.add(sup.getEmail());
+                row.add(sup.getMoreInfo());
+                String date = "";
+                try {
+                    date = Utils.getSimpleDateFormatWithHours(sup.getContractDate());
+                } catch (Exception e) {
+                }
+                row.add(date);
+                
+                row.add(sup.getCharacters());
+                row.add((sup.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
+                startNumber++;
+                supModel.addRow(row);
             }
-            row.add(date);
-            row.add(Utils.getSimpleDateFormatWithHours(sup.getContractDate()));
-            row.add(sup.getCharacters());
-            row.add((sup.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
-            startNumber++;
-            supModel.addRow(row);
         }
         tblSuplier.setModel(supModel);
         tblSuplier.setAutoCreateRowSorter(true);

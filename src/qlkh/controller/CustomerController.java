@@ -1,3 +1,5 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -45,8 +47,7 @@ public class CustomerController {
         List<Customers> customer = cusDao.getAllCustomers();
 
         view.showView(customer);
-        // gọi lên đây
-        // đấy có thế thôi, oke anh, vậy để e đọc qua
+
         view.addBtnAddAction(this::btnAddAction);
         view.addBtnEditAction(this::btnEditAction);
         view.addBtnDeleteAction(this::btnDeleteAction);
