@@ -425,10 +425,10 @@ public class MainView2 extends javax.swing.JFrame {
 
     private void RestoreDownMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RestoreDownMouseClicked
         // TODO add your handling code here:
-        if (this.getExtendedState() != MainView1.MAXIMIZED_BOTH) {
-            this.setExtendedState(MainView1.MAXIMIZED_BOTH);
+        if (this.getExtendedState() != MainView2.MAXIMIZED_BOTH) {
+            this.setExtendedState(MainView2.MAXIMIZED_BOTH);
         } else {
-            this.setExtendedState(MainView1.NORMAL);
+            this.setExtendedState(MainView2.NORMAL);
         }
     }//GEN-LAST:event_RestoreDownMouseClicked
 
@@ -443,7 +443,7 @@ public class MainView2 extends javax.swing.JFrame {
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
         // TODO add your handling code here:
-        this.setState(MainView1.ICONIFIED);
+        this.setState(MainView2.ICONIFIED);
     }//GEN-LAST:event_minimizeMouseClicked
 
     private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseEntered

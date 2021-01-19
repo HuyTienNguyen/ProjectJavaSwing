@@ -398,11 +398,12 @@ AS
 			END		
 	END
 	GO
+	
 	/*
 	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin xuất hàng từ trước tới nay
 	*/
 
-ALTER PROCEDURE sp_create_temp_get_all_reports_invoiceexportdetail
+create PROCEDURE sp_create_temp_get_all_reports_invoiceexportdetail
 
 AS
 	BEGIN		
@@ -428,7 +429,7 @@ AS
 	/*
 	*	Procedure sp_create_temp_reports_invoiceimportdetail lấy về toàn bộ thông tin nhập hàng trong 7 ngày gần nhất
 	*/
-ALTER  PROCEDURE sp_create_temp_get_reports_invoiceimportdetail_nearest_week
+create  PROCEDURE sp_create_temp_get_reports_invoiceimportdetail_nearest_week
 	AS
 		declare @today date,
 				@thesamedaylastweek date
@@ -440,7 +441,11 @@ ALTER  PROCEDURE sp_create_temp_get_reports_invoiceimportdetail_nearest_week
 				BEGIN
 					exec sp_create_temp_get_all_reports_invoiceimportdetail
 				END
-				DROP TABLE IF EXISTS   ##reports_invoiceimportdetail_nearest_week	
+				IF OBJECT_ID('tempdb..##reports_invoiceimportdetail_nearest_week','U') IS NOT  NULL
+				BEGIN
+					DROP TABLE    ##reports_invoiceimportdetail_nearest_week
+				END
+				
 				SELECT * INTO ##reports_invoiceimportdetail_nearest_week			
 					from ##reports_invoiceimportdetail
 					where DateInput >=@thesamedaylastweek AND DateInput <=@today								
@@ -452,7 +457,7 @@ GO
 	/*
 	*	Procedure sp_create_temp_reports_invoiceimportdetail lấy về toàn bộ thông tin xuat hàng trong 7 ngày gần nhất
 	*/
-ALTER  PROCEDURE sp_create_temp_get_reports_invoiceexportdetail_nearest_week
+alter  PROCEDURE sp_create_temp_get_reports_invoiceexportdetail_nearest_week
 	AS
 		declare @today date,
 				@thesamedaylastweek date
@@ -464,7 +469,11 @@ ALTER  PROCEDURE sp_create_temp_get_reports_invoiceexportdetail_nearest_week
 				BEGIN
 					exec sp_create_temp_get_all_reports_invoiceexportdetail
 				END
-				DROP TABLE IF EXISTS   ##reports_invoiceexportdetail_nearest_week	
+				IF OBJECT_ID('tempdb..##reports_invoiceexportdetail_nearest_week','U') IS NOT  NULL
+				BEGIN
+					DROP TABLE     ##reports_invoiceexportdetail_nearest_week	
+				END
+				
 				SELECT * INTO ##reports_invoiceexportdetail_nearest_week			
 					from ##reports_invoiceexportdetail
 					where DateOutput >=@thesamedaylastweek AND DateOutput <=@today								
@@ -483,7 +492,7 @@ exec  sp_create_temp_get_reports_invoiceexportdetail_nearest_week
 *	Procedure get records invoiceimportdetail from atmost 5 year  to current year
 */
 
-alter PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
+create PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
 AS
 	declare  @firstyear  datetime, @currentyear datetime ,@startyear datetime ;
 	BEGIN
@@ -499,7 +508,10 @@ AS
 		set @currentyear = dateadd(year,0,getdate());
 		set @startyear = IIF(year(@currentyear) -year(@firstyear)>5,dateadd(year,-5,getdate()), @firstyear );
 
-		DROP TABLE IF EXISTS ##tmpimportsyear;
+		IF OBJECT_ID('tempdb..##tmpimportsyear','U') IS NOT NULL
+		BEGIN
+			DROP TABLE ##tmpimportsyear;
+		END
 		CREATE  TABLE ##tmpimportsyear(
 			numberyear int,
 			totalimport  bigint,
@@ -527,7 +539,7 @@ AS
 		select * from ##tmpimportsyear
 	END
 	exec sp_get_total_reports_from_atmost_5year_to_now
-
+	
 	/*
 *	Procedure get records invoiceexportdetail from atmost 5 year  to current year
 */
@@ -554,7 +566,7 @@ AS
 	* Thủ tục lấy ra số lượng hàng  trong 7 ngày liên tiếp
 	* bao gồm tổng hàng xuất và hàng nhập
 	*/
-	ALTER PROCEDURE sp_get_total_reports_from_nearest_week
+ALTER PROCEDURE sp_get_total_reports_from_nearest_week
 AS
  SET NOCOUNT ON
 	declare  @firstday  datetime, @currentday datetime  ;
@@ -573,11 +585,15 @@ AS
 		BEGIN
 			exec sp_create_temp_get_reports_invoiceexportdetail_nearest_week;
 		END	
-		DROP TABLE IF EXISTS ##tmpimport;
+		IF OBJECT_ID('tempdb..##tmpimport','U') IS NOT NULL
+			BEGIN
+				DROP TABLE  ##tmpimport;
+			END
+		
 		set @currentday = dateadd(day,0,getdate());
 		
 		set @firstday = dateadd(day,-6,@currentday);
-		DROP TABLE IF EXISTS ##tmpimport;
+	
 		CREATE  TABLE ##tmpimport(
 			dateofweek varchar(20),
 			totalimport  bigint,
@@ -613,6 +629,19 @@ AS
 		select * from ##tmpimport;
 		
 	END
+	select sum(number),p.name from 
+	 InvoiceImportDetail  iid
+	 join InvoiceImport id
+	 on iid.IdInvoiceImport = id.id
+	 join Products p 
+	 on iid.IdProduct = p.id
+	 GROUP BY iid.IdProduct,p.name
+	 select * from InvoiceImportDetail a join Products p on a.IdProduct = p.Id
+	 select * from InvoiceExportDetail
+	 select * from InvoiceImportDetail
+	/*
+	end procedure
+	*/
 	exec sp_get_total_reports_from_nearest_week
 	exec sp_get_total_imports_from_atmost_5year_to_now
 

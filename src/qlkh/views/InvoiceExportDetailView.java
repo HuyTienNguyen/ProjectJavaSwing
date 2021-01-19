@@ -5,6 +5,10 @@
  */
 package qlkh.views;
 
+import qlkh.entities.Category;
+import qlkh.entities.InvoiceImport;
+import qlkh.entities.Products;
+
 /**
  *
  * @author user
@@ -33,11 +37,11 @@ public class InvoiceExportDetailView extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 1024, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 630, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

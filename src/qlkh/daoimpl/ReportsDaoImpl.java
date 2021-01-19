@@ -23,8 +23,7 @@ public class ReportsDaoImpl  implements IReportsDAO{
     private static final String SQL_SELECT_TOTAL_REPORTS_LAST_WEEK ="{call sp_get_total_reports_from_nearest_week}";
     @Override
     public void getReportsInTheLastWeek() {
-          String[] param = new String[]{};
-          
+          String[] param = new String[]{};         
           try ( ResultSet rs  = DatabaseHelper.selectDataByCallableStatement(SQL_SELECT_TOTAL_REPORTS_LAST_WEEK, param) )
                   {                      
             while (rs.next()) {
