@@ -152,7 +152,8 @@ public class DatabaseHelper {
 
         int size = args.length;
         // Đăng ký tham số đầu ra cho thủ tục
-        cst.registerOutParameter(1, Types.INTEGER);
+        if(size>0){
+        cst.registerOutParameter(1, Types.INTEGER);}
         int numberOne = 1;
 
         // kieu object
@@ -280,6 +281,19 @@ public class DatabaseHelper {
         CallableStatement cst = getCallableReturnParam(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
+    }
+    /**
+     * Method update by procedure and return a number result
+     *
+     * @param <E> paramameter generic
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     * @return an number error
+     * @throws java.sql.SQLException
+     */
+    public static <E> ResultSet selectDataByCallableStatement(String sql, E... args) throws SQLException {
+        CallableStatement cst = getCallableReturnParam(sql, args);
+        return cst.executeQuery();
     }
     /**
      *  Method check unique in database

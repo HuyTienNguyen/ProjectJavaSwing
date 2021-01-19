@@ -364,15 +364,7 @@ alter procedure sp_add_invoice_import_Detail(
 			END CATCH
 			GO
 			
-/*	 Test sql insert into 2 table InvoiceImportDetail va InvoiceImport
 
-	select * from Products
-declare @output1 int	
-exec sp_add_invoice_import_Detail @output1 output,'02/10/2021','SP002',200,20000,80000,'1'
-select @output1
-select * from InvoiceImportDetail
-select * from InvoiceImport
-*/
 -- THủ tục lấy về ngày đầu tiên trong bảng Invoice import
 CREATE PROCEDURE sp_get_firt_date_Invoice_Import 
 AS
@@ -384,7 +376,7 @@ AS
 	-- lấy ngày này sang năm 
 
 	/*
-	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin nhập hàng
+	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin nhập hàng từ truóc tới nay
 	*/
 
 create PROCEDURE sp_create_temp_get_all_reports_invoiceimportdetail
@@ -407,72 +399,91 @@ AS
 	END
 	GO
 	/*
-	*	Test Procedure sp_create_temp_reports_invoiceimportdetail
-	*	exec sp_create_temp_get_all_reports_invoiceimportdetail
-	*	select * from ##reports_invoiceimportdetail
+	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin xuất hàng từ trước tới nay
 	*/
+
+ALTER PROCEDURE sp_create_temp_get_all_reports_invoiceexportdetail
+
+AS
+	BEGIN		
+		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS NOT NULL
+		BEGIN
+			DROP TABLE ##reports_invoiceexportdetail
+		END
+			BEGIN
+				SELECT ied.Id ,iid.Number,iid.InputPrice,iid.OutputPrice,ie.DateOutput  INTO ##reports_invoiceexportdetail
+				FROM  InvoiceExportDetail ied
+				JOIN InvoiceImportDetail iid
+				ON ied.IdInvoiceImportDetail = iid.Id	
+				JOIN InvoiceExport ie
+				ON ie.Id = ied.IdInvoiceExport
+				
+			END	
+			
+	END
+	GO
 
 	
 
-/*		declare @today datetime
-	set @today=   GETDATE()
-	select @today
-	SELECT CAST(getdate() AS date);
-	*/
-
 	/*
-	*	Procedure sp_create_temp_reports_invoiceimportdetail lấy về toàn bộ thông tin nhập hàng
+	*	Procedure sp_create_temp_reports_invoiceimportdetail lấy về toàn bộ thông tin nhập hàng trong 7 ngày gần nhất
 	*/
 ALTER  PROCEDURE sp_create_temp_get_reports_invoiceimportdetail_nearest_week
-
 	AS
 		declare @today date,
 				@thesamedaylastweek date
 		BEGIN
 			SET @today =  CAST(getdate() AS date);
 			SET @thesamedaylastweek = DATEADD(day ,-7,@today )
-			BEGIN
-				IF OBJECT_ID('tempdb..##reports_invoiceimportdetail_nearest_week','U') IS NOT NULL
-						BEGIN
-							DROP TABLE ##reports_invoiceimportdetail_nearest_week
-						END
-						IF OBJECT_ID('tempdb..##reports_invoiceimportdetail','U') IS  NULL
-						BEGIN
-							exec sp_create_temp_get_all_reports_invoiceimportdetail
-						END
-						SELECT * INTO ##reports_invoiceimportdetail_nearest_week			
-							from ##reports_invoiceimportdetail
-							where DateInput >=@thesamedaylastweek AND DateInput <=@today
-							
-			
-
+			BEGIN				
+				IF OBJECT_ID('tempdb..##reports_invoiceimportdetail','U') IS   NULL
+				BEGIN
+					exec sp_create_temp_get_all_reports_invoiceimportdetail
+				END
+				DROP TABLE IF EXISTS   ##reports_invoiceimportdetail_nearest_week	
+				SELECT * INTO ##reports_invoiceimportdetail_nearest_week			
+					from ##reports_invoiceimportdetail
+					where DateInput >=@thesamedaylastweek AND DateInput <=@today								
 			END
 END
 GO
+
+
+	/*
+	*	Procedure sp_create_temp_reports_invoiceimportdetail lấy về toàn bộ thông tin xuat hàng trong 7 ngày gần nhất
+	*/
+ALTER  PROCEDURE sp_create_temp_get_reports_invoiceexportdetail_nearest_week
+	AS
+		declare @today date,
+				@thesamedaylastweek date
+		BEGIN
+			SET @today =  CAST(getdate() AS date);
+			SET @thesamedaylastweek = DATEADD(day ,-7,@today )
+			BEGIN				
+				IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS   NULL
+				BEGIN
+					exec sp_create_temp_get_all_reports_invoiceexportdetail
+				END
+				DROP TABLE IF EXISTS   ##reports_invoiceexportdetail_nearest_week	
+				SELECT * INTO ##reports_invoiceexportdetail_nearest_week			
+					from ##reports_invoiceexportdetail
+					where DateOutput >=@thesamedaylastweek AND DateOutput <=@today								
+			END
+END
+GO
+exec  sp_create_temp_get_reports_invoiceexportdetail_nearest_week
+-- test procedure exec sp_create_temp_get_reports_invoiceimportdetail_nearest_week
 
 /*
 *	Procedure get all record in a year
 */
 
-alter  PROCEDURE sp_create_temp_get_reports_invoiceimportdetail_by_year(
- @year  datetime
-)
-	AS
-		
-		BEGIN
-			SELECT   year(@year) as 'year',SUM(b.Number*b.InputPrice) as 'totalImport'
-			FROM InvoiceImportDetail b
-			JOIN     InvoiceImport a
-			ON a.Id = b.IdInvoiceImport
-			WHERE     YEAR(a.DateInput) = year(@year)
-			
 
-		END
 /*
-*	Procedure get records invoiceimportdetail from firstyear to current year
+*	Procedure get records invoiceimportdetail from atmost 5 year  to current year
 */
 
-create PROCEDURE sp_get_total_imports_from_atmost_5year_to_now
+alter PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
 AS
 	declare  @firstyear  datetime, @currentyear datetime ,@startyear datetime ;
 	BEGIN
@@ -480,111 +491,129 @@ AS
 			BEGIN
 				exec sp_create_temp_get_all_reports_invoiceimportdetail
 			END
+		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS  NULL
+		BEGIN
+			exec sp_create_temp_get_all_reports_invoiceexportdetail
+		END
 		set @firstyear =( SELECT  TOP 1 CONVERT(varchar(10),DateInput,101)  from InvoiceImport ORDER BY DateInput ASC)	
 		set @currentyear = dateadd(year,0,getdate());
 		set @startyear = IIF(year(@currentyear) -year(@firstyear)>5,dateadd(year,-5,getdate()), @firstyear );
-		SELECT year(DateInput) as 'year', sum(Number*InputPrice) as 'total'
-			FROM ##reports_invoiceimportdetail			
-			WHERE ( year(DateInput)<= year(@currentyear) AND year(DateInput)>=year(@startyear))
-			GROUP by year(DateInput)
+
+		DROP TABLE IF EXISTS ##tmpimportsyear;
+		CREATE  TABLE ##tmpimportsyear(
+			numberyear int,
+			totalimport  bigint,
+			totalexport bigint default 0
+		)	
+			
 		
+		
+		
+			declare @sum int;
+			SET @sum =0;
+			BEGIN
+				INSERT INTO ##tmpimportsyear(numberyear,totalimport,totalexport)		
+				SELECT year(DateInput) , sum(Number*InputPrice),
+				 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail  where year(dateoutput) = year(@startyear ))
+						THEN (select sum(outputprice*number) from ##reports_invoiceexportdetail  where year(dateoutput) =  year(@startyear ) GROUP BY year(dateoutput)) ELSE '0' END)
+					FROM ##reports_invoiceimportdetail	
+					WHERE ( year(DateInput)<= year(@currentyear) AND year(DateInput)>=year(@startyear))
+					GROUP by year(DateInput)
+		
+					
+			END
 	
+		
+		select * from ##tmpimportsyear
 	END
-/*	select * from ##reports_invoiceimportdetail
-	exec  sp_create_get_total_import_from_atmost_5year_to_now
-	select * from InvoiceImport
+	exec sp_get_total_reports_from_atmost_5year_to_now
+
+	/*
+*	Procedure get records invoiceexportdetail from atmost 5 year  to current year
+*/
+
+create PROCEDURE sp_get_total_exports_from_atmost_5year_to_now(
+@firstyear  datetime, @currentyear datetime 
+)
+AS	
+	BEGIN
+		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS  NULL
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceexportdetail
+			END
+		set @currentyear = dateadd(year,5,@firstyear);
+		SELECT year(DateOutput) as 'year', sum(Number*outputPrice) as 'total'
+			FROM ##reports_invoiceexportdetail			
+			WHERE ( year(Dateoutput)<= year(@currentyear) AND year(Dateoutput)>=year(@firstyear))
+			GROUP by year(Dateoutput)
+	END
+
+
 	
-	*/	
-	ALTER PROCEDURE sp_get_total_imports_from_nearest_week
+	/*
+	* Thủ tục lấy ra số lượng hàng  trong 7 ngày liên tiếp
+	* bao gồm tổng hàng xuất và hàng nhập
+	*/
+	ALTER PROCEDURE sp_get_total_reports_from_nearest_week
 AS
+ SET NOCOUNT ON
 	declare  @firstday  datetime, @currentday datetime  ;
 	BEGIN
-		IF OBJECT_ID('tempdb..##reports_invoiceimportdetail','U') IS  NULL
+	
 			BEGIN
-				exec sp_create_temp_get_all_reports_invoiceimportdetail
+				exec sp_create_temp_get_all_reports_invoiceimportdetail;
+			END
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceexportdetail;
+			END
+			BEGIN
+				exec sp_create_temp_get_reports_invoiceimportdetail_nearest_week;
 			END
 		
+		BEGIN
+			exec sp_create_temp_get_reports_invoiceexportdetail_nearest_week;
+		END	
+		DROP TABLE IF EXISTS ##tmpimport;
 		set @currentday = dateadd(day,0,getdate());
-		set @firstday = dateadd(day,-7,@currentday);
-		select @currentday
-		select @firstday
-		SELECT CAST(DateInput AS date) , sum(Number*InputPrice) as 'total'
-			FROM ##reports_invoiceimportdetail			
-			WHERE ( DateInput <= @currentday AND DateInput >= @firstday)
-			GROUP by  CAST(DateInput AS date);
 		
-	
+		set @firstday = dateadd(day,-6,@currentday);
+		DROP TABLE IF EXISTS ##tmpimport;
+		CREATE  TABLE ##tmpimport(
+			dateofweek varchar(20),
+			totalimport  bigint,
+			totalexport bigint default 0
+		)		;
+		WHILE(@firstday <=@currentday)
+		BEGIN
+		declare @sum int;
+		SET @sum =0;
+		BEGIN
+			IF EXISTS(SELECT 1 from ##reports_invoiceimportdetail_nearest_week  where day(dateinput)=  day(@firstday ))		
+				BEGIN
+					INSERT  INTO  ##tmpimport(dateofweek,totalimport,totalexport)		
+					SELECT  CONVERT(VARCHAR(5),dateinput,103) ,
+						 sum(number*inputprice),
+						 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ))
+						 THEN (select sum(outputprice*number) from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ) GROUP BY day(dateoutput)) ELSE '0' END) 
+					FROM ##reports_invoiceimportdetail_nearest_week  where day(dateinput)=  day(@firstday)  GROUP BY  CONVERT(VARCHAR(5),dateinput,103)		;			
+				END	
+			ELSE
+				BEGIN
+					INSERT  INTO  ##tmpimport(dateofweek,totalimport,totalexport)		
+				SELECT  TOP 1 CONVERT(VARCHAR(5),@firstday,103) ,
+						0,
+						 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ))
+						 THEN (select sum(outputprice*number) from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ) GROUP BY day(dateoutput)) ELSE '0' END) 
+					FROM ##reports_invoiceimportdetail_nearest_week  		;	
+				END
+		END				
+			SET  @firstday = dateadd(day,1, @firstday);	
+		END
+		
+		select * from ##tmpimport;
+		
 	END
-	declare @date date
-	set @date = '02/12/2021'
-	select @date
-		SELECT  TOP 1 IIF(  CAST(DateInput AS date) = CAST(@date AS date) ,CAST(DateInput AS date) ,CAST(@date AS date)   ) 	,  CASE WHEN Number > 0 THEN 0 ELSE 1 END  
-		FROM ##reports_invoiceimportdetail		
-		GROUP by CAST(DateInput AS date)    ,  CASE WHEN Number > 0 THEN 0 ELSE 0 END 
+	exec sp_get_total_reports_from_nearest_week
+	exec sp_get_total_imports_from_atmost_5year_to_now
+
 	
-		declare @date datetime
-	set @date = '01/12/2021'
-	select @date
-		SELECT  DateInput   , sum(Number*InputPrice)
-		FROM ##reports_invoiceimportdetail	
-			where DateInput >= @date 
-			GROUP by DateInput
-		
-	select dateinput,number from ##reports_invoiceimportdetail	GROUP by DateInput, number
-			
-		exec sp_get_total_imports_from_nearest_week
-	select * from ##reports_invoiceimportdetail	
-		declare @date datetime
-	set @date = '01/10/2021'
-	select @date
-	SELECT DateInput from  ##reports_invoiceimportdetail  where DateInput = @date 
-		
-		
-/*
-	declare @firstdate datetime ='01/10/2021',@seconddate datetime ='01/15/2121'
-	SELECT  p.name as 'productname' ,iid.Id as 'invoiceimportId',iid.InputPrice,iid.Number,iid.OutputPrice,id.DateInput 		
-				from InvoiceImportDetail iid
-				join Products p
-				ON iid.IdProduct =p.Id
-				JoIN InvoiceImport id
-				ON iid.IdInvoiceImport = id.Id
-				AND id.DateInput >= @firstdate AND id.DateInput <= @seconddate;
-	
-	
-	
-
-select * from InvoiceImport
-	-- TEST thu tuc get data by day
-select p.name,(iid.Number* iid.InputPrice) as 'chi phis',id.DateInput
-from InvoiceImportDetail iid
-join Products p
-ON iid.IdProduct =p.Id
-JoIN InvoiceImport id
-ON iid.IdInvoiceImport = id.Id
-
-select *
-from InvoiceImportDetail iid
-join Products p
-ON iid.IdProduct =p.Id
-JoIN InvoiceImport id
-ON iid.IdInvoiceImport = id.Id
-
-
-
-SELECT  TOP 1  * from InvoiceImport ORDER BY DateInput ASC
-*/
-	--SELECT THe first year in database
-
-
-	declare  @firstyear  datetime
-	set @firstyear =( SELECT  TOP 1 CONVERT(varchar(10),DateInput,101)  from InvoiceImport ORDER BY DateInput ASC)	
- 
- SELECT   year(@firstyear) as 'year',SUM(b.Number*b.InputPrice) as 'totalImport'
-
-FROM InvoiceImportDetail b
-JOIN     InvoiceImport a
-ON a.Id = b.IdInvoiceImport
-WHERE     YEAR(a.DateInput) = year(@firstyear)
-GROUP BY  MONTH(a.DateInput)
-select * from InvoiceImport a where year(a.DateInput) ='2021'
-select * from InvoiceImportDetail
