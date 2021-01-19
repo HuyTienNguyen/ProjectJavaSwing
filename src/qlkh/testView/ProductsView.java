@@ -25,7 +25,7 @@ import qlkh.entities.Category;
 import qlkh.entities.Products;
 import qlkh.entities.Supliers;
 import qlkh.entities.Unit;
-import qlkh.test.IView;
+import qlkh.views.IView;
 import qlkh.utils.Constants;
 import qlkh.utils.Utils;
 import qlkh.utils.pagination.ObjectTableModel;
@@ -36,7 +36,7 @@ import qlkh.utils.pagination.PaginationDataProvider;
  *
  * @author GIANG
  */
-public class GiangTestFrameProducts extends javax.swing.JFrame implements IView {
+public class ProductsView extends javax.swing.JFrame implements IView {
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,7 +88,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(headerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(970, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +106,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
         );
         tablePanelLayout.setVerticalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 249, Short.MAX_VALUE)
+            .addGap(0, 188, Short.MAX_VALUE)
         );
 
         name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -286,9 +286,9 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
         userRoleMainPanel.setLayout(userRoleMainPanelLayout);
         userRoleMainPanelLayout.setHorizontalGroup(
             userRoleMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(tablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         userRoleMainPanelLayout.setVerticalGroup(
             userRoleMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,7 +367,7 @@ public class GiangTestFrameProducts extends javax.swing.JFrame implements IView 
     JTable tblProducts;
     PaginatedTableDecorator<Products> paginatedDecorator;
 
-    public GiangTestFrameProducts() {
+    public ProductsView() {
         //  Locale local = Utils.getLocale();
         Locale local = Utils.getLocale();
         setResourceBundle(local);

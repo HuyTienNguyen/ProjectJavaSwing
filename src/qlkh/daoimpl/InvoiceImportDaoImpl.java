@@ -25,7 +25,7 @@ import qlkh.utils.DatabaseHelper;
  */
 public class InvoiceImportDaoImpl implements IInvoiceImportDAO {
     private static final String SQL_GET_ALL = "SELECT * FROM InvoiceImport ORDER BY DateInput DESC ";
-    private static final String SQL_INSERT = "INSERT INTO InvoiceImport(Id,DateInput) VALUES(?,?)";
+    private static final String SQL_INSERT = "INSERT INTO InvoiceImport(Id,DateInput,idUser) VALUES(?,?,?)";
 
     private static final String SQL_SELECT_BY_ID = "SELECT * FROM InvoiceImport WHERE Id = ? ";
     @Override
@@ -38,8 +38,8 @@ public class InvoiceImportDaoImpl implements IInvoiceImportDAO {
             while (rs.next()) {
                 InvoiceImport input = new InvoiceImport(
                         rs.getString("Id"),
-                        rs.getTimestamp("DateInput")
-                      );
+                        rs.getTimestamp("DateInput"),
+                        rs.getInt("idUser"));
                 listInvoiceImport.add(input);
             }
         } catch (Exception e) {
@@ -64,7 +64,8 @@ public class InvoiceImportDaoImpl implements IInvoiceImportDAO {
             while (rs.next()) {
                 invoiceInport = new InvoiceImport(
                         rs.getString("Id"),
-                        rs.getTimestamp("DateInput") );
+                        rs.getTimestamp("DateInput"),
+                        rs.getInt("idUser"));
 
             }
         } catch (Exception e) {

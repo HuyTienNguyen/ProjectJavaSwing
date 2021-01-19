@@ -2,6 +2,7 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+
         <group>
             <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/controller/InvoiceImportDetailController.java</file>
             <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/testView/GiangTestFrameInvoiceImportDetail.java</file>
@@ -10,5 +11,7 @@
             <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/views/InvoiceImportDetailView.java</file>
             <file>file:/C:/Users/Windows%2010/Documents/NetBeansProjects/Java/ProjectJavaSwing/src/qlkh/controller/InvoiceExportDetailController.java</file>
         </group>
+
+
     </open-files>
 </project-private>

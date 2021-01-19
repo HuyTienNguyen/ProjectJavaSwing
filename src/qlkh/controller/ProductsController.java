@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 import qlkh.dao.ICategoryDAO;
 import qlkh.dao.ISuplierDAO;
 import qlkh.dao.IUnitDAO;
@@ -26,7 +27,7 @@ import qlkh.entities.Unit;
 import qlkh.request.IRequest;
 import qlkh.request.ProductRequest;
 import qlkh.request.ProductUpdateRequest;
-import qlkh.testView.GiangTestFrameProducts;
+import qlkh.views.ProductsView;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
 
@@ -36,7 +37,7 @@ import qlkh.utils.Validator;
  */
 public class ProductsController {
 
-    GiangTestFrameProducts view;
+    ProductsView view;
     ProductDaoImpl proDao;
     ICategoryDAO cateDao;
     IUnitDAO unitDao;
@@ -44,7 +45,7 @@ public class ProductsController {
     private static final int MAX_LENGTH_ID = 6;
 
     public ProductsController() {
-        view = new GiangTestFrameProducts();
+        view = new ProductsView();
         proDao = new ProductDaoImpl();
         cateDao = new CategoryDaoImpl();
         unitDao = new UnitDaoImpl();
@@ -54,9 +55,9 @@ public class ProductsController {
 
     public void showView() {
         if (view == null) {
-            view = new GiangTestFrameProducts();
+            view = new ProductsView();
         }
-
+        
         List<Supliers> supliers = suplierDao.getAllSupliers();
         List<Unit> units = unitDao.getAllUnits();
         List<Category> categories = cateDao.getCategoies();
@@ -72,8 +73,15 @@ public class ProductsController {
         view.addBtnEditAction(this::btnEditAction);
         view.addBtnClearAction(this::btnClearAction);
         view.addTableMouseListener(new TableProductMouseListener());
+        view.clearView(true);
     }
+
+    public JPanel getContentPage() {
+        return view.getContentPage();
+    }
+
     // chỗ này dùng lambda 8 để gọi method ActionEvent 
+
     private void btnAddAction(ActionEvent e) {
         try {
             // Declare suplier request
@@ -83,20 +91,18 @@ public class ProductsController {
 
             Validator validator = Validator.validate(view.getElements(isInsert), request.getRules(), null);
 
-
-
             // Set Error 
             validator.setErrorMessages(request.getMessages());
 
             view.showErrors(validator.getErrors());
             int records = 0;
             if (validator.isPasses() == true) {
-                String productId = String.valueOf(proDao.getCountProducts() + 1);          
+                String productId = String.valueOf(proDao.getCountProducts() + 1);
                 records = proDao.insert(view.getProduct(true, productId));
             }
             if (records > 0) {
                 view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
-               view.clearView(false);
+                view.clearView(false);
                 view.showView(proDao.getAllProducts());
                 view.addTableMouseListener(new TableProductMouseListener());
             } else {
@@ -105,7 +111,7 @@ public class ProductsController {
             }
         } catch (Exception ex) {
             Logger.getLogger(ProductsController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
 
     }
 
@@ -159,7 +165,6 @@ public class ProductsController {
             // get Id by row selected on suplier table
             String productId = view.getEditProductId();
 
-            
             Products product = null;
             if (productId.equals("") == false && productId != null) {
                 product = proDao.getProductById(productId);

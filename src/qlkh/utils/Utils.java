@@ -11,6 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.Random;
@@ -25,8 +27,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
-/**java
+/**
+ * java
  *
  * @author GIANG
  */
@@ -37,7 +39,8 @@ public class Utils {
      *
      * @return Chuỗi thời gian trả về
      * @see DateFormat
-     **/
+     *
+     */
     public static Timestamp getTimestampNow() {
         return new Timestamp(System.currentTimeMillis());
 
@@ -49,17 +52,34 @@ public class Utils {
      * @param time kiểu timestamp
      * @return Chuỗi thời gian trả về
      * @see DateFormat
-     **/
-    public static String getSimpleDateFormat(Timestamp time) {
+     *
+     */
+    public static String getSimpleDateFormatWithHours(Timestamp time) {
         return new SimpleDateFormat(Constants.DATE_FORMAT).format(time);
 
     }
 
+    public static String getSimpleDateFormatWithOutHours(Timestamp time) {
+        return new SimpleDateFormat(Constants.DATE_FORMAT_WITH_HOUR).format(time);
+    }
+
+    public static Date getDateIncrementer( int days) {
+        Date day = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, days);
+        return day = cal.getTime();
+    }
+    public static Date getDateToday() {
+        Date day = new Date();
+        return day = Calendar.getInstance().getTime();
+    }
+
     /**
      *
-     Hàm set Locale
+     * Hàm set Locale
      *
-     **/
+     *
+     */
     public static void setLocale(String country) {
         try {
             //Bước 1: Tạo đối tượng luồng và liên kết nguồn dữ liệu
@@ -77,9 +97,10 @@ public class Utils {
 
     /**
      *
-     Hàm get Locale
+     * Hàm get Locale
      *
-     **/
+     *
+     */
     public static Locale getLocale() {
         // đọc lại file
         Locale newLocale = null;
@@ -103,38 +124,39 @@ public class Utils {
         }
         return newLocale;
     }
-    
+
     /**
      *
-     Hàm send mail
+     * Hàm send mail
      *
-     **/
-    public static void sendMail(String recepient,String content) throws Exception{
+     *
+     */
+    public static void sendMail(String recepient, String content) throws Exception {
         System.out.println("starting");
         Properties properties = new Properties();
-        
+
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host","smtp.gmail.com");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
-        
+
         String myAccountEmail = "tienhuy031001@gmail.com";
         String password = "tienhuy0310";
-        
-        Session session = Session.getInstance(properties,new Authenticator() {
+
+        Session session = Session.getInstance(properties, new Authenticator() {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(myAccountEmail, password); //To change body of generated methods, choose Tools | Templates.
             }
-            
+
         });
-        Message message = prepareMessage(session,myAccountEmail,recepient,content);
+        Message message = prepareMessage(session, myAccountEmail, recepient, content);
         Transport.send(message);
         System.out.println("finished");
     }
-    
-    private static Message prepareMessage(Session session, String myAccountEmail,String recepient,String content) {
+
+    private static Message prepareMessage(Session session, String myAccountEmail, String recepient, String content) {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
@@ -147,17 +169,17 @@ public class Utils {
         }
         return null;
     }
-    
+
     /*
      *
      Hàm tạo random 6 số
      *
      */
-    public static String randomNumber(){
+    public static String randomNumber() {
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
 
-    // this will convert any number sequence into 6 character.
+        // this will convert any number sequence into 6 character.
         return String.format("%06d", number);
     }
 }

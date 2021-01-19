@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package qlkh.test;
-
-import java.util.List;
-import java.util.Map;
+package qlkh.entities;
 
 /**
  *
  * @author GIANG
  */
-public interface IView {
-    List<Object> getElements(boolean isInsert);
-    void showErrors(Map<String,String> errors);
+public class DataTable0 {
+  
 }

@@ -91,7 +91,7 @@ public class SignIn extends javax.swing.JFrame {
     //hàm thêm sự kiện cho forgot password
     public void addBtnForgotPassActionListener(ActionListener listener){
         btnForgotPassword.addActionListener(listener);
-        System.out.println("ádf");
+        
     }
     
     //hàm đóng view

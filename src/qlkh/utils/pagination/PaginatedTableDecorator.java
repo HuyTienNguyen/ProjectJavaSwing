@@ -32,6 +32,7 @@ public class PaginatedTableDecorator<T> {
     private PaginatedTableDecorator(JTable table, PaginationDataProvider<T> dataProvider,
             int[] pageSizes, int defaultPageSize, int maxPagingCompToShow) {
         this.table = table;
+        table.setAutoscrolls(true);
         this.dataProvider = dataProvider;
         this.pageSizes = pageSizes;
         this.currentPageSize = defaultPageSize;
@@ -75,7 +76,7 @@ public class PaginatedTableDecorator<T> {
     private void initPaginationComponents() {
         contentPanel = new JPanel(new BorderLayout());
         JPanel paginationPanel = createPaginationPanel();
-        contentPanel.add(paginationPanel, BorderLayout.NORTH);
+        contentPanel.add(paginationPanel, BorderLayout.NORTH); 
         contentPanel.add(new JScrollPane(table));
     }
 

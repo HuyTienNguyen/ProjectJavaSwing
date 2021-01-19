@@ -21,17 +21,17 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import qlkh.utils.Utils;
 import qlkh.entities.Customers;
-import qlkh.entities.Products;
 import qlkh.utils.Constants;
 import qlkh.utils.pagination.ObjectTableModel;
 import qlkh.utils.pagination.PaginatedTableDecorator;
 import qlkh.utils.pagination.PaginationDataProvider;
+import qlkh.views.IView;
 
 /**
  *
  * @author user
  */
-public class HuyTestFrameCustomer extends javax.swing.JFrame implements IView{
+public class CustomerView extends javax.swing.JFrame implements IView{
 
     /**
      * Creates new form HuyTestFrameCustomer
@@ -410,7 +410,7 @@ public class HuyTestFrameCustomer extends javax.swing.JFrame implements IView{
     JTable tblCustomers;
     PaginatedTableDecorator<Customers> paginatedDecorator;
     ResourceBundle bundle;
-    public HuyTestFrameCustomer() {
+    public CustomerView() {
         Locale local = Utils.getLocale();
         setResourceBundle(local);
         initComponents();

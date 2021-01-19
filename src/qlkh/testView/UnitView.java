@@ -25,14 +25,14 @@ import qlkh.utils.Constants;
  *
  * @author GIANG
  */
-public class GiangTestFrame extends javax.swing.JFrame {
+public class UnitView extends javax.swing.JFrame {
 
     /**
      * Creates new form GiangTestFrame
      */
     ResourceBundle bundle;
 
-    public GiangTestFrame() {
+    public UnitView() {
         Locale local = Locale.getDefault();
         setResourceBundle(local);
         initComponents();
@@ -237,8 +237,6 @@ public class GiangTestFrame extends javax.swing.JFrame {
         btnEdit.setMinimumSize(new java.awt.Dimension(134, 40));
 
         txtNewUnit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        messageUnit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

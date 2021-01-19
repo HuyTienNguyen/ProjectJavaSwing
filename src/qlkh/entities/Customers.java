@@ -143,7 +143,7 @@ public class Customers {
 
     @Override
     public String toString() {
-        return "Customers{" + "id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email + ", moreInfo=" + moreInfo + ", contractDate=" + Utils.getSimpleDateFormat(contractDate) + '}';
+        return "Customers{" + "id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email + ", moreInfo=" + moreInfo + ", contractDate=" + Utils.getSimpleDateFormatWithHours(contractDate) + '}';
     }
     
 }

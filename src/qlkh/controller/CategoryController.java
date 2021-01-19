@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import qlkh.dao.ICategoryDAO;
 import qlkh.daoimpl.CategoryDaoImpl;
 import qlkh.entities.Category;
@@ -19,7 +20,7 @@ import qlkh.request.CategoryUpdateRequest;
 import qlkh.request.IRequest;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
-import qlkh.testView.GiangTestFrameCategory;
+import qlkh.views.CategoryView;
 
 /**
  *
@@ -27,12 +28,12 @@ import qlkh.testView.GiangTestFrameCategory;
  */
 public class CategoryController {
 
-    GiangTestFrameCategory view;
+    CategoryView view;
     ICategoryDAO cateDao;
     Category editCate;
 
     public CategoryController() {
-        view = new GiangTestFrameCategory();
+        view = new CategoryView();
         cateDao = new CategoryDaoImpl();
 
         initListeners();
@@ -48,12 +49,14 @@ public class CategoryController {
 
     public void showView() {
         if (view == null) {
-            view = new GiangTestFrameCategory();
+            view = new CategoryView();
         }
         view.showView( cateDao.getCategoies());
-
+        view.clearView(true);
     }
-
+      public JPanel getContentPage() {
+        return view.getContent();
+    }
     private void btnAddAction(ActionEvent e) {
 
         try {
@@ -127,7 +130,7 @@ public class CategoryController {
         String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
         String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
 
-        int yourChoose = view.showDialog(view, message, title, typeIcon);
+
         int records = 0;
         if (cate != null) {
             records = cateDao.delete(cate);

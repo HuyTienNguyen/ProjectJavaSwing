@@ -11,11 +11,12 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import qlkh.dao.IUnitDAO;
 import qlkh.daoimpl.UnitDaoImpl;
 import qlkh.entities.Unit;
-import qlkh.testView.GiangTestFrame;
 import qlkh.utils.Constants;
+import qlkh.views.UnitView;
 
 /**
  *
@@ -23,12 +24,12 @@ import qlkh.utils.Constants;
  */
 public class UnitController {
 
-    GiangTestFrame view;
+    UnitView view;
     IUnitDAO unitDao;
     Unit editUnit;
 
     public UnitController() {
-        view = new GiangTestFrame();
+        view = new UnitView();
         unitDao = new UnitDaoImpl();
         initListeners();
 
@@ -46,12 +47,14 @@ public class UnitController {
         List<Unit> units = new ArrayList<>();
         units = unitDao.getAllUnits();
         if (view == null) {
-            view = new GiangTestFrame();
+            view = new UnitView();
         }
         view.showView(units);
-
+        view.clearView();
     }
-
+  public JPanel getContentPage() {
+        return view.getContent();
+    }
     private void btnAddAction(ActionEvent e) {
         String newUnitName = view.getNewUnitText();
         if (newUnitName != null && newUnitName.equals("") == false) {
@@ -114,9 +117,8 @@ public class UnitController {
         int typeIcon = (status == 1) ? JOptionPane.ERROR_MESSAGE : JOptionPane.QUESTION_MESSAGE;
         String message = (status == 1) ? Constants.MSG_DIALOG_DELETE : Constants.MSG_DIALOG_SHOW;
         String title = (status == 1) ? Constants.MSG_DIALOG_TITLE : Constants.MSG_DIALOG_TITLE_SHOW;
-        int choose = view.showDialog(view, message, title, typeIcon);
         if (editUnit != null) {
-            if (choose == JOptionPane.YES_OPTION) {
+           
                 int result = unitDao.delete(editUnit);
                 if (result > 0) {
                     view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
@@ -128,7 +130,7 @@ public class UnitController {
                     view.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
                 }
             }
-        }
+        
     }
 
     private class TableUnitMouseListener implements MouseListener {

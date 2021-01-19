@@ -141,7 +141,7 @@ public class DatabaseHelper {
      * @param sql cú pháp SQL kèm tham số
      * @param args mảng tham số truyền vào
      */
-    private static <E> CallableStatement getCallableStatement(String sql, E... args) throws SQLException {
+    private static <E> CallableStatement getCallableReturnParam(String sql, E... args) throws SQLException {
         CallableStatement cst;
         if (connectionSqlserver == null || connectionSqlserver.isClosed() == true) {
             connectionSqlserver = getInstance().getConnectionSqlserver();
@@ -152,7 +152,8 @@ public class DatabaseHelper {
 
         int size = args.length;
         // Đăng ký tham số đầu ra cho thủ tục
-        cst.registerOutParameter(1, Types.INTEGER);
+        if(size>0){
+        cst.registerOutParameter(1, Types.INTEGER);}
         int numberOne = 1;
 
         // kieu object
@@ -235,7 +236,7 @@ public class DatabaseHelper {
      * @throws java.sql.SQLException
      */
     public static <E> int insertDataByCallableStatement(String sql, E... args) throws SQLException {
-        CallableStatement cst = getCallableStatement(sql, args);
+        CallableStatement cst = getCallableReturnParam(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
@@ -249,7 +250,7 @@ public class DatabaseHelper {
      * @throws java.sql.SQLException
      */
      public static <E> int selectByCallableStatement(String sql, E... args) throws SQLException {
-        CallableStatement cst = getCallableStatement(sql, args);
+        CallableStatement cst = getCallableReturnParam(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
@@ -263,7 +264,7 @@ public class DatabaseHelper {
      * @throws java.sql.SQLException
      */
     public static <E> int updateDataByCallableStatement(String sql, E... args) throws SQLException {
-        CallableStatement cst = getCallableStatement(sql, args);
+        CallableStatement cst = getCallableReturnParam(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
     }
@@ -277,9 +278,22 @@ public class DatabaseHelper {
      * @throws java.sql.SQLException
      */
     public static <E> int deleteDataByCallableStatement(String sql, E... args) throws SQLException {
-        CallableStatement cst = getCallableStatement(sql, args);
+        CallableStatement cst = getCallableReturnParam(sql, args);
         cst.executeUpdate();
         return cst.getInt(1);
+    }
+    /**
+     * Method update by procedure and return a number result
+     *
+     * @param <E> paramameter generic
+     * @param sql cú pháp SQL kèm tham số
+     * @param args mảng tham số truyền vào
+     * @return an number error
+     * @throws java.sql.SQLException
+     */
+    public static <E> ResultSet selectDataByCallableStatement(String sql, E... args) throws SQLException {
+        CallableStatement cst = getCallableReturnParam(sql, args);
+        return cst.executeQuery();
     }
     /**
      *  Method check unique in database

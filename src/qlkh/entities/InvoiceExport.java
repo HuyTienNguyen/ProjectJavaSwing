@@ -18,6 +18,7 @@ public class InvoiceExport {
     private String id;
     private Timestamp dateOutput;
     private int IdCustomer;
+    private int idUser;
 
     public InvoiceExport() {
     }
@@ -27,6 +28,16 @@ public class InvoiceExport {
         this.dateOutput = dateOutput;
         this.IdCustomer = IdCustomer;
     }
+    
+
+    public InvoiceExport(String id, Timestamp dateOutput, int IdCustomer, int idUser) {
+        this.id = id;
+        this.dateOutput = dateOutput;
+        this.IdCustomer = IdCustomer;
+        this.idUser = idUser;
+    }
+
+    
 
     
 
@@ -53,6 +64,15 @@ public class InvoiceExport {
     public void setIdCustomer(int IdCustomer) {
         this.IdCustomer = IdCustomer;
     }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+    
     
 
     /**
@@ -67,14 +87,15 @@ public class InvoiceExport {
                 param = new Object[]{
                     this.getId(),
                     this.getDateOutput(),
-                    this.getIdCustomer()
-
+                    this.getIdCustomer(),
+                    this.getIdUser()
                 };
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
                     this.getDateOutput(),
                     this.getIdCustomer(),
+                    this.getIdUser(),
                     this.getId()
                 };
                 break;
@@ -90,8 +111,10 @@ public class InvoiceExport {
 
     @Override
     public String toString() {
-        return "InvoiceExport{" + "id=" + id + ", dateOutput=" + dateOutput + ", IdCustomer=" + IdCustomer + '}';
+        return "InvoiceExport{" + "id=" + id + ", dateOutput=" + dateOutput + ", IdCustomer=" + IdCustomer + ", idUser=" + idUser + '}';
     }
+
+    
 
     
 

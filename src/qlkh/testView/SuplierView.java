@@ -9,22 +9,17 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
-import java.util.function.Supplier;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import javax.swing.table.DefaultTableModel;
 import qlkh.entities.Supliers;
-
-import qlkh.entities.Unit;
-import qlkh.test.IView;
+import qlkh.views.IView;
 import qlkh.utils.Constants;
 import qlkh.utils.Utils;
 
@@ -32,7 +27,7 @@ import qlkh.utils.Utils;
  *
  * @author GIANG
  */
-public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView {
+public class SuplierView extends javax.swing.JFrame implements IView {
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -447,7 +442,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
      */
     ResourceBundle bundle;
 
-    public GiangTestFrameSupplier() {
+    public SuplierView() {
         //  Locale local = Utils.getLocale();
         Locale local = Locale.getDefault();
         setResourceBundle(local);
@@ -549,7 +544,7 @@ public class GiangTestFrameSupplier extends javax.swing.JFrame implements IView 
             row.add(sup.getAddress());
             row.add(sup.getEmail());
             row.add(sup.getMoreInfo());
-            row.add(Utils.getSimpleDateFormat(sup.getContractDate()));
+            row.add(Utils.getSimpleDateFormatWithHours(sup.getContractDate()));
             row.add(sup.getCharacters());
             row.add((sup.getStatus() > 0) ? bundle.getString(Constants.STATUS_SHOW) : bundle.getString(Constants.STATUS_HIDE));
             startNumber++;

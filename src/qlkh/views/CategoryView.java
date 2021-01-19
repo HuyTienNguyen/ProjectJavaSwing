@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package qlkh.testView;
+package qlkh.views;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -18,22 +17,20 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import qlkh.entities.Category;
-import qlkh.entities.Supliers;
-
-import qlkh.entities.Unit;
-import qlkh.test.IView;
 import qlkh.utils.Constants;
-import qlkh.utils.Utils;
 
 /**
  *
  * @author GIANG
  */
-public class GiangTestFrameCategory extends javax.swing.JFrame implements IView {
+public class CategoryView extends javax.swing.JPanel implements IView {
 
+    /**
+     * Creates new form CategoryView
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +40,6 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        userRoleMainPanel = new javax.swing.JPanel();
         headerPanel = new javax.swing.JPanel();
         headerLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -64,9 +60,7 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
         messageCategory = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        userRoleMainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(990, 618));
 
         headerPanel.setBackground(new java.awt.Color(51, 0, 51));
 
@@ -81,7 +75,7 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(headerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(970, Short.MAX_VALUE))
+                .addContainerGap(851, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,11 +97,10 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
         );
 
         name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        name.setNextFocusableComponent(character);
 
         btnAdd.setBackground(new java.awt.Color(0, 255, 204));
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -155,7 +148,6 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
         );
 
         character.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        character.setNextFocusableComponent(btnAdd);
 
         lblCharacterCode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCharacterCode.setText(bundle.getString("characterCate"));
@@ -253,45 +245,29 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
                 .addGap(0, 2, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout userRoleMainPanelLayout = new javax.swing.GroupLayout(userRoleMainPanel);
-        userRoleMainPanel.setLayout(userRoleMainPanelLayout);
-        userRoleMainPanelLayout.setHorizontalGroup(
-            userRoleMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        userRoleMainPanelLayout.setVerticalGroup(
-            userRoleMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(userRoleMainPanelLayout.createSequentialGroup()
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(userRoleMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(userRoleMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -313,15 +289,10 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
     private javax.swing.JLabel messageCategory;
     private javax.swing.JTextField name;
     private javax.swing.JTable tblCategory;
-    private javax.swing.JPanel userRoleMainPanel;
     // End of variables declaration//GEN-END:variables
+ ResourceBundle bundle;
 
-    /**
-     * Creates new form GiangTestFrame
-     */
-    ResourceBundle bundle;
-
-    public GiangTestFrameCategory() {
+    public CategoryView() {
         //  Locale local = Utils.getLocale();
         Locale local = Locale.getDefault();
         setResourceBundle(local);
@@ -335,11 +306,21 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
         setEnableBtnEdit(true);
         setEnableBtnDelete(true);
         setEnableBtnEdit(false);
-        loadAllCategories(categories);
+        if(categories != null){
+                    loadAllCategories(categories);
+
+        }
 
     }
 
+    public JPanel getContent() {
+        return this;
+    }
+
+  
+
     // Set ResourceBundle to this view
+
     private void setResourceBundle(Locale locale) {
         //Set Resources Bundle theo local 
         bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
@@ -433,10 +414,12 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
         errName.setText(bundle.getString(message));
         errName.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }
+
     /**
      * Show the message in header of the view
+     *
      * @param message The message will be show
-     * @param color Color of the message 
+     * @param color Color of the message
      */
     public void showMessage(String message, int color) {
         messageCategory.setText(bundle.getString(message));
@@ -478,9 +461,11 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
     public int showDialogMesage(JFrame frame, String message, String title) {
         return JOptionPane.showConfirmDialog(frame, bundle.getString(message), bundle.getString(title), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
     }
+
     /**
-     *hello
-     **/
+     * hello
+     *
+     */
 
     public void clearView(boolean clearAll) {
         setEnableBtnAddNew(true);
@@ -488,6 +473,7 @@ public class GiangTestFrameCategory extends javax.swing.JFrame implements IView 
         setEnableBtnDelete(false);
         if (clearAll == true) {
             messageCategory.setText("");
+            clearError();
         }
         id.setText("");
         name.setText("");

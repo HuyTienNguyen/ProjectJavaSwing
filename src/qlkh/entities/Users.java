@@ -174,6 +174,12 @@ public class Users {
                     this.getEmail()
                 };
                 break;
+            case Constants.ACTION_SELECT_USERNAME_AND_EMAIL:
+                param = new Object[]{
+                    this.getUserName(),
+                    this.getEmail()
+                };
+                break;
         }
         return param;
     }

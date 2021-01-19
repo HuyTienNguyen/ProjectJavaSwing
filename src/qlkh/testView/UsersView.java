@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import qlkh.entities.Users;
-import qlkh.test.IView;
+import qlkh.views.IView;
 import qlkh.utils.Constants;
 import qlkh.utils.pagination.ObjectTableModel;
 import qlkh.utils.pagination.PaginatedTableDecorator;
@@ -30,7 +30,7 @@ import qlkh.utils.pagination.PaginationDataProvider;
  *
  * @author GIANG
  */
-public class GiangTestFrameUsers extends javax.swing.JFrame implements IView {
+public class UsersView extends javax.swing.JFrame implements IView {
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -374,7 +374,7 @@ public class GiangTestFrameUsers extends javax.swing.JFrame implements IView {
     JTable tblUsers;
     PaginatedTableDecorator<Users> paginatedDecorator;
 
-    public GiangTestFrameUsers() {
+    public UsersView() {
         //  Locale local = Utils.getLocale();
         Locale local = Locale.getDefault();
         setResourceBundle(local);

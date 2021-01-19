@@ -36,7 +36,7 @@ public class AppInvoiceImportDetail {
                 // ILogin controller = new LoginController();                     
                 // controller.showLoginView();  
                 InvoiceImportDetailController controller = new InvoiceImportDetailController();
-                controller.showView();
+            //   controller.
 //                UnitController unit  = new UnitController();
 //                unit.showView();
 

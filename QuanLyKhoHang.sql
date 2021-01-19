@@ -14,7 +14,7 @@ create table Users(
 	verifyCode int NULL
 )
 go
-select * from Users
+
 --tạo bảng Unit
 create table Unit(
 	Id int identity(1,1) primary key,
@@ -22,7 +22,18 @@ create table Unit(
 	status int default(1)
 )
 go
+Alter proc getunitNameById
+@input_id int
 
+AS	
+	BEGIN 
+
+	SELECT name from unit where id = @input_id
+	END
+	
+	exec getunitNameById 0
+	select @name1
+	select * from users
 --tạo bảng Suplier
 create table Suplier(
 	Id int identity(1,1) primary key,
@@ -280,13 +291,13 @@ create procedure sp_delete_category
 	END
 	GO
 	-- GET TOTAl row in product table
-	CREATE procedure sp_count_products (
+	create procedure sp_count_products (
 	@output int output
 	)
 
  AS			
 		BEGIN
-		SET @output	=(select count(*)FROM  Products		)
+		SET @output	=(select count(*)FROM  Products	)
 			
 		END
 		GO
@@ -347,16 +358,255 @@ alter procedure sp_add_invoice_import_Detail(
 			 RETURN ERROR_MESSAGE()
 			END CATCH
 			GO
-			SELECT * FROM InvoiceImportDetail
-			select * from InvoiceImport
-/*	 Test sql insert into 2 table InvoiceImportDetail va InvoiceImport
+			
 
-	select * from Products
-declare @output1 int	
-exec sp_add_invoice_import_Detail @output1 output,'02/10/2021','SP002',200,20000,80000,'1'
-select @output1
-select * from InvoiceImportDetail
-select * from InvoiceImport
+-- THủ tục lấy về ngày đầu tiên trong bảng Invoice import
+CREATE PROCEDURE sp_get_firt_date_Invoice_Import 
+AS
+	BEGIN
+		SELECT convert (datetime,(SELECT  TOP 1  DateInput from InvoiceImport ORDER BY  DateInput)) 
+	
+	END
+	GO
+	-- lấy ngày này sang năm 
+
+	/*
+	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin nhập hàng từ truóc tới nay
+	*/
+
+create PROCEDURE sp_create_temp_get_all_reports_invoiceimportdetail
+
+AS
+	BEGIN		
+		IF OBJECT_ID('tempdb..##reports_invoiceimportdetail','U') IS NOT NULL
+		BEGIN
+			DROP TABLE ##reports_invoiceimportdetail
+		END
+			BEGIN
+			SELECT iid.Id as 'IdInvoiceimportDetail',iid.IdProduct as'ProductId', p.name as 'Productname' ,iid.InputPrice,iid.Number,iid.OutputPrice,id.Id as'IdInvoiceimport',id.DateInput INTO ##reports_invoiceimportdetail			
+				from InvoiceImportDetail iid
+				join Products p
+				ON iid.IdProduct =p.Id
+				JoIN InvoiceImport id
+				ON iid.IdInvoiceImport = id.Id
+				
+			END		
+	END
+	GO
+	/*
+	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin xuất hàng từ trước tới nay
+	*/
+
+ALTER PROCEDURE sp_create_temp_get_all_reports_invoiceexportdetail
+
+AS
+	BEGIN		
+		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS NOT NULL
+		BEGIN
+			DROP TABLE ##reports_invoiceexportdetail
+		END
+			BEGIN
+				SELECT ied.Id ,iid.Number,iid.InputPrice,iid.OutputPrice,ie.DateOutput  INTO ##reports_invoiceexportdetail
+				FROM  InvoiceExportDetail ied
+				JOIN InvoiceImportDetail iid
+				ON ied.IdInvoiceImportDetail = iid.Id	
+				JOIN InvoiceExport ie
+				ON ie.Id = ied.IdInvoiceExport
+				
+			END	
+			
+	END
+	GO
+
+	
+
+	/*
+	*	Procedure sp_create_temp_reports_invoiceimportdetail lấy về toàn bộ thông tin nhập hàng trong 7 ngày gần nhất
+	*/
+ALTER  PROCEDURE sp_create_temp_get_reports_invoiceimportdetail_nearest_week
+	AS
+		declare @today date,
+				@thesamedaylastweek date
+		BEGIN
+			SET @today =  CAST(getdate() AS date);
+			SET @thesamedaylastweek = DATEADD(day ,-7,@today )
+			BEGIN				
+				IF OBJECT_ID('tempdb..##reports_invoiceimportdetail','U') IS   NULL
+				BEGIN
+					exec sp_create_temp_get_all_reports_invoiceimportdetail
+				END
+				DROP TABLE IF EXISTS   ##reports_invoiceimportdetail_nearest_week	
+				SELECT * INTO ##reports_invoiceimportdetail_nearest_week			
+					from ##reports_invoiceimportdetail
+					where DateInput >=@thesamedaylastweek AND DateInput <=@today								
+			END
+END
+GO
+
+
+	/*
+	*	Procedure sp_create_temp_reports_invoiceimportdetail lấy về toàn bộ thông tin xuat hàng trong 7 ngày gần nhất
+	*/
+ALTER  PROCEDURE sp_create_temp_get_reports_invoiceexportdetail_nearest_week
+	AS
+		declare @today date,
+				@thesamedaylastweek date
+		BEGIN
+			SET @today =  CAST(getdate() AS date);
+			SET @thesamedaylastweek = DATEADD(day ,-7,@today )
+			BEGIN				
+				IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS   NULL
+				BEGIN
+					exec sp_create_temp_get_all_reports_invoiceexportdetail
+				END
+				DROP TABLE IF EXISTS   ##reports_invoiceexportdetail_nearest_week	
+				SELECT * INTO ##reports_invoiceexportdetail_nearest_week			
+					from ##reports_invoiceexportdetail
+					where DateOutput >=@thesamedaylastweek AND DateOutput <=@today								
+			END
+END
+GO
+exec  sp_create_temp_get_reports_invoiceexportdetail_nearest_week
+-- test procedure exec sp_create_temp_get_reports_invoiceimportdetail_nearest_week
+
+/*
+*	Procedure get all record in a year
 */
 
-select * from InvoiceImport
+
+/*
+*	Procedure get records invoiceimportdetail from atmost 5 year  to current year
+*/
+select * from customer
+alter PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
+AS
+ SET NOCOUNT ON
+	declare  @firstyear  datetime, @currentyear datetime ,@startyear datetime ;
+	BEGIN
+		IF OBJECT_ID('tempdb..##reports_invoiceimportdetail','U') IS  NULL
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceimportdetail
+			END
+		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS  NULL
+		BEGIN
+			exec sp_create_temp_get_all_reports_invoiceexportdetail
+		END
+		set @firstyear =( SELECT  TOP 1 CONVERT(varchar(10),DateInput,101)  from InvoiceImport ORDER BY DateInput ASC)	
+		set @currentyear = dateadd(year,0,getdate());
+		set @startyear = IIF(year(@currentyear) -year(@firstyear)>5,dateadd(year,-5,getdate()), @firstyear );
+
+		DROP TABLE IF EXISTS ##tmpimportsyear;
+		CREATE  TABLE ##tmpimportsyear(
+			numberyear int,
+			totalimport  bigint,
+			totalexport bigint default 0
+		)	
+		WHILE(@startyear <=@currentyear)
+			BEGIN		
+			declare @sum int;
+			SET @sum =0;		
+			BEGIN
+			IF EXISTS(SELECT 1 from ##reports_invoiceimportdetail  where year(dateinput)=  year(@startyear ))	
+				INSERT INTO ##tmpimportsyear(numberyear,totalimport,totalexport)		
+				SELECT year(DateInput) , sum(Number*InputPrice),
+				 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail  where year(dateoutput) = year(@startyear ))
+						THEN (select sum(outputprice*number) from ##reports_invoiceexportdetail  where year(dateoutput) =  year(@startyear ) GROUP BY year(dateoutput)) ELSE '0' END)
+					FROM ##reports_invoiceimportdetail	
+					WHERE  year(DateInput)=year(@startyear)
+					GROUP by year(DateInput)								
+			END
+				SET  @startyear = dateadd(year,1, @startyear);
+		END
+		select * from ##tmpimportsyear
+	END
+	select * from ##reports_invoiceexportdetail
+	exec sp_get_total_reports_from_atmost_5year_to_now
+
+	/*
+*	Procedure get records invoiceexportdetail from atmost 5 year  to current year
+*/
+
+create PROCEDURE sp_get_total_exports_from_atmost_5year_to_now(
+@firstyear  datetime, @currentyear datetime 
+)
+AS	
+	BEGIN
+		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS  NULL
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceexportdetail
+			END
+		set @currentyear = dateadd(year,5,@firstyear);
+		SELECT year(DateOutput) as 'year', sum(Number*outputPrice) as 'total'
+			FROM ##reports_invoiceexportdetail			
+			WHERE ( year(Dateoutput)<= year(@currentyear) AND year(Dateoutput)>=year(@firstyear))
+			GROUP by year(Dateoutput)
+	END
+
+
+	
+	/*
+	* Thủ tục lấy ra số lượng hàng  trong 7 ngày liên tiếp
+	* bao gồm tổng hàng xuất và hàng nhập
+	*/
+	ALTER PROCEDURE sp_get_total_reports_from_nearest_week
+AS
+ SET NOCOUNT ON
+	declare  @firstday  datetime, @currentday datetime  ;
+	BEGIN	
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceimportdetail;
+			END
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceexportdetail;
+			END
+			BEGIN
+				exec sp_create_temp_get_reports_invoiceimportdetail_nearest_week;
+			END
+		
+		BEGIN
+			exec sp_create_temp_get_reports_invoiceexportdetail_nearest_week;
+		END	
+		DROP TABLE IF EXISTS ##tmpimport;
+		set @currentday = dateadd(day,0,getdate());
+		
+		set @firstday = dateadd(day,-6,@currentday);
+		DROP TABLE IF EXISTS ##tmpimport;
+		CREATE  TABLE ##tmpimport(
+			dateofweek varchar(20),
+			totalimport  bigint,
+			totalexport bigint default 0
+		)		;
+		WHILE(@firstday <=@currentday)
+		BEGIN
+		declare @sum int;
+		SET @sum =0;
+		BEGIN
+			IF EXISTS(SELECT 1 from ##reports_invoiceimportdetail_nearest_week  where day(dateinput)=  day(@firstday ))		
+				BEGIN
+					INSERT  INTO  ##tmpimport(dateofweek,totalimport,totalexport)		
+					SELECT  CONVERT(VARCHAR(5),dateinput,103) ,
+						 sum(number*inputprice),
+						 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ))
+						 THEN (select sum(outputprice*number) from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ) GROUP BY day(dateoutput)) ELSE '0' END) 
+					FROM ##reports_invoiceimportdetail_nearest_week  where day(dateinput)=  day(@firstday)  GROUP BY  CONVERT(VARCHAR(5),dateinput,103)		;			
+				END	
+			ELSE
+				BEGIN
+					INSERT  INTO  ##tmpimport(dateofweek,totalimport,totalexport)		
+				SELECT  TOP 1 CONVERT(VARCHAR(5),@firstday,103) ,
+						0,
+						 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ))
+						 THEN (select sum(outputprice*number) from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ) GROUP BY day(dateoutput)) ELSE '0' END) 
+					FROM ##reports_invoiceimportdetail_nearest_week  		;	
+				END
+		END				
+			SET  @firstday = dateadd(day,1, @firstday);	
+		END
+		
+		select * from ##tmpimport;
+		
+	END
+	exec sp_get_total_reports_from_nearest_week
+	exec sp_get_total_imports_from_atmost_5year_to_now
+
+	

@@ -25,7 +25,7 @@ import qlkh.entities.Category;
 import qlkh.entities.InvoiceImport;
 import qlkh.entities.InvoiceImportDetail;
 import qlkh.entities.Products;
-import qlkh.test.IView;
+import qlkh.views.IView;
 import qlkh.utils.Constants;
 import qlkh.utils.Utils;
 import qlkh.utils.pagination.ObjectTableModel;
@@ -580,7 +580,6 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
      * @param imports
      */
     public void loadImports(List<InvoiceImport> imports) {
-
         this.imports = imports;
         int counts = 1;
         InvoiceImport newInvoiceImport = new InvoiceImport("0", Utils.getTimestampNow());
