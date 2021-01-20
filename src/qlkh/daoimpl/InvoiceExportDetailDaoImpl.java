@@ -24,8 +24,8 @@ import qlkh.utils.DatabaseHelper;
 public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
 
     private static final String SQL_GET_ALL = "SELECT * FROM InvoiceExportDetail";
-    private static final String SQL_INSERT = "INSERT INTO InvoiceExportDetail(Id,IdProduct,IdInvoiceImportDetail,IdInvoiceExport,Counts,Status) VALUES(?,?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE  InvoiceExportDetail SET IdProduct =?, IdInvoiceImportDetail =?, IdInvoiceExport =?,Counts=?,Status=? WHERE Id =?";
+    private static final String SQL_INSERT = "INSERT INTO InvoiceExportDetail(Id,IdInvoiceImportDetail,IdInvoiceExport,Counts,Status) VALUES(?,?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE  InvoiceExportDetail SET IdInvoiceImportDetail =?, IdInvoiceExport =?,Counts=?,Status=? WHERE Id =?";
     private static final String SQL_DELETE = "DELETE FROM  InvoiceExportDetail  WHERE Id =?";
 
     private static final String SQL_SELECT_BY_Id = "SELECT * FROM InvoiceExportDetail WHERE Id= ? ";
@@ -40,7 +40,6 @@ public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
             while (rs.next()) {
                 InvoiceExportDetail invoiceexportDetail = new InvoiceExportDetail(
                         rs.getString("Id"),
-                        rs.getString("IdProduct"),
                         rs.getString("IdInvoiceImportDetail"),
                         rs.getString("IdInvoiceExport"),
                         rs.getInt("Counts"),
@@ -71,7 +70,6 @@ public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
             while (rs.next()) {
                 listInvoiceExportDetail = new InvoiceExportDetail(
                         rs.getString("Id"),
-                        rs.getString("IdProduct"),
                         rs.getString("IdInvoiceImportDetail"),
                         rs.getString("IdInvoiceExport"),
                         rs.getInt("Counts"),

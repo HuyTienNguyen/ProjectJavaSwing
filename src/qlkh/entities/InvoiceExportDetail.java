@@ -14,7 +14,6 @@ import qlkh.utils.Constants;
 public class InvoiceExportDetail {
 
     private String id;
-    private String idProduct;
     private String idInvoiceImportDetail;
     private String idInvoiceExport;
     private int counts;
@@ -23,9 +22,8 @@ public class InvoiceExportDetail {
     public InvoiceExportDetail() {
     }
 
-    public InvoiceExportDetail(String id, String idProduct, String idInvoiceImportDetail, String idInvoiceExport, int counts, String status) {
+    public InvoiceExportDetail(String id, String idInvoiceImportDetail, String idInvoiceExport, int counts, String status) {
         this.id = id;
-        this.idProduct = idProduct;
         this.idInvoiceImportDetail = idInvoiceImportDetail;
         this.idInvoiceExport = idInvoiceExport;
         this.counts = counts;
@@ -38,14 +36,6 @@ public class InvoiceExportDetail {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(String idProduct) {
-        this.idProduct = idProduct;
     }
 
     public String getIdInvoiceImportDetail() {
@@ -94,7 +84,6 @@ public class InvoiceExportDetail {
             case Constants.ACTION_INSERT:
                 param = new Object[]{
                     this.getId(),
-                    this.getIdProduct(),
                     this.getIdInvoiceImportDetail(),
                     this.getIdInvoiceExport(),
                     this.getCounts(),
@@ -104,7 +93,6 @@ public class InvoiceExportDetail {
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
-                    this.getIdProduct(),
                     this.getIdInvoiceImportDetail(),
                     this.getIdInvoiceExport(),
                     this.getCounts(),
@@ -124,8 +112,12 @@ public class InvoiceExportDetail {
 
     @Override
     public String toString() {
-        return "InvoiceExportDetail{" + "id=" + id + ", idProduct=" + idProduct + ", idInvoiceImportDetail=" + idInvoiceImportDetail + ", idInvoiceExport=" + idInvoiceExport + ", counts=" + counts + ", status=" + status + '}';
+        return "InvoiceExportDetail{" + "id=" + id + ", idInvoiceImportDetail=" + idInvoiceImportDetail + ", idInvoiceExport=" + idInvoiceExport + ", counts=" + counts + ", status=" + status + '}';
     }
+
+  
+
+    
 
     
 

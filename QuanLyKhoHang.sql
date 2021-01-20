@@ -113,6 +113,11 @@ create table InvoiceExportDetail(
 	Status nvarchar(100)
 )
 go
+--tạo thêm 2 cột iduser cho invoiceimport va invoiceexport
+ALTER TABLE InvoiceImport
+ADD IdUser int;
+ALTER TABLE InvoiceExport
+ADD IdUser int;
 
 --tạo khóa ngoại Cateogry và Products
 ALTER TABLE Products
@@ -138,16 +143,30 @@ ADD CONSTRAINT FK_06 FOREIGN KEY (IdInvoiceImport) REFERENCES InvoiceImport(Id);
 ALTER TABLE InvoiceExport
 ADD CONSTRAINT FK_07 FOREIGN KEY (IdCustomer) REFERENCES Customer(Id);
 
---tạo khóa ngoại InvoiceExportDetail và products
-ALTER TABLE InvoiceExportDetail
-ADD CONSTRAINT FK_08 FOREIGN KEY (idProduct) REFERENCES products(Id);
+
+
 --tạo khóa ngoại InvoiceExportDetail và InvoiceImportDetail
 ALTER TABLE InvoiceExportDetail
 ADD CONSTRAINT FK_09 FOREIGN KEY (IdInvoiceImportDetail) REFERENCES InvoiceImportDetail(Id);
 --tạo khóa ngoại InvoiceExportDetail và invoiceExport
 ALTER TABLE InvoiceExportDetail
 ADD CONSTRAINT FK_10 FOREIGN KEY (idinvoiceExport) REFERENCES invoiceExport(Id)
+
+--tạo khóa ngoại InvoiceExport và users
+ALTER TABLE InvoiceExport
+ADD CONSTRAINT FK_11 FOREIGN KEY (idUser) REFERENCES users(Id)
+
+--tạo khóa ngoại InvoiceImport và users
+ALTER TABLE InvoiceImport
+ADD CONSTRAINT FK_12 FOREIGN KEY (idUser) REFERENCES users(Id)
 GO
+
+--xóa khóa ngoại giữa invoiceexportdetail vs products
+ALTER TABLE invoiceexportdetail
+DROP CONSTRAINT FK_08;
+--xóa cột idproduct trong invoicexportdetail
+ALTER TABLE invoiceexportdetail
+DROP COLUMN idProduct;
 /*
   *  Tạo thủ tục
   PRocedure ADD new unit
@@ -485,7 +504,7 @@ exec  sp_create_temp_get_reports_invoiceexportdetail_nearest_week
 /*
 *	Procedure get records invoiceimportdetail from atmost 5 year  to current year
 */
-
+select * from customer
 alter PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
 AS
  SET NOCOUNT ON

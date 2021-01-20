@@ -132,7 +132,6 @@ public class Utils {
      *
      */
     public static void sendMail(String recepient, String content) throws Exception {
-        System.out.println("starting");
         Properties properties = new Properties();
 
         properties.put("mail.smtp.auth", "true");
@@ -153,7 +152,6 @@ public class Utils {
         });
         Message message = prepareMessage(session, myAccountEmail, recepient, content);
         Transport.send(message);
-        System.out.println("finished");
     }
 
     private static Message prepareMessage(Session session, String myAccountEmail, String recepient, String content) {

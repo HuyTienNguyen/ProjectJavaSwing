@@ -76,7 +76,7 @@ public class UsersView extends javax.swing.JPanel implements IView {
 
         headerLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         headerLabel.setForeground(new java.awt.Color(255, 255, 255));
-        headerLabel.setText("Suplier");
+        headerLabel.setText("Users");
 
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
         headerPanel.setLayout(headerPanelLayout);
@@ -633,7 +633,7 @@ public JPanel getContent(){
 
     public void showUpdateUser(Users user) {
         id.setText(String.valueOf(user.getId()));
-        loginName.setText(user.getName());
+        loginName.setText(user.getUserName());
         username.setText(user.getName());
         email.setText(user.getEmail());
         setEnableBtnAddNew(false);
