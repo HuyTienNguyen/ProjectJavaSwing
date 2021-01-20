@@ -82,7 +82,7 @@ public class Constants {
      *   END Suplier Table
      */
     // Header Products Table
-    public static final String[] HEADER_PRODUCT_TABLE = {"Id", "Name", "Suplier", "Category", "Unit"};
+    public static final String[] HEADER_PRODUCT_TABLE = {"Id", "Name", "Suplier", "Category", "Unit","Price","Tax"};
     public static final String MSG_PRODUCT_NAME_CANT_BE_EMPTY = "MSG_UNIT_NAME_CANT_BE_EMPTY";
  
     

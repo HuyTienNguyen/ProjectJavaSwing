@@ -88,9 +88,7 @@ public class ProductsController {
             IRequest request = new ProductRequest();
             boolean isInsert = true;
             // Declare instance of Validator
-
             Validator validator = Validator.validate(view.getElements(isInsert), request.getRules(), null);
-
             // Set Error 
             validator.setErrorMessages(request.getMessages());
 

@@ -21,6 +21,8 @@ public class MainViewController {
     private SuplierController suplier;
     private UnitController unit;
     private UsersController user;
+    private InvoiceImportDetailController importDetail;
+
     private ReportsController report;
 
     private Home home;
@@ -34,25 +36,25 @@ public class MainViewController {
         unit = new UnitController();
         user = new UsersController();
         report = new ReportsController();
-
+        importDetail = new InvoiceImportDetailController();
         home = new Home();
         view = new MainView2();
         view.addBtnShowHome(this::showViewHome, home);
 
         view.addBtnShowCategory(this::showViewCategory, category);
-      
+
         view.addBtnShowProducts(this::showViewProduct, product);
-    
+
         view.addBtnShowSupliers(this::showViewSuplier, suplier);
         // suplier.showView();
         view.addBtnShowCustomer(this::showViewCustomer, customer);
-       
+
         view.addBtnShowUnit(this::showViewUnit, unit);
-       
+
         view.addBtnShowUsers(this::showViewUser, user);
-      
+        view.addBtnShowImportDetail(this::showViewImportDetail, importDetail);
+
 //        view.addBtnShowReports(this::showViewReport, report);
-        
     }
 
     public void showView() {
@@ -65,17 +67,17 @@ public class MainViewController {
 
     private void showViewCategory(ActionEvent e) {
         view.goToPageMainPanel(view.cateView);
-          category.showView();
+        category.showView();
     }
 
     private void showViewCustomer(ActionEvent e) {
         view.goToPageMainPanel(view.customerView);
-         customer.showView();
+        customer.showView();
     }
 
     private void showViewProduct(ActionEvent e) {
         view.goToPageMainPanel(view.productView);
-            product.showView();
+        product.showView();
     }
 
     private void showViewSuplier(ActionEvent e) {
@@ -85,12 +87,17 @@ public class MainViewController {
 
     private void showViewUnit(ActionEvent e) {
         view.goToPageMainPanel(view.unitView);
-         unit.showView();
+        unit.showView();
     }
 
     private void showViewUser(ActionEvent e) {
         view.goToPageMainPanel(view.userView);
-          user.showView();
+        user.showView();
+    }
+
+    private void showViewImportDetail(ActionEvent e) {
+        view.goToPageMainPanel(view.importView);
+        importDetail.showView();
     }
 
     private void showViewReport(ActionEvent e) {

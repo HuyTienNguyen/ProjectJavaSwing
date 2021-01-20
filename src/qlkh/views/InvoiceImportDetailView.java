@@ -461,8 +461,7 @@ public class InvoiceImportDetailView extends javax.swing.JPanel implements IView
                         return iid.getNumber();
                     case 3:
                         return iid.getInputPrice();
-                    case 4:
-                        return iid.getOutputPrice();
+                   
                     case 5:
                         return importMap.get(iid.getIdInvoiceImport());
 
@@ -698,7 +697,6 @@ public class InvoiceImportDetailView extends javax.swing.JPanel implements IView
         invoiceDetail.setIdInvoiceImport(((InvoiceImport) cbbInvoiceImport.getSelectedItem()).getId());
         invoiceDetail.setIdProduct(product.getId());
         invoiceDetail.setInputPrice(Float.parseFloat(inputPrice.getText()));
-        invoiceDetail.setOutputPrice(Float.parseFloat(outputPrice.getText()));
         invoiceDetail.setNumber(Integer.parseInt(number.getText()));
         return invoiceDetail;
     }

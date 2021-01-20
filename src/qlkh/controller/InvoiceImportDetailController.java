@@ -27,6 +27,7 @@ import qlkh.request.InvoiceImportDetailRequest;
 import qlkh.testView.GiangTestFrameInvoiceImportDetail;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
+import qlkh.views.CategoryView;
 import qlkh.views.InvoiceImportDetail2View;
 
 /**
@@ -61,11 +62,17 @@ public class InvoiceImportDetailController {
     }
 
 
-
+public void showView() {
+        if (view == null) {
+            view = new InvoiceImportDetail2View();
+        }
+        view.showView( invoiceImDetailDao.getAllDetails());
+        view.clearView(true);
+    }
     public JPanel getContentPage() {
         return view.getContent();
     }
-
+ 
     private void btnAddAction(ActionEvent e) {
         try {
             // Declare suplier request

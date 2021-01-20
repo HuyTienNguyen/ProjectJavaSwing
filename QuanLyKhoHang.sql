@@ -22,6 +22,7 @@ create table Unit(
 	status int default(1)
 )
 go
+
 Alter proc getunitNameById
 @input_id int
 
@@ -64,6 +65,8 @@ create table Products(
 	IdCate int
 )
 go
+
+select * from products
 
 --tạo bảng Customer
 create table Customer(
@@ -316,8 +319,8 @@ alter procedure sp_add_invoice_import_Detail(
 	@idProduct nvarchar(100),
 	@idImportInput varchar(20),
 	@number int,
-	@inputPrice float,
-	@outputPrice float
+	@inputPrice float
+	
 	
 )
 
@@ -333,9 +336,7 @@ alter procedure sp_add_invoice_import_Detail(
 			set @countInvoiceImport = ((SELECT count(id) from invoiceimport)+1)	
 			-- set id for new record insert to invoiceimport table
 			SET @newIdInvoiceImport = 'I'+ REPLICATE('0',6 - LEN(CAST(@countInvoiceImport as varchar(20)))) +CAST(@countInvoiceImport as varchar(20))
-			
-			
-
+					
 			SET @idInvoiceImport =IIF(LEN(@idImportInput)>3,@idImportInput,@newIdInvoiceImport)
 			-- get count from imvoiceimportDetail table
 			set @countInvoiceImportDetail= ((SELECT count(id) from InvoiceImportDetail)+1)		
@@ -346,9 +347,8 @@ alter procedure sp_add_invoice_import_Detail(
 						INSERT INTO InvoiceImport (id,DateInput)VALUES(@idInvoiceImport,@dateImport)
 					END
 				
-
-				INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,Number,InputPrice,OutputPrice,Status)
-							VALUES(@idinvoiceimportDetail,@idProduct,@idInvoiceImport,@number,@inputPrice,@outputPrice,'1')
+				INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,Number,InputPrice,Status)
+							VALUES(@idinvoiceimportDetail,@idProduct,@idInvoiceImport,@number,@inputPrice,'1')
 				SET @errOutput =0;
 				COMMIT TRANSACTION
 			END TRY
@@ -374,7 +374,7 @@ AS
 	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin nhập hàng từ truóc tới nay
 	*/
 
-create PROCEDURE sp_create_temp_get_all_reports_invoiceimportdetail
+alter PROCEDURE sp_create_temp_get_all_reports_invoiceimportdetail
 
 AS
 	BEGIN		
@@ -383,7 +383,7 @@ AS
 			DROP TABLE ##reports_invoiceimportdetail
 		END
 			BEGIN
-			SELECT iid.Id as 'IdInvoiceimportDetail',iid.IdProduct as'ProductId', p.name as 'Productname' ,iid.InputPrice,iid.Number,iid.OutputPrice,id.Id as'IdInvoiceimport',id.DateInput INTO ##reports_invoiceimportdetail			
+			SELECT iid.Id as 'IdInvoiceimportDetail',iid.IdProduct as'ProductId', p.name as 'Productname' ,iid.InputPrice,iid.Number,id.DateInput INTO ##reports_invoiceimportdetail			
 				from InvoiceImportDetail iid
 				join Products p
 				ON iid.IdProduct =p.Id
@@ -396,7 +396,7 @@ AS
 	/*
 	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin xuất hàng từ trước tới nay
 	*/
-
+select * from Products
 ALTER PROCEDURE sp_create_temp_get_all_reports_invoiceexportdetail
 
 AS
@@ -406,13 +406,14 @@ AS
 			DROP TABLE ##reports_invoiceexportdetail
 		END
 			BEGIN
-				SELECT ied.Id ,iid.Number,iid.InputPrice,iid.OutputPrice,ie.DateOutput  INTO ##reports_invoiceexportdetail
+				SELECT ied.Id ,iid.Number,iid.InputPrice,p.price as 'outputPrice',ie.DateOutput  INTO ##reports_invoiceexportdetail
 				FROM  InvoiceExportDetail ied
 				JOIN InvoiceImportDetail iid
 				ON ied.IdInvoiceImportDetail = iid.Id	
 				JOIN InvoiceExport ie
 				ON ie.Id = ied.IdInvoiceExport
-				
+				JOIN Products p
+				ON p.Id = iid.IdProduct
 			END	
 			
 	END
@@ -608,5 +609,6 @@ AS
 	END
 	exec sp_get_total_reports_from_nearest_week
 	exec sp_get_total_imports_from_atmost_5year_to_now
+	select * from InvoiceImportDetail
 
-	
+	select * from products

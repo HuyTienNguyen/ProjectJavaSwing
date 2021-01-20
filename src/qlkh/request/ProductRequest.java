@@ -21,6 +21,10 @@ public class ProductRequest extends IRequest {
         maps.put("unit", "required");
         maps.put("suplier", "required");
         maps.put("category", "required");
+        maps.put("price", "required|float");
+
+        maps.put("tax", "float");
+
         return maps;
     }
 
@@ -30,8 +34,11 @@ public class ProductRequest extends IRequest {
         messes.put("name.required", "The name  is required");
         messes.put("name.unique", "Name already exists!Please try again");
         messes.put("name.max", "The name field is a maximum of value character");
-       
-       
+
+        messes.put("price.required", "The price  is required");
+        messes.put("price.float", "The Price need be a float number");
+
+        messes.put("tax.float", "The Tax need be a float number");
 
         return messes;
 
