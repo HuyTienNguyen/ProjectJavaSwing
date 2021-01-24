@@ -20,19 +20,17 @@ public class InvoiceImportDetail {
     private String idInvoiceImport;
     private int number;
     private float inputPrice;
-    private float outputPrice;
     private String status;
 
     public InvoiceImportDetail() {
     }
 
-    public InvoiceImportDetail(String id, String idProduct, String idInvoiceImport, int number, float inputPrice, float outputPrice, String status) {
+    public InvoiceImportDetail(String id, String idProduct, String idInvoiceImport, int number, float inputPrice, String status) {
         this.id = id;
         this.idProduct = idProduct;
         this.idInvoiceImport = idInvoiceImport;
         this.number = number;
         this.inputPrice = inputPrice;
-        this.outputPrice = outputPrice;
         this.status = status;
     }
 
@@ -76,13 +74,7 @@ public class InvoiceImportDetail {
         this.inputPrice = inputPrice;
     }
 
-    public float getOutputPrice() {
-        return outputPrice;
-    }
-
-    public void setOutputPrice(float outputPrice) {
-        this.outputPrice = outputPrice;
-    }
+   
 
     public String getStatus() {
         return status;
@@ -109,8 +101,7 @@ public class InvoiceImportDetail {
                     this.getIdProduct(),
                     this.getIdInvoiceImport(),
                     this.getNumber(),
-                    this.getInputPrice(),
-                    this.getOutputPrice() 
+                    this.getInputPrice()
                 };
                 break;
             case Constants.ACTION_UPDATE:
@@ -119,9 +110,9 @@ public class InvoiceImportDetail {
                     this.getIdInvoiceImport(),
                     this.getNumber(),
                     this.getInputPrice(),
-                    this.getOutputPrice(),
                     this.getStatus(),
                     this.getId()
+                    
                 };
                 break;
 
@@ -134,10 +125,7 @@ public class InvoiceImportDetail {
         return param;
     }
 
-    @Override
-    public String toString() {
-        return "InvoiceImportDetail{" + "id=" + id + ", idProduct=" + idProduct + ", idInvoiceImport=" + idInvoiceImport + ", number=" + number + ", inputPrice=" + inputPrice + ", outputPrice=" + outputPrice + ", status=" + status + '}';
-    }
+   
 
     
 

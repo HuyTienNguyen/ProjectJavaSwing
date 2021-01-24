@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import qlkh.ForgotPassword1;
 import qlkh.ForgotPassword2;
 import qlkh.ForgotPassword3;
+import qlkh.SignIn;
 import qlkh.daoimpl.UserDaoImpl;
 import qlkh.entities.Users;
 import qlkh.utils.Constants;
@@ -31,6 +32,7 @@ public class ForgotPassword1Controller {
     public ForgotPassword1Controller(ForgotPassword1 view) {
         forgotPass1 = view;
         view.addBtnSendMailActionListener(new BtnSendMailActionListener());
+        view.addGoToBackPage(this::clickBackHome);
         
     }
     public void showSignIn() {
@@ -76,6 +78,13 @@ public class ForgotPassword1Controller {
             }
         }
         
+    }
+    
+    private void clickBackHome(ActionEvent e) {
+        forgotPass1.hideView();
+        SignIn signIn = new SignIn(Utils.getLocale());
+        SignInController mainController = new SignInController(signIn);
+        mainController.showSignIn();
     }
     
 }

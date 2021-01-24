@@ -23,10 +23,10 @@ import qlkh.utils.DatabaseHelper;
  */
 public class InvoiceImportDetailDaoImpl implements IInvoiceImportDetailDAO {
     private static final String SQL_GET_ALL = "SELECT * FROM InvoiceImportDetail";
-    private static final String SQL_INSERT = "INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,number,inputPrice,outputPrice,Status) VALUES(?,?,?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE  InvoiceImportDetail SET IdProduct =?, IdInvoiceImport =?, number =?,inputPrice=?,OutputPrice=?,Status=? WHERE Id =?";
+    private static final String SQL_INSERT = "INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,number,inputPrice,Status) VALUES(?,?,?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE  InvoiceImportDetail SET IdProduct =?, IdInvoiceImport =?, number =?,inputPrice=?,Status=? WHERE Id =?";
     private static final String SQL_DELETE = "DELETE FROM  InvoiceImportDetail  WHERE Id =?";
-    private static final String SQL_INSERT_BY_PROC ="{call sp_add_invoice_import_Detail(?,?,?,?,?,?,?)}";
+    private static final String SQL_INSERT_BY_PROC ="{call sp_add_invoice_import_Detail(?,?,?,?,?,?)}";
     private static final String SQL_SELECT_BY_Id = "SELECT * FROM InvoiceImportDetail WHERE Id= ? ";
     @Override
     public List<InvoiceImportDetail> getAllDetails() {
@@ -35,7 +35,7 @@ public class InvoiceImportDetailDaoImpl implements IInvoiceImportDetailDAO {
         try {
             ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);
             while(rs.next()){
-                InvoiceImportDetail inputinfo = new InvoiceImportDetail(rs.getString("Id"),rs.getString("IdProduct"),rs.getString("IdInvoiceImport"),rs.getInt("number"),rs.getFloat("InputPrice"),rs.getFloat("OutputPrice"),rs.getString("status"));
+                InvoiceImportDetail inputinfo = new InvoiceImportDetail(rs.getString("Id"),rs.getString("IdProduct"),rs.getString("IdInvoiceImport"),rs.getInt("number"),rs.getFloat("InputPrice"),rs.getString("status"));
                 listInvoiceImportDetail.add(inputinfo);
             }
         } catch (SQLException ex) {
@@ -57,7 +57,7 @@ public class InvoiceImportDetailDaoImpl implements IInvoiceImportDetailDAO {
         try {
             ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_Id, param);
             if(rs.next()){
-                invoiceImportDetail = new InvoiceImportDetail(rs.getString("Id"),rs.getString("IdProduct"),rs.getString("IdInvoiceImport"),rs.getInt("number"),rs.getFloat("InputPrice"),rs.getFloat("OutputPrice"),rs.getString("status"));
+                invoiceImportDetail = new InvoiceImportDetail(rs.getString("Id"),rs.getString("IdProduct"),rs.getString("IdInvoiceImport"),rs.getInt("number"),rs.getFloat("InputPrice"),rs.getString("status"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(InvoiceImportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);

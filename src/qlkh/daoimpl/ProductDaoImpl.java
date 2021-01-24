@@ -27,8 +27,8 @@ public class ProductDaoImpl implements IProductDAO {
     private static Connection conn;
     private static final String SQL_GET_ALL = "SELECT * FROM Products";
     private static final String SQL_SELECT_BY_ID = "SELECT * FROM Products WHERE ID = ?";
-    private static final String SQL_INSERT = "INSERT INTO Products(id,name,idUnit,idSuplier,idCate) VALUES(?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE  Products SET NAME =?, idUnit=?,idSuplier=?,idCate=? WHERE ID =?";
+    private static final String SQL_INSERT = "INSERT INTO Products(id,name,idUnit,idSuplier,idCate,price,taxProduct) VALUES(?,?,?,?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE  Products SET NAME =?, idUnit=?,idSuplier=?,idCate=?,price=?,taxProduct=? WHERE ID =?";
     private static final String SQL_DELETE = "DELETE FROM  Products  WHERE ID =?";
     private static final String SQL_GET_COUNT_PRODUCTS = "{call sp_count_products(?)}";
 
@@ -39,7 +39,7 @@ public class ProductDaoImpl implements IProductDAO {
         try {
             ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);
             while (rs.next()) {
-                Products ob = new Products(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5));
+                Products ob = new Products(rs.getString("id"), rs.getString("name"), rs.getInt("idUnit"), rs.getInt("idSuplier"), rs.getInt("idCate"), rs.getFloat("price"), rs.getFloat("taxProduct"));
                 listProducts.add(ob);
             }
         } catch (SQLException ex) {
@@ -61,7 +61,8 @@ public class ProductDaoImpl implements IProductDAO {
         try {
             ResultSet rs = DatabaseHelper.selectData(SQL_SELECT_BY_ID, param);
             if (rs.next()) {
-                products = new Products(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5));
+                products = new Products(rs.getString("id"), rs.getString("name"), rs.getInt("idUnit"), rs.getInt("idSuplier"), rs.getInt("idCate"), rs.getFloat("price"), rs.getFloat("taxProduct"));
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,12 +129,12 @@ public class ProductDaoImpl implements IProductDAO {
     }
 
     @Override
-    public int getCountProducts()  {
+    public int getCountProducts() {
         int count = -1;
         try {
-           Object param = new   Object[]{
-                    Types.INTEGER
-                };
+            Object param = new Object[]{
+                Types.INTEGER
+            };
             count = DatabaseHelper.selectByCallableStatement(SQL_GET_COUNT_PRODUCTS, param);
         } catch (SQLException ex) {
             Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,7 +142,7 @@ public class ProductDaoImpl implements IProductDAO {
             try {
                 DatabaseHelper.getInstance().closeDatabaseConnection();
             } catch (SQLException ex) {
-                Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);       
+                Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return count;

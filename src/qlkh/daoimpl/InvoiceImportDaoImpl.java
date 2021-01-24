@@ -38,8 +38,7 @@ public class InvoiceImportDaoImpl implements IInvoiceImportDAO {
             while (rs.next()) {
                 InvoiceImport input = new InvoiceImport(
                         rs.getString("Id"),
-                        rs.getTimestamp("DateInput"),
-                        rs.getInt("idUser"));
+                        rs.getTimestamp("DateInput"));
                 listInvoiceImport.add(input);
             }
         } catch (Exception e) {

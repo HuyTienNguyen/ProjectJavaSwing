@@ -19,7 +19,6 @@ public class InvoiceImportDetailRequest extends IRequest {
         Map<String, String> maps = new HashMap();
         maps.put("product", "required");
         maps.put("inputPrice", "required|float|min:1");
-        maps.put("outputPrice", "required|float|min:1");
         maps.put("number", "required|integer");
         return maps;
     }
@@ -33,9 +32,7 @@ public class InvoiceImportDetailRequest extends IRequest {
         messMaps.put("inputPrice.float", "The Price need be a float number");
         messMaps.put("inputPrice.min", "The Price minimum is   value!Please try again!");
 
-           messMaps.put("outputPrice.required", "The price  is required");
-        messMaps.put("outputPrice.float", "The Price need be a float number");
-        messMaps.put("outputPrice.min", "The Price minimum is   value!Please try again!");
+         
 
         messMaps.put("number.unique", "The Number  is required");
         messMaps.put("number.integer", "The Number need be a float number");

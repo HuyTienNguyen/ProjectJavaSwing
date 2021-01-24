@@ -27,6 +27,7 @@ import qlkh.request.InvoiceImportDetailRequest;
 import qlkh.testView.GiangTestFrameInvoiceImportDetail;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
+import qlkh.views.CategoryView;
 import qlkh.views.InvoiceImportDetail2View;
 
 /**
@@ -47,8 +48,8 @@ public class InvoiceImportDetailController {
         invoiceImDetailDao = new InvoiceImportDetailDaoImpl();
         invoiceImDao = new InvoiceImportDaoImpl();
         cateDao = new CategoryDaoImpl();
-        
-         List<Products> products = proDao.getAllProducts();
+
+        List<Products> products = proDao.getAllProducts();
         view.loadAllCategories(cateDao.getCategoies(), products);
         view.loadImports(invoiceImDao.getImports());
         view.loadProducts(products);
@@ -60,7 +61,13 @@ public class InvoiceImportDetailController {
         view.addTableMouseListener(new TableMouseListener());
     }
 
-
+    public void showView() {
+        if (view == null) {
+            view = new InvoiceImportDetail2View();
+        }
+        view.showView(invoiceImDetailDao.getAllDetails());
+        view.clearView(true);
+    }
 
     public JPanel getContentPage() {
         return view.getContent();

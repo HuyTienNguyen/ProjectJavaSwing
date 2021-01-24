@@ -14,7 +14,6 @@ create table Users(
 	verifyCode int NULL
 )
 go
-
 --tạo bảng Unit
 create table Unit(
 	Id int identity(1,1) primary key,
@@ -22,7 +21,8 @@ create table Unit(
 	status int default(1)
 )
 go
-Alter proc getunitNameById
+
+CREATE proc getunitNameById
 @input_id int
 
 AS	
@@ -61,9 +61,12 @@ create table Products(
 	name nvarchar(100),
 	IdUnit int not null,
 	IdSuplier int not null,
-	IdCate int
+	IdCate int,
+	price float check(price>=0) default 0,
+	taxProduct float check(taxProduct >=0 AND taxProduct <=100) default 0
 )
 go
+
 
 --tạo bảng Customer
 create table Customer(
@@ -76,7 +79,6 @@ create table Customer(
 	ContractDate DateTime
 )
 go
-
 --tạo bảng InvoiceImport
 create table InvoiceImport(
 	Id nvarchar(100) primary key,
@@ -91,7 +93,6 @@ create table InvoiceImportDetail(
 	IdInvoiceImport nvarchar(100) not null,
 	Number int,
 	InputPrice float default(0),
-	OutputPrice float default(0),
 	Status nvarchar(100)
 )
 go
@@ -100,7 +101,8 @@ go
 create table InvoiceExport(
 	Id nvarchar(100) primary key,
 	DateOutput DateTime,
-	IdCustomer int not null
+	IdCustomer int not null,
+	totalMoney bigint default(0)
 )
 go
 --tạo bảng InvoiceExportDetail
@@ -179,7 +181,7 @@ create procedure sp_add_new_unit
  (
 
 	@output int output,
-		@name varchar(100)
+	@name varchar(100)
 
  )
  AS
@@ -335,9 +337,7 @@ alter procedure sp_add_invoice_import_Detail(
 	@idProduct nvarchar(100),
 	@idImportInput varchar(20),
 	@number int,
-	@inputPrice float,
-	@outputPrice float
-	
+	@inputPrice float		
 )
 
 	AS
@@ -352,9 +352,7 @@ alter procedure sp_add_invoice_import_Detail(
 			set @countInvoiceImport = ((SELECT count(id) from invoiceimport)+1)	
 			-- set id for new record insert to invoiceimport table
 			SET @newIdInvoiceImport = 'I'+ REPLICATE('0',6 - LEN(CAST(@countInvoiceImport as varchar(20)))) +CAST(@countInvoiceImport as varchar(20))
-			
-			
-
+					
 			SET @idInvoiceImport =IIF(LEN(@idImportInput)>3,@idImportInput,@newIdInvoiceImport)
 			-- get count from imvoiceimportDetail table
 			set @countInvoiceImportDetail= ((SELECT count(id) from InvoiceImportDetail)+1)		
@@ -365,9 +363,8 @@ alter procedure sp_add_invoice_import_Detail(
 						INSERT INTO InvoiceImport (id,DateInput)VALUES(@idInvoiceImport,@dateImport)
 					END
 				
-
-				INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,Number,InputPrice,OutputPrice,Status)
-							VALUES(@idinvoiceimportDetail,@idProduct,@idInvoiceImport,@number,@inputPrice,@outputPrice,'1')
+				INSERT INTO InvoiceImportDetail(Id,IdProduct,IdInvoiceImport,Number,InputPrice,Status)
+							VALUES(@idinvoiceimportDetail,@idProduct,@idInvoiceImport,@number,@inputPrice,'1')
 				SET @errOutput =0;
 				COMMIT TRANSACTION
 			END TRY
@@ -393,7 +390,7 @@ AS
 	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin nhập hàng từ truóc tới nay
 	*/
 
-create PROCEDURE sp_create_temp_get_all_reports_invoiceimportdetail
+alter PROCEDURE sp_create_temp_get_all_reports_invoiceimportdetail
 
 AS
 	BEGIN		
@@ -402,7 +399,7 @@ AS
 			DROP TABLE ##reports_invoiceimportdetail
 		END
 			BEGIN
-			SELECT iid.Id as 'IdInvoiceimportDetail',iid.IdProduct as'ProductId', p.name as 'Productname' ,iid.InputPrice,iid.Number,iid.OutputPrice,id.Id as'IdInvoiceimport',id.DateInput INTO ##reports_invoiceimportdetail			
+			SELECT iid.Id as 'IdInvoiceimportDetail',iid.IdProduct as'ProductId', p.name as 'Productname' ,iid.InputPrice,iid.Number,id.DateInput INTO ##reports_invoiceimportdetail			
 				from InvoiceImportDetail iid
 				join Products p
 				ON iid.IdProduct =p.Id
@@ -416,7 +413,10 @@ AS
 	*	Procedure sp_create_temp_get_all_reports_invoiceimportdetail lấy về toàn bộ thông tin xuất hàng từ trước tới nay
 	*/
 
-alter PROCEDURE sp_create_temp_get_all_reports_invoiceexportdetail
+
+
+ALTER PROCEDURE sp_create_temp_get_all_reports_invoiceexportdetail
+
 
 AS
 	BEGIN		
@@ -425,13 +425,15 @@ AS
 			DROP TABLE ##reports_invoiceexportdetail
 		END
 			BEGIN
-				SELECT ied.Id ,ied.Counts,iid.InputPrice,iid.OutputPrice,ie.DateOutput  INTO ##reports_invoiceexportdetail
+				SELECT ied.Id ,iid.Number,iid.InputPrice,p.price as 'outputPrice',ie.DateOutput  INTO ##reports_invoiceexportdetail
+
 				FROM  InvoiceExportDetail ied
 				JOIN InvoiceImportDetail iid
 				ON ied.IdInvoiceImportDetail = iid.Id	
 				JOIN InvoiceExport ie
 				ON ie.Id = ied.IdInvoiceExport
-				
+				JOIN Products p
+				ON p.Id = iid.IdProduct
 			END	
 			
 	END
@@ -505,7 +507,7 @@ exec  sp_create_temp_get_reports_invoiceexportdetail_nearest_week
 *	Procedure get records invoiceimportdetail from atmost 5 year  to current year
 */
 select * from customer
-alter PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
+create PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
 AS
  SET NOCOUNT ON
 	declare  @firstyear  datetime, @currentyear datetime ,@startyear datetime ;
@@ -553,25 +555,7 @@ AS
 	
 	exec sp_get_total_reports_from_atmost_5year_to_now
 	
-	/*
-*	Procedure get records invoiceexportdetail from atmost 5 year  to current year
-*/
 
-create PROCEDURE sp_get_total_exports_from_atmost_5year_to_now(
-@firstyear  datetime, @currentyear datetime 
-)
-AS	
-	BEGIN
-		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS  NULL
-			BEGIN
-				exec sp_create_temp_get_all_reports_invoiceexportdetail
-			END
-		set @currentyear = dateadd(year,5,@firstyear);
-		SELECT year(DateOutput) as 'year', sum(Number*outputPrice) as 'total'
-			FROM ##reports_invoiceexportdetail			
-			WHERE ( year(Dateoutput)<= year(@currentyear) AND year(Dateoutput)>=year(@firstyear))
-			GROUP by year(Dateoutput)
-	END
 
 
 	
@@ -647,5 +631,54 @@ AS
 	*/
 	exec sp_get_total_reports_from_nearest_week
 	exec sp_get_total_imports_from_atmost_5year_to_now
+
+	select * from InvoiceExport
+	select * from products p join InvoiceImportDetail iid on p.Id = iid.IdProduct join InvoiceExportDetail ỉed on iid.Id = ied.IdInvoiceImportDetail
+	--tổng tiền hóa đơn.
+	select sum(ied.Counts*p.price) as 'tien hoa don',ied.IdInvoiceExport as 'ma hoa don' from InvoiceexportDetail ied join InvoiceImportDetail iid on ied.IdInvoiceImportDetail = iid.Id join Products p on p.Id = iid.IdProduct group by ied.IdInvoiceExport 
+	
+	--stored procedure, try catch : ERROR_LINE(), ERROR_MESSAGE()
+	--demo:
+	BEGIN TRY
+		BEGIN TRAN INSERT_TRAN
+		INSERT INTO ...
+		INSERT INTO ...
+		COMMIT INSERT_TRAN
+	END TRY
+	BEGIN CATCH
+		PRINT 'INSERT THAT BAT TAI DONG:' +  ERROR_LINE()
+		ROLLBACK TRANSACTION INSERT_TRAN
+	END CATCH
+	--demo
+
+
+	--demo 2:
+	create proc usp_recored
+	as
+	begin
+		declare @result int
+		select * from InvoiceExportDetail
+		set @result = @@ROWCOUNT
+		PRINT(@result)
+	end
+
+	create proc usp_recored2
+		@result int out
+	as
+	begin
+		select * from InvoiceExportDetail
+		set @result = @@ROWCOUNT
+	end
+
+	declare @result int
+	exec @result out
+	--demo 2:
+
+
+
+
+
+
+
 
 	

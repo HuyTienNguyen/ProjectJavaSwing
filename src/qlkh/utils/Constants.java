@@ -53,11 +53,10 @@ public class Constants {
     public static final int ACTION_GET_USER_BY_USERNAME_PASS = 9;
     public static final int ACTION_GET_USER_BY_EMAIL = 10;
     public static final int ACTION_SELECT_USERNAME_AND_EMAIL = 11;
-
+    public static final int ACTION_GET_ID_USER = 12;
     // SImple format date
     public static final String DATE_FORMAT = "dd-MM-yyyy hh:mm:ss";
-        public static final String DATE_FORMAT_WITH_HOUR = "dd-MM-yyyy";
-
+    public static final String DATE_FORMAT_WITH_HOUR = "dd-MM-yyyy";
 
     //
     public static final String PLEASE_CHOOSE_ONE = "PLEASE_CHOOSE_ONE";
@@ -82,13 +81,12 @@ public class Constants {
      *   END Suplier Table
      */
     // Header Products Table
-    public static final String[] HEADER_PRODUCT_TABLE = {"Id", "Name", "Suplier", "Category", "Unit"};
+    public static final String[] HEADER_PRODUCT_TABLE = {"Id", "Name", "Suplier", "Category", "Unit", "Price", "Tax"};
     public static final String MSG_PRODUCT_NAME_CANT_BE_EMPTY = "MSG_UNIT_NAME_CANT_BE_EMPTY";
- 
-    
+
 // Header Report Table1
     public static final String[] HEADER_REPORT_TABLE1 = {"Id", "Name", "Suplier", "Category", "Unit"};
-  
+
     public static final String[] HEADER_REPORT_TABLE2 = {"Id", "Name", "Suplier", "Category", "Unit"};
     public static final String[] HEADER_REPORT_TABLE3 = {"Id", "Name", "Suplier", "Category", "Unit"};
 
@@ -105,30 +103,40 @@ public class Constants {
     /*
      *   END Category Table
      */
-    
     /*
      *   Customers Table
      */
     // Header Customers Table
-    public static final String[] HEADER_CUSTOMERS_TABLE = {"Id", "Name", "Address", "Phone","Email","MoreInfo","ContractDate"};
+    public static final String[] HEADER_CUSTOMERS_TABLE = {"Id", "Name", "Address", "Phone", "Email", "MoreInfo", "ContractDate"};
     public static final String MSG_CUSTOMERS_NAME_CANT_BE_EMPTY = "MSG_UNIT_NAME_CANT_BE_EMPTY";
 
     /*
      *   END Customers Table
      */
-
-     // Header InvoiceImportDetail Table
-    public static final String[] HEADER_IMPORT_DETAIL_TABLE = {"Id", "Product Name", "Number", "Input Price", "OutputPrice","Date"};
+    // Header InvoiceImportDetail Table
+    public static final String[] HEADER_IMPORT_DETAIL_TABLE = {"Id", "Product Name", "Number", "Input Price", "OutputPrice", "Date"};
 
     /*
      *   END Suplier Table
-    /*
+     /*
     
+     /*
+     *   Export Detail
+     /*/
+    public static final String[] HEADER_EXPORT_DETAIL_TABLE = {"Id", "Id InvoiceExport", "Name Customer", "Product Name", "Counts", "Money", "Name User", "Date Output"};
+
+    /*
+     *   Export Detail
+     /*
+    
+    
+    
+     */
     /*
      *   Customers Table
      */
     // Header Customers Table
-    public static final String[] HEADER_USER_TABLE = {"Id", "Name", "User Name","Email"};
+    public static final String[] HEADER_USER_TABLE = {"Id", "Name", "User Name", "Email"};
 
     /*
      *   END Customers Table
@@ -165,11 +173,16 @@ public class Constants {
     public static final String QUERY_CHECK_UNIQUE_CONSTANTS = "SELECT * FROM table where field =?";
     public static final String QUERY_CHECK_UNIQUE_CONSTANTS_WHEN_UPDATE = "SELECT * FROM table where field = ? and id not like ?";
     public static final String QUERY_CHECK_DATA_TYPE_FIELD_NAME = "SELECT field FROM table";
+    public static final String QUERY_CHECK_EXISTS_ID_FOREIGN_KEY = "SELECT * FROM table where field = ?";
+
 
     /*
-     * forgotPass2
+     * invoiceexportdetail
      */
+    public static final String MSG_NO_QUALITY = "MSG_NO_QUALITY";
+    public static final String MSG_ERROR_LOGIC = "MSG_ERROR_LOGIC";
+
     /*
-     *forgotPass2
+     *end invoiceexportdetail
      */
 }

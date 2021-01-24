@@ -34,6 +34,7 @@ public class SingUpController {
     public SingUpController(SignUp view) {
         signUp = view;
         signUp.addBtnSignUpActionListener(new BtnSignUpActionListener());
+        signUp.addGoToBackPage(this::clickBackHome);
     }
 
     public void showSignIn() {
@@ -49,19 +50,17 @@ public class SingUpController {
             try {
                 //declare signup request
                 SignUpRequest request = new SignUpRequest();
-                   boolean isInSert =false;
+                boolean isInSert = false;
                 Validator validator = Validator.validate(signUp.getElements(isInSert), request.getRules(), null);
                 // Declare instance of Validator
                 validator.setErrorMessages(request.getMessages());
 
                 // show errors to the view
                 //show errors to the view
-
                 signUp.showErrors(validator.getErrors());
 
-
                 int records = 0;
-                if ( validator.isPasses() == true) {
+                if (validator.isPasses() == true) {
                     Users users = signUp.getNewUsers();
                     UserDaoImpl userModel = new UserDaoImpl();
                     records = userModel.insert(users);
@@ -84,4 +83,10 @@ public class SingUpController {
 
     }
 
+    private void clickBackHome(ActionEvent e) {
+        signUp.hideView();
+        SignIn signIn = new SignIn(Utils.getLocale());
+        SignInController mainController = new SignInController(signIn);
+        mainController.showSignIn();
+    }
 }

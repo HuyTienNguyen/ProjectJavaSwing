@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -125,6 +126,12 @@ public class Validator {
                             ruleError = checkUniqueFromTableWhenUpdate(NameTableAndField[0], NameTableAndField[1], value, valueId);
                             break;
                         }
+                    case "exists":
+//                        if (valueId == null) {
+                            String x = getRuleUniqueValue(rule);
+                            String[] NameTableAndField = getUniqueRule(x);
+                            ruleError = !checkExistsFromTableWhereForeignKey(NameTableAndField[0], NameTableAndField[1], value);
+                            break;
 
                     default:
                         throw new Exception("Validation rule : " + rule + " is not supported yet.");
@@ -164,6 +171,10 @@ public class Validator {
 
     private static boolean isTextField(Object component) {
         return component.getClass() == JTextField.class;
+    }
+
+    private static boolean isSpinnerField(Object component) {
+        return component.getClass() == JSpinner.class;
     }
 
     private static boolean isCombo(Object component) {
@@ -374,6 +385,10 @@ public class Validator {
         return (JButton) component;
     }
 
+    private static JSpinner getTextSpinner(Object component) {
+        return (JSpinner) component;
+    }
+
     private String getRule(String rule) {
         return (rule.contains(":") ? rule.split(":")[0] : rule);
     }
@@ -424,6 +439,7 @@ public class Validator {
             } else if (isPassField(component)) {
                 getPwdField(component).setBorder((isError) ? getErrorBorder() : getDefaultBorder());
             }
+            
         }
         if (isError) {
             ErrorComponent = component;
@@ -444,7 +460,10 @@ public class Validator {
             value = getTextLabel(component).getText();
         } else if (isButtonComponent(component)) {
             value = getTextButton(component).getText();
-        } else {
+        } else if (isSpinnerField(component)) {
+            value = getTextSpinner(component).getValue().toString();
+        }else {
+            System.out.println(component);
             throw new Exception("This component couldn't be validated.");
         }
         return value;
@@ -454,8 +473,21 @@ public class Validator {
         return errorMessages;
     }
 
-    public  void setErrorMessages(Map<String, String> errorMessages) {
-      this.errorMessages = errorMessages;
+    public void setErrorMessages(Map<String, String> errorMessages) {
+        this.errorMessages = errorMessages;
+    }
+    //hàm check exists Id foreign key
+    private static boolean checkExistsFromTableWhereForeignKey(String tableName, String fieldName, String value) throws Exception {
+        //lấy kiểu dữ liệu của cột select và sau đo sẽ đổi dữ liệu sang kiểu dữ liệu từ database trả về
+        String dataTypeColumn = getDataTypeFiledName(tableName, fieldName);
+        Object value1 = convertDataType(dataTypeColumn, value);
+        //"SELECT * FROM table where field =?"
+        Object getparam[] = new Object[]{
+            value1
+        };
+        String sql = Constants.QUERY_CHECK_EXISTS_ID_FOREIGN_KEY.replaceAll(tableSqlName, tableName);
+        sql = sql.replaceAll(fieldSqlName, fieldName);
+        return DatabaseHelper.checkExistsData(sql, getparam) ? true : false;
     }
 
     //hàm check unique khi insert
@@ -527,15 +559,15 @@ public class Validator {
 
         for (Object obj : components) {
             for (Map.Entry<String, String> entrySet : mapRules.entrySet()) {
-             
+
                 String key = entrySet.getKey();
                 String value = entrySet.getValue();
                 if (key.equals(getName(obj))) {
                     listItem.add(new ValidatorItem(value, obj, getName(obj)));
                 }
             }
-        }       
-        return  new Validator(listItem, id);
+        }
+        return new Validator(listItem, id);
     }
 
     public static String getName(Object component) throws Exception {
@@ -550,7 +582,9 @@ public class Validator {
             value = getTextAreaField(component).getName();
         } else if (isLabelComponent(component)) {
             value = getTextLabel(component).getName();
-        } else {
+        } else if (isSpinnerField(component)) {
+            value = getTextSpinner(component).getName();
+        }else {
             throw new Exception("This component couldn't be validated.");
         }
         return value;

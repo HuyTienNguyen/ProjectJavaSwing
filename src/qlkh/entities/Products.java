@@ -19,6 +19,8 @@ public class Products {
     private int idUnit;
     private int idSuplier;
     private int idCate;
+    private float price;
+    private float taxProduct;
 
     public Products() {
     }
@@ -34,6 +36,25 @@ public class Products {
         this.idUnit = idUnit;
         this.idSuplier = idSuplier;
         this.idCate = idCate;
+    }
+
+    public Products(String id, String name, int idUnit, int idSuplier, int idCate, float price, float taxProduct) {
+        this.id = id;
+        this.name = name;
+        this.idUnit = idUnit;
+        this.idSuplier = idSuplier;
+        this.idCate = idCate;
+        this.price = price;
+        this.taxProduct = taxProduct;
+    }
+
+    public Products(String id, String name, int idUnit, int idSuplier, int idCate, float price) {
+        this.id = id;
+        this.name = name;
+        this.idUnit = idUnit;
+        this.idSuplier = idSuplier;
+        this.idCate = idCate;
+        this.price = price;
     }
 
     public String getId() {
@@ -75,7 +96,23 @@ public class Products {
     public void setIdCate(int idCate) {
         this.idCate = idCate;
     }
- 
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public float getTaxProduct() {
+        return taxProduct;
+    }
+
+    public void setTaxProduct(float taxProduct) {
+        this.taxProduct = taxProduct;
+    }
+
     /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
      *
@@ -90,7 +127,9 @@ public class Products {
                     this.getName(),
                     this.getIdUnit(),
                     this.getIdSuplier(),
-                    this.getIdCate()
+                    this.getIdCate(),
+                    this.getPrice(),
+                    this.getTaxProduct()
                 };
                 break;
             case Constants.ACTION_UPDATE:
@@ -99,7 +138,10 @@ public class Products {
                     this.getIdUnit(),
                     this.getIdSuplier(),
                     this.getIdCate(),
-                    this.getId()
+                     this.getPrice(),
+                    this.getTaxProduct(),
+                    this.getId(),
+                   
                 };
                 break;
 
@@ -108,10 +150,9 @@ public class Products {
                     this.getId()
                 };
                 break;
-                 case Constants.ACTION_DELETE_BY_PROC:
+            case Constants.ACTION_DELETE_BY_PROC:
                 param = new Object[]{
                     Types.INTEGER
-                  
 
                 };
                 break;
@@ -119,16 +160,13 @@ public class Products {
         return param;
     }
 
-   
-
     @Override
     public String toString() {
         return name;
     }
 
     public String showAll() {
-         return "Products{" + "id=" + id + ", name=" + name + ", idUnit=" + idUnit + ", idSuplier=" + idSuplier + ", idCate=" + idCate + '}';
+        return "Products{" + "id=" + id + ", name=" + name + ", idUnit=" + idUnit + ", idSuplier=" + idSuplier + ", idCate=" + idCate + '}';
     }
 
-    
 }

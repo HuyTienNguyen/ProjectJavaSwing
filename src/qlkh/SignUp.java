@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.event.AncestorListener;
 import qlkh.entities.Users;
 
 import qlkh.utils.Constants;
@@ -46,6 +47,10 @@ public class SignUp extends javax.swing.JFrame implements IView {
 
     public void addBtnSignUpActionListener(ActionListener listener) {
         btnSignUp.addActionListener(listener);
+    }
+    
+    public void addGoToBackPage(ActionListener listener){
+        iconBackPage.addActionListener(listener);
     }
 
     //hàm set bundle khi truyền vào
@@ -86,8 +91,7 @@ public class SignUp extends javax.swing.JFrame implements IView {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        iconBackPage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,6 +198,10 @@ public class SignUp extends javax.swing.JFrame implements IView {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(153, Short.MAX_VALUE)
+                .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(142, 142, 142))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,18 +222,14 @@ public class SignUp extends javax.swing.JFrame implements IView {
                         .addComponent(password)
                         .addComponent(lblErrPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(repassword)))
-                .addContainerGap(48, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(153, Short.MAX_VALUE)
-                .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(142, 142, 142))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel6)
-                .addGap(32, 32, 32)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,18 +291,12 @@ public class SignUp extends javax.swing.JFrame implements IView {
         kGradientPanel1.add(jLabel1);
         jLabel1.setBounds(40, 410, 470, 320);
 
-        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText(bundle.getString("signUpLanguages"));
-        jLabel11.setToolTipText("");
-        kGradientPanel1.add(jLabel11);
-        jLabel11.setBounds(940, 10, 80, 20);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "VI", "EN" }));
-        kGradientPanel1.add(jComboBox1);
-        jComboBox1.setBounds(1040, 10, 50, 22);
+        iconBackPage.setBackground(new Color(0,0,0,0));
+        iconBackPage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-go-back-30.png"))); // NOI18N
+        iconBackPage.setBorderPainted(false);
+        iconBackPage.setOpaque(false);
+        kGradientPanel1.add(iconBackPage);
+        iconBackPage.setBounds(0, 0, 30, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -334,10 +332,9 @@ public class SignUp extends javax.swing.JFrame implements IView {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private keeptoo.KButton btnSignUp;
     private javax.swing.JTextField email;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton iconBackPage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import qlkh.controller.CategoryController;
 import qlkh.controller.CustomerController;
+import qlkh.controller.InvoiceExportDetailController;
 import qlkh.controller.InvoiceImportDetailController;
 import qlkh.controller.ProductsController;
 import qlkh.controller.ReportsController;
@@ -53,6 +54,8 @@ public class MainView2 extends javax.swing.JFrame {
     public static final String suplierView = "suplier";
     public static final String unitView = "unit";
     public static final String userView = "user";
+    public static final String importView = "import";
+    public static final String exportView = "export";
     public static final String reportView = "report";
 
     public MainView2() {
@@ -93,6 +96,8 @@ public class MainView2 extends javax.swing.JFrame {
         btnHome = new keeptoo.KButton();
         btnUnit = new keeptoo.KButton();
         btnUsers = new keeptoo.KButton();
+        btnImportDetail = new keeptoo.KButton();
+        btnExportDetail = new keeptoo.KButton();
         btnReports = new keeptoo.KButton();
         contentPanel = new javax.swing.JPanel();
 
@@ -303,6 +308,34 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
+        btnImportDetail.setText("ImportDetail");
+        btnImportDetail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnImportDetail.setkBorderRadius(0);
+        btnImportDetail.setkEndColor(new java.awt.Color(28, 43, 65));
+        btnImportDetail.setkHoverEndColor(new java.awt.Color(48, 125, 245));
+        btnImportDetail.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnImportDetail.setkHoverStartColor(new java.awt.Color(48, 125, 245));
+        btnImportDetail.setkStartColor(new java.awt.Color(28, 43, 65));
+        btnImportDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportDetailActionPerformed(evt);
+            }
+        });
+
+        btnExportDetail.setText("ExportDetail");
+        btnExportDetail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnExportDetail.setkBorderRadius(0);
+        btnExportDetail.setkEndColor(new java.awt.Color(28, 43, 65));
+        btnExportDetail.setkHoverEndColor(new java.awt.Color(48, 125, 245));
+        btnExportDetail.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnExportDetail.setkHoverStartColor(new java.awt.Color(48, 125, 245));
+        btnExportDetail.setkStartColor(new java.awt.Color(28, 43, 65));
+        btnExportDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportDetailActionPerformed(evt);
+            }
+        });
+
         btnReports.setText("Reports");
         btnReports.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnReports.setkBorderRadius(0);
@@ -328,6 +361,8 @@ public class MainView2 extends javax.swing.JFrame {
             .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnUnit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnImportDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+            .addComponent(btnExportDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
             .addComponent(btnReports, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
         );
         menuMainLayout.setVerticalGroup(
@@ -347,6 +382,10 @@ public class MainView2 extends javax.swing.JFrame {
                 .addComponent(btnUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnUsers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnImportDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnExportDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(361, Short.MAX_VALUE))
@@ -498,6 +537,14 @@ public class MainView2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnUsersActionPerformed
 
+    private void btnImportDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportDetailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnImportDetailActionPerformed
+
+    private void btnExportDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportDetailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExportDetailActionPerformed
+
     private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReportsActionPerformed
@@ -509,47 +556,56 @@ public class MainView2 extends javax.swing.JFrame {
     public void goToPageMainPanel(String name) {
         CardLayout layout = (CardLayout) contentPanel.getLayout();
         layout.show(contentPanel, name);
-       
+
     }
 
     public void addBtnShowHome(ActionListener listener, Home view) {
         btnHome.addActionListener(listener);
-        contentPanel.add( homeView,view);
+        contentPanel.add(homeView, view);
     }
 
     public void addBtnShowCategory(ActionListener listener, CategoryController c) {
         btnCategory.addActionListener(listener);
-        contentPanel.add(c.getContentPage(),cateView);
+        contentPanel.add(c.getContentPage(), cateView);
     }
 
     public void addBtnShowCustomer(ActionListener listener, CustomerController c) {
         btnCustomer.addActionListener(listener);
-        contentPanel.add(c.getContentPage(),customerView);
+        contentPanel.add(c.getContentPage(), customerView);
 
     }
 
     public void addBtnShowProducts(ActionListener listener, ProductsController c) {
         btnProducts.addActionListener(listener);
-        contentPanel.add(c.getContentPage(),productView);
+        contentPanel.add(c.getContentPage(), productView);
 
     }
 
     public void addBtnShowSupliers(ActionListener listener, SuplierController c) {
         btnSuplier.addActionListener(listener);
-        contentPanel.add(c.getContentPage(),suplierView);
+        contentPanel.add(c.getContentPage(), suplierView);
 
     }
 
     public void addBtnShowUnit(ActionListener listener, UnitController c) {
         btnUnit.addActionListener(listener);
-        contentPanel.add(c.getContentPage(),unitView);
+        contentPanel.add(c.getContentPage(), unitView);
 
     }
 
     public void addBtnShowUsers(ActionListener listener, UsersController c) {
         btnUsers.addActionListener(listener);
-        contentPanel.add(c.getContentPage(),userView);
+        contentPanel.add(c.getContentPage(), userView);
 
+    }
+
+    public void addBtnShowImportDetail(ActionListener listener, InvoiceImportDetailController c) {
+        btnImportDetail.addActionListener(listener);
+        contentPanel.add(c.getContentPage(), importView);
+    }
+    public void addBtnShowExportDetail(ActionListener listener, InvoiceExportDetailController c){
+        btnExportDetail.addActionListener(listener);
+        contentPanel.add(c.getContentPage(), exportView);
     }
 
 //    public void addBtnShowReports(ActionListener listener, ReportsController c) {
@@ -557,7 +613,6 @@ public class MainView2 extends javax.swing.JFrame {
 //        contentPanel.add(c.getContentPage(),reportView);
 //
 //    }
-
     public void showView() {
         this.setVisible(true);
     }
@@ -620,7 +675,9 @@ public class MainView2 extends javax.swing.JFrame {
     private javax.swing.JLabel RestoreDown;
     private keeptoo.KButton btnCategory;
     private keeptoo.KButton btnCustomer;
+    private keeptoo.KButton btnExportDetail;
     private keeptoo.KButton btnHome;
+    private keeptoo.KButton btnImportDetail;
     private keeptoo.KButton btnProducts;
     private keeptoo.KButton btnReports;
     private keeptoo.KButton btnSuplier;

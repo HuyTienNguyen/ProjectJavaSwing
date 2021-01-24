@@ -23,37 +23,36 @@ import qlkh.utils.DatabaseHelper;
  */
 public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
 
-    private static final String SQL_GET_ALL = "SELECT * FROM InvoiceExportDetail";
+    private static final String SQL_GET_ALL = "select ied.Id,ie.Id as 'IdInvoiceExport',c.name as 'NameCustomer',p.name as 'NameProduct',ied.Counts,(ied.Counts * p.price) as 'money',u.Name as 'NameUser',ie.DateOutput from InvoiceExportDetail ied join InvoiceImportDetail iid" 
+	+	" on ied.IdInvoiceImportDetail = iid.Id join Products p"
+	+	" on p.Id = iid.IdProduct join InvoiceExport ie"
+	+	" on ie.Id = ied.IdInvoiceExport join Users u"
+	+	" on u.Id = ie.idUser join customer c"
+        +       " on c.id = ie.IdCustomer"  ;
     private static final String SQL_INSERT = "INSERT INTO InvoiceExportDetail(Id,IdInvoiceImportDetail,IdInvoiceExport,Counts,Status) VALUES(?,?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE  InvoiceExportDetail SET IdInvoiceImportDetail =?, IdInvoiceExport =?,Counts=?,Status=? WHERE Id =?";
     private static final String SQL_DELETE = "DELETE FROM  InvoiceExportDetail  WHERE Id =?";
 
     private static final String SQL_SELECT_BY_Id = "SELECT * FROM InvoiceExportDetail WHERE Id= ? ";
-
+    private static final String SQL_INSERT_BY_PROC ="{call USP_ADD_NEW_INVOICE_EXPORT_DETAIL(?,?,?,?,?,?)}";
+    private static final String SQL_GET_ID_OF_THE_LAST = "SELECT TOP(1) ied.id from invoiceexportdetail ied ORDER BY Id DESC ";
+    
+    
     @Override
     public List<InvoiceExportDetail> getAllInvoiceExportDetail() {
+        System.out.println("1");
         // Khởi tạo list OutputInfo
         List<InvoiceExportDetail> listInvoiceExportDetail = new ArrayList<>();
         // Khởi tạo mảng param rỗng để chạy lệnh sql select all from OutputInfo
         String[] param = new String[]{};
-        try (ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);) {
+        try {
+            ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);
             while (rs.next()) {
-                InvoiceExportDetail invoiceexportDetail = new InvoiceExportDetail(
-                        rs.getString("Id"),
-                        rs.getString("IdInvoiceImportDetail"),
-                        rs.getString("IdInvoiceExport"),
-                        rs.getInt("Counts"),
-                        rs.getString("Status"));
+                InvoiceExportDetail invoiceexportDetail = new InvoiceExportDetail(rs.getString("id"), rs.getString("IdInvoiceExport"),rs.getString("NameCustomer"), rs.getInt("counts"), rs.getString("NameProduct"), rs.getDouble("money"),rs.getString("NameUser"), rs.getTimestamp("DateOutput"));
                 listInvoiceExportDetail.add(invoiceexportDetail);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                DatabaseHelper.getInstance().closeDatabaseConnection();
-            } catch (SQLException ex) {
-                Logger.getLogger(InvoiceExportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InvoiceExportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listInvoiceExportDetail;
     }
@@ -93,7 +92,7 @@ public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
         Integer countInsert = 0;
         try {
             // Thục hiện phương thức insert data với câu query SQL_INSERT và tham số OutputInfo.getParam
-            countInsert = DatabaseHelper.insertData(SQL_INSERT, element.getParam(Constants.ACTION_INSERT));
+            countInsert = DatabaseHelper.insertDataByCallableStatement(SQL_INSERT_BY_PROC,element.getParam(Constants.ACTION_INSERT_BY_PROC));
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -149,6 +148,16 @@ public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
     @Override
     public int delete(InvoiceExportDetail element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public String getIdTheLast() throws SQLException{
+        String idLast = "";
+        String[] param = new String[]{};
+        ResultSet rs = DatabaseHelper.selectData(SQL_GET_ID_OF_THE_LAST, param);
+        if(rs.next()){
+            idLast = rs.getString("id");
+        }
+        return idLast;
     }
 
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package qlkh.testView;
+package qlkh.views;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -25,7 +25,6 @@ import qlkh.entities.Category;
 import qlkh.entities.InvoiceImport;
 import qlkh.entities.InvoiceImportDetail;
 import qlkh.entities.Products;
-import qlkh.views.IView;
 import qlkh.utils.Constants;
 import qlkh.utils.Utils;
 import qlkh.utils.pagination.ObjectTableModel;
@@ -34,9 +33,14 @@ import qlkh.utils.pagination.PaginationDataProvider;
 
 /**
  *
- * @author GIANG
+ * @author user
  */
-public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implements IView {
+public class InvoiceImportDetailView extends javax.swing.JPanel implements IView {
+
+    /**
+     * Creates new form InputInfoView
+     */
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,7 +51,8 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        userRoleMainPanel = new javax.swing.JPanel();
+
+        setBackground(new java.awt.Color(204, 0, 0));
         headerPanel = new javax.swing.JPanel();
         headerLabel = new javax.swing.JLabel();
         tableInvoiceImDetail = new javax.swing.JPanel();
@@ -77,9 +82,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         cbbInvoiceImport = new javax.swing.JComboBox<InvoiceImport>();
         errProduct1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        userRoleMainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1171, 640));
 
         headerPanel.setBackground(new java.awt.Color(51, 0, 51));
 
@@ -116,7 +119,6 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         );
 
         inputPrice.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        inputPrice.setNextFocusableComponent(outputPrice);
 
         btnAdd.setBackground(new java.awt.Color(0, 255, 204));
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -170,12 +172,10 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         );
 
         outputPrice.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        outputPrice.setNextFocusableComponent(number);
 
         errOuputPrice.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         number.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        number.setNextFocusableComponent(btnAdd);
 
         errNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -209,9 +209,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(lblCate1)
                             .addGap(246, 246, 246))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(errCate, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(errCate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblCate3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -227,7 +225,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                         .addComponent(messageInvoiceImportDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,36 +345,23 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        javax.swing.GroupLayout userRoleMainPanelLayout = new javax.swing.GroupLayout(userRoleMainPanel);
-        userRoleMainPanel.setLayout(userRoleMainPanelLayout);
-        userRoleMainPanelLayout.setHorizontalGroup(
-            userRoleMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(tableInvoiceImDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        userRoleMainPanelLayout.setVerticalGroup(
-            userRoleMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(userRoleMainPanelLayout.createSequentialGroup()
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(tableInvoiceImDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(userRoleMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(userRoleMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -391,9 +376,6 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbInvoiceImportActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -424,13 +406,9 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     private javax.swing.JTextField number;
     private javax.swing.JTextField outputPrice;
     private javax.swing.JPanel tableInvoiceImDetail;
-    private javax.swing.JPanel userRoleMainPanel;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * Creates new form GiangTestFrame
-     */
-    ResourceBundle bundle;
+ ResourceBundle bundle;
     private static Map<String, String> productMap = new HashMap<>();
     private static Map<String, String> importMap = new HashMap<>();
     private static Map<Category, List<Products>> cateMap = new HashMap<>();
@@ -445,13 +423,13 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
     JTable tblDetails;
     PaginatedTableDecorator<InvoiceImportDetail> paginatedDecorator;
 
-    public GiangTestFrameInvoiceImportDetail() {
-        //  Locale local = Utils.getLocale();
+     public InvoiceImportDetailView() {
+          //  Locale local = Utils.getLocale();
         Locale local = Utils.getLocale();
         setResourceBundle(local);
         initComponents();
-
     }
+   
 
     /**
      * Display a view of InvoiceImportDetail elements
@@ -483,7 +461,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
                         return iid.getNumber();
                     case 3:
                         return iid.getInputPrice();
-                 
+                   
                     case 5:
                         return importMap.get(iid.getIdInvoiceImport());
 
@@ -579,6 +557,7 @@ public class GiangTestFrameInvoiceImportDetail extends javax.swing.JFrame implem
      * @param imports
      */
     public void loadImports(List<InvoiceImport> imports) {
+
         this.imports = imports;
         int counts = 1;
         InvoiceImport newInvoiceImport = new InvoiceImport("0", Utils.getTimestampNow());

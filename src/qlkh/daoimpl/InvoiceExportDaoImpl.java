@@ -23,9 +23,10 @@ import qlkh.utils.DatabaseHelper;
 public class InvoiceExportDaoImpl implements IInvoiceExportDAO {
 
     private static final String SQL_GET_ALL = "SELECT * FROM InvoiceExport";
-    private static final String SQL_INSERT = "INSERT INTO InvoiceExport(Id,DateOutput,IdCustomer,idUser) VALUES(?,?,?,?)";
+    private static final String SQL_INSERT = "INSERT INTO InvoiceExport(Id,DateOutput,IdCustomer,idUser,totalMoney) VALUES(?,?,?,?,?)";
 
     private static final String SQL_SELECT_BY_ID = "SELECT * FROM InvoiceExport WHERE Id = ? ";
+    private static final String SQL_GET_ID_OF_THE_LAST = "SELECT TOP(1) ie.id from invoiceexport ie ORDER BY Id DESC ";
 
     @Override
     public List<InvoiceExport> getAllInvoiceExport() {
@@ -39,7 +40,8 @@ public class InvoiceExportDaoImpl implements IInvoiceExportDAO {
                         rs.getString("Id"),
                         rs.getTimestamp("DateOutput"),
                         rs.getInt("idCustomer"),
-                        rs.getInt("idUser"));
+                        rs.getInt("idUser"),
+                        rs.getDouble("totalMoney"));
                 listOuputs.add(output);
             }
         } catch (Exception e) {
@@ -66,7 +68,8 @@ public class InvoiceExportDaoImpl implements IInvoiceExportDAO {
                         rs.getString("Id"),
                         rs.getTimestamp("DateOutput"),
                         rs.getInt("IdCustomer"),
-                        rs.getInt("idUser"));
+                        rs.getInt("idUser"),
+                        rs.getDouble("totalMoney"));
 
             }
         } catch (Exception e) {
@@ -105,7 +108,6 @@ public class InvoiceExportDaoImpl implements IInvoiceExportDAO {
         return 0;
     }
 
-    
     public int delete(String key) {
         return 0;
     }
@@ -115,4 +117,13 @@ public class InvoiceExportDaoImpl implements IInvoiceExportDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public String getIdTheLast() throws SQLException {
+        String idLast = "";
+        String[] param = new String[]{};
+        ResultSet rs = DatabaseHelper.selectData(SQL_GET_ID_OF_THE_LAST, param);
+        if (rs.next()) {
+            idLast = rs.getString("id");
+        }
+        return idLast;
+    }
 }

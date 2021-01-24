@@ -88,6 +88,7 @@ public class ForgotPassword2 extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        iconBackPage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -229,6 +230,13 @@ public class ForgotPassword2 extends javax.swing.JFrame {
         kGradientPanel1.add(jLabel1);
         jLabel1.setBounds(30, 340, 390, 210);
 
+        iconBackPage.setBackground(new Color(0,0,0,0));
+        iconBackPage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-go-back-30.png"))); // NOI18N
+        iconBackPage.setBorderPainted(false);
+        iconBackPage.setOpaque(false);
+        kGradientPanel1.add(iconBackPage);
+        iconBackPage.setBounds(0, 0, 30, 30);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -251,6 +259,7 @@ public class ForgotPassword2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private keeptoo.KButton btnVerifyCode;
     private javax.swing.JLabel errVerifyCode;
+    private javax.swing.JButton iconBackPage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

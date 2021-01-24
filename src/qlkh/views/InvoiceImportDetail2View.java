@@ -36,17 +36,16 @@ import qlkh.utils.pagination.PaginationDataProvider;
  *
  * @author user
  */
-public class InvoiceImportDetail2View extends javax.swing.JPanel implements IView{
+public class InvoiceImportDetail2View extends javax.swing.JPanel implements IView {
 
     /**
      * Creates new form InvoiceImportDetail2View
      */
-  
     ResourceBundle bundle;
-    private static Map<String, String> productMap = new HashMap<>();
+    private static Map<String, Products> productMap = new HashMap<>();
     private static Map<String, String> importMap = new HashMap<>();
     private static Map<Category, List<Products>> cateMap = new HashMap<>();
-    private static int[] pageSizes = new int[]{10,100, 1000, 10000};
+    private static int[] pageSizes = new int[]{ 100, 1000, 10000};
     private static final int defaultPageSize = pageSizes[0];
     private static final int maxPagingCompToShow = 7;
     private static List<Products> products = new ArrayList<>();
@@ -57,13 +56,12 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
     JTable tblDetails;
     PaginatedTableDecorator<InvoiceImportDetail> paginatedDecorator;
 
-     public InvoiceImportDetail2View() {
-          //  Locale local = Utils.getLocale();
+    public InvoiceImportDetail2View() {
+        //  Locale local = Utils.getLocale();
         Locale local = Utils.getLocale();
         setResourceBundle(local);
         initComponents();
     }
-   
 
     /**
      * Display a view of InvoiceImportDetail elements
@@ -72,12 +70,15 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
      */
     public void showView(List<InvoiceImportDetail> details) {
         this.setVisible(true);
-        loadAllDetails(details);
-
+        if (details != null) {
+            loadAllDetails(details);
+        }
     }
+
     public JPanel getContent() {
         return this;
     }
+
     /**
      * Return an instance of ObjectDataModel
      *
@@ -92,13 +93,13 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
                     case 0:
                         return iid.getId();
                     case 1:
-                        return productMap.get(iid.getIdProduct());
+                        return ((Products)productMap.get(iid.getIdProduct())).getName();
                     case 2:
                         return iid.getNumber();
                     case 3:
                         return iid.getInputPrice();
                     case 4:
-                        return iid.getOutputPrice();
+                        return ((Products)productMap.get(iid.getIdProduct())).getPrice();
                     case 5:
                         return importMap.get(iid.getIdInvoiceImport());
 
@@ -260,7 +261,7 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         }
         cbbProducts.addItem(new Products("0", ""));
         for (Products pro : products) {
-            productMap.put(pro.getId(), pro.getName());
+            productMap.put(pro.getId(), pro);
         }
     }
 
@@ -292,13 +293,11 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         List<Object> objects = new ArrayList<>();
         cbbProducts.setName("product");
         inputPrice.setName("inputPrice");
-        outputPrice.setName("outputPrice");
         number.setName("number");
 
         // add object to map
         objects.add(cbbProducts);
         objects.add(inputPrice);
-        objects.add(outputPrice);
         objects.add(number);
 
         return objects;
@@ -314,13 +313,11 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         //get error messages
         String errorProduct = ((errors.get("product") == null) ? "" : errors.get("product"));
         String errorInputPrice = ((errors.get("inputPrice") == null) ? "" : errors.get("inputPrice"));
-        String errorOutputPrice = ((errors.get("outputPrice") == null) ? "" : errors.get("outputPrice"));
         String errorNumber = ((errors.get("number") == null) ? "" : errors.get("number"));
 
         //Show messages
         showErrorMessage(errProduct, errorProduct);
         showErrorMessage(errInputPrice, errorInputPrice);
-        showErrorMessage(errOuputPrice, errorOutputPrice);
         showErrorMessage(errNumber, errorNumber);
     }
 
@@ -334,7 +331,6 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         invoiceDetail.setIdInvoiceImport(((InvoiceImport) cbbInvoiceImport.getSelectedItem()).getId());
         invoiceDetail.setIdProduct(product.getId());
         invoiceDetail.setInputPrice(Float.parseFloat(inputPrice.getText()));
-        invoiceDetail.setOutputPrice(Float.parseFloat(outputPrice.getText()));
         invoiceDetail.setNumber(Integer.parseInt(number.getText()));
         return invoiceDetail;
     }
@@ -480,7 +476,6 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         id.setText("");
         idInVoiceImport.setText("");
         inputPrice.setText("");
-        outputPrice.setText("");
         number.setText("");
         cbbCategory.setSelectedIndex(0);
         cbbInvoiceImport.setSelectedIndex(0);
@@ -493,7 +488,6 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
      */
     public void clearError() {
         errInputPrice.setText("");
-        errOuputPrice.setText("");
         errNumber.setText("");
         errCate.setText("");
         errProduct.setText("");
@@ -538,9 +532,6 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         lblCate2 = new javax.swing.JLabel();
         cbbProducts = new javax.swing.JComboBox<Products>();
         errProduct = new javax.swing.JLabel();
-        lblName1 = new javax.swing.JLabel();
-        outputPrice = new javax.swing.JTextField();
-        errOuputPrice = new javax.swing.JLabel();
         number = new javax.swing.JTextField();
         errNumber = new javax.swing.JLabel();
         lblName2 = new javax.swing.JLabel();
@@ -632,14 +623,6 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
 
         errProduct.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        lblName1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblName1.setText(bundle.getString("outputPrice")
-        );
-
-        outputPrice.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        errOuputPrice.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
         number.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         errNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -699,28 +682,21 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
                         .addComponent(messageInvoiceImportDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblName2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblName1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(2, 2, 2)))
+                                    .addComponent(lblName2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(outputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(19, 19, 19)
-                                        .addComponent(inputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(errInputPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(errOuputPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(errNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(inputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(errNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(errInputPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(55, 55, 55)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -782,23 +758,19 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
                             .addComponent(cbbInvoiceImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(errProduct1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 44, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(outputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblName1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(errOuputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblName2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(2, 2, 2)
+                                .addComponent(lblName2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addComponent(errNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(44, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -856,7 +828,6 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
     private javax.swing.JLabel errCate;
     private javax.swing.JLabel errInputPrice;
     private javax.swing.JLabel errNumber;
-    private javax.swing.JLabel errOuputPrice;
     private javax.swing.JLabel errProduct;
     private javax.swing.JLabel errProduct1;
     private javax.swing.JLabel headerLabel;
@@ -870,11 +841,9 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
     private javax.swing.JLabel lblCate2;
     private javax.swing.JLabel lblCate3;
     private javax.swing.JLabel lblName;
-    private javax.swing.JLabel lblName1;
     private javax.swing.JLabel lblName2;
     private javax.swing.JLabel messageInvoiceImportDetail;
     private javax.swing.JTextField number;
-    private javax.swing.JTextField outputPrice;
     private javax.swing.JPanel tableInvoiceImDetail;
     // End of variables declaration//GEN-END:variables
 }
