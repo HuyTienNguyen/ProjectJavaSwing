@@ -5,11 +5,11 @@
  */
 package qlkh.utils.custombarchart;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jfree.chart.axis.SubCategoryAxis;
 
 /**
  *
@@ -22,12 +22,12 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     private static final String[] valueOfCbbBarchart = {"Những năm gần nhất", "Năm gần nhất", "7 ngày gần nhất"};
     private static List<BarChartItem> items = new ArrayList<>();
-    private static Map<Integer, List<BarChartItem>> mapItems = new HashMap<>();
+    private static List<BarChartItems> mapItems = new ArrayList<>();
 
     public NewJFrame() {
         initComponents();
         loadComboBoxBarchart();
-        for (int m = 1; m <= 12; m++) {
+        for (int m = 1; m <=6; m++) {
             List<BarChartItem> list = new ArrayList<>();
             int valueImport = 0;
             int valueExport = 0;
@@ -41,9 +41,8 @@ public class NewJFrame extends javax.swing.JFrame {
             BarChartItem item1 = new BarChartItem(valueImport, "Import Amount");
             BarChartItem item2 = new BarChartItem(valueExport, "Export Amount");
 
-            list.add(item1);
-            list.add(item2);
-            mapItems.put(m, list);
+            BarChartItems item = new BarChartItems(String.valueOf(m) + " a", item1, item2);
+            mapItems.add(item);
         }
         String title1 = "Car Usage Statistics";
         String title2 = "Which car do you like?";
@@ -52,6 +51,9 @@ public class NewJFrame extends javax.swing.JFrame {
         BarChart_AWT chart = new BarChart_AWT("aaaâ",
                 title2, mapItems, horizontalTitle, verticalTitle);
         panelBarChart.add(chart);
+        SubCategoryAxis domainAxis = new SubCategoryAxis(" ");
+        
+  
 
     }
 
@@ -69,8 +71,9 @@ public class NewJFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 255, 102));
 
-        panelBarChart.setBackground(new java.awt.Color(204, 204, 0));
+        panelBarChart.setBackground(new java.awt.Color(255, 255, 255));
         panelBarChart.setLayout(new java.awt.CardLayout());
 
         jButton1.setText("jButton1");

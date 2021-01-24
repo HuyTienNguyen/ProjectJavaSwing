@@ -29,6 +29,7 @@ import qlkh.entities.Supliers;
 import qlkh.entities.Unit;
 import qlkh.utils.Constants;
 import qlkh.utils.custombarchart.BarChartItem;
+import qlkh.utils.custombarchart.BarChartItems;
 import qlkh.utils.custombarchart.BarChart_AWT;
 import qlkh.utils.pagination.ObjectTableModel;
 import qlkh.utils.pagination.PaginatedTableDecorator;
@@ -54,7 +55,7 @@ public class ReportView extends javax.swing.JPanel {
     //item for table 0
     private static final String[] valueOfCbbBarchart = {"7 ngày gần nhất", "Năm gần nhất", "Những năm gần nhất",};
     private static List<BarChartItem> items = new ArrayList<>();
-    private static Map<Integer, List<BarChartItem>> mapItems = new HashMap<>();
+    private static  List<BarChartItems> mapItems = new ArrayList<>();
 
     // item for table 1
     private static List<CustomObject1> numberOneObjects = new ArrayList<>();
@@ -102,17 +103,7 @@ public class ReportView extends javax.swing.JPanel {
         }
     }
 
-    public Map<Integer, List<BarChartItem>> mapBarChartItems(List<BarChartItem> items, Integer number) {
-       
-        
-   
-//           if(items!=null){
-//              mapItems.put(number, items);
-//           }
-       
-       
-       return mapItems;
-    }
+ 
 
     public void loadTable0() {
         String title1 = "Car Usage Statistics";
@@ -269,15 +260,16 @@ public class ReportView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSpinner1 = new javax.swing.JSpinner();
         mainPanel = new javax.swing.JPanel();
-        leftPanel = new javax.swing.JPanel();
+        upPanel = new javax.swing.JPanel();
         subPanelLeftUp = new javax.swing.JPanel();
         tablePanel0 = new javax.swing.JPanel();
         cbbReport0 = new javax.swing.JComboBox();
         subPanelRightUp = new javax.swing.JPanel();
         cbbReport1 = new javax.swing.JComboBox();
         tablePanel1 = new javax.swing.JPanel();
-        rightPanel = new javax.swing.JPanel();
+        downPanel = new javax.swing.JPanel();
         subPanelLeftDown = new javax.swing.JPanel();
         tablePanel2 = new javax.swing.JPanel();
         cbbReport2 = new javax.swing.JComboBox();
@@ -287,8 +279,7 @@ public class ReportView extends javax.swing.JPanel {
 
         mainPanel.setLayout(new javax.swing.BoxLayout(mainPanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        leftPanel.setBackground(new java.awt.Color(255, 153, 204));
-        leftPanel.setLayout(new javax.swing.BoxLayout(leftPanel, javax.swing.BoxLayout.LINE_AXIS));
+        upPanel.setBackground(new java.awt.Color(255, 153, 204));
 
         subPanelLeftUp.setBackground(new java.awt.Color(255, 153, 51));
 
@@ -305,22 +296,20 @@ public class ReportView extends javax.swing.JPanel {
         subPanelLeftUp.setLayout(subPanelLeftUpLayout);
         subPanelLeftUpLayout.setHorizontalGroup(
             subPanelLeftUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tablePanel0, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
             .addGroup(subPanelLeftUpLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(cbbReport0, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(457, Short.MAX_VALUE))
+            .addComponent(tablePanel0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         subPanelLeftUpLayout.setVerticalGroup(
             subPanelLeftUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelLeftUpLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(cbbReport0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tablePanel0, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tablePanel0, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
         );
-
-        leftPanel.add(subPanelLeftUp);
 
         subPanelRightUp.setBackground(new java.awt.Color(102, 255, 0));
 
@@ -337,27 +326,40 @@ public class ReportView extends javax.swing.JPanel {
         subPanelRightUp.setLayout(subPanelRightUpLayout);
         subPanelRightUpLayout.setHorizontalGroup(
             subPanelRightUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tablePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
             .addGroup(subPanelRightUpLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(cbbReport1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
+            .addComponent(tablePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         subPanelRightUpLayout.setVerticalGroup(
             subPanelRightUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelRightUpLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(cbbReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tablePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tablePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        leftPanel.add(subPanelRightUp);
+        javax.swing.GroupLayout upPanelLayout = new javax.swing.GroupLayout(upPanel);
+        upPanel.setLayout(upPanelLayout);
+        upPanelLayout.setHorizontalGroup(
+            upPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(upPanelLayout.createSequentialGroup()
+                .addComponent(subPanelLeftUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(subPanelRightUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        upPanelLayout.setVerticalGroup(
+            upPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(subPanelLeftUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(subPanelRightUp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
-        mainPanel.add(leftPanel);
+        mainPanel.add(upPanel);
 
-        rightPanel.setBackground(new java.awt.Color(0, 255, 102));
-        rightPanel.setLayout(new javax.swing.BoxLayout(rightPanel, javax.swing.BoxLayout.LINE_AXIS));
+        downPanel.setBackground(new java.awt.Color(0, 255, 102));
+        downPanel.setLayout(new javax.swing.BoxLayout(downPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         subPanelLeftDown.setBackground(new java.awt.Color(0, 255, 255));
 
@@ -374,7 +376,7 @@ public class ReportView extends javax.swing.JPanel {
         subPanelLeftDown.setLayout(subPanelLeftDownLayout);
         subPanelLeftDownLayout.setHorizontalGroup(
             subPanelLeftDownLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tablePanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+            .addComponent(tablePanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
             .addGroup(subPanelLeftDownLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(cbbReport2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -386,10 +388,10 @@ public class ReportView extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(cbbReport2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tablePanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+                .addComponent(tablePanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
         );
 
-        rightPanel.add(subPanelLeftDown);
+        downPanel.add(subPanelLeftDown);
 
         subPanelLefDown.setBackground(new java.awt.Color(0, 204, 102));
 
@@ -406,7 +408,7 @@ public class ReportView extends javax.swing.JPanel {
         subPanelLefDown.setLayout(subPanelLefDownLayout);
         subPanelLefDownLayout.setHorizontalGroup(
             subPanelLefDownLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tablePanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+            .addComponent(tablePanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
             .addGroup(subPanelLefDownLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(cbbReport3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,12 +420,12 @@ public class ReportView extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(cbbReport3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tablePanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+                .addComponent(tablePanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
         );
 
-        rightPanel.add(subPanelLefDown);
+        downPanel.add(subPanelLefDown);
 
-        mainPanel.add(rightPanel);
+        mainPanel.add(downPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -437,21 +439,21 @@ public class ReportView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbbReport1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbReport1ActionPerformed
+    private void cbbReport3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbReport3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbbReport1ActionPerformed
+    }//GEN-LAST:event_cbbReport3ActionPerformed
 
     private void cbbReport2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbReport2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbReport2ActionPerformed
 
-    private void cbbReport3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbReport3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbbReport3ActionPerformed
-
     private void cbbReport0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbReport0ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbReport0ActionPerformed
+
+    private void cbbReport1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbReport1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbReport1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -459,9 +461,9 @@ public class ReportView extends javax.swing.JPanel {
     private javax.swing.JComboBox cbbReport1;
     private javax.swing.JComboBox cbbReport2;
     private javax.swing.JComboBox cbbReport3;
-    private javax.swing.JPanel leftPanel;
+    private javax.swing.JPanel downPanel;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JPanel rightPanel;
     private javax.swing.JPanel subPanelLefDown;
     private javax.swing.JPanel subPanelLeftDown;
     private javax.swing.JPanel subPanelLeftUp;
@@ -470,5 +472,6 @@ public class ReportView extends javax.swing.JPanel {
     private javax.swing.JPanel tablePanel1;
     private javax.swing.JPanel tablePanel2;
     private javax.swing.JPanel tablePanel3;
+    private javax.swing.JPanel upPanel;
     // End of variables declaration//GEN-END:variables
 }

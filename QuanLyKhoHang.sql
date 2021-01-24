@@ -612,3 +612,4 @@ AS
 	select * from InvoiceImportDetail
 
 	select * from products
+	select * from InvoiceExportDetail ied join InvoiceImportDetail iid on ied.IdInvoiceImportDetail = iid.Id join Products p on iid.IdProduct = p.id

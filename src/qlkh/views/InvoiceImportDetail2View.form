@@ -292,6 +292,9 @@
                     <LineBorder/>
                   </Border>
                 </Property>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="number"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnAdd">
@@ -373,6 +376,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbbCategory">
+              <Properties>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="cbbProducts"/>
+                </Property>
+              </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Category&gt;"/>
               </AuxValues>
@@ -393,6 +401,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbbProducts">
+              <Properties>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="cbbInvoiceImport"/>
+                </Property>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbProductsActionPerformed"/>
               </Events>
@@ -413,6 +426,9 @@
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder/>
                   </Border>
+                </Property>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="cbbCategory"/>
                 </Property>
               </Properties>
             </Component>
@@ -449,6 +465,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbbInvoiceImport">
+              <Properties>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="inputPrice"/>
+                </Property>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbInvoiceImportActionPerformed"/>
               </Events>

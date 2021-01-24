@@ -48,8 +48,8 @@ public class InvoiceImportDetailController {
         invoiceImDetailDao = new InvoiceImportDetailDaoImpl();
         invoiceImDao = new InvoiceImportDaoImpl();
         cateDao = new CategoryDaoImpl();
-        
-         List<Products> products = proDao.getAllProducts();
+
+        List<Products> products = proDao.getAllProducts();
         view.loadAllCategories(cateDao.getCategoies(), products);
         view.loadImports(invoiceImDao.getImports());
         view.loadProducts(products);
@@ -61,18 +61,18 @@ public class InvoiceImportDetailController {
         view.addTableMouseListener(new TableMouseListener());
     }
 
-
-public void showView() {
+    public void showView() {
         if (view == null) {
             view = new InvoiceImportDetail2View();
         }
-        view.showView( invoiceImDetailDao.getAllDetails());
+        view.showView(invoiceImDetailDao.getAllDetails());
         view.clearView(true);
     }
+
     public JPanel getContentPage() {
         return view.getContent();
     }
- 
+
     private void btnAddAction(ActionEvent e) {
         try {
             // Declare suplier request
@@ -87,10 +87,11 @@ public void showView() {
             view.showErrors(validator.getErrors());
             if (validator.isPasses() == true) {
 
-                int records = invoiceImDetailDao.insert(view.getInVoiceDetail());
-                if (records == 0) {
-                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+                int error = invoiceImDetailDao.insert(view.getInVoiceDetail());
+                if (error == 0) {
+
                     view.clearView(false);
+                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
                     view.loadImports(invoiceImDao.getImports());
                     view.showView(invoiceImDetailDao.getAllDetails());
                 } else {
