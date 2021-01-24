@@ -19,6 +19,7 @@ public class InvoiceExport {
     private Timestamp dateOutput;
     private int IdCustomer;
     private int idUser;
+    private double totalMoney; 
 
     public InvoiceExport() {
     }
@@ -28,14 +29,25 @@ public class InvoiceExport {
         this.dateOutput = dateOutput;
         this.IdCustomer = IdCustomer;
     }
-    
 
-    public InvoiceExport(String id, Timestamp dateOutput, int IdCustomer, int idUser) {
+    public InvoiceExport(String id, Timestamp dateOutput, int IdCustomer, int idUser, double totalMoney) {
         this.id = id;
         this.dateOutput = dateOutput;
         this.IdCustomer = IdCustomer;
         this.idUser = idUser;
+        this.totalMoney = totalMoney;
     }
+
+    public double getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(double totalMoney) {
+        this.totalMoney = totalMoney;
+    }
+    
+
+    
 
     
 
@@ -88,7 +100,8 @@ public class InvoiceExport {
                     this.getId(),
                     this.getDateOutput(),
                     this.getIdCustomer(),
-                    this.getIdUser()
+                    this.getIdUser(),
+                    this.getTotalMoney()
                 };
                 break;
             case Constants.ACTION_UPDATE:
@@ -96,6 +109,7 @@ public class InvoiceExport {
                     this.getDateOutput(),
                     this.getIdCustomer(),
                     this.getIdUser(),
+                    this.getTotalMoney(),
                     this.getId()
                 };
                 break;
@@ -111,8 +125,10 @@ public class InvoiceExport {
 
     @Override
     public String toString() {
-        return "InvoiceExport{" + "id=" + id + ", dateOutput=" + dateOutput + ", IdCustomer=" + IdCustomer + ", idUser=" + idUser + '}';
+        return "InvoiceExport{" + "id=" + id + ", dateOutput=" + dateOutput + ", IdCustomer=" + IdCustomer + ", idUser=" + idUser + ", totalMoney=" + totalMoney + '}';
     }
+
+    
 
     
 

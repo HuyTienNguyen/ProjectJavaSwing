@@ -327,4 +327,14 @@ public class DatabaseHelper {
         String dataType = JDBCType.valueOf(dataTypeFieldName.getColumnType(1)).toString();
         return dataType;
     }
+    
+    public static <E> boolean checkExistsData(String sql, E... args) throws SQLException {
+        boolean check = false;
+        PreparedStatement pstm = getPrepareStatement(false, sql, args);
+        ResultSet rs = pstm.executeQuery();
+        if (rs.next()) {
+            check = true;
+        }
+        return check;
+    }
 }

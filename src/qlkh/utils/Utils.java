@@ -5,6 +5,7 @@
  */
 package qlkh.utils;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -63,12 +64,13 @@ public class Utils {
         return new SimpleDateFormat(Constants.DATE_FORMAT_WITH_HOUR).format(time);
     }
 
-    public static Date getDateIncrementer( int days) {
+    public static Date getDateIncrementer(int days) {
         Date day = new Date();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, days);
         return day = cal.getTime();
     }
+
     public static Date getDateToday() {
         Date day = new Date();
         return day = Calendar.getInstance().getTime();
@@ -132,7 +134,6 @@ public class Utils {
      *
      */
     public static void sendMail(String recepient, String content) throws Exception {
-        System.out.println("starting");
         Properties properties = new Properties();
 
         properties.put("mail.smtp.auth", "true");
@@ -153,7 +154,6 @@ public class Utils {
         });
         Message message = prepareMessage(session, myAccountEmail, recepient, content);
         Transport.send(message);
-        System.out.println("finished");
     }
 
     private static Message prepareMessage(Session session, String myAccountEmail, String recepient, String content) {
@@ -182,4 +182,38 @@ public class Utils {
         // this will convert any number sequence into 6 character.
         return String.format("%06d", number);
     }
+
+    /*
+     *
+     Hàm lấy về idUser
+     *
+     */
+    public static String getIdUser() {
+        String idUser = "";
+        try {
+            File readFile = new File(System.getProperty("user.dir") + "\\iduser.txt");
+
+            Scanner readData = new Scanner(readFile);
+
+            idUser = readData.nextLine();
+            readData.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("An error occurred.");
+            ex.printStackTrace();
+        }
+        return idUser;
+    }
+
+    /*
+     *
+     Hàm ghi file idUser
+     *
+     */
+    public static void writeFileIdUser(String idUser) throws IOException {
+        File writeFile = new File(System.getProperty("user.dir") + "\\iduser.txt");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(writeFile.getAbsolutePath()));
+        bw.write(idUser);
+        bw.close(); //close the BufferdWriter
+    }
+
 }

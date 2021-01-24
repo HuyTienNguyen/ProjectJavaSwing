@@ -126,6 +126,12 @@ public class Validator {
                             ruleError = checkUniqueFromTableWhenUpdate(NameTableAndField[0], NameTableAndField[1], value, valueId);
                             break;
                         }
+                    case "exists":
+//                        if (valueId == null) {
+                            String x = getRuleUniqueValue(rule);
+                            String[] NameTableAndField = getUniqueRule(x);
+                            ruleError = !checkExistsFromTableWhereForeignKey(NameTableAndField[0], NameTableAndField[1], value);
+                            break;
 
                     default:
                         throw new Exception("Validation rule : " + rule + " is not supported yet.");
@@ -469,6 +475,19 @@ public class Validator {
 
     public void setErrorMessages(Map<String, String> errorMessages) {
         this.errorMessages = errorMessages;
+    }
+    //hàm check exists Id foreign key
+    private static boolean checkExistsFromTableWhereForeignKey(String tableName, String fieldName, String value) throws Exception {
+        //lấy kiểu dữ liệu của cột select và sau đo sẽ đổi dữ liệu sang kiểu dữ liệu từ database trả về
+        String dataTypeColumn = getDataTypeFiledName(tableName, fieldName);
+        Object value1 = convertDataType(dataTypeColumn, value);
+        //"SELECT * FROM table where field =?"
+        Object getparam[] = new Object[]{
+            value1
+        };
+        String sql = Constants.QUERY_CHECK_EXISTS_ID_FOREIGN_KEY.replaceAll(tableSqlName, tableName);
+        sql = sql.replaceAll(fieldSqlName, fieldName);
+        return DatabaseHelper.checkExistsData(sql, getparam) ? true : false;
     }
 
     //hàm check unique khi insert

@@ -38,7 +38,7 @@ public class UserDaoImpl implements IUserDAO {
     private static final String SQL_SELECT_BY_MAIL_AND_CODE = "SELECT * FROM Users WHERE EMAIL =? AND verifyCode =?";
     private static final String SQL_SELECT_USERNAME_AND_EMAIL = "SELECT * From users where username = ? and email = ?";
     private static final String SQL_UPDATE_PASSWORD_BY_EMAIL = "Update Users Set Password = ? Where Email = ?";
-
+    private static final String SQL_GET_ID_BY_USER_PASS = "select id from users where username = ? and password = ?";
     @Override
     public List<Users> getUsers() {
         // Khởi tạo list UserRole
@@ -316,6 +316,23 @@ public class UserDaoImpl implements IUserDAO {
         String[] param = new String[]{password,Email};
         countUpdate = DatabaseHelper.updateData(SQL_UPDATE_PASSWORD_BY_EMAIL, param);
         return countUpdate;
+    }
+    
+    public String getIdUser(Users element ){
+        String idUser = "";
+        try {
+            ResultSet rs = DatabaseHelper.selectData(SQL_GET_ID_BY_USER_PASS, element.getParam(Constants.ACTION_GET_ID_USER));
+            if(rs.next()){
+                idUser = String.valueOf(rs.getInt("id"));
+            }
+            else{
+                idUser = "null";
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idUser;
     }
 
 }

@@ -5,7 +5,10 @@
  */
 package qlkh.entities;
 
+import java.sql.Timestamp;
+import java.sql.Types;
 import qlkh.utils.Constants;
+import qlkh.utils.Utils;
 
 /**
  *
@@ -14,31 +17,87 @@ import qlkh.utils.Constants;
 public class InvoiceExportDetail {
 
     private String id;
-    private String idProduct;
     private String idInvoiceImportDetail;
     private String idInvoiceExport;
     private int counts;
     private String status;
-
+    
+    private String idProduct;
+    
+    
+    private String nameProduct;
+    private double money;
+    private String userName;
+    private Timestamp dateOutput;
+    private String nameCustomer;
+    private String idUser;
+    private String idCustomer;
     public InvoiceExportDetail() {
     }
 
-    public InvoiceExportDetail(String id, String idProduct, String idInvoiceImportDetail, String idInvoiceExport, int counts, String status) {
+    public InvoiceExportDetail(String id, String idInvoiceImportDetail, String idInvoiceExport, int counts, String status) {
         this.id = id;
-        this.idProduct = idProduct;
         this.idInvoiceImportDetail = idInvoiceImportDetail;
         this.idInvoiceExport = idInvoiceExport;
         this.counts = counts;
         this.status = status;
     }
 
-    public String getId() {
-        return id;
+    public InvoiceExportDetail(String id, String idInvoiceExport,String nameCustomer, int counts, String nameProduct, double money, String userName, Timestamp dateOutput) {
+        this.id = id;
+        this.idInvoiceExport = idInvoiceExport;
+        this.nameCustomer = nameCustomer;
+        this.counts = counts;
+        this.nameProduct = nameProduct;
+        this.money = money;
+        this.userName = userName;
+        this.dateOutput = dateOutput;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getNameCustomer() {
+        return nameCustomer;
     }
+
+    public void setNameCustomer(String nameCustomer) {
+        this.nameCustomer = nameCustomer;
+    }
+
+    
+    public String getNameProduct() {
+        return nameProduct;
+    }
+
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Timestamp getDateOutput() {
+        return dateOutput;
+    }
+
+    public void setDateOutput(Timestamp dateOutput) {
+        this.dateOutput = dateOutput;
+    }
+    
+    
+    
+    
 
     public String getIdProduct() {
         return idProduct;
@@ -46,6 +105,16 @@ public class InvoiceExportDetail {
 
     public void setIdProduct(String idProduct) {
         this.idProduct = idProduct;
+    }
+    
+    
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getIdInvoiceImportDetail() {
@@ -80,6 +149,22 @@ public class InvoiceExportDetail {
         this.status = status;
     }
 
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getIdCustomer() {
+        return idCustomer;
+    }
+
+    public void setIdCustomer(String idCustomer) {
+        this.idCustomer = idCustomer;
+    }
+    
     
 
 
@@ -91,20 +176,19 @@ public class InvoiceExportDetail {
     public Object[] getParam(int action) {
         Object param[] = null;
         switch (action) {
-            case Constants.ACTION_INSERT:
+            case Constants.ACTION_INSERT_BY_PROC:
                 param = new Object[]{
-                    this.getId(),
-                    this.getIdProduct(),
-                    this.getIdInvoiceImportDetail(),
-                    this.getIdInvoiceExport(),
+                    Types.INTEGER,
+                    this.getNameProduct(),
                     this.getCounts(),
-                    this.getStatus()
-
+                    this.getIdUser(),
+                    this.getIdCustomer(),
+                    this.getIdInvoiceExport(),
+                    
                 };
                 break;
             case Constants.ACTION_UPDATE:
                 param = new Object[]{
-                    this.getIdProduct(),
                     this.getIdInvoiceImportDetail(),
                     this.getIdInvoiceExport(),
                     this.getCounts(),
@@ -118,14 +202,19 @@ public class InvoiceExportDetail {
                     this.getId()
                 };
                 break;
+            
         }
         return param;
     }
 
     @Override
     public String toString() {
-        return "InvoiceExportDetail{" + "id=" + id + ", idProduct=" + idProduct + ", idInvoiceImportDetail=" + idInvoiceImportDetail + ", idInvoiceExport=" + idInvoiceExport + ", counts=" + counts + ", status=" + status + '}';
+        return "InvoiceExportDetail{" + "id=" + id + ", idInvoiceImportDetail=" + idInvoiceImportDetail + ", idInvoiceExport=" + idInvoiceExport + ", counts=" + counts + ", status=" + status + '}';
     }
+
+  
+
+    
 
     
 

@@ -22,7 +22,7 @@ public class MainViewController {
     private UnitController unit;
     private UsersController user;
     private InvoiceImportDetailController importDetail;
-
+    private InvoiceExportDetailController exportDetail;
     private ReportsController report;
 
     private Home home;
@@ -37,6 +37,7 @@ public class MainViewController {
         user = new UsersController();
         report = new ReportsController();
         importDetail = new InvoiceImportDetailController();
+        exportDetail = new InvoiceExportDetailController();
         home = new Home();
         view = new MainView2();
         view.addBtnShowHome(this::showViewHome, home);
@@ -53,7 +54,7 @@ public class MainViewController {
 
         view.addBtnShowUsers(this::showViewUser, user);
         view.addBtnShowImportDetail(this::showViewImportDetail, importDetail);
-
+        view.addBtnShowExportDetail(this::showViewExportDetail, exportDetail);
 //        view.addBtnShowReports(this::showViewReport, report);
     }
 
@@ -103,6 +104,11 @@ public class MainViewController {
     private void showViewReport(ActionEvent e) {
         view.goToPageMainPanel(view.reportView);
         report.showView();
+    }
+    
+    private void showViewExportDetail(ActionEvent e){
+        view.goToPageMainPanel(view.exportView);
+        exportDetail.showView();
     }
 
 }

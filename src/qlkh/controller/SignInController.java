@@ -124,6 +124,12 @@ public class SignInController {
                     MainViewController c = new MainViewController();
                     c.showView();
                     
+                    try {
+                        //ghi file idUser
+                        Utils.writeFileIdUser(userModel.getIdUser(signIn.getUserLogin()));
+                    } catch (IOException ex) {
+                        Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     signIn.showErrPassword(Constants.MSG_FAIL_CONNECT_SIGNIN, Color.RED);
                 }

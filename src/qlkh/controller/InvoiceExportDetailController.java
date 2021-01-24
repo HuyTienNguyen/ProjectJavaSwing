@@ -5,34 +5,151 @@
  */
 package qlkh.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPanel;
+import qlkh.daoimpl.CategoryDaoImpl;
 import qlkh.daoimpl.InvoiceExportDaoImpl;
+import qlkh.daoimpl.InvoiceExportDetailDaoImpl;
 import qlkh.daoimpl.InvoiceImportDetailDaoImpl;
 import qlkh.daoimpl.ProductDaoImpl;
+import qlkh.entities.Category;
+import qlkh.entities.InvoiceExportDetail;
 import qlkh.entities.Products;
-import qlkh.test.HuyTestFrameInvoiceExportDetail;
+import qlkh.request.IRequest;
+import qlkh.request.InvoiceExportDetailRequest;
+import qlkh.request.InvoiceImportDetailRequest;
+import qlkh.utils.Constants;
+import qlkh.utils.Validator;
+import qlkh.views.InvoiceExportDetailView;
 
 /**
  *
  * @author user
  */
 public class InvoiceExportDetailController {
-    HuyTestFrameInvoiceExportDetail view;
+
+    InvoiceExportDetailView view;
     ProductDaoImpl proDao;
     InvoiceImportDetailDaoImpl invoiceImDetailDao;
+    InvoiceExportDetailDaoImpl invoiceExDetailDao;
     InvoiceExportDaoImpl invoiceExDao;
+    CategoryDaoImpl cateDao;
+
     public InvoiceExportDetailController() {
-        view = new HuyTestFrameInvoiceExportDetail();
+        view = new InvoiceExportDetailView();
         proDao = new ProductDaoImpl();
         invoiceImDetailDao = new InvoiceImportDetailDaoImpl();
         invoiceExDao = new InvoiceExportDaoImpl();
+        invoiceExDetailDao = new InvoiceExportDetailDaoImpl();
+        cateDao = new CategoryDaoImpl();
+
+        List<Products> products = proDao.getAllProducts();
+        view.loadAllCategories(cateDao.getCategoies(), products);
+        view.loadProducts(products);
+        view.showView(invoiceExDetailDao.getAllInvoiceExportDetail());
+
+        view.addBtnAddAction(this::btnAddAction);
+        view.addBtnClearAction(this::btnClearAction);
+        view.addCbbCateStateChanged(this::cateBoxStateChanged);
+        view.addTableMouseListener(new TableMouseListener());
     }
-    
-    
+
     public void showView() {
         if (view == null) {
-            view = new HuyTestFrameInvoiceExportDetail();
+            view = new InvoiceExportDetailView();
         }
-        List<Products> products = proDao.getAllProducts();
+        view.showView(invoiceExDetailDao.getAllInvoiceExportDetail());
+        view.clearView(true);
+    }
+
+    public JPanel getContentPage() {
+        return view.getContent();
+    }
+
+    private void btnAddAction(ActionEvent e) {
+        try {
+            // Declare suplier request
+            IRequest request = new InvoiceExportDetailRequest();
+            // Declare instance of Validator
+            boolean isInsert = true;
+            Validator validator = Validator.validate(view.getElements(isInsert), request.getRules(), null);
+            // Set Error 
+            validator.setErrorMessages(request.getMessages());
+            // show errors to the view
+
+            view.showErrors(validator.getErrors());
+            if (validator.isPasses() == true) {
+                InvoiceExportDetail elements = view.getInvoiceExportDetail();
+                if (!view.getValueNewBill()) {
+                    elements.setIdInvoiceExport(invoiceExDao.getIdTheLast());
+                }
+                int errOutput = invoiceExDetailDao.insert(elements);
+                if (errOutput == 1) {
+                    view.showMessage(Constants.MSG_NO_QUALITY, Constants.FLAG_ERROR);
+                } else if (errOutput == 2) {
+                    view.showMessage(Constants.MSG_ERROR_LOGIC, Constants.FLAG_ERROR);
+                } else {
+                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+                    view.clearView(false);
+                    view.showView(invoiceExDetailDao.getAllInvoiceExportDetail());
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(InvoiceExportDetailController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void cateBoxStateChanged(ItemEvent e) {
+        Category cate = view.getCateSelected();
+        if (cate != null) {
+            view.loadProducts(view.getListProduct(cate), cate);
+        }
+
+    }
+
+    private void btnClearAction(ActionEvent e) {
+        view.clearView(true);
+
+    }
+
+    private class TableMouseListener implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            // get Id by row selected on suplier table
+            //   String productId = view.getEditProductId();
+
+//            view.clearError();
+//            Products product = null;
+//            if (productId.equals("") == false && productId != null) {
+//                product = proDao.getProductById(productId);
+//            }
+//            if (product != null) {
+//                view.showUpdateProduct(product);
+//            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
     }
 }

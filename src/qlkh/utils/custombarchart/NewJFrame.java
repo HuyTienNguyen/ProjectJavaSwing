@@ -27,7 +27,12 @@ public class NewJFrame extends javax.swing.JFrame {
     public NewJFrame() {
         initComponents();
         loadComboBoxBarchart();
+
         for (int m = 1; m <=6; m++) {
+
+        List<Integer> a = new ArrayList<>();
+
+
             List<BarChartItem> list = new ArrayList<>();
             int valueImport = 0;
             int valueExport = 0;
@@ -38,11 +43,28 @@ public class NewJFrame extends javax.swing.JFrame {
                 valueImport = 5;
                 valueExport = 10 * 50;
             }
+//            for (BarChartItem list1 : list) {
+//                   BarChartItem item1 = new BarChartItem(lis1.getfiled1, "Import Amount");
+//                                      BarChartItem item2 = new BarChartItem(lis1.getfiled1, "Import Amount");
+//
+//            }
             BarChartItem item1 = new BarChartItem(valueImport, "Import Amount");
             BarChartItem item2 = new BarChartItem(valueExport, "Export Amount");
 
+
             BarChartItems item = new BarChartItems(String.valueOf(m) + " a", item1, item2);
             mapItems.add(item);
+
+            list.add(item1);
+            list.add(item2);
+
+            // item item1 = new item(13/1,1000,2000)
+            // BarChartItem item1 = new BarChartItem(item.getimporttotal,totalimport);
+          //  BarChartItem item2 = new BarChartItem(item.getexot, totalexport);
+          //    list.add(item1);
+            //list.add(item2);
+            //mapItems.put(item.getId())
+
         }
         String title1 = "Car Usage Statistics";
         String title2 = "Which car do you like?";

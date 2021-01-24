@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import qlkh.controller.CategoryController;
 import qlkh.controller.CustomerController;
+import qlkh.controller.InvoiceExportDetailController;
 import qlkh.controller.InvoiceImportDetailController;
 import qlkh.controller.ProductsController;
 import qlkh.controller.ReportsController;
@@ -33,7 +34,7 @@ import qlkh.testView.GiangTestFrameInvoiceImportDetail;
 import qlkh.views.CustomerView;
 import qlkh.views.Home;
 import qlkh.views.InvoiceImportDetail2View;
-import qlkh.views.InvoiceImportDetailView;
+
 
 /**
  *
@@ -54,7 +55,7 @@ public class MainView2 extends javax.swing.JFrame {
     public static final String unitView = "unit";
     public static final String userView = "user";
     public static final String importView = "import";
-
+    public static final String exportView = "export";
     public static final String reportView = "report";
 
     public MainView2() {
@@ -463,10 +464,10 @@ public class MainView2 extends javax.swing.JFrame {
 
     private void RestoreDownMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RestoreDownMouseClicked
         // TODO add your handling code here:
-        if (this.getExtendedState() != MainView1.MAXIMIZED_BOTH) {
-            this.setExtendedState(MainView1.MAXIMIZED_BOTH);
+        if (this.getExtendedState() != MainView2.MAXIMIZED_BOTH) {
+            this.setExtendedState(MainView2.MAXIMIZED_BOTH);
         } else {
-            this.setExtendedState(MainView1.NORMAL);
+            this.setExtendedState(MainView2.NORMAL);
         }
     }//GEN-LAST:event_RestoreDownMouseClicked
 
@@ -481,7 +482,7 @@ public class MainView2 extends javax.swing.JFrame {
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
         // TODO add your handling code here:
-        this.setState(MainView1.ICONIFIED);
+        this.setState(MainView2.ICONIFIED);
     }//GEN-LAST:event_minimizeMouseClicked
 
     private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseEntered
@@ -601,6 +602,10 @@ public class MainView2 extends javax.swing.JFrame {
     public void addBtnShowImportDetail(ActionListener listener, InvoiceImportDetailController c) {
         btnImportDetail.addActionListener(listener);
         contentPanel.add(c.getContentPage(), importView);
+    }
+    public void addBtnShowExportDetail(ActionListener listener, InvoiceExportDetailController c){
+        btnExportDetail.addActionListener(listener);
+        contentPanel.add(c.getContentPage(), exportView);
     }
 
 //    public void addBtnShowReports(ActionListener listener, ReportsController c) {

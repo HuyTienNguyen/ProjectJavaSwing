@@ -180,6 +180,12 @@ public class Users {
                     this.getEmail()
                 };
                 break;
+            case Constants.ACTION_GET_ID_USER:
+                param = new Object[]{
+                    this.getUserName(),
+                    this.getPassword()
+                };
+                break;
         }
         return param;
     }

@@ -50,7 +50,6 @@ public class CustomerController {
 
         view.addBtnAddAction(this::btnAddAction);
         view.addBtnEditAction(this::btnEditAction);
-        view.addBtnDeleteAction(this::btnDeleteAction);
         view.addBtnClearAction(this::btnClearAction);
         view.addTableMouseListener(new TableProductMouseListener());
         view.clearView(true);
@@ -125,21 +124,6 @@ public class CustomerController {
             ex.printStackTrace();
         }
 
-    }
-
-    private void btnDeleteAction(ActionEvent e) {
-        int idCustomer = Integer.parseInt(view.getIdCustomer());
-        int records = 0;
-        records = cusDao.delete(idCustomer);
-        if (records > 0) {
-            view.showMessage(Constants.MSG_DELETE_SUCCESS, Constants.FLAG_SUCCESS);
-            view.clearView(false);
-            view.showView(cusDao.getAllCustomers());
-            view.addTableMouseListener(new TableProductMouseListener());
-        } else {
-            view.showMessage(Constants.MSG_DELETE_ERROR, Constants.FLAG_ERROR);
-
-        }
     }
 
     private void btnClearAction(ActionEvent e) {
