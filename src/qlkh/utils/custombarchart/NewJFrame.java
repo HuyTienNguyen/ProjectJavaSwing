@@ -21,7 +21,7 @@ public class NewJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     private static final String[] valueOfCbbBarchart = {"Những năm gần nhất", "Năm gần nhất", "7 ngày gần nhất"};
-    private static List<BarChartItem> items = new ArrayList<>();
+    private static List<ChartItem> items = new ArrayList<>();
     private static List<BarChartItems> mapItems = new ArrayList<>();
 
     public NewJFrame() {
@@ -33,7 +33,7 @@ public class NewJFrame extends javax.swing.JFrame {
         List<Integer> a = new ArrayList<>();
 
 
-            List<BarChartItem> list = new ArrayList<>();
+            List<ChartItem> list = new ArrayList<>();
             int valueImport = 0;
             int valueExport = 0;
             if (m % 2 == 0) {
@@ -43,13 +43,9 @@ public class NewJFrame extends javax.swing.JFrame {
                 valueImport = 5;
                 valueExport = 10 * 50;
             }
-//            for (BarChartItem list1 : list) {
-//                   BarChartItem item1 = new BarChartItem(lis1.getfiled1, "Import Amount");
-//                                      BarChartItem item2 = new BarChartItem(lis1.getfiled1, "Import Amount");
-//
-//            }
-            BarChartItem item1 = new BarChartItem(valueImport, "Import Amount");
-            BarChartItem item2 = new BarChartItem(valueExport, "Export Amount");
+
+            ChartItem item1 = new ChartItem("Import Amount",valueImport);
+            ChartItem item2 = new ChartItem( "Export Amount",valueExport);
 
 
             BarChartItems item = new BarChartItems(String.valueOf(m) + " a", item1, item2);
@@ -58,12 +54,6 @@ public class NewJFrame extends javax.swing.JFrame {
             list.add(item1);
             list.add(item2);
 
-            // item item1 = new item(13/1,1000,2000)
-            // BarChartItem item1 = new BarChartItem(item.getimporttotal,totalimport);
-          //  BarChartItem item2 = new BarChartItem(item.getexot, totalexport);
-          //    list.add(item1);
-            //list.add(item2);
-            //mapItems.put(item.getId())
 
         }
         String title1 = "Car Usage Statistics";

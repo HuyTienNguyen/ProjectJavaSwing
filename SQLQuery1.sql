@@ -16,7 +16,7 @@ select iid.Number-sum(ied.Counts) as 'hihi' from InvoiceExportDetail ied
 	--1: không đủ số lượng
 	--2: insert thất bại tại dòng bao nhiêu, do lỗi xử lý
     --3: insert thành công
-ALTER PROC USP_ADD_NEW_INVOICE_EXPORT_DETAIL
+CREATE PROC USP_ADD_NEW_INVOICE_EXPORT_DETAIL
 		@errOutput int out,
 		@nameProduct varchar(50),
 		@counts_export int,

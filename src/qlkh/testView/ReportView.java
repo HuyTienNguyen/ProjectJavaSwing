@@ -28,7 +28,7 @@ import qlkh.entities.Products;
 import qlkh.entities.Supliers;
 import qlkh.entities.Unit;
 import qlkh.utils.Constants;
-import qlkh.utils.custombarchart.BarChartItem;
+import qlkh.utils.custombarchart.ChartItem;
 import qlkh.utils.custombarchart.BarChartItems;
 import qlkh.utils.custombarchart.BarChart_AWT;
 import qlkh.utils.pagination.ObjectTableModel;
@@ -54,7 +54,7 @@ public class ReportView extends javax.swing.JPanel {
     private static final int maxPagingCompToShow = 7;
     //item for table 0
     private static final String[] valueOfCbbBarchart = {"7 ngày gần nhất", "Năm gần nhất", "Những năm gần nhất",};
-    private static List<BarChartItem> items = new ArrayList<>();
+    private static List<ChartItem> items = new ArrayList<>();
     private static  List<BarChartItems> mapItems = new ArrayList<>();
 
     // item for table 1

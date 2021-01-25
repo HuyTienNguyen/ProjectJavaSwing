@@ -82,8 +82,8 @@ go
 --tạo bảng InvoiceImport
 create table InvoiceImport(
 	Id nvarchar(100) primary key,
-	DateInput DateTime
-	
+	DateInput DateTime,
+	idUser int	
 )
 go
 --tạo bảng InvoiceImportDetail
@@ -102,6 +102,7 @@ create table InvoiceExport(
 	Id nvarchar(100) primary key,
 	DateOutput DateTime,
 	IdCustomer int not null,
+	idUser int null,
 	totalMoney bigint default(0)
 )
 go
@@ -160,15 +161,12 @@ ADD CONSTRAINT FK_11 FOREIGN KEY (idUser) REFERENCES users(Id)
 
 --tạo khóa ngoại InvoiceImport và users
 ALTER TABLE InvoiceImport
+
 ADD CONSTRAINT FK_12 FOREIGN KEY (idUser) REFERENCES users(Id)
 GO
 
---xóa khóa ngoại giữa invoiceexportdetail vs products
-ALTER TABLE invoiceexportdetail
-DROP CONSTRAINT FK_08;
---xóa cột idproduct trong invoicexportdetail
-ALTER TABLE invoiceexportdetail
-DROP COLUMN idProduct;
+
+
 /*
   *  Tạo thủ tục
   PRocedure ADD new unit
@@ -414,9 +412,8 @@ AS
 	*/
 
 
-
+	exec sp_create_temp_get_all_reports_invoiceexportdetail
 ALTER PROCEDURE sp_create_temp_get_all_reports_invoiceexportdetail
-
 
 AS
 	BEGIN		
@@ -425,8 +422,7 @@ AS
 			DROP TABLE ##reports_invoiceexportdetail
 		END
 			BEGIN
-				SELECT ied.Id ,iid.Number,iid.InputPrice,p.price as 'outputPrice',ie.DateOutput  INTO ##reports_invoiceexportdetail
-
+				SELECT ied.Id ,p.Id as 'ProductId',p.name as 'ProductName',ied.Counts,iid.InputPrice,p.price as 'OutputPrice',ie.DateOutput  INTO ##reports_invoiceexportdetail
 				FROM  InvoiceExportDetail ied
 				JOIN InvoiceImportDetail iid
 				ON ied.IdInvoiceImportDetail = iid.Id	
@@ -507,7 +503,7 @@ exec  sp_create_temp_get_reports_invoiceexportdetail_nearest_week
 *	Procedure get records invoiceimportdetail from atmost 5 year  to current year
 */
 select * from customer
-create PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
+alter PROCEDURE sp_get_total_reports_from_atmost_5year_to_now
 AS
  SET NOCOUNT ON
 	declare  @firstyear  datetime, @currentyear datetime ,@startyear datetime ;
@@ -530,20 +526,20 @@ AS
 			DROP TABLE ##tmpimportsyear;
 		END
 		CREATE  TABLE ##tmpimportsyear(
-			numberyear int,
-			totalimport  bigint,
-			totalexport bigint default 0
+			Numberyear int,
+			Totalimport  bigint,
+			Totalexport bigint default 0
 		)	
 		WHILE(@startyear <=@currentyear)
 			BEGIN		
 				declare @sum int;
 				SET @sum =0;		
 					BEGIN
-						IF EXISTS(SELECT 1 from ##reports_invoiceimportdetail  where year(dateinput)=  year(@startyear ))	
-						INSERT INTO ##tmpimportsyear(numberyear,totalimport,totalexport)		
+						IF EXISTS(SELECT 1 from ##reports_invoiceimportdetail  where year(Dateinput)=  year(@startyear ))	
+						INSERT INTO ##tmpimportsyear(Numberyear,Totalimport,Totalexport)		
 						SELECT year(DateInput) , sum(Number*InputPrice),
-						 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail  where year(dateoutput) = year(@startyear ))
-								THEN (select sum(outputprice*Counts) from ##reports_invoiceexportdetail  where year(dateoutput) =  year(@startyear ) GROUP BY year(dateoutput)) ELSE '0' END)
+						 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail  where year(Dateoutput) = year(@startyear ))
+								THEN (select sum(outputprice*Counts) from ##reports_invoiceexportdetail  where year(Dateoutput) =  year(@startyear ) GROUP BY year(Dateoutput)) ELSE '0' END)
 							FROM ##reports_invoiceimportdetail	
 							WHERE  year(DateInput)=year(@startyear)
 							GROUP by year(DateInput)								
@@ -552,13 +548,72 @@ AS
 			END
 		select * from ##tmpimportsyear
 	END
-	
-	exec sp_get_total_reports_from_atmost_5year_to_now
-	
+	-- update 25/01	
+	-- Thủ tục báo cáo  tổng hợp hàng xuất và nhập 6 tháng gần nhất
+	alter PROCEDURE sp_get_total_reports_from_6_most_recent_months
+AS
+ SET NOCOUNT ON
+	declare  @firsttime  datetime, @currenttime datetime ,@strstartmonth varchar(20),@strdatamonth varchar(20) ;
+	BEGIN
+		IF OBJECT_ID('tempdb..##reports_invoiceimportdetail','U') IS  NULL
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceimportdetail
+			END
+		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS  NULL
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceexportdetail
+			END
+		IF OBJECT_ID('tempdb..##tmpreports6mostrecentmonth','U') IS NOT NULL
+		BEGIN
+			DROP TABLE ##tmpreports6mostrecentmonth;
+		END
+		-- get time now
+		set @currenttime = dateadd(month,0,getdate());
+		-- get the first day of last 6 month
+		set @firsttime = DATEADD(MONTH, DATEDIFF(MONTH, 0,dateadd(month,-5,@currenttime)), 0)
+								
+		CREATE  TABLE ##tmpreports6mostrecentmonth(
+			Numbermonth varchar(20),
+			Totalimport bigint default 0,
+			Totalexport bigint default 0
+		)	
+		WHILE(@firsttime<=@currenttime)	
+			BEGIN		-- begin while
+				SET @strstartmonth = convert(varchar(7),@firsttime,111) 
+				declare @sum int;
+				SET @sum =0;		
+					BEGIN	
+						IF EXISTS(SELECT 1 from ##reports_invoiceimportdetail  where @strstartmonth = convert(varchar(7),Dateinput,111) )						
+							BEGIN  -- begin IF
+								INSERT INTO ##tmpreports6mostrecentmonth(numbermonth,totalimport,totalexport)		
+								SELECT @strstartmonth ,
+								 sum(Number*Inputprice),
+								 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail where @strstartmonth =convert(varchar(7),Dateoutput,111))
+										THEN (select sum(Outputprice*Counts) from ##reports_invoiceexportdetail  where @strstartmonth = convert(varchar(7),DateOutput,111) 
+										GROUP BY convert(varchar(7),DateOutput,111)) ELSE '0' END)
+									FROM ##reports_invoiceimportdetail	
+								 where @strstartmonth = convert(varchar(7),dateinput,111)  GROUP BY  CONVERT(VARCHAR(7),Dateinput,111)	
+					
+							END -- end if
+						ELSE
+							BEGIN -- begin else
+								INSERT INTO ##tmpreports6mostrecentmonth(numbermonth,totalimport,totalexport)		
+								SELECT TOP 1 @strstartmonth ,
+								0,
+								 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail where @strstartmonth =convert(varchar(7),dateoutput,111))
+										THEN (select sum(Outputprice*Counts) from ##reports_invoiceexportdetail  where @strstartmonth = convert(varchar(7),DateOutput,111) 
+										GROUP BY convert(varchar(7),DateOutput,111)) ELSE '0' END)
+									FROM ##reports_invoiceimportdetail												
+							END -- end else
+					END
+				SET  @firsttime = dateadd(month,1, @firsttime);
+				
+			END -- end while
+			select * from ##tmpreports6mostrecentmonth
+	END
+	exec sp_get_total_reports_from_6_most_recent_months
 
 
-
-	
 	/*
 	* Thủ tục lấy ra số lượng hàng  trong 7 ngày liên tiếp
 	* bao gồm tổng hàng xuất và hàng nhập
@@ -567,47 +622,39 @@ ALTER PROCEDURE sp_get_total_reports_from_nearest_week
 AS
  SET NOCOUNT ON
 	declare  @firstday  datetime, @currentday datetime  ;
-	BEGIN	
-			BEGIN
-				exec sp_create_temp_get_all_reports_invoiceimportdetail;
-			END
-			BEGIN
-				exec sp_create_temp_get_all_reports_invoiceexportdetail;
-			END
+	BEGIN				
+			-- b1: Ta Tạo temp tổng  báo cáo lượng  nhập
 			BEGIN
 				exec sp_create_temp_get_reports_invoiceimportdetail_nearest_week;
 			END
-		
-		BEGIN
-			exec sp_create_temp_get_reports_invoiceexportdetail_nearest_week;
-		END	
+			-- b2: Ta Tạo temp tổng  báo cáo lượng  xuất
+			BEGIN
+				exec sp_create_temp_get_reports_invoiceexportdetail_nearest_week;
+			END	
 		IF OBJECT_ID('tempdb..##tmpimport','U') IS NOT NULL
 			BEGIN
 				DROP TABLE  ##tmpimport;
-			END
-		
-		set @currentday = dateadd(day,0,getdate());
-		
-		set @firstday = dateadd(day,-6,@currentday);
-	
+			END		
+		set @currentday = dateadd(day,0,getdate());	
+		set @firstday = dateadd(day,-6,@currentday);	
 		CREATE  TABLE ##tmpimport(
-			dateofweek varchar(20),
-			totalimport  bigint,
-			totalexport bigint default 0
+			Dateofweek varchar(20),
+			Totalimport  bigint,
+			Totalexport bigint default 0
 		)		;
 		WHILE(@firstday <=@currentday)
 		BEGIN
 		declare @sum int;
 		SET @sum =0;
 		BEGIN
-			IF EXISTS(SELECT 1 from ##reports_invoiceimportdetail_nearest_week  where day(dateinput)=  day(@firstday ))		
+			IF EXISTS(SELECT 1 from ##reports_invoiceimportdetail_nearest_week  where day(Dateinput)=  day(@firstday ))		
 				BEGIN
-					INSERT  INTO  ##tmpimport(dateofweek,totalimport,totalexport)		
-					SELECT  CONVERT(VARCHAR(5),dateinput,103) ,
-						 sum(number*inputprice),
-						 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ))
-						 THEN (select sum(outputprice*number) from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ) GROUP BY day(dateoutput)) ELSE '0' END) 
-					FROM ##reports_invoiceimportdetail_nearest_week  where day(dateinput)=  day(@firstday)  GROUP BY  CONVERT(VARCHAR(5),dateinput,103)		;			
+					INSERT  INTO  ##tmpimport(Dateofweek,Totalimport,Totalexport)		
+					SELECT  CONVERT(VARCHAR(5),Dateinput,103) ,
+						 sum(Number*Inputprice),
+						 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail_nearest_week  where day(Dateoutput)=  day(@firstday ))
+						 THEN (select sum(Outputprice*Number) from ##reports_invoiceexportdetail_nearest_week  where day(Dateoutput)=  day(@firstday ) GROUP BY day(Dateoutput)) ELSE '0' END) 
+					FROM ##reports_invoiceimportdetail_nearest_week  where day(Dateinput)=  day(@firstday)  GROUP BY  CONVERT(VARCHAR(5),Dateinput,103)		;			
 				END	
 			ELSE
 				BEGIN
@@ -615,7 +662,7 @@ AS
 				SELECT  TOP 1 CONVERT(VARCHAR(5),@firstday,103) ,
 						0,
 						 (CASE WHEN EXISTS(SELECT 1 from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ))
-						 THEN (select sum(outputprice*number) from ##reports_invoiceexportdetail_nearest_week  where day(dateoutput)=  day(@firstday ) GROUP BY day(dateoutput)) ELSE '0' END) 
+						 THEN (select sum(Outputprice*Number) from ##reports_invoiceexportdetail_nearest_week  where day(Dateoutput)=  day(@firstday ) GROUP BY day(Dateoutput)) ELSE '0' END) 
 					FROM ##reports_invoiceimportdetail_nearest_week  		;	
 				END
 		END				
@@ -630,14 +677,13 @@ AS
 	end procedure
 	*/
 	exec sp_get_total_reports_from_nearest_week
-	exec sp_get_total_imports_from_atmost_5year_to_now
 
-<<<<<<< HEAD
-	select * from products
-	select * from InvoiceExportDetail ied join InvoiceImportDetail iid on ied.IdInvoiceImportDetail = iid.Id join Products p on iid.IdProduct = p.id
-=======
+
+
+	select * from InvoiceExportDetail
+
 	select * from InvoiceExport
-	select * from products p join InvoiceImportDetail iid on p.Id = iid.IdProduct join InvoiceExportDetail ỉed on iid.Id = ied.IdInvoiceImportDetail
+	
 	--tổng tiền hóa đơn.
 	select sum(ied.Counts*p.price) as 'tien hoa don',ied.IdInvoiceExport as 'ma hoa don' from InvoiceexportDetail ied join InvoiceImportDetail iid on ied.IdInvoiceImportDetail = iid.Id join Products p on p.Id = iid.IdProduct group by ied.IdInvoiceExport 
 	
@@ -683,7 +729,148 @@ AS
 
 
 
-
-
 	
->>>>>>> 1e004323c1fff4eb4984b6eb647d1ae91fd0d401
+	-- update 25/01	
+	-- Thủ tục lấy lãi suất 10 sản phẩm cao nhất trong tuần
+CREATE PROCEDURE sp_get_top_10_profits_from_nearest_week
+AS
+	SET NOCOUNT ON
+	declare @nowdate datetime, @lastweekdate datetime
+	BEGIN
+	set @nowdate = getdate();
+	set @lastweekdate = dateadd(day,-6,convert(date,@nowdate));	
+	IF OBJECT_ID('tempdb..##tmpouputreportsnearweek','U') IS NOT NULL
+			BEGIN
+				DROP TABLE  ##tmpouputreportsnearweek;
+			END
+	IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS  NULL
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceexportdetail
+			END
+			CREATE  TABLE ##tmpouputreportsnearweek(
+				ProductName nvarchar(100),
+				InputPrice  bigint,
+				OutputPrice bigint,
+				Counts int,
+				DateOutput datetime
+				);
+			INSERT  INTO ##tmpouputreportsnearweek(ProductName,InputPrice,OutputPrice,Counts,DateOutput)
+			select ProductName,InputPrice,outputPrice,Counts,DateOutput
+			from ##reports_invoiceexportdetail	
+			where DateOutput >=@lastweekdate AND DateOutput<=@nowdate
+			select TOP 10 productName,sum((p.outputPrice-p.inputPrice)*p.counts) as 'total' from ##tmpouputreportsnearweek p GROUP BY productName ORDER BY  sum((p.outputPrice-p.inputPrice)*p.counts)DESC
+	END	
+	 
+	exec sp_get_top_10_profits_from_nearest_week 
+	-- update 25/01	
+	-- -- Thủ tục lấy lãi suất 10 sản phẩm cao nhất trong  3 tháng gần nhất
+	CREATE PROCEDURE sp_get_top_10_profits_from_3_most_recent_months
+AS
+ SET NOCOUNT ON
+	declare  @firsttime  datetime, @currenttime datetime ,@strstartmonth varchar(20),@strdatamonth varchar(20) ;
+	BEGIN
+		
+		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS  NULL
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceexportdetail
+			END
+		-- get time now
+		set @currenttime = dateadd(month,0,getdate());
+		-- get the first day of last 3 month
+		set @firsttime = DATEADD(MONTH, DATEDIFF(MONTH, 0,dateadd(month,-2,@currenttime)), 0)	
+		IF OBJECT_ID('tempdb..##tmpgettop10output3mostrecentmonth','U') IS NOT NULL
+		BEGIN
+			DROP TABLE ##tmpgettop10output3mostrecentmonth;
+		END
+		CREATE  TABLE ##tmpgettop10output3mostrecentmonth(
+				ProductName nvarchar(100),
+				InputPrice  bigint,
+				OutputPrice bigint,
+				Counts int,
+				DateOutput datetime
+				);		
+			INSERT  INTO ##tmpgettop10output3mostrecentmonth(ProductName,InputPrice,OutputPrice,Counts,DateOutput)
+			select Productname,InputPrice,outputPrice,Counts,DateOutput
+			from ##reports_invoiceexportdetail	
+			where DateOutput >=@firsttime AND DateOutput<=@currenttime
+			select TOP 10 productName,sum((p.outputPrice-p.inputPrice)*p.counts) as 'total' from ##tmpgettop10output3mostrecentmonth p GROUP BY productName ORDER BY  sum((p.outputPrice-p.inputPrice)*p.counts)DESC	
+			
+	END
+	exec sp_get_top_10_profits_from_3_most_recent_months
+	--update 25/1
+	-- Thủ tục tính lượng hàng tồn kho theo số lượng sản phẩm trong kho giảm dần
+	ALTER PROCEDURE sp_get_inventories_at_current
+AS
+ SET NOCOUNT ON
+	BEGIN				
+			IF OBJECT_ID('tempdb..##reports_invoiceimportdetail','U') IS  NULL
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceimportdetail
+			END
+		IF OBJECT_ID('tempdb..##reports_invoiceexportdetail','U') IS  NULL
+			BEGIN
+				exec sp_create_temp_get_all_reports_invoiceexportdetail
+			END
+		IF OBJECT_ID('tempdb..##productInInventory','U') IS NOT NULL
+		BEGIN
+			DROP TABLE ##productInInventory;
+		END
+		BEGIN
+			CREATE  TABLE ##productInInventory(
+				ProductId varchar(100) ,
+				ProductName nvarchar(100),
+					total bigint
+				);
+		END
+		BEGIN
+			INSERT INTO  ##productInInventory(ProductId,ProductName,total)
+			select ProductId,ProductName,
+					(sum(Number) - (CASE WHEN EXISTS (select 1 from ##reports_invoiceexportdetail ied WHERE ied.ProductId = iid.ProductId)
+									THEN (select sum(counts) from ##reports_invoiceexportdetail ied WHERE ied.ProductId = iid.ProductId GROUP BY ProductID)
+									ELSE '0' END)) as 'total'
+			from ##reports_invoiceimportdetail iid
+			GROUP BY ProductId,ProductName	
+		END
+		select ProductName, total from  ##productInInventory ORDER BY total DESC	
+	END
+
+	exec sp_get_inventories_at_current
+	-- update 25/1
+-- Thủ tục tính lượng hàng tồn kho theo danh mục sản phẩm
+	ALTER PROCEDURE sp_get_inventories_at_current_by_category
+AS
+ SET NOCOUNT ON
+
+	BEGIN				
+			IF OBJECT_ID('tempdb..##productInInventory','U') IS  NULL
+			BEGIN
+				exec sp_get_inventories_at_current
+			END
+		
+		IF OBJECT_ID('tempdb..##productsInInventoryByCategories','U') IS NOT NULL
+		BEGIN
+			DROP TABLE ##productsInInventoryByCategories;
+		END
+		BEGIN
+			CREATE  TABLE ##productsInInventoryByCategories(
+				CateId varchar(100) ,
+				CateName nvarchar(100),
+					total bigint
+				);
+		END
+		BEGIN
+			INSERT INTO  ##productsInInventoryByCategories(CateId,CateName,total)		
+			
+			select ca.Id,ca.name,sum(total) from  ##productInInventory pin
+			join products p
+			on  pin.ProductId = p.Id
+			join category ca
+			on p.IdCate = ca.Id
+			GROUP BY ca.Id,ca.name
+		END
+		BEGIN
+			SELECT * FROM ##productsInInventoryByCategories ORDER BY total DESC
+		END
+	END
+
+	exec  sp_get_inventories_at_current_by_category

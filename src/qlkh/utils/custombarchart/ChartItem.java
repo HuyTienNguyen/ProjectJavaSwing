@@ -9,15 +9,16 @@ package qlkh.utils.custombarchart;
  *
  * @author Windows 10
  */
-public class BarChartItem {
+public class ChartItem {
 
-    private double value;
+  
     private String rowKey;
+      private double value;
 
-    public BarChartItem() {
+    public ChartItem() {
     }
 
-    public BarChartItem(double value, String rowKey) {
+    public ChartItem( String rowKey,double value) {
 
         this.value = value;
         this.rowKey = rowKey;
