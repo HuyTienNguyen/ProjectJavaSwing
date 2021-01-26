@@ -406,8 +406,7 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         setEnableBtnEdit(true);
         setEnableBtnEdit(false);
         if (products != null) {
-            loadAllProducts(products);
-            
+            loadAllProducts(products);            
         }
         
     }

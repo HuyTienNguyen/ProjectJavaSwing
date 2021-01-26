@@ -18,6 +18,11 @@ public class BarChartItems {
     public BarChartItems() {
     }
 
+    public BarChartItems(String name, ChartItem item1) {
+        this.name = name;
+        this.item1 = item1;
+    }
+
     public BarChartItems(String name, ChartItem item1, ChartItem item2) {
         this.name = name;
         this.item1 = item1;

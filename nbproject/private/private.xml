@@ -2,6 +2,24 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/controller/ReportsController.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/testView/NewJFrame1.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/daoimpl/InvoiceImportDetailDaoImpl.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/views/ProductsView.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/controller/InvoiceImportDetailController.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/MainView2.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/utils/custombarchart/BarChartItems.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/dao/IReportsDAO.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/views/InvoiceImportDetail2View.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/views/ReportView.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/controller/ProductsController.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/entities/InvoiceExportDetail.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/utils/languages_en_US.properties</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/controller/MainViewController.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/utils/custombarchart/ChartItem.java</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/utils/languages_vi_VN.properties</file>
+            <file>file:/C:/Users/GIANG/Documents/NetBeansProjects/ProjectJavaSwing/src/qlkh/daoimpl/ReportsDaoImpl.java</file>
+        </group>
     </open-files>
 </project-private>

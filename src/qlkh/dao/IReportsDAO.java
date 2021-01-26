@@ -5,10 +5,16 @@
  */
 package qlkh.dao;
 
+import java.util.List;
+import qlkh.utils.custombarchart.BarChartItems;
+import qlkh.utils.custombarchart.ChartItem;
+
 /**
  *
  * @author GIANG
  */
 public interface IReportsDAO {
-    void getReportsInTheLastWeek();
+    List<BarChartItems> getReports(int action);
+     List<BarChartItems>  getProfits(int action);
+    List<ChartItem> getTotalInventoryByCate();
 }
