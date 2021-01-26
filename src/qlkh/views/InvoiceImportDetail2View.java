@@ -45,7 +45,7 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
     private static Map<String, Products> productMap = new HashMap<>();
     private static Map<String, String> importMap = new HashMap<>();
     private static Map<Category, List<Products>> cateMap = new HashMap<>();
-    private static int[] pageSizes = new int[]{ 100, 1000, 10000};
+    private static int[] pageSizes = new int[]{100, 1000, 10000};
     private static final int defaultPageSize = pageSizes[0];
     private static final int maxPagingCompToShow = 7;
     private static List<Products> products = new ArrayList<>();
@@ -93,13 +93,13 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
                     case 0:
                         return iid.getId();
                     case 1:
-                        return ((Products)productMap.get(iid.getIdProduct())).getName();
+                        return ((Products) productMap.get(iid.getIdProduct())).getName();
                     case 2:
                         return iid.getNumber();
                     case 3:
                         return iid.getInputPrice();
                     case 4:
-                        return ((Products)productMap.get(iid.getIdProduct())).getPrice();
+                        return ((Products) productMap.get(iid.getIdProduct())).getPrice();
                     case 5:
                         return importMap.get(iid.getIdInvoiceImport());
 
@@ -210,9 +210,12 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
     }
 
     public void loadAllCategories(List<Category> listCate, List<Products> listProducts) {
+        cbbCategory.removeAllItems();
+
         if (categories.isEmpty() == true) {
             categories = listCate;
         }
+
         Category numberOneCate = new Category(0, "");
         cbbCategory.addItem(numberOneCate);
         for (Category cate : categories) {

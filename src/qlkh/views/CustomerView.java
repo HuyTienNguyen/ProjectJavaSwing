@@ -399,7 +399,7 @@ public class CustomerView extends javax.swing.JPanel implements IView {
         setEnableBtnEdit(true);
         setEnableBtnEdit(false);
         if(customers != null){
-                    loadAllCustomers(customers);
+        loadAllCustomers(customers);
 
         }
 

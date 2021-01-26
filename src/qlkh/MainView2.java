@@ -99,6 +99,7 @@ public class MainView2 extends javax.swing.JFrame {
         btnImportDetail = new keeptoo.KButton();
         btnExportDetail = new keeptoo.KButton();
         btnReports = new keeptoo.KButton();
+        jLabel3 = new javax.swing.JLabel();
         contentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -142,7 +143,7 @@ public class MainView2 extends javax.swing.JFrame {
 
         RestoreDown.setBackground(new Color(0,0,0,0));
         RestoreDown.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        RestoreDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-restore-down-15.png"))); // NOI18N
+        RestoreDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-restore-down-15 (1).png"))); // NOI18N
         RestoreDown.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 RestoreDownMouseClicked(evt);
@@ -210,6 +211,8 @@ public class MainView2 extends javax.swing.JFrame {
         menuMain.setBackground(new java.awt.Color(28, 43, 65));
         menuMain.setPreferredSize(new java.awt.Dimension(200, 575));
 
+        btnCustomer.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        btnCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-customer-20.png"))); // NOI18N
         btnCustomer.setText("Customers");
         btnCustomer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCustomer.setkBorderRadius(0);
@@ -224,6 +227,8 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
+        btnCategory.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        btnCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-category-20.png"))); // NOI18N
         btnCategory.setText("Category");
         btnCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCategory.setkBorderRadius(0);
@@ -238,6 +243,8 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
+        btnProducts.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        btnProducts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-product-20.png"))); // NOI18N
         btnProducts.setText("Products");
         btnProducts.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnProducts.setkBorderRadius(0);
@@ -252,6 +259,8 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
+        btnSuplier.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        btnSuplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-customer-20.png"))); // NOI18N
         btnSuplier.setText("Supliers");
         btnSuplier.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSuplier.setkBorderRadius(0);
@@ -266,6 +275,8 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
+        btnHome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-home-30.png"))); // NOI18N
         btnHome.setText("Home");
         btnHome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnHome.setkBorderRadius(0);
@@ -274,12 +285,16 @@ public class MainView2 extends javax.swing.JFrame {
         btnHome.setkHoverForeGround(new java.awt.Color(255, 255, 255));
         btnHome.setkHoverStartColor(new java.awt.Color(48, 125, 245));
         btnHome.setkStartColor(new java.awt.Color(28, 43, 65));
+        btnHome.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnHome.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHomeActionPerformed(evt);
             }
         });
 
+        btnUnit.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        btnUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-unit-20.png"))); // NOI18N
         btnUnit.setText("Unit");
         btnUnit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnUnit.setkBorderRadius(0);
@@ -294,6 +309,8 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
+        btnUsers.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        btnUsers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-user-20.png"))); // NOI18N
         btnUsers.setText("Users");
         btnUsers.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnUsers.setkBorderRadius(0);
@@ -308,6 +325,8 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
+        btnImportDetail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        btnImportDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-import-20.png"))); // NOI18N
         btnImportDetail.setText("ImportDetail");
         btnImportDetail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnImportDetail.setkBorderRadius(0);
@@ -322,6 +341,8 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
+        btnExportDetail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        btnExportDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-export-20.png"))); // NOI18N
         btnExportDetail.setText("ExportDetail");
         btnExportDetail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnExportDetail.setkBorderRadius(0);
@@ -336,6 +357,8 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
+        btnReports.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        btnReports.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-report-20.png"))); // NOI18N
         btnReports.setText("Reports");
         btnReports.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnReports.setkBorderRadius(0);
@@ -350,26 +373,33 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Stencil", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("StORE MANAGER");
+
         javax.swing.GroupLayout menuMainLayout = new javax.swing.GroupLayout(menuMain);
         menuMain.setLayout(menuMainLayout);
         menuMainLayout.setHorizontalGroup(
             menuMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
             .addComponent(btnProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnSuplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnUnit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnImportDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-            .addComponent(btnExportDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-            .addComponent(btnReports, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+            .addComponent(btnImportDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnExportDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnReports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
         );
         menuMainLayout.setVerticalGroup(
             menuMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuMainLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -379,7 +409,7 @@ public class MainView2 extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(btnSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnUsers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -388,7 +418,7 @@ public class MainView2 extends javax.swing.JFrame {
                 .addComponent(btnExportDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(361, Short.MAX_VALUE))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
@@ -406,7 +436,7 @@ public class MainView2 extends javax.swing.JFrame {
                 .addComponent(menuMain, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE))
         );
 
-        contentPanel.setBackground(new java.awt.Color(255, 0, 51));
+        contentPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         contentPanel.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -689,6 +719,7 @@ public class MainView2 extends javax.swing.JFrame {
     private javax.swing.JPanel iconminmaxclose;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuMain;

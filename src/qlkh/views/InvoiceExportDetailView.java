@@ -37,13 +37,11 @@ import qlkh.utils.pagination.PaginationDataProvider;
  *
  * @author user
  */
-public class InvoiceExportDetailView extends javax.swing.JPanel implements IView{
+public class InvoiceExportDetailView extends javax.swing.JPanel implements IView {
 
     /**
      * Creates new form OutputInfoView
      */
-   
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -355,23 +353,24 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
     private static Map<String, Products> productMap = new HashMap<>();
     private static Map<String, String> exportMap = new HashMap<>();
     private static Map<Category, List<Products>> cateMap = new HashMap<>();
-    private static int[] pageSizes = new int[]{10,25,50, 100, 1000, 10000};
+    private static int[] pageSizes = new int[]{10, 25, 50, 100, 1000, 10000};
     private static final int defaultPageSize = pageSizes[0];
     private static final int maxPagingCompToShow = 7;
     private static List<Products> products = new ArrayList<>();
     private static List<Category> categories = new ArrayList<>();
     private static List<InvoiceExportDetail> details = new ArrayList<>();
     private static List<InvoiceExport> export = new ArrayList<>();
-    
+
     JTable tblDetails;
     PaginatedTableDecorator<InvoiceExportDetail> paginatedDecorator;
+
     public InvoiceExportDetailView() {
-          //  Locale local = Utils.getLocale();
+        //  Locale local = Utils.getLocale();
         Locale local = Utils.getLocale();
         setResourceBundle(local);
         initComponents();
     }
-    
+
     /**
      * Add Event Action to button add new
      *
@@ -407,6 +406,7 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
     public void addCbbCateStateChanged(ItemListener listener) {
         cbbCategory.addItemListener(listener);
     }
+
     /**
      * Return an instance of Category from category combobox
      *
@@ -416,6 +416,8 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         return (Category) cbbCategory.getSelectedItem();
     }
     
+    
+
     /**
      * Return a list of products from memory of form
      *
@@ -426,7 +428,7 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         List<Products> listProducts = cateMap.get(cate);
         return listProducts;
     }
-    
+
     /**
      * Display the products in the view search by an instance of Category
      *
@@ -445,14 +447,14 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
             }
         }
     }
-    
+
     /**
      * Clear combobox Product
      */
     public void clearCbbProducts() {
         cbbProducts.removeAllItems();
     }
-    
+
     /**
      * Display a view of InvoiceImportDetail elements
      *
@@ -464,14 +466,16 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
             loadAllDetails(details);
         }
     }
+
     private void setResourceBundle(Locale locale) {
         //Set Resources Bundle theo local 
         bundle = ResourceBundle.getBundle("qlkh/utils/languages", locale);
     }
-    
+
     public JPanel getContent() {
         return this;
     }
+
     /**
      * Return an instance of ObjectDataModel
      *
@@ -484,22 +488,20 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
             public Object getValueAt(InvoiceExportDetail ied, int columnIndex) {
                 switch (columnIndex) {
                     case 0:
-                        return ied.getId();
-                    case 1:
                         return ied.getIdInvoiceExport();
-                    case 2:
+                    case 1:
                         return ied.getNameCustomer();
-                    case 3:
+                    case 2:
                         return ied.getNameProduct();
-                    case 4:
+                    case 3:
                         return ied.getCounts();
-                    case 5:
+                    case 4:
                         return ied.getMoney();
-                    case 6:
+                    case 5:
                         return ied.getUserName();
-                    case 7:
+                    case 6:
                         return ied.getDateOutput();
-                    
+
                 }
                 return null;
             }
@@ -526,8 +528,6 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
                         return Constants.HEADER_EXPORT_DETAIL_TABLE[5];
                     case 6:
                         return Constants.HEADER_EXPORT_DETAIL_TABLE[6];
-                    case 7:
-                        return Constants.HEADER_EXPORT_DETAIL_TABLE[7];    
                 }
                 return null;
             }
@@ -574,8 +574,7 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
 
                 List<InvoiceExportDetail> newLists = new ArrayList<>();
                 for (InvoiceExportDetail em : details) {
-                    if (String.valueOf(em.getId()).contains(searchText) 
-                            || String.valueOf(em.getIdInvoiceExport()).contains(searchText)
+                    if (String.valueOf(em.getIdInvoiceExport()).contains(searchText)
                             || em.getNameCustomer().contains(searchText)
                             || em.getNameProduct().contains(searchText)
                             || String.valueOf(em.getCounts()).contains(searchText)
@@ -596,11 +595,28 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         };
 
     }
+
     public void showMessage(String message, int color) {
         messageInvoiceExportDetail.setText(bundle.getString(message));
         messageInvoiceExportDetail.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }
+
+    public String getEditInvoiceExportId() {
+        int row = tblDetails.getSelectedRow();
+        if (row < 0) {
+            return null;
+        }
+        return tblDetails.getModel().getValueAt(row, 0).toString();
+    }
     
+    public String getEditInvoiceExportProductName() {
+        int row = tblDetails.getSelectedRow();
+        if (row < 0) {
+            return null;
+        }
+        return tblDetails.getModel().getValueAt(row, 2).toString();
+    }
+
     /**
      * @return a instance of InvoiceImportDetail
      *
@@ -615,7 +631,9 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         invoiceDetail.setIdInvoiceExport("");
         return invoiceDetail;
     }
+
     public void loadAllCategories(List<Category> listCate, List<Products> listProducts) {
+        cbbCategory.removeAllItems();
         if (categories.isEmpty() == true) {
             categories = listCate;
         }
@@ -633,8 +651,11 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
                 cateMap.put(cate, childList);
             }
         }
-
+        
+        
+        
     }
+
     /**
      * Display the products in the view
      *
@@ -650,7 +671,7 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
             productMap.put(pro.getId(), pro);
         }
     }
-    
+
     public void loadAllDetails(List<InvoiceExportDetail> listDetails) {
         if (listDetails != null) {
             this.details = listDetails;
@@ -664,12 +685,11 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
             tableInvoiceExDetail.add(paginatedDecorator.getContentPanel());
         }
     }
-    
-    
+
     private void setEnableBtnAddNew(boolean value) {
         btnAdd.setEnabled(value);
     }
-    
+
     /**
      * Display text on labels
      *
@@ -680,6 +700,7 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         label.setText(err);
         label.setForeground(Color.red);
     }
+
     /**
      * Clear the view
      *
@@ -697,7 +718,7 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         idCustomer.setText("");
         clearError();
     }
-    
+
     /**
      * Clear all error on the form
      */
@@ -707,14 +728,14 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         errProduct.setText("");
         errIdCustomer.setText("");
     }
-    
+
     /**
      * get value new bill
      */
-    
-    public boolean getValueNewBill(){
+    public boolean getValueNewBill() {
         return chkNewBill.isSelected();
     }
+
     @Override
     public List<Object> getElements(boolean isInsert) {
         List<Object> objects = new ArrayList<>();

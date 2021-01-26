@@ -123,7 +123,7 @@ public class Constants {
      /*
      *   Export Detail
      /*/
-    public static final String[] HEADER_EXPORT_DETAIL_TABLE = {"Id", "Id InvoiceExport", "Name Customer", "Product Name", "Counts", "Money", "Name User", "Date Output"};
+    public static final String[] HEADER_EXPORT_DETAIL_TABLE = {"Id InvoiceExport", "Name Customer", "Product Name", "Counts", "Money", "Name User", "Date Output"};
 
     /*
      *   Export Detail

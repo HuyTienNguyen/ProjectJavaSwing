@@ -23,12 +23,18 @@ import qlkh.utils.DatabaseHelper;
  */
 public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
 
-    private static final String SQL_GET_ALL = "select ied.Id,ie.Id as 'IdInvoiceExport',c.name as 'NameCustomer',p.name as 'NameProduct',ied.Counts,(ied.Counts * p.price) as 'money',u.Name as 'NameUser',ie.DateOutput from InvoiceExportDetail ied join InvoiceImportDetail iid" 
-	+	" on ied.IdInvoiceImportDetail = iid.Id join Products p"
-	+	" on p.Id = iid.IdProduct join InvoiceExport ie"
-	+	" on ie.Id = ied.IdInvoiceExport join Users u"
-	+	" on u.Id = ie.idUser join customer c"
-        +       " on c.id = ie.IdCustomer"  ;
+    private static final String SQL_GET_ALL = "select ie.Id as 'IdInvoiceExport',c.name as 'NameCustomer',p.name as 'NameProduct',sum(ied.Counts) as 'Counts',sum(ied.Counts * p.price) as 'money',u.Name as 'NameUser',ie.DateOutput from InvoiceExportDetail ied join InvoiceImportDetail iid"
+	+ " on ied.IdInvoiceImportDetail = iid.Id join Products p"
+	+ " on p.Id = iid.IdProduct join InvoiceExport ie"
+	+ " on ie.Id = ied.IdInvoiceExport join Users u"
+	+ " on u.Id = ie.idUser join customer c"
+        + " on c.id = ie.IdCustomer"
+	+ " group by p.name, ie.Id, c.name,u.Name,ie.DateOutput"
+	+ " order by ie.Id ";
+    private static final String SQL_GET_INVOICE_EXPORT_DETAIL_BY_ID_AND_NAME_PRODUCT = "select as 'idInvoiceExport',p.id as 'idProduct',p.name as 'nameProduct',ied.Counts  from InvoiceExport ie join InvoiceExportDetail ied"
+	+" on ie.Id = ied.IdInvoiceExport join InvoiceImportDetail iid"
+	+" on iid.Id = ied.IdInvoiceImportDetail join Products p"
+	+" on p.Id = iid.IdProduct where ie.id = ? and p.name = ?";
     private static final String SQL_INSERT = "INSERT INTO InvoiceExportDetail(Id,IdInvoiceImportDetail,IdInvoiceExport,Counts,Status) VALUES(?,?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE  InvoiceExportDetail SET IdInvoiceImportDetail =?, IdInvoiceExport =?,Counts=?,Status=? WHERE Id =?";
     private static final String SQL_DELETE = "DELETE FROM  InvoiceExportDetail  WHERE Id =?";
@@ -48,7 +54,7 @@ public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
         try {
             ResultSet rs = DatabaseHelper.selectData(SQL_GET_ALL, param);
             while (rs.next()) {
-                InvoiceExportDetail invoiceexportDetail = new InvoiceExportDetail(rs.getString("id"), rs.getString("IdInvoiceExport"),rs.getString("NameCustomer"), rs.getInt("counts"), rs.getString("NameProduct"), rs.getDouble("money"),rs.getString("NameUser"), rs.getTimestamp("DateOutput"));
+                InvoiceExportDetail invoiceexportDetail = new InvoiceExportDetail(rs.getString("IdInvoiceExport"),rs.getString("NameCustomer"), rs.getInt("counts"), rs.getString("NameProduct"), rs.getDouble("money"),rs.getString("NameUser"), rs.getTimestamp("DateOutput"));
                 listInvoiceExportDetail.add(invoiceexportDetail);
             }
         } catch (SQLException ex) {
@@ -159,5 +165,17 @@ public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
         }
         return idLast;
     }
-
+    
+    public InvoiceExportDetail getUpdateInvoiceExport(String id, String nameProduct) throws SQLException{
+        InvoiceExportDetail invoiceExportDetail = new InvoiceExportDetail();
+        String[] param = new String[]{id,nameProduct};
+        ResultSet rs = DatabaseHelper.selectData(SQL_GET_INVOICE_EXPORT_DETAIL_BY_ID_AND_NAME_PRODUCT, param);
+        if(rs.next()){
+            invoiceExportDetail.setIdInvoiceExport(rs.getString("idInvoiceExport"));
+            invoiceExportDetail.setIdProduct(rs.getString("idProduct"));
+            invoiceExportDetail.setNameProduct(rs.getString("nameProduct"));
+            invoiceExportDetail.setCounts(rs.getInt("Counts"));
+        }
+        return invoiceExportDetail;
+    }
 }

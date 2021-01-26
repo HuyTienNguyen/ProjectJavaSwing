@@ -43,8 +43,7 @@ public class InvoiceExportDetail {
         this.status = status;
     }
 
-    public InvoiceExportDetail(String id, String idInvoiceExport,String nameCustomer, int counts, String nameProduct, double money, String userName, Timestamp dateOutput) {
-        this.id = id;
+    public InvoiceExportDetail(String idInvoiceExport,String nameCustomer, int counts, String nameProduct, double money, String userName, Timestamp dateOutput) {
         this.idInvoiceExport = idInvoiceExport;
         this.nameCustomer = nameCustomer;
         this.counts = counts;

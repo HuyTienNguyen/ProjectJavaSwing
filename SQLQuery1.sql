@@ -2,7 +2,7 @@
 
 
 declare @err varchar(100) 
-exec USP_ADD_NEW_INVOICE_EXPORT_DETAIL @err out,'Corsair KX50', '10','1','1','E0013'
+exec USP_ADD_NEW_INVOICE_EXPORT_DETAIL @err out,'Iphone 12', '3000','1','1',''
 print @err
 
 
@@ -16,7 +16,7 @@ select iid.Number-sum(ied.Counts) as 'hihi' from InvoiceExportDetail ied
 	--1: không đủ số lượng
 	--2: insert thất bại tại dòng bao nhiêu, do lỗi xử lý
     --3: insert thành công
-ALTER PROC USP_ADD_NEW_INVOICE_EXPORT_DETAIL
+	ALTER PROC USP_ADD_NEW_INVOICE_EXPORT_DETAIL
 		@errOutput int out,
 		@nameProduct varchar(50),
 		@counts_export int,
@@ -160,3 +160,103 @@ ALTER PROC USP_ADD_NEW_INVOICE_EXPORT_DETAIL
 		else
 			SET @errOutput = 1
 	END
+
+
+	--select hiển thị hàng hóa
+	select ie.Id as 'IdInvoiceExport',c.name as 'NameCustomer',p.name as 'NameProduct',sum(ied.Counts) as 'Counts',sum(ied.Counts * p.price) as 'money',u.Name as 'NameUser',ie.DateOutput from InvoiceExportDetail ied join InvoiceImportDetail iid
+	on ied.IdInvoiceImportDetail = iid.Id join Products p
+	on p.Id = iid.IdProduct join InvoiceExport ie
+	on ie.Id = ied.IdInvoiceExport join Users u
+	on u.Id = ie.idUser join customer c
+    on c.id = ie.IdCustomer
+	group by p.name, ie.Id, c.name,u.Name,ie.DateOutput
+	order by ie.Id
+	-- end select hiển thị hàng hóa
+	
+
+	alter proc update_invoice_export_detail
+		@errOutput  varchar(10) out,
+		@idInvoiceExport varchar(10),
+		@nameProduct varchar(50),
+		@counts_repay int
+	as
+	begin
+		declare @counts_paid int
+		set @counts_paid = (select sum(ied.Counts) as 'so luong da ban ra' from InvoiceExport ie join InvoiceExportDetail ied on ied.IdInvoiceExport = ie.Id 
+							join InvoiceImportDetail iid on iid.Id = ied.IdInvoiceImportDetail
+							join Products p on p.Id = iid.IdProduct where ie.Id = @idInvoiceExport and p.name = @nameProduct
+							group by p.name) 
+		if(@counts_repay < @counts_paid)
+			begin
+				begin try
+					begin transaction
+						--b1: insert dl vao bang tam
+						IF OBJECT_ID('tempdb..##tmprecordnumber_edit','U') IS NOT NULL
+							BEGIN
+								DROP TABLE  ##tmprecordnumber_edit;
+							END
+						CREATE  TABLE ##tmprecordnumber_edit(
+							idExportDetail varchar(10),
+							total_goods_sold int
+						)
+						INSERT  INTO  ##tmprecordnumber_edit(idExportDetail,total_goods_sold)
+						select  ied.Id, ied.Counts from InvoiceExport ie join InvoiceExportDetail ied on ied.IdInvoiceExport = ie.Id 
+							join InvoiceImportDetail iid on iid.Id = ied.IdInvoiceImportDetail
+							join Products p on p.Id = iid.IdProduct where ie.Id = @idInvoiceExport and p.name = @nameProduct and ied.Counts > 0
+							order by ied.Id desc
+							--: lấy ra số bản ghi của bảng tạm
+						DECLARE @total_recore_##tmprecordnumber_edit int
+						SET @total_recore_##tmprecordnumber_edit = (select count(idExportDetail) from ##tmprecordnumber_edit)
+						DECLARE @a int
+						SET @a = 1
+						WHILE (@a <= @total_recore_##tmprecordnumber_edit) 
+						begin
+							SET @a = @a +  1
+
+							DECLARE @quanlity_product_paid_by_id_new_earliest int
+							SET @quanlity_product_paid_by_id_new_earliest = (select top(1) total_goods_sold from ##tmprecordnumber_edit where total_goods_sold > 0 order by idExportDetail desc )
+							print 'quanlity' + cast(@quanlity_product_paid_by_id_new_earliest as varchar(10))
+							DECLARE @id_product_paid_by_id_new_earliest varchar(10)
+							SET @id_product_paid_by_id_new_earliest = (select top(1) idExportDetail from ##tmprecordnumber_edit where total_goods_sold > 0 order by idExportDetail desc)
+							print @id_product_paid_by_id_new_earliest
+							if(@counts_repay > @quanlity_product_paid_by_id_new_earliest)
+								begin
+									delete from InvoiceExportDetail where Id = @id_product_paid_by_id_new_earliest
+									delete from ##tmprecordnumber_edit where idExportDetail = @id_product_paid_by_id_new_earliest
+									SET @counts_repay = @counts_repay - @quanlity_product_paid_by_id_new_earliest
+								end
+							else
+								begin
+									update InvoiceExportDetail
+									SET Counts =  @quanlity_product_paid_by_id_new_earliest - @counts_repay
+									WHEre Id = @id_product_paid_by_id_new_earliest
+									break
+								end
+						end
+						--b2: tính giá tiền
+						DECLARE @money_invoiceexport bigint
+						SET @money_invoiceexport = (select sum(ied.Counts*p.price) as 'hoa don tien'  from InvoiceExportDetail ied join InvoiceImportDetail iid 
+													on ied.IdInvoiceImportDetail = iid.Id join Products p
+													on p.Id = iid.IdProduct join InvoiceExport ie
+													on ie.Id = ied.IdInvoiceExport where ie.Id = @idInvoiceExport)
+						UPDATE InvoiceExport Set totalMoney = @money_invoiceexport where id = @idInvoiceExport
+
+						SET @errOutput = 'thanh cong'
+					commit
+				end try
+				begin catch
+					SET @errOutput =  'INSERT THAT BAT TAI DONG:' +  CAST(ERROR_LINE() as varchar(5)) + '   ' + ERROR_MESSAGE()
+					ROLLBACK TRANSACTION 
+				end catch
+			end
+		else
+			begin
+				SET @errOutput = 'so luong hang tra lai khong the lon hon so luong hang ban ra'
+			end
+	end
+
+	declare @err varchar(100) 
+	exec update_invoice_export_detail @err out,'E0014', 'Iphone 12',2900
+	print @err 
+
+	

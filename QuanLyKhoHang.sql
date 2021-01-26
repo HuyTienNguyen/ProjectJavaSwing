@@ -121,6 +121,8 @@ ADD IdUser int;
 ALTER TABLE InvoiceExport
 ADD IdUser int;
 
+
+
 --tạo khóa ngoại Cateogry và Products
 ALTER TABLE Products
 ADD CONSTRAINT FK_01 FOREIGN KEY (IdCate) REFERENCES Category(Id);
@@ -677,7 +679,13 @@ AS
 
 
 
+	select ie.Id as 'idInvoiceExport',p.id as 'idProduct',p.name as 'nameProduct',ied.Counts  from InvoiceExport ie join InvoiceExportDetail ied
+	on ie.Id = ied.IdInvoiceExport join InvoiceImportDetail iid
+	on iid.Id = ied.IdInvoiceImportDetail join Products p
+	on p.Id = iid.IdProduct where ie.id = 'E0001' and p.name = 'Asus UX225'
 
+	select * from InvoiceExport
+	select * from Products where name = 'Asus UX225'
 
 
 

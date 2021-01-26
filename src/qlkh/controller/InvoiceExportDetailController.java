@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -50,23 +51,26 @@ public class InvoiceExportDetailController {
         invoiceExDetailDao = new InvoiceExportDetailDaoImpl();
         cateDao = new CategoryDaoImpl();
 
-        List<Products> products = proDao.getAllProducts();
-        view.loadAllCategories(cateDao.getCategoies(), products);
-        view.loadProducts(products);
-        view.showView(invoiceExDetailDao.getAllInvoiceExportDetail());
-
-        view.addBtnAddAction(this::btnAddAction);
-        view.addBtnClearAction(this::btnClearAction);
-        view.addCbbCateStateChanged(this::cateBoxStateChanged);
-        view.addTableMouseListener(new TableMouseListener());
     }
 
     public void showView() {
         if (view == null) {
             view = new InvoiceExportDetailView();
         }
+        List<Products> products = proDao.getAllProducts();
+        view.loadAllCategories(cateDao.getCategoies(), products);
+        view.loadProducts(products);
+
+        view.addBtnAddAction(this::btnAddAction);
+        view.addBtnClearAction(this::btnClearAction);
+        view.addCbbCateStateChanged(this::cateBoxStateChanged);
+
         view.showView(invoiceExDetailDao.getAllInvoiceExportDetail());
+
+        view.addTableMouseListener(new TableInvoiceExportDetailMouseListener());
+
         view.clearView(true);
+
     }
 
     public JPanel getContentPage() {
@@ -119,20 +123,24 @@ public class InvoiceExportDetailController {
 
     }
 
-    private class TableMouseListener implements MouseListener {
+    private class TableInvoiceExportDetailMouseListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            // get Id by row selected on suplier table
-            //   String productId = view.getEditProductId();
-
-//            view.clearError();
-//            Products product = null;
-//            if (productId.equals("") == false && productId != null) {
-//                product = proDao.getProductById(productId);
-//            }
-//            if (product != null) {
-//                view.showUpdateProduct(product);
+            // get Id by row selected on invoiceedportdetail table
+            String invoiceExportId = view.getEditInvoiceExportId();
+            String productName = view.getEditInvoiceExportProductName();
+            InvoiceExportDetail invoiceExportDetail = null;
+            if (invoiceExportId.equals("") == false && invoiceExportId != null) {
+                try {
+                    invoiceExportDetail = invoiceExDetailDao.getUpdateInvoiceExport(invoiceExportId,productName);
+                } catch (SQLException ex) {
+                    Logger.getLogger(InvoiceExportDetailController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+//            if (customer != null) {
+//                view.clearView(true);
+//                view.showUpdateCustomer(customer);
 //            }
         }
 
