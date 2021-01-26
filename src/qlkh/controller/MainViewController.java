@@ -55,7 +55,7 @@ public class MainViewController {
         view.addBtnShowUsers(this::showViewUser, user);
         view.addBtnShowImportDetail(this::showViewImportDetail, importDetail);
         view.addBtnShowExportDetail(this::showViewExportDetail, exportDetail);
-//        view.addBtnShowReports(this::showViewReport, report);
+        view.addBtnShowReports(this::showViewReport, report);
     }
 
     public void showView() {
@@ -105,8 +105,8 @@ public class MainViewController {
         view.goToPageMainPanel(view.reportView);
         report.showView();
     }
-    
-    private void showViewExportDetail(ActionEvent e){
+
+    private void showViewExportDetail(ActionEvent e) {
         view.goToPageMainPanel(view.exportView);
         exportDetail.showView();
     }

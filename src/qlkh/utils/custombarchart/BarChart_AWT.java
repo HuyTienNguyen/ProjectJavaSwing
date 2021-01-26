@@ -51,9 +51,10 @@ public class BarChart_AWT extends JPanel {
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         //set margin of each item of category
         renderer.setItemMargin(0.01);
-        plot.setOutlinePaint(new Color(240, 240, 240));
-        plot.setBackgroundPaint(new Color(240, 240, 240));
-        barChart.setBackgroundPaint(new Color(240, 240, 240));
+        
+//        plot.setOutlinePaint(new Color(240, 240, 240));
+//        plot.setBackgroundPaint(new Color(240, 240, 240));
+//        barChart.setBackgroundPaint(new Color(240, 240, 240));
         barChart.setBorderVisible(false);
       
         ChartPanel chartPanel = new ChartPanel(barChart);

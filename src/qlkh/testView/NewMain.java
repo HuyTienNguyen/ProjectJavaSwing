@@ -5,7 +5,9 @@
  */
 package qlkh.testView;
 
+import java.util.List;
 import qlkh.daoimpl.ReportsDaoImpl;
+import qlkh.utils.custombarchart.BarChartItems;
 
 /**
  *
@@ -19,7 +21,10 @@ public class NewMain {
      */
     public static void main(String[] args) {
         ReportsDaoImpl rest = new ReportsDaoImpl();
-        rest.getReportsInTheLastWeek();
+      List<BarChartItems> items = rest.getReports(1);
+        for (BarChartItems item : items) {
+            System.out.println(item.getItem1().getValue());
+        }
     }
     
 }
