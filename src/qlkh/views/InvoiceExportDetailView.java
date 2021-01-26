@@ -75,8 +75,6 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         jLabel1 = new javax.swing.JLabel();
         IdExportDetail = new javax.swing.JTextField();
 
-        setBackground(new java.awt.Color(255, 51, 0));
-
         headerPanel.setBackground(new java.awt.Color(51, 0, 51));
 
         headerLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -600,6 +598,8 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         messageInvoiceExportDetail.setText(bundle.getString(message));
         messageInvoiceExportDetail.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }
+    
+    
 
     public String getEditInvoiceExportId() {
         int row = tblDetails.getSelectedRow();
@@ -630,6 +630,27 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         invoiceDetail.setIdCustomer(idCustomer.getText());
         invoiceDetail.setIdInvoiceExport("");
         return invoiceDetail;
+    }
+    
+    public void updateInvoiceExportDetail(InvoiceExportDetail invoiceExportDetail, Products p) {
+        counts.setText(String.valueOf(invoiceExportDetail.getCounts()));
+        idCustomer.setText(invoiceExportDetail.getIdCustomer());
+        idCustomer.setEnabled(false);
+        int cateId = p.getIdCate();
+        for (Category c : categories) {
+            if(c.getId()== cateId){
+                cbbCategory.setSelectedItem(c);
+                break;
+            }
+        }
+       
+        for (Products p1 : products) {
+          
+            if(p1.getId().equals(p.getId())){
+            cbbProducts.setSelectedItem(p1);
+            break;
+            }
+        }
     }
 
     public void loadAllCategories(List<Category> listCate, List<Products> listProducts) {
@@ -712,6 +733,7 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         if (clearAll == true) {
             messageInvoiceExportDetail.setText("");
         }
+        idCustomer.setEnabled(true);
         counts.setText("");
         cbbCategory.setSelectedIndex(0);
         counts.requestFocus();
@@ -768,4 +790,6 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         showErrorMessage(errCounts, errorCounts);
         showErrorMessage(errIdCustomer, errorIdCustomer);
     }
+
+    
 }

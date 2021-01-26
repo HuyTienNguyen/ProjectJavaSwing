@@ -5,11 +5,11 @@
  */
 package qlkh.utils.custombarchart;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jfree.chart.axis.SubCategoryAxis;
 
 /**
  *
@@ -21,15 +21,19 @@ public class NewJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     private static final String[] valueOfCbbBarchart = {"Những năm gần nhất", "Năm gần nhất", "7 ngày gần nhất"};
-    private static List<BarChartItem> items = new ArrayList<>();
-    private static Map<Integer, List<BarChartItem>> mapItems = new HashMap<>();
+    private static List<ChartItem> items = new ArrayList<>();
+    private static List<BarChartItems> mapItems = new ArrayList<>();
 
     public NewJFrame() {
         initComponents();
         loadComboBoxBarchart();
+
+        for (int m = 1; m <=6; m++) {
+
         List<Integer> a = new ArrayList<>();
-        for (int m = 1; m <= 12; m++) {
-            List<BarChartItem> list = new ArrayList<>();
+
+
+            List<ChartItem> list = new ArrayList<>();
             int valueImport = 0;
             int valueExport = 0;
             if (m % 2 == 0) {
@@ -39,23 +43,18 @@ public class NewJFrame extends javax.swing.JFrame {
                 valueImport = 5;
                 valueExport = 10 * 50;
             }
-//            for (BarChartItem list1 : list) {
-//                   BarChartItem item1 = new BarChartItem(lis1.getfiled1, "Import Amount");
-//                                      BarChartItem item2 = new BarChartItem(lis1.getfiled1, "Import Amount");
-//
-//            }
-            BarChartItem item1 = new BarChartItem(valueImport, "Import Amount");
-            BarChartItem item2 = new BarChartItem(valueExport, "Export Amount");
+
+            ChartItem item1 = new ChartItem("Import Amount",valueImport);
+            ChartItem item2 = new ChartItem( "Export Amount",valueExport);
+
+
+            BarChartItems item = new BarChartItems(String.valueOf(m) + " a", item1, item2);
+            mapItems.add(item);
 
             list.add(item1);
             list.add(item2);
-            mapItems.put(m, list);
-            // item item1 = new item(13/1,1000,2000)
-            // BarChartItem item1 = new BarChartItem(item.getimporttotal,totalimport);
-          //  BarChartItem item2 = new BarChartItem(item.getexot, totalexport);
-          //    list.add(item1);
-            //list.add(item2);
-            //mapItems.put(item.getId())
+
+
         }
         String title1 = "Car Usage Statistics";
         String title2 = "Which car do you like?";
@@ -64,6 +63,9 @@ public class NewJFrame extends javax.swing.JFrame {
         BarChart_AWT chart = new BarChart_AWT("aaaâ",
                 title2, mapItems, horizontalTitle, verticalTitle);
         panelBarChart.add(chart);
+        SubCategoryAxis domainAxis = new SubCategoryAxis(" ");
+        
+  
 
     }
 
@@ -81,8 +83,9 @@ public class NewJFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 255, 102));
 
-        panelBarChart.setBackground(new java.awt.Color(204, 204, 0));
+        panelBarChart.setBackground(new java.awt.Color(255, 255, 255));
         panelBarChart.setLayout(new java.awt.CardLayout());
 
         jButton1.setText("jButton1");

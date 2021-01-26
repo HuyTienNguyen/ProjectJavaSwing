@@ -578,6 +578,7 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         );
 
         inputPrice.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        inputPrice.setNextFocusableComponent(number);
 
         btnAdd.setBackground(new java.awt.Color(0, 255, 204));
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -613,11 +614,14 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         lblCate1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCate1.setText(bundle.getString("cbbCategory"));
 
+        cbbCategory.setNextFocusableComponent(cbbProducts);
+
         errCate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         lblCate2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCate2.setText(bundle.getString("cbbProduct"));
 
+        cbbProducts.setNextFocusableComponent(cbbInvoiceImport);
         cbbProducts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbProductsActionPerformed(evt);
@@ -627,6 +631,7 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         errProduct.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         number.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        number.setNextFocusableComponent(cbbCategory);
 
         errNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -641,6 +646,7 @@ public class InvoiceImportDetail2View extends javax.swing.JPanel implements IVie
         lblCate3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCate3.setText(bundle.getString("cbbIdInvoice"));
 
+        cbbInvoiceImport.setNextFocusableComponent(inputPrice);
         cbbInvoiceImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbInvoiceImportActionPerformed(evt);

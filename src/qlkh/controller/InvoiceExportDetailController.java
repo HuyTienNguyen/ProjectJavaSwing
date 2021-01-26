@@ -138,6 +138,14 @@ public class InvoiceExportDetailController {
                     Logger.getLogger(InvoiceExportDetailController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            Products p = new Products();
+            p = proDao.getProductById(invoiceExportDetail.getIdProduct());
+            if(p != null && invoiceExportDetail != null){
+                view.updateInvoiceExportDetail(invoiceExportDetail,p);
+            }
+            else{
+                System.out.println("loi");
+            }
 //            if (customer != null) {
 //                view.clearView(true);
 //                view.showUpdateCustomer(customer);

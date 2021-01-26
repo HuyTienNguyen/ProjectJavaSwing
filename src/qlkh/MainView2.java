@@ -373,8 +373,8 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Stencil", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel3.setFont(new java.awt.Font("Trajan Pro", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 0, 51));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("StORE MANAGER");
 

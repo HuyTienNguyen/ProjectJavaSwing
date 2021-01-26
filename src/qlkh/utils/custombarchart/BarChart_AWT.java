@@ -5,73 +5,79 @@
  */
 package qlkh.utils.custombarchart;
 
+import java.awt.Color;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-
 
 /**
  *
  * @author GIANG
  */
 public class BarChart_AWT extends JPanel {
-
-    private static List<BarChartItem> items = new ArrayList<>();
-    private static Map<Integer, List<BarChartItem>> mapItems = new HashMap<>();
-
-    private void setContentPane(ChartPanel chartPanel) {       
+   
+    private static List<ChartItem> items = new ArrayList<>();  
+    private void setContentPane(ChartPanel chartPanel) {
         this.add(chartPanel);
-      }
-
+    }
     
-
-    public BarChart_AWT(String applicationTitle, String chartTitle, Map<Integer, List<BarChartItem>> mapItem,String horizontalTitle,String verticalTitle) {
-      //  super(applicationTitle);
-        mapItems = getMapSortByKeyASC(mapItem);
+    public BarChart_AWT(String applicationTitle, String chartTitle, List<BarChartItems> items, String horizontalTitle, String verticalTitle) {
+        //  super(applicationTitle);
 
         JFreeChart barChart = ChartFactory.createBarChart(
                 chartTitle,
-               horizontalTitle,
-               verticalTitle,
-                createDataset(mapItems),
+                horizontalTitle,
+                verticalTitle,
+                createDataset(items),
                 PlotOrientation.VERTICAL,
                 true, true, false);
-
+        CategoryPlot plot = barChart.getCategoryPlot();
+        CategoryAxis axis = plot.getDomainAxis();
+        // Set Margin left of table
+        axis.setLowerMargin(0.01);
+        //Set margin right of table
+        axis.setUpperMargin(0.01);
+        // set margin of each category 
+        axis.setCategoryMargin(0.2);
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        //set margin of each item of category
+        renderer.setItemMargin(0.01);
+        plot.setOutlinePaint(new Color(240, 240, 240));
+        plot.setBackgroundPaint(new Color(240, 240, 240));
+        barChart.setBackgroundPaint(new Color(240, 240, 240));
+        barChart.setBorderVisible(false);
+      
         ChartPanel chartPanel = new ChartPanel(barChart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(600, 367));
+        chartPanel.setPreferredSize(new java.awt.Dimension(500, 300));
         setContentPane(chartPanel);
     }
-
-    private TreeMap getMapSortByKeyASC(Map<Integer, List<BarChartItem>> mapItem) {
-        return new TreeMap(mapItem);
+    
+    public JPanel getContentPage() {
+        return this;
     }
-
-    private CategoryDataset createDataset(Map<Integer, List<BarChartItem>> mapItem) {
-
+    
+    private CategoryDataset createDataset(List<BarChartItems> items) {
         final DefaultCategoryDataset dataset
                 = new DefaultCategoryDataset();
-
-
-        for (Map.Entry<Integer, List<BarChartItem>> entrySet : mapItem.entrySet()) {
-            String key = entrySet.getKey().toString();
-            List<BarChartItem> value = entrySet.getValue();
-            for (BarChartItem value1 : value) {
-                dataset.addValue(value1.getValue(), value1.getRowKey(), key);
+        for (BarChartItems item : items) {
+            if (item.getItem1() != null) {
+                dataset.addValue(item.getItem1().getValue(), item.getItem1().getRowKey(), item.getName());
+            }
+            if (item.getItem2() != null) {
+                dataset.addValue(item.getItem2().getValue(), item.getItem2().getRowKey(), item.getName());
             }
         }
         return dataset;
     }
 
     // private String 
-    
 }

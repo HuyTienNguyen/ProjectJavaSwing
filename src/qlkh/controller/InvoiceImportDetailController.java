@@ -87,10 +87,11 @@ public class InvoiceImportDetailController {
             view.showErrors(validator.getErrors());
             if (validator.isPasses() == true) {
 
-                int records = invoiceImDetailDao.insert(view.getInVoiceDetail());
-                if (records == 0) {
-                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+                int error = invoiceImDetailDao.insert(view.getInVoiceDetail());
+                if (error == 0) {
+
                     view.clearView(false);
+                    view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
                     view.loadImports(invoiceImDao.getImports());
                     view.showView(invoiceImDetailDao.getAllDetails());
                 } else {

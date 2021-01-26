@@ -42,7 +42,8 @@ public class SignInController {
     private static SignIn signIn; // view
     private static UserDaoImpl userModel; //model
     //This will be the file where the username and password will be saved
-    File file = new File(System.getProperty("user.home") + "/Desktop/save.txt");
+    //File file = new File(System.getProperty("user.home") + "/Desktop/save.txt");
+    File file = new File(System.getProperty("user.dir") + "\\savepassword.txt");
 
     public SignInController() {
     }
@@ -87,7 +88,7 @@ public class SignInController {
     public void UPDATE() { //UPDATE ON OPENING THE APPLICATION
 
         try {
-            if (file.exists()) {    //if this file exists
+            if (file.exists() && file.canRead() && file.length() > 0) {    //if this file exists
 
                 Scanner scan = new Scanner(file);   //Use Scanner to read the File
                 signIn.setValueCheckboxRememberPassword(Boolean.TRUE);

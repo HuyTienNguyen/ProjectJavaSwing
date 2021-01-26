@@ -31,7 +31,7 @@ public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
         + " on c.id = ie.IdCustomer"
 	+ " group by p.name, ie.Id, c.name,u.Name,ie.DateOutput"
 	+ " order by ie.Id ";
-    private static final String SQL_GET_INVOICE_EXPORT_DETAIL_BY_ID_AND_NAME_PRODUCT = "select as 'idInvoiceExport',p.id as 'idProduct',p.name as 'nameProduct',ied.Counts  from InvoiceExport ie join InvoiceExportDetail ied"
+    private static final String SQL_GET_INVOICE_EXPORT_DETAIL_BY_ID_AND_NAME_PRODUCT = "select ie.id as 'idInvoiceExport',p.id as 'idProduct',p.name as 'nameProduct',ied.Counts, ie.idCustomer  from InvoiceExport ie join InvoiceExportDetail ied"
 	+" on ie.Id = ied.IdInvoiceExport join InvoiceImportDetail iid"
 	+" on iid.Id = ied.IdInvoiceImportDetail join Products p"
 	+" on p.Id = iid.IdProduct where ie.id = ? and p.name = ?";
@@ -175,6 +175,8 @@ public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
             invoiceExportDetail.setIdProduct(rs.getString("idProduct"));
             invoiceExportDetail.setNameProduct(rs.getString("nameProduct"));
             invoiceExportDetail.setCounts(rs.getInt("Counts"));
+            invoiceExportDetail.setIdCustomer(rs.getString("idCustomer"));
+            
         }
         return invoiceExportDetail;
     }

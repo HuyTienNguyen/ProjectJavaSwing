@@ -13,6 +13,7 @@ import qlkh.daoimpl.CategoryDaoImpl;
 import qlkh.daoimpl.InvoiceImportDaoImpl;
 import qlkh.daoimpl.InvoiceImportDetailDaoImpl;
 import qlkh.daoimpl.ProductDaoImpl;
+import qlkh.testView.ReportViewFrame;
 import qlkh.utils.Utils;
 
 //import qlkh.views.ReportView;
@@ -28,14 +29,12 @@ public class ReportsController {
     InvoiceImportDetailDaoImpl invoiceImDetailDao;
     InvoiceImportDaoImpl invoiceImDao;
     CategoryDaoImpl cateDao;
+    ReportViewFrame view;
 
     public ReportsController() {
-//        view = new ReportView();
-//        view.showView();
-        SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
-        System.out.println(dateFormat.format(Utils.getDateToday()));
-                System.out.println(dateFormat.format(Utils.getDateIncrementer(7)));
-
+       view = new ReportViewFrame();
+       view.showView();
+      
     }
 
 //    public JPanel getContentPage() {
