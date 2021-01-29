@@ -74,10 +74,8 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         errCate = new javax.swing.JLabel();
         errUnit = new javax.swing.JLabel();
         lblSuplier1 = new javax.swing.JLabel();
-        lblSuplier2 = new javax.swing.JLabel();
         price = new javax.swing.JTextField();
         errPrice = new javax.swing.JLabel();
-        tax = new javax.swing.JSpinner();
         errTax = new javax.swing.JLabel();
 
         headerPanel.setBackground(new java.awt.Color(51, 0, 51));
@@ -179,14 +177,9 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         lblSuplier1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSuplier1.setText(bundle.getString("productPrice"));
 
-        lblSuplier2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSuplier2.setText(bundle.getString("productTax"));
-
         price.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         errPrice.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
-        tax.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), Float.valueOf(0.0f), Float.valueOf(100.0f), Float.valueOf(1.0f)));
 
         errTax.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -230,12 +223,9 @@ public class ProductsView extends javax.swing.JPanel implements IView {
                                     .addComponent(errCate, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbbSuplier, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(30, 30, 30)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblSuplier1)
-                                    .addComponent(lblSuplier2))
+                                .addComponent(lblSuplier1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(price, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                                     .addComponent(errTax, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(errPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -284,9 +274,7 @@ public class ProductsView extends javax.swing.JPanel implements IView {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbbUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblCate)
-                        .addComponent(cbbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblSuplier2)
-                        .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -368,19 +356,17 @@ public class ProductsView extends javax.swing.JPanel implements IView {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblSuplier;
     private javax.swing.JLabel lblSuplier1;
-    private javax.swing.JLabel lblSuplier2;
     private javax.swing.JLabel lblUnit;
     private javax.swing.JLabel messageProduct;
     private javax.swing.JTextField name;
     private javax.swing.JTextField price;
     private javax.swing.JPanel tablePanel;
-    private javax.swing.JSpinner tax;
     // End of variables declaration//GEN-END:variables
  ResourceBundle bundle;
     private static Map<Integer, String> suplierMap = new HashMap<>();
     private static Map<Integer, String> unitMap = new HashMap<>();
     private static Map<Integer, String> cateMap = new HashMap<>();
-    private static int[] pageSizes = new int[]{100, 1000, 10000};
+    private static int[] pageSizes = new int[]{10,25,50,100, 1000, 10000};
     private static final int defaultPageSize = pageSizes[0];
     //button để hiện phân trang maximum 7
     private static final int maxPagingCompToShow = 7;
@@ -435,8 +421,6 @@ public class ProductsView extends javax.swing.JPanel implements IView {
                         return unitMap.get(product.getIdUnit());
                     case 5:
                         return product.getPrice();
-                    case 6:
-                        return defaultFormat.format(product.getTaxProduct()/100);
                 }
                 return null;
             }
@@ -461,8 +445,6 @@ public class ProductsView extends javax.swing.JPanel implements IView {
                         return Constants.HEADER_PRODUCT_TABLE[4];
                     case 5:
                         return Constants.HEADER_PRODUCT_TABLE[5];
-                    case 6:
-                        return Constants.HEADER_PRODUCT_TABLE[6];
                 }
                 return null;
             }
@@ -594,7 +576,6 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         cbbUnit.setName("unit");
         cbbCategory.setName("category");
         price.setName("price");
-        tax.setName("tax");
 
         // add object to map
         objects.add(id);
@@ -603,7 +584,6 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         objects.add(cbbUnit);
         objects.add(cbbCategory);
         objects.add(price);
-        objects.add(tax);
         
         return objects;
     }
@@ -641,7 +621,6 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         product.setIdSuplier(suplier.getId());
         product.setIdCate(category.getId());
         product.setPrice(Float.valueOf(price.getText()));
-        product.setTaxProduct(Float.valueOf(tax.getValue().toString()));
         
         return product;
     }
@@ -739,7 +718,6 @@ public class ProductsView extends javax.swing.JPanel implements IView {
         id.setText("");
         name.setText("");
         price.setText("");
-        tax.setValue(0);
         cbbUnit.setSelectedIndex(0);
         cbbSuplier.setSelectedIndex(0);
         cbbCategory.setSelectedIndex(0);
@@ -790,7 +768,6 @@ public class ProductsView extends javax.swing.JPanel implements IView {
             }
         }
         price.setText(String.valueOf(product.getPrice()));
-        tax.setValue(product.getTaxProduct());
         setEnableBtnAddNew(false);
         setEnableBtnEdit(true);
     }

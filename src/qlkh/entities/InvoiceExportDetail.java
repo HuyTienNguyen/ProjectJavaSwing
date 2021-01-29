@@ -186,13 +186,12 @@ public class InvoiceExportDetail {
                     
                 };
                 break;
-            case Constants.ACTION_UPDATE:
+            case Constants.ACTION_UPDATE_BY_PROC:
                 param = new Object[]{
-                    this.getIdInvoiceImportDetail(),
+                    Types.INTEGER,
                     this.getIdInvoiceExport(),
-                    this.getCounts(),
-                    this.getStatus(),
-                    this.getId()
+                    this.getNameProduct(),
+                    this.counts
                 };
                 break;
 

@@ -71,6 +71,7 @@ public class ReportsDaoImpl implements IReportsDAO {
                 Logger.getLogger(ReportsDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+       
         return items;
     }
 

@@ -5,7 +5,6 @@
  */
 package qlkh;
 
-import qlkh.testView.*;
 import qlkh.*;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -30,11 +29,9 @@ import qlkh.controller.ReportsController;
 import qlkh.controller.SuplierController;
 import qlkh.controller.UnitController;
 import qlkh.controller.UsersController;
-import qlkh.testView.GiangTestFrameInvoiceImportDetail;
 import qlkh.views.CustomerView;
 import qlkh.views.Home;
 import qlkh.views.InvoiceImportDetail2View;
-
 
 /**
  *
@@ -93,12 +90,12 @@ public class MainView2 extends javax.swing.JFrame {
         btnCategory = new keeptoo.KButton();
         btnProducts = new keeptoo.KButton();
         btnSuplier = new keeptoo.KButton();
-        btnHome = new keeptoo.KButton();
+        btnReports = new keeptoo.KButton();
         btnUnit = new keeptoo.KButton();
         btnUsers = new keeptoo.KButton();
         btnImportDetail = new keeptoo.KButton();
         btnExportDetail = new keeptoo.KButton();
-        btnReports = new keeptoo.KButton();
+        btnHome = new keeptoo.KButton();
         jLabel3 = new javax.swing.JLabel();
         contentPanel = new javax.swing.JPanel();
 
@@ -209,7 +206,6 @@ public class MainView2 extends javax.swing.JFrame {
         menuMain.setBackground(new java.awt.Color(28, 43, 65));
         menuMain.setPreferredSize(new java.awt.Dimension(200, 575));
 
-        btnCustomer.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         btnCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-customer-20.png"))); // NOI18N
         btnCustomer.setText("Customers");
         btnCustomer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -225,7 +221,6 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
-        btnCategory.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         btnCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-category-20.png"))); // NOI18N
         btnCategory.setText("Category");
         btnCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -241,7 +236,6 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
-        btnProducts.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         btnProducts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-product-20.png"))); // NOI18N
         btnProducts.setText("Products");
         btnProducts.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -257,7 +251,6 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
-        btnSuplier.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         btnSuplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-customer-20.png"))); // NOI18N
         btnSuplier.setText("Supliers");
         btnSuplier.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -273,25 +266,23 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
-        btnHome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icons8-home-30.png"))); // NOI18N
-        btnHome.setText("Home");
-        btnHome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnHome.setkBorderRadius(0);
-        btnHome.setkEndColor(new java.awt.Color(28, 43, 65));
-        btnHome.setkHoverEndColor(new java.awt.Color(48, 125, 245));
-        btnHome.setkHoverForeGround(new java.awt.Color(255, 255, 255));
-        btnHome.setkHoverStartColor(new java.awt.Color(48, 125, 245));
-        btnHome.setkStartColor(new java.awt.Color(28, 43, 65));
-        btnHome.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        btnHome.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
+        btnReports.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-report-20.png"))); // NOI18N
+        btnReports.setText("Home");
+        btnReports.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnReports.setkBorderRadius(0);
+        btnReports.setkEndColor(new java.awt.Color(28, 43, 65));
+        btnReports.setkHoverEndColor(new java.awt.Color(48, 125, 245));
+        btnReports.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnReports.setkHoverStartColor(new java.awt.Color(48, 125, 245));
+        btnReports.setkStartColor(new java.awt.Color(28, 43, 65));
+        btnReports.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnReports.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnReports.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHomeActionPerformed(evt);
+                btnReportsActionPerformed(evt);
             }
         });
 
-        btnUnit.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         btnUnit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-unit-20.png"))); // NOI18N
         btnUnit.setText("Unit");
         btnUnit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -307,7 +298,6 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
-        btnUsers.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         btnUsers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-user-20.png"))); // NOI18N
         btnUsers.setText("Users");
         btnUsers.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -323,7 +313,6 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
-        btnImportDetail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         btnImportDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-import-20.png"))); // NOI18N
         btnImportDetail.setText("ImportDetail");
         btnImportDetail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -339,7 +328,6 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
-        btnExportDetail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         btnExportDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-export-20.png"))); // NOI18N
         btnExportDetail.setText("ExportDetail");
         btnExportDetail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -355,24 +343,23 @@ public class MainView2 extends javax.swing.JFrame {
             }
         });
 
-        btnReports.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        btnReports.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-report-20.png"))); // NOI18N
-        btnReports.setText("Reports");
-        btnReports.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnReports.setkBorderRadius(0);
-        btnReports.setkEndColor(new java.awt.Color(28, 43, 65));
-        btnReports.setkHoverEndColor(new java.awt.Color(48, 125, 245));
-        btnReports.setkHoverForeGround(new java.awt.Color(255, 255, 255));
-        btnReports.setkHoverStartColor(new java.awt.Color(48, 125, 245));
-        btnReports.setkStartColor(new java.awt.Color(28, 43, 65));
-        btnReports.addActionListener(new java.awt.event.ActionListener() {
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/icons/icon-report-20.png"))); // NOI18N
+        btnHome.setText("Reports");
+        btnHome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnHome.setkBorderRadius(0);
+        btnHome.setkEndColor(new java.awt.Color(28, 43, 65));
+        btnHome.setkHoverEndColor(new java.awt.Color(48, 125, 245));
+        btnHome.setkHoverForeGround(new java.awt.Color(255, 255, 255));
+        btnHome.setkHoverStartColor(new java.awt.Color(48, 125, 245));
+        btnHome.setkStartColor(new java.awt.Color(28, 43, 65));
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportsActionPerformed(evt);
+                btnHomeActionPerformed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Trajan Pro", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("StORE MANAGER");
 
@@ -386,19 +373,18 @@ public class MainView2 extends javax.swing.JFrame {
             .addComponent(btnCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnUnit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            
-            .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnReports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
             .addComponent(btnImportDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
             .addComponent(btnExportDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnReports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         menuMainLayout.setVerticalGroup(
             menuMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuMainLayout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -416,7 +402,7 @@ public class MainView2 extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(btnExportDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(250, Short.MAX_VALUE))
         );
 
@@ -437,6 +423,7 @@ public class MainView2 extends javax.swing.JFrame {
                 .addComponent(menuMain, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE))
         );
 
+        contentPanel.setBackground(new java.awt.Color(51, 51, 255));
         contentPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         contentPanel.setLayout(new java.awt.CardLayout());
 
@@ -444,12 +431,11 @@ public class MainView2 extends javax.swing.JFrame {
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1049, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1359, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -465,16 +451,14 @@ public class MainView2 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(1248, 772));
+        setSize(new java.awt.Dimension(1274, 772));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -559,9 +543,9 @@ public class MainView2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSuplierActionPerformed
 
-    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
+    private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnHomeActionPerformed
+    }//GEN-LAST:event_btnReportsActionPerformed
 
     private void btnUnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnitActionPerformed
         // TODO add your handling code here:
@@ -579,9 +563,9 @@ public class MainView2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExportDetailActionPerformed
 
-    private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportsActionPerformed
+    }//GEN-LAST:event_btnHomeActionPerformed
 
     public void changeColor(JPanel hover, Color rand) {
         hover.setBackground(rand);
@@ -594,7 +578,7 @@ public class MainView2 extends javax.swing.JFrame {
     }
 
     public void addBtnShowHome(ActionListener listener, Home view) {
-        btnHome.addActionListener(listener);
+        btnReports.addActionListener(listener);
         contentPanel.add(homeView, view);
     }
 
@@ -637,18 +621,24 @@ public class MainView2 extends javax.swing.JFrame {
         btnImportDetail.addActionListener(listener);
         contentPanel.add(c.getContentPage(), importView);
     }
-    public void addBtnShowExportDetail(ActionListener listener, InvoiceExportDetailController c){
+
+    public void addBtnShowExportDetail(ActionListener listener, InvoiceExportDetailController c) {
         btnExportDetail.addActionListener(listener);
         contentPanel.add(c.getContentPage(), exportView);
     }
 
     public void addBtnShowReports(ActionListener listener, ReportsController c) {
-        btnReports.addActionListener(listener);
-        contentPanel.add(c.getContentPage(),reportView);
+        btnHome.addActionListener(listener);
+        contentPanel.add(c.getContentPage(), reportView);
 
     }
+
     public void showView() {
         this.setVisible(true);
+    }
+
+    public void closeView() {
+        this.dispose();
     }
 
     /**

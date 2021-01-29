@@ -24,7 +24,6 @@ import qlkh.entities.InvoiceImportDetail;
 import qlkh.entities.Products;
 import qlkh.request.IRequest;
 import qlkh.request.InvoiceImportDetailRequest;
-import qlkh.testView.GiangTestFrameInvoiceImportDetail;
 import qlkh.utils.Constants;
 import qlkh.utils.Validator;
 import qlkh.views.CategoryView;

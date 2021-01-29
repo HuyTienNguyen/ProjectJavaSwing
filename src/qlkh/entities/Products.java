@@ -20,7 +20,6 @@ public class Products {
     private int idSuplier;
     private int idCate;
     private float price;
-    private float taxProduct;
 
     public Products() {
     }
@@ -36,16 +35,6 @@ public class Products {
         this.idUnit = idUnit;
         this.idSuplier = idSuplier;
         this.idCate = idCate;
-    }
-
-    public Products(String id, String name, int idUnit, int idSuplier, int idCate, float price, float taxProduct) {
-        this.id = id;
-        this.name = name;
-        this.idUnit = idUnit;
-        this.idSuplier = idSuplier;
-        this.idCate = idCate;
-        this.price = price;
-        this.taxProduct = taxProduct;
     }
 
     public Products(String id, String name, int idUnit, int idSuplier, int idCate, float price) {
@@ -105,14 +94,6 @@ public class Products {
         this.price = price;
     }
 
-    public float getTaxProduct() {
-        return taxProduct;
-    }
-
-    public void setTaxProduct(float taxProduct) {
-        this.taxProduct = taxProduct;
-    }
-
     /**
      * Hàm trả về mảng dữ liệu của entity cho việc INSERT, UPDATE, DELETE
      *
@@ -129,7 +110,6 @@ public class Products {
                     this.getIdSuplier(),
                     this.getIdCate(),
                     this.getPrice(),
-                    this.getTaxProduct()
                 };
                 break;
             case Constants.ACTION_UPDATE:
@@ -139,8 +119,7 @@ public class Products {
                     this.getIdSuplier(),
                     this.getIdCate(),
                      this.getPrice(),
-                    this.getTaxProduct(),
-                    this.getId(),
+                    this.getId()
                    
                 };
                 break;

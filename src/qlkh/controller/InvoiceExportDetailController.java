@@ -64,7 +64,7 @@ public class InvoiceExportDetailController {
         view.addBtnAddAction(this::btnAddAction);
         view.addBtnClearAction(this::btnClearAction);
         view.addCbbCateStateChanged(this::cateBoxStateChanged);
-
+        view.addBtnUpdateAction(this::btnUpdateAction);
         view.showView(invoiceExDetailDao.getAllInvoiceExportDetail());
 
         view.addTableMouseListener(new TableInvoiceExportDetailMouseListener());
@@ -103,10 +103,27 @@ public class InvoiceExportDetailController {
                     view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
                     view.clearView(false);
                     view.showView(invoiceExDetailDao.getAllInvoiceExportDetail());
+                    view.addTableMouseListener(new TableInvoiceExportDetailMouseListener());
+
                 }
             }
         } catch (Exception ex) {
             Logger.getLogger(InvoiceExportDetailController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void btnUpdateAction(ActionEvent e) {
+        InvoiceExportDetail elements = view.getInvoiceExportDetailWhenUpdate();
+        int errOutput = invoiceExDetailDao.update(elements);
+        if (errOutput == 1) {
+            view.showMessage(Constants.MSG_NO_QUALITY, Constants.FLAG_ERROR);
+        } else if (errOutput == 2) {
+            view.showMessage(Constants.MSG_ERROR_LOGIC, Constants.FLAG_ERROR);
+        } else {
+            view.showMessage(Constants.MSG_ADD_SUCCESS, Constants.FLAG_SUCCESS);
+            view.clearView(false);
+            view.showView(invoiceExDetailDao.getAllInvoiceExportDetail());
+            view.addTableMouseListener(new TableInvoiceExportDetailMouseListener());
         }
     }
 
@@ -133,17 +150,16 @@ public class InvoiceExportDetailController {
             InvoiceExportDetail invoiceExportDetail = null;
             if (invoiceExportId.equals("") == false && invoiceExportId != null) {
                 try {
-                    invoiceExportDetail = invoiceExDetailDao.getUpdateInvoiceExport(invoiceExportId,productName);
+                    invoiceExportDetail = invoiceExDetailDao.getUpdateInvoiceExport(invoiceExportId, productName);
                 } catch (SQLException ex) {
                     Logger.getLogger(InvoiceExportDetailController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             Products p = new Products();
             p = proDao.getProductById(invoiceExportDetail.getIdProduct());
-            if(p != null && invoiceExportDetail != null){
-                view.updateInvoiceExportDetail(invoiceExportDetail,p);
-            }
-            else{
+            if (p != null && invoiceExportDetail != null) {
+                view.updateInvoiceExportDetail(invoiceExportDetail, p);
+            } else {
                 System.out.println("loi");
             }
 //            if (customer != null) {

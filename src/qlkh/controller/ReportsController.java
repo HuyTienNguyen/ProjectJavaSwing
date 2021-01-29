@@ -16,7 +16,6 @@ import qlkh.daoimpl.InvoiceImportDaoImpl;
 import qlkh.daoimpl.InvoiceImportDetailDaoImpl;
 import qlkh.daoimpl.ProductDaoImpl;
 import qlkh.daoimpl.ReportsDaoImpl;
-import qlkh.testView.ReportViewFrame;
 import qlkh.utils.Utils;
 import qlkh.utils.custombarchart.BarChartItems;
 import qlkh.utils.custombarchart.ChartItem;
@@ -47,15 +46,21 @@ public class ReportsController {
     }
 
     public void showView() {
+                System.out.println("0");
+
         List<BarChartItems> listItem1 = reportDao.getReports(0);
+        view.showTable1(listItem1, 0);
         if (listItem1 != null&& listItem1.size()>0) {
+            System.out.println("1");
             view.showTable1(listItem1, 0);
         }
          List<BarChartItems> listItem2 = reportDao.getProfits(0);
+
         if (listItem2 != null && listItem2.size()>0) {
             view.showTable3(listItem2, 0);
         }
         List<ChartItem>listItem3 = reportDao.getTotalInventoryByCate();
+
         if(listItem3 != null && listItem3.size()>0){
         view.showTable2(listItem3);
         }

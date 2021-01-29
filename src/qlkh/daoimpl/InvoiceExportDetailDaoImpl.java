@@ -41,6 +41,7 @@ public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
 
     private static final String SQL_SELECT_BY_Id = "SELECT * FROM InvoiceExportDetail WHERE Id= ? ";
     private static final String SQL_INSERT_BY_PROC ="{call USP_ADD_NEW_INVOICE_EXPORT_DETAIL(?,?,?,?,?,?)}";
+    private static final String SQL_UPDATE_BY_PROC = "{call update_invoice_export_detail(?,?,?,?)}";
     private static final String SQL_GET_ID_OF_THE_LAST = "SELECT TOP(1) ied.id from invoiceexportdetail ied ORDER BY Id DESC ";
     
     
@@ -116,16 +117,9 @@ public class InvoiceExportDetailDaoImpl implements IInvoiceExportDetailDAO {
         //Khởi tạo biến đếm số bản ghi được ghi vào csdl
         Integer countUpdate = 0;
         try {
-            // Thục hiện phương thức insert data với câu query SQL_Update và tham số OutputInfo.getParam
-            countUpdate = DatabaseHelper.updateData(SQL_UPDATE, element.getParam(Constants.ACTION_UPDATE));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                DatabaseHelper.getInstance().closeDatabaseConnection();
-            } catch (SQLException ex) {
-                Logger.getLogger(InvoiceExportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            countUpdate = DatabaseHelper.updateDataByCallableStatement(SQL_UPDATE_BY_PROC, element.getParam(Constants.ACTION_UPDATE_BY_PROC));
+        } catch (SQLException ex) {
+            Logger.getLogger(InvoiceExportDetailDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return countUpdate;
     }

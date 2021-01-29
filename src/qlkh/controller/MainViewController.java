@@ -38,28 +38,38 @@ public class MainViewController {
         report = new ReportsController();
         importDetail = new InvoiceImportDetailController();
         exportDetail = new InvoiceExportDetailController();
-        home = new Home();
+        home = new Home(this);
         view = new MainView2();
         view.addBtnShowHome(this::showViewHome, home);
 
         view.addBtnShowCategory(this::showViewCategory, category);
 
         view.addBtnShowProducts(this::showViewProduct, product);
-
         view.addBtnShowSupliers(this::showViewSuplier, suplier);
         // suplier.showView();
         view.addBtnShowCustomer(this::showViewCustomer, customer);
-
         view.addBtnShowUnit(this::showViewUnit, unit);
-
         view.addBtnShowUsers(this::showViewUser, user);
         view.addBtnShowImportDetail(this::showViewImportDetail, importDetail);
         view.addBtnShowExportDetail(this::showViewExportDetail, exportDetail);
         view.addBtnShowReports(this::showViewReport, report);
     }
 
+    public  MainViewController getInstance() {
+        if(this== null){
+            return new MainViewController();
+        }
+        return this;
+    }
+
     public void showView() {
         view.showView();
+    }
+
+    public void closeView() {
+        System.out.println("aaa");
+        view.closeView();
+        System.out.println("bbbb");
     }
 
     private void showViewHome(ActionEvent e) {

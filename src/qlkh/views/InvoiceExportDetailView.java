@@ -73,7 +73,8 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         errIdCustomer = new javax.swing.JLabel();
         chkNewBill = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        IdExportDetail = new javax.swing.JTextField();
+        IdExport = new javax.swing.JTextField();
+        btnUpdate = new javax.swing.JButton();
 
         headerPanel.setBackground(new java.awt.Color(51, 0, 51));
 
@@ -166,7 +167,13 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
 
         jLabel1.setText("Id");
 
-        IdExportDetail.setEditable(false);
+        IdExport.setEditable(false);
+
+        btnUpdate.setBackground(new java.awt.Color(204, 255, 204));
+        btnUpdate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qlkh/images/edit_40.png"))); // NOI18N
+        btnUpdate.setText(bundle.getString("btnEdit"));
+        btnUpdate.setPreferredSize(new java.awt.Dimension(151, 40));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -211,9 +218,10 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
                             .addComponent(errCounts, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(errIdCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(55, 55, 55)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                            .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(159, 159, 159))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -225,7 +233,7 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
                         .addComponent(lblCate2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(IdExportDetail)
+                            .addComponent(IdExport)
                             .addComponent(cbbCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbbProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -235,28 +243,25 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(messageInvoiceExportDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(IdExportDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(IdExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(counts, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblName)
+                    .addComponent(lblCate1)
+                    .addComponent(cbbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(counts, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblName)
-                            .addComponent(lblCate1)
-                            .addComponent(cbbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(errCate, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(errCounts, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addGap(11, 11, 11)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(errCate, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(errCounts, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -269,13 +274,12 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
                         .addComponent(chkNewBill)
                         .addGap(0, 55, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(idCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblName1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(errIdCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(idCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblName1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(errIdCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -323,9 +327,10 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField IdExportDetail;
+    private javax.swing.JTextField IdExport;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<Category> cbbCategory;
     private javax.swing.JComboBox<Products> cbbProducts;
     private javax.swing.JCheckBox chkNewBill;
@@ -405,6 +410,12 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         cbbCategory.addItemListener(listener);
     }
 
+ 
+
+    public void addBtnUpdateAction(ActionListener listener) {
+        btnUpdate.addActionListener(listener);
+    }
+
     /**
      * Return an instance of Category from category combobox
      *
@@ -413,8 +424,6 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
     public Category getCateSelected() {
         return (Category) cbbCategory.getSelectedItem();
     }
-    
-    
 
     /**
      * Return a list of products from memory of form
@@ -598,8 +607,6 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         messageInvoiceExportDetail.setText(bundle.getString(message));
         messageInvoiceExportDetail.setForeground((color == Constants.FLAG_SUCCESS) ? Constants.COLOR_SUCCESS : Constants.COLOR_ERROR);
     }
-    
-    
 
     public String getEditInvoiceExportId() {
         int row = tblDetails.getSelectedRow();
@@ -608,7 +615,7 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         }
         return tblDetails.getModel().getValueAt(row, 0).toString();
     }
-    
+
     public String getEditInvoiceExportProductName() {
         int row = tblDetails.getSelectedRow();
         if (row < 0) {
@@ -631,24 +638,38 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         invoiceDetail.setIdInvoiceExport("");
         return invoiceDetail;
     }
-    
+
+    /**
+     * @return a instance of InvoiceImportDetail when update
+     *
+     */
+    public InvoiceExportDetail getInvoiceExportDetailWhenUpdate() {
+        Products product = (Products) cbbProducts.getSelectedItem();
+        InvoiceExportDetail invoiceDetail = new InvoiceExportDetail();
+        invoiceDetail.setNameProduct(product.getName());
+        invoiceDetail.setCounts(Integer.parseInt(counts.getText()));
+        invoiceDetail.setIdInvoiceExport(IdExport.getText());
+        return invoiceDetail;
+    }
+
     public void updateInvoiceExportDetail(InvoiceExportDetail invoiceExportDetail, Products p) {
+        IdExport.setText(invoiceExportDetail.getIdInvoiceExport());
         counts.setText(String.valueOf(invoiceExportDetail.getCounts()));
         idCustomer.setText(invoiceExportDetail.getIdCustomer());
         idCustomer.setEnabled(false);
         int cateId = p.getIdCate();
         for (Category c : categories) {
-            if(c.getId()== cateId){
+            if (c.getId() == cateId) {
                 cbbCategory.setSelectedItem(c);
                 break;
             }
         }
-       
+
         for (Products p1 : products) {
-          
-            if(p1.getId().equals(p.getId())){
-            cbbProducts.setSelectedItem(p1);
-            break;
+
+            if (p1.getId().equals(p.getId())) {
+                cbbProducts.setSelectedItem(p1);
+                break;
             }
         }
     }
@@ -672,9 +693,7 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
                 cateMap.put(cate, childList);
             }
         }
-        
-        
-        
+
     }
 
     /**
@@ -732,13 +751,15 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         setEnableBtnAddNew(true);
         if (clearAll == true) {
             messageInvoiceExportDetail.setText("");
+            clearError();
         }
+        IdExport.setText("");
         idCustomer.setEnabled(true);
         counts.setText("");
         cbbCategory.setSelectedIndex(0);
         counts.requestFocus();
         idCustomer.setText("");
-        clearError();
+        
     }
 
     /**
@@ -791,5 +812,4 @@ public class InvoiceExportDetailView extends javax.swing.JPanel implements IView
         showErrorMessage(errIdCustomer, errorIdCustomer);
     }
 
-    
 }
