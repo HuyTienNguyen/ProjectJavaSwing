@@ -43,6 +43,8 @@ public class DatabaseHelper {
      *
      */
     private DatabaseHelper() {
+        
+        
         try {
             Class.forName(DRIVER_SQL_SERVER);
             this.connectionSqlserver = DriverManager.getConnection(URL_SQL_SERVER, USER_SQLSERVER, PASSWORD_SQLSERVER);
